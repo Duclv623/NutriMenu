@@ -1,0 +1,527 @@
+﻿id,code,name,name_en,ordinal,page,reference_amount_g,basis,discard_percent
+fct2007:1001,1001,GẠO NẾP CÁI,"Glutinous rice, milled",1,14,100,100 g phần ăn được,0.0
+fct2007:1002,1002,GẠO NẾP MÁY (Loại thường),"Glutinous rice, milled",2,15,100,100 g phần ăn được,0.0
+fct2007:1003,1003,GẠO TẺ GIÃ,"Under milled, home-pounded rice",3,16,100,100 g phần ăn được,0.0
+fct2007:1004,1004,GẠO TẺ MÁY,Ordinary polished rice,4,17,100,100 g phần ăn được,0.0
+fct2007:1005,1005,GẠO LỨT,"Rice, brown or hulled",5,18,100,100 g phần ăn được,0.0
+fct2007:1006,1006,KÊ,Foxtail millet,6,19,100,100 g phần ăn được,2.0
+fct2007:1007,1007,NGÔ BẮP TƯƠI,"Fresh maize seeds, raw",7,20,100,100 g phần ăn được,45.0
+fct2007:1008,1008,NGÔ VÀNG HẠT KHÔ,"Yellow maize, dried seeds",8,21,100,100 g phần ăn được,2.0
+fct2007:1009,1009,BÁNH BAO NHÂN THỊT,"Ball shaped dumpling, Vietnamese steamed buns",9,22,100,100 g phần ăn được,0.0
+fct2007:1010,1010,BÁNH ĐA NEM,Rice paper for rollers,10,23,100,100 g phần ăn được,0.0
+fct2007:1011,1011,BÁNH ĐÚC,Rice pudding,11,24,100,100 g phần ăn được,0.0
+fct2007:1012,1012,BÁNH MỲ,French bread,12,25,100,100 g phần ăn được,0.0
+fct2007:1013,1013,BÁNH PHỞ,Rice noodles,13,26,100,100 g phần ăn được,0.0
+fct2007:1014,1014,BÁNH QUẨY,Wheat fritters twisted fried,14,27,100,100 g phần ăn được,0.0
+fct2007:1015,1015,BỎNG NGÔ,Corn flakes,15,28,100,100 g phần ăn được,0.0
+fct2007:1016,1016,BỘT GẠO NẾP,Glutinous rice flour,16,29,100,100 g phần ăn được,0.0
+fct2007:1017,1017,BỘT GẠO TẺ,Rice ordinary flour,17,30,100,100 g phần ăn được,0.0
+fct2007:1018,1018,BỘT MÌ,Wheat flour,18,31,100,100 g phần ăn được,0.0
+fct2007:1019,1019,BỘT NGÔ VÀNG,Yellow maize flour,19,32,100,100 g phần ăn được,0.0
+fct2007:1020,1020,BÚN,Rice vermicelli,20,33,100,100 g phần ăn được,0.0
+fct2007:1021,1021,CỐM,"Rice, unriped. Raw",21,34,100,100 g phần ăn được,0.0
+fct2007:1022,1022,MỲ SỢI,Wheat noodles,22,35,100,100 g phần ăn được,0.0
+fct2007:1023,1023,NGÔ NẾP LUỘC,"Glutinous maize, boiled",23,36,100,100 g phần ăn được,50.0
+fct2007:2001,2001,CỦ ẤU,Water-caltrops,24,39,100,100 g phần ăn được,50.0
+fct2007:2002,2002,CỦ CÁI,Yam winged,25,40,100,100 g phần ăn được,15.0
+fct2007:2003,2003,CỦ DONG,Bermuda tuber,26,41,100,100 g phần ăn được,4.0
+fct2007:2004,2004,CỦ SẮN,Bitter cassava,27,42,100,100 g phần ăn được,25.0
+fct2007:2005,2005,CỦ SẮN DÂY,Radix puerariae,28,43,100,100 g phần ăn được,10.0
+fct2007:2006,2006,CỦ SÚNG KHÔ (ĐÃ BỎ VỎ),"Nymphaea stellata wild, dried, unshelled",29,44,100,100 g phần ăn được,0.0
+fct2007:2007,2007,CỦ TỪ,"Igname Yam, Chinese",30,45,100,100 g phần ăn được,6.0
+fct2007:2008,2008,KHOAI LANG,"Sweet potato, white",31,46,100,100 g phần ăn được,17.0
+fct2007:2009,2009,KHOAI LANG NGHỆ,"Sweet potato, yellow",32,47,100,100 g phần ăn được,13.0
+fct2007:2010,2010,KHOAI MÔN,"Chinese Yam, spiny yam",33,48,100,100 g phần ăn được,14.0
+fct2007:2011,2011,KHOAI NƯỚC,Water-taro,34,49,100,100 g phần ăn được,14.0
+fct2007:2012,2012,KHOAI RIỀNG,Edible canna,35,50,100,100 g phần ăn được,19.0
+fct2007:2013,2013,KHOAI SỌ,Taro tuber,36,51,100,100 g phần ăn được,18.0
+fct2007:2014,2014,KHOAI TÂY,"Potato, white",37,52,100,100 g phần ăn được,13.0
+fct2007:2015,2015,MIẾN DONG,Vermicelli from Bermuda tuber,38,53,100,100 g phần ăn được,0.0
+fct2007:2016,2016,BỘT DONG LỌC,Bermuda flour,39,54,100,100 g phần ăn được,0.0
+fct2007:2017,2017,BỘT KHOAI LANG,Sweet potato flour,40,55,100,100 g phần ăn được,0.0
+fct2007:2018,2018,BỘT KHOAI RIỀNG (BỘT ĐAO),"Canna edulis Ker, flour",41,56,100,100 g phần ăn được,0.0
+fct2007:2019,2019,BỘT KHOAI TÂY (LỌC),"Potato flour, white",42,57,100,100 g phần ăn được,0.0
+fct2007:2020,2020,BỘT SẮN,Cassava flour,43,58,100,100 g phần ăn được,0.0
+fct2007:2021,2021,BỘT SẮN DÂY,Radix puerariae flour,44,59,100,100 g phần ăn được,0.0
+fct2007:2022,2022,KHOAI LANG KHÔ,"Sweet potato, dried",45,60,100,100 g phần ăn được,5.0
+fct2007:2023,2023,KHOAI TÂY KHÔ,"Potato, white, dried",46,61,100,100 g phần ăn được,0.0
+fct2007:2024,2024,KHOAI TÂY LÁT CHIÊN,"Potato crisp, fried",47,62,100,100 g phần ăn được,0.0
+fct2007:2025,2025,SẮN KHÔ,Dried bitter cassava,48,63,100,100 g phần ăn được,5.0
+fct2007:2026,2026,TRÂN CHÂU SẮN,"Tapioca, pearls E.P",49,64,100,100 g phần ăn được,0.0
+fct2007:3001,3001,CÙI DỪA GIÀ,"Coconut meat, mature, raw",50,67,100,100 g phần ăn được,20.0
+fct2007:3002,3002,CÙI DỪA NON,"Coconut meat, immature, raw",51,68,100,100 g phần ăn được,0.0
+fct2007:3003,3003,ĐẬU CÔ VE (HẠT),"French bean seeds, dried",52,69,100,100 g phần ăn được,10.0
+fct2007:3004,3004,ĐẬU ĐEN (HẠT),"Black bean seeds, dried",53,70,100,100 g phần ăn được,2.0
+fct2007:3005,3005,ĐẬU ĐŨA (HẠT),"Cow pea whole seeds, dried",54,71,100,100 g phần ăn được,10.0
+fct2007:3006,3006,ĐẬU HÀ LAN (HẠT),"Peas garden and field, seeds, dried",55,72,100,100 g phần ăn được,0.0
+fct2007:3007,3007,ĐẬU TƯƠNG (ĐẬU NÀNH),"Yellow dried soybean seeds, dried",56,73,100,100 g phần ăn được,2.0
+fct2007:3008,3008,ĐẬU TRẮNG HẠT (ĐẬU TÂY),"Kidney bean whole seeds, dried",57,74,100,100 g phần ăn được,2.0
+fct2007:3009,3009,ĐẬU TRỨNG CUỐC,"Egg bird bean seeds, dried",58,75,100,100 g phần ăn được,2.0
+fct2007:3010,3010,ĐẬU XANH (ĐẬU TẮT),"Mungo bean seeds, dried",59,76,100,100 g phần ăn được,2.0
+fct2007:3011,3011,HẠT DẺ TO,"Chestnut, Chinese whole, raw",60,77,100,100 g phần ăn được,30.0
+fct2007:3012,3012,HẠT DẺ TƯƠI,"Chestnut, Chinese whole, raw",61,78,100,100 g phần ăn được,18.0
+fct2007:3013,3013,HẠT DẺ KHÔ,"Chestnut, dried",62,79,100,100 g phần ăn được,20.0
+fct2007:3014,3014,HẠT ĐEN,Black seed,63,80,100,100 g phần ăn được,50.0
+fct2007:3015,3015,HẠT ĐIỀU,"Cashew nut, common",64,81,100,100 g phần ăn được,0.0
+fct2007:3016,3016,HẠT MÍT,"Jack fruit, seed, raw",65,82,100,100 g phần ăn được,15.0
+fct2007:3017,3017,LẠC HẠT,Dried peanut seed,66,83,100,100 g phần ăn được,2.0
+fct2007:3018,3018,QUẢ CỌ TƯƠI,Palm fruit fresh,67,84,100,100 g phần ăn được,40.0
+fct2007:3019,3019,QUẢ ĐẠI HÁI TƯƠI,Hodgsonia fruit,68,85,100,100 g phần ăn được,90.0
+fct2007:3020,3020,"VỪNG (ĐEN, TRẮNG)","Sesame oriental seeds, whole, dried black or white",69,86,100,100 g phần ăn được,5.0
+fct2007:3021,3021,BỘT ĐẬU TƯƠNG ĐÃ LOẠI BÉO (ĐẬU NÀNH),"Soybeans flour, defatted",70,87,100,100 g phần ăn được,0.0
+fct2007:3022,3022,BỘT ĐẬU TƯƠNG RANG CHÍN,Roasted soybeans flour,71,88,100,100 g phần ăn được,0.0
+fct2007:3023,3023,BỘT ĐẬU XANH,Mungo bean flour,72,89,100,100 g phần ăn được,0.0
+fct2007:3024,3024,BỘT LẠC,Peanut flour,73,90,100,100 g phần ăn được,0.0
+fct2007:3025,3025,ĐẬU PHỤ,"Soybean curt cake pressed, raw",74,91,100,100 g phần ăn được,0.0
+fct2007:3026,3026,ĐẬU PHỤ CHÚC,Curd tofu concentrated,75,92,100,100 g phần ăn được,0.0
+fct2007:3027,3027,ĐẬU PHỤ NƯỚNG,"Curd tofu, fried",76,93,100,100 g phần ăn được,0.0
+fct2007:3028,3028,HẠT BÍ ĐỎ RANG,"Pumpkin seeds, fried",77,94,100,100 g phần ăn được,19.0
+fct2007:3029,3029,HẠT DƯA ĐỎ RANG (DƯA HẤU),"Water melon seeds whole, fried",78,95,100,100 g phần ăn được,22.0
+fct2007:3030,3030,"HẠT ĐIỀU KHÔ, CHIÊN DẦU","Cashew, common, roasted with oil",79,96,100,100 g phần ăn được,0.0
+fct2007:3031,3031,SỮA BỘT ĐẬU NÀNH,"Milk flour, made from roasted soybeans",80,97,100,100 g phần ăn được,0.0
+fct2007:3032,3032,SỮA ĐẬU NÀNH (100G ĐẬU/LÍT),Soybean milk (100 g soybean/l),81,98,100,100 g phần ăn được,0.0
+fct2007:3033,3033,TÀO PHỚ,"Tofu in light syrup (Tofu 160g, sirup 65ml)",82,99,100,100 g phần ăn được,0.0
+fct2007:4001,4001,BẦU,"Calabash, Bottle gourd",83,103,100,100 g phần ăn được,35.3
+fct2007:4002,4002,BÍ ĐAO (BÍ XANH),"Asgourd Waxgoured, Winter melon",84,104,100,100 g phần ăn được,25.0
+fct2007:4003,4003,BÍ NGÔ,Pumpkin squash,85,105,100,100 g phần ăn được,18.3
+fct2007:4004,4004,CÀ BÁT,"Egg plant big, Brinja aubergine",86,106,100,100 g phần ăn được,5.0
+fct2007:4005,4005,CÀ CHUA,Tomato,87,107,100,100 g phần ăn được,5.0
+fct2007:4006,4006,CÀ PHÁO,Egg plant - small,88,108,100,100 g phần ăn được,10.0
+fct2007:4007,4007,"CÀ RỐT (CỦ ĐỎ, VÀNG)",Carrots,89,109,100,100 g phần ăn được,10.5
+fct2007:4008,4008,CÀ RỐT KHÔ,Dried carrot,90,110,100,100 g phần ăn được,0.0
+fct2007:4009,4009,CÀ TÍM,Aubergine,91,111,100,100 g phần ăn được,5.0
+fct2007:4010,4010,CẢI BẮP,"Cabbage, common",92,112,100,100 g phần ăn được,10.0
+fct2007:4011,4011,CẢI BẮP ĐỎ,"Cabbage, red",93,113,100,100 g phần ăn được,22.0
+fct2007:4012,4012,CẢI BẮP KHÔ,"Dried cabbage, white",94,114,100,100 g phần ăn được,0.0
+fct2007:4013,4013,CẢI CÚC,Chrysanthemum. crown-daisy,95,115,100,100 g phần ăn được,25.0
+fct2007:4014,4014,CẢI SOONG,Watercress,96,116,100,100 g phần ăn được,30.0
+fct2007:4015,4015,CẢI THÌA (CẢI TRẮNG),"Chinese cabbage, white",97,117,100,100 g phần ăn được,25.0
+fct2007:4016,4016,CẢI XANH,"Mustard greens, India, leaves and stems",98,118,100,100 g phần ăn được,24.0
+fct2007:4017,4017,CẦN TA,Water drop-wort; Celery water,99,119,100,100 g phần ăn được,20.0
+fct2007:4018,4018,CẦN TÂY,"Celery, Chinese",100,120,100,100 g phần ăn được,16.0
+fct2007:4019,4019,CHUỐI XANH,"Banana common varieties, unripe",101,121,100,100 g phần ăn được,32.0
+fct2007:4020,4020,CỦ CẢI ĐỎ,"Red radish oriental, raw",102,122,100,100 g phần ăn được,20.0
+fct2007:4021,4021,CỦ CẢI TRẮNG,"Radish garden while, raw",103,123,100,100 g phần ăn được,13.2
+fct2007:4022,4022,CỦ CẢI TRẮNG KHÔ,"Dried radish, white",104,124,100,100 g phần ăn được,0.0
+fct2007:4023,4023,CỦ ĐẬU,Pachyrrhizus,105,125,100,100 g phần ăn được,15.0
+fct2007:4024,4024,CỦ NIỄNG,"Manchurian water-rice, Manchurian Wild rice",106,126,100,100 g phần ăn được,13.0
+fct2007:4025,4025,DỌC CỦ CẢI (NON),"Horse radish; dish - tree, drumstick leave",107,127,100,100 g phần ăn được,4.0
+fct2007:4026,4026,DỌC MÙNG,Colocasia indica,108,128,100,100 g phần ăn được,20.0
+fct2007:4027,4027,DƯA CHUỘT,Cucumber,109,129,100,100 g phần ăn được,5.0
+fct2007:4028,4028,DƯA GANG,Large cucumber,110,130,100,100 g phần ăn được,5.0
+fct2007:4029,4029,ĐẬU CÔ VE,"Beans, kidney, in pod, French bean; Navy been",111,131,100,100 g phần ăn được,10.0
+fct2007:4030,4030,ĐẬU ĐŨA,"Cow-peas, yard long, Chinese long bean",112,132,100,100 g phần ăn được,10.0
+fct2007:4031,4031,ĐẬU HÀ LAN,Green peas; field pea; Peas garden,113,133,100,100 g phần ăn được,10.0
+fct2007:4032,4032,ĐẬU RỒNG (QUẢ NON),"Winged bean goabean, Indies, asparagus pea",114,134,100,100 g phần ăn được,5.0
+fct2007:4033,4033,ĐU ĐỦ XANH,"Papaya, unripe, raw",115,135,100,100 g phần ăn được,25.0
+fct2007:4034,4034,GẤC,"Gac fruit, whole",116,136,100,100 g phần ăn được,80.0
+fct2007:4035,4035,GIÁ ĐẬU TƯƠNG,Sprout of soybeans,117,137,100,100 g phần ăn được,0.0
+fct2007:4036,4036,GIÁ ĐẬU XANH,"Mungobean sprouts, Green gram, Tiensin green bean",118,138,100,100 g phần ăn được,5.0
+fct2007:4037,4037,HÀNH CỦ TƯƠI,"Onion, Welsh",119,139,100,100 g phần ăn được,24.0
+fct2007:4038,4038,HÀNH LÁ (HÀNH HOA),"Onion, Welsh",120,140,100,100 g phần ăn được,20.0
+fct2007:4039,4039,HÀNH TÂY,"Onion, common, garden",121,141,100,100 g phần ăn được,17.0
+fct2007:4040,4040,HẠT SEN TƯƠI,"Lotus seed, raw",122,142,100,100 g phần ăn được,39.0
+fct2007:4041,4041,HẠT SEN KHÔ,Dried lotus seed,123,143,100,100 g phần ăn được,0.0
+fct2007:4042,4042,HẸ LÁ,"Onion, fragrant, Chinese leek",124,144,100,100 g phần ăn được,13.0
+fct2007:4043,4043,HOA CHUỐI,"Banana, buds and flowers",125,145,100,100 g phần ăn được,29.0
+fct2007:4044,4044,HOA LÝ,"Daylily, lemon flowers, Pergularia, raw",126,146,100,100 g phần ăn được,3.0
+fct2007:4045,4045,KHẾ,Carambola; Star fruit,127,147,100,100 g phần ăn được,13.0
+fct2007:4046,4046,LÁ LỐT,Lolot,128,148,100,100 g phần ăn được,0.0
+fct2007:4047,4047,LÁ ME,"Tamarind, leaves",129,149,100,100 g phần ăn được,0.0
+fct2007:4048,4048,LÁ MƠ LÔNG,Wild plant,130,150,100,100 g phần ăn được,0.0
+fct2007:4049,4049,LÁ SẮN TƯƠI,Cassava leaves,131,151,100,100 g phần ăn được,0.0
+fct2007:4050,4050,MĂNG CHUA,"Bamboo shoot, unspecified",132,152,100,100 g phần ăn được,24.0
+fct2007:4051,4051,MĂNG KHÔ,Dried bamboo shoots,133,153,100,100 g phần ăn được,0.0
+fct2007:4052,4052,MĂNG TÂY,"Asparagus, white",134,154,100,100 g phần ăn được,50.0
+fct2007:4053,4053,MĂNG TRE,"Bamboo shoots, spring variety",135,155,100,100 g phần ăn được,50.0
+fct2007:4054,4054,MƯỚP,"Gourd, sponge gourd",136,156,100,100 g phần ăn được,18.8
+fct2007:4055,4055,MƯỚP ĐẮNG,"Balsam-pear, balsam-apple, bitter melon, bitter gourd",137,157,100,100 g phần ăn được,20.0
+fct2007:4056,4056,MƯỚP NHẬT BẢN,"Gourd, sponge gourd, Japanese",138,158,100,100 g phần ăn được,10.0
+fct2007:4057,4057,NGẢI CỨU,"Mugwort, common sagebrush",139,159,100,100 g phần ăn được,31.0
+fct2007:4058,4058,NGÔ BAO TỬ,"Corn, small variety immature, baby corn",140,160,100,100 g phần ăn được,0.0
+fct2007:4059,4059,NGÓ SEN,"Lotus, stem underground",141,161,100,100 g phần ăn được,11.0
+fct2007:4060,4060,NỤ MƯỚP,"Sponge gourd, rag, young flower",142,162,100,100 g phần ăn được,18.0
+fct2007:4061,4061,ỚT ĐỎ TO,"Chili pepper, peppers red",143,163,100,100 g phần ăn được,18.0
+fct2007:4062,4062,ỚT VÀNG TO,"Peppers, yellow",144,164,100,100 g phần ăn được,10.0
+fct2007:4063,4063,ỚT XANH TO,"Peppers, green",145,165,100,100 g phần ăn được,10.0
+fct2007:4064,4064,QUẢ DỌC,,146,166,100,100 g phần ăn được,36.0
+fct2007:4065,4065,QUẢ ME CHUA,"Tamarind fruit, pulp raw",147,167,100,100 g phần ăn được,15.0
+fct2007:4066,4066,RAU BÍ,Pumpkin leaves,148,168,100,100 g phần ăn được,23.4
+fct2007:4067,4067,RAU CÂU KHÔ,Dried seaweed,149,169,100,100 g phần ăn được,0.0
+fct2007:4068,4068,RAU CÂU TƯƠI,Seaweed fresh,150,170,100,100 g phần ăn được,4.0
+fct2007:4069,4069,RAU DIẾP,Lettuce garden,151,171,100,100 g phần ăn được,10.0
+fct2007:4070,4070,RAU ĐAY,Jute potherb,152,172,100,100 g phần ăn được,20.0
+fct2007:4071,4071,"RAU GIẤP CÁ, DIẾP CÁ",Wild plant,153,173,100,100 g phần ăn được,0.0
+fct2007:4072,4072,RAU GIỀN CƠM,"Amaranth, spineless",154,174,100,100 g phần ăn được,0.0
+fct2007:4073,4073,RAU GIỀN ĐỎ,"Amaranth, sp. Red",155,175,100,100 g phần ăn được,38.0
+fct2007:4074,4074,RAU GIỀN TRẮNG,"Amaranth, sp White",156,176,100,100 g phần ăn được,14.0
+fct2007:4075,4075,RAU HÚNG,"Basil sweet leaves, raw",157,177,100,100 g phần ăn được,20.0
+fct2007:4076,4076,RAU KHOAI LANG,"Sweet potato, leaves",158,178,100,100 g phần ăn được,5.0
+fct2007:4077,4077,RAU KINH GIỚI,Sweet marjoram,159,179,100,100 g phần ăn được,16.0
+fct2007:4078,4078,RAU MÁ RỪNG,Wild plant,160,180,100,100 g phần ăn được,0.0
+fct2007:4079,4079,"RAU MÁ, MÁ MƠ","Wort, India penny",161,181,100,100 g phần ăn được,0.0
+fct2007:4080,4080,RAU MỒNG TƠI,"Malabar night shade, Vinespinach, Ceylon spinach",162,182,100,100 g phần ăn được,17.0
+fct2007:4081,4081,RAU MÙI,Coriander,163,183,100,100 g phần ăn được,15.0
+fct2007:4082,4082,RAU MÙI TÀU,"Parsley, curley",164,184,100,100 g phần ăn được,20.0
+fct2007:4083,4083,RAU MUỐNG,"Swamp cabbage, water spinach, water convol",165,185,100,100 g phần ăn được,37.5
+fct2007:4084,4084,RAU MUỐNG KHÔ,"Water spinach, dried",166,186,100,100 g phần ăn được,0.0
+fct2007:4085,4085,RAU NGỔ,Limnophila aromatic,167,187,100,100 g phần ăn được,29.0
+fct2007:4086,4086,RAU NGÓT,"Sauropus, sp. leaves",168,188,100,100 g phần ăn được,23.0
+fct2007:4087,4087,RAU NGÓT KHÔ,"Sauropus, dried",169,189,100,100 g phần ăn được,0.0
+fct2007:4088,4088,RAU RĂM,Polygonum odoratum,170,190,100,100 g phần ăn được,25.0
+fct2007:4089,4089,RAU RÚT,"Neptunia, dismanthus",171,191,100,100 g phần ăn được,55.0
+fct2007:4090,4090,RAU SÀ LÁCH,"Lettuce, garden asparagus",172,192,100,100 g phần ăn được,10.0
+fct2007:4091,4091,RAU SAM,"Purslane, common",173,193,100,100 g phần ăn được,0.0
+fct2007:4092,4092,RAU SẮNG (CHÙA HƯƠNG),Perfume pagoda wild plant,174,194,100,100 g phần ăn được,40.0
+fct2007:4093,4093,RAU TÀU BAY,Gynura crepidioides,175,195,100,100 g phần ăn được,0.0
+fct2007:4094,4094,RAU THƠM,Mint leaves,176,196,100,100 g phần ăn được,25.0
+fct2007:4095,4095,SẤU XANH,"Dracontomelum fruit, unripe, raw",177,197,100,100 g phần ăn được,35.0
+fct2007:4096,4096,SU HÀO,Kohlrabi,178,198,100,100 g phần ăn được,22.4
+fct2007:4097,4097,SU HÀO KHÔ,Dried kohlrabi,179,199,100,100 g phần ăn được,0.0
+fct2007:4098,4098,"SU SU, QUẢ","Chayote, fruit raw",180,200,100,100 g phần ăn được,20.0
+fct2007:4099,4099,SÚP LƠ TRẮNG,"Cauliflower, white",181,201,100,100 g phần ăn được,40.0
+fct2007:4100,4100,SÚP LƠ XANH,"Cauliflower, green",182,202,100,100 g phần ăn được,39.0
+fct2007:4101,4101,THÌA LÀ,Dill,183,203,100,100 g phần ăn được,25.0
+fct2007:4102,4102,TÍA TÔ,"Balm-mint, garden- balm",184,204,100,100 g phần ăn được,20.0
+fct2007:4103,4103,TỎI TA,Garlic bulbs,185,205,100,100 g phần ăn được,20.0
+fct2007:4104,4104,TỎI TÂY (CẢ LÁ),"Chinese Leek, Onion fragrant",186,206,100,100 g phần ăn được,20.0
+fct2007:4105,4105,TRÁM ĐEN CHÍN,Variety of canarium,187,207,100,100 g phần ăn được,50.0
+fct2007:4106,4106,"TRÁM XANH SỐNG, TRÁM TRẮNG",Chinese olive,188,208,100,100 g phần ăn được,34.0
+fct2007:4107,4107,XƯƠNG SÔNG,Edible herbaceous plant,189,209,100,100 g phần ăn được,10.0
+fct2007:4108,4108,CÀ CHUA MUỐI,"Tomato, pickled",190,210,100,100 g phần ăn được,5.0
+fct2007:4109,4109,CÀ MUỐI NÉN,"Eggplant, garden, brinjan; aubergine, pickled",191,211,100,100 g phần ăn được,5.0
+fct2007:4110,4110,CÀ MUỐI SỔI,"Eggplant, garden, brinjan; aubergine, pickled",192,212,100,100 g phần ăn được,5.0
+fct2007:4111,4111,DƯA CẢI BẮP,"Cabbage Chinese, pickled",193,213,100,100 g phần ăn được,5.0
+fct2007:4112,4112,DƯA CẢI BẸ,"Mustard green, pickled",194,214,100,100 g phần ăn được,5.0
+fct2007:4113,4113,DƯA CẢI SEN,"Rape bird, pickled",195,215,100,100 g phần ăn được,5.0
+fct2007:4114,4114,DƯA CHUỘT MUỐI,"Cucumber, pickled",196,216,100,100 g phần ăn được,5.0
+fct2007:4115,4115,DƯA GIÁ (ĐẬU XANH),"Mung bean sprouts, pickled",197,217,100,100 g phần ăn được,0.0
+fct2007:4116,4116,HÀNH CỦ MUỐI,"Onion, pickled",198,218,100,100 g phần ăn được,30.0
+fct2007:4117,4117,KIỆU MUỐI,"Onion shallot, scallion, pickled",199,219,100,100 g phần ăn được,30.0
+fct2007:4118,4118,"NHÚT (MUỐI TỪ MÍT NON, NGỌN ĐẬU XANH NON...)",Mix pickled from young jack fruit,200,220,100,100 g phần ăn được,0.0
+fct2007:4119,4119,MEN BIA KHÔ,"Brewer's yeast, fried",201,221,100,100 g phần ăn được,0.0
+fct2007:4120,4120,MEN BIA TƯƠI,"Baker's yeast, fresh",202,222,100,100 g phần ăn được,0.0
+fct2007:4121,4121,MỘC NHĨ,"Jew's ear, Juda's ear, dried, Wood-ear, Tender variety",203,223,100,100 g phần ăn được,10.0
+fct2007:4122,4122,NẤM HƯƠNG KHÔ,"Mushroom Chinese, dried",204,224,100,100 g phần ăn được,10.0
+fct2007:4123,4123,NẤM HƯƠNG TƯƠI,"Mushroom, Chinese, raw",205,225,100,100 g phần ăn được,25.0
+fct2007:4124,4124,NẤM MỠ (NẤM TÂY),Mushroom,206,226,100,100 g phần ăn được,10.0
+fct2007:4125,4125,NẤM RƠM,"Mushroom, straw",207,227,100,100 g phần ăn được,10.0
+fct2007:4126,4126,NẤM THƯỜNG TƯƠI,"Mushroom, common",208,228,100,100 g phần ăn được,25.0
+fct2007:5001,5001,BƯỞI,"Pomelo, Pummelo; Shaddock",209,231,100,100 g phần ăn được,35.0
+fct2007:5002,5002,CAM,Orange,210,232,100,100 g phần ăn được,31.1
+fct2007:5003,5003,CHANH,Lemon,211,233,100,100 g phần ăn được,25.0
+fct2007:5004,5004,CHÔM CHÔM,Rambutan,212,234,100,100 g phần ăn được,50.0
+fct2007:5005,5005,CHUỐI KHÔ,"Banana, dried",213,235,100,100 g phần ăn được,0.0
+fct2007:5006,5006,CHUỐI TÂY,Banana,214,236,100,100 g phần ăn được,26.5
+fct2007:5007,5007,CHUỐI TIÊU,"Banana, dwarf",215,237,100,100 g phần ăn được,35.0
+fct2007:5008,5008,DÂU GIA,Blackberry,216,238,100,100 g phần ăn được,56.0
+fct2007:5009,5009,DÂU TÂY,Strawberry,217,239,100,100 g phần ăn được,15.0
+fct2007:5010,5010,DƯA BỞ,"Musk melon, Spanish melon, Cantaloupe",218,240,100,100 g phần ăn được,10.0
+fct2007:5011,5011,DƯA HẤU,Watermelon,219,241,100,100 g phần ăn được,48.0
+fct2007:5012,5012,DƯA HỒNG,Honey dew melon,220,242,100,100 g phần ăn được,16.0
+fct2007:5013,5013,DƯA LÊ,,221,243,100,100 g phần ăn được,18.0
+fct2007:5014,5014,DỨA TA,"Pineapple, wild",222,244,100,100 g phần ăn được,40.0
+fct2007:5015,5015,DỨA TÂY,Pineapple,223,245,100,100 g phần ăn được,40.0
+fct2007:5016,5016,ĐÀO,Peach,224,246,100,100 g phần ăn được,12.0
+fct2007:5017,5017,ĐU ĐỦ CHÍN,"Papaya, ripe",225,247,100,100 g phần ăn được,12.4
+fct2007:5018,5018,GIOI,Ohia; Malaya roseapple,226,248,100,100 g phần ăn được,19.0
+fct2007:5019,5019,HỒNG BÌ,"Wampee, Chinese; Wampi",227,249,100,100 g phần ăn được,46.0
+fct2007:5020,5020,HỒNG ĐỎ,"Persimmon kaki, soft type, ripe",228,250,100,100 g phần ăn được,8.8
+fct2007:5021,5021,HỒNG NGÂM,"Persimmon kaki, Hard-type, ripe",229,251,100,100 g phần ăn được,17.7
+fct2007:5022,5022,HỒNG XIÊM,"Sapodilla, sapota ponderosa",230,252,100,100 g phần ăn được,10.0
+fct2007:5023,5023,LÊ,Pear,231,253,100,100 g phần ăn được,12.0
+fct2007:5024,5024,LỰU,Pome granate,232,254,100,100 g phần ăn được,85.0
+fct2007:5025,5025,MÃNG CẦU XIÊM,"Siamese custard apple, soursop",233,255,100,100 g phần ăn được,21.0
+fct2007:5026,5026,MẮC COỌC,Pyrus pashia Ham,234,256,100,100 g phần ăn được,14.0
+fct2007:5027,5027,MẬN,"Japanese, plum",235,257,100,100 g phần ăn được,15.0
+fct2007:5028,5028,MÍT DAI,"Jackfruit, jackfruit mature",236,258,100,100 g phần ăn được,55.0
+fct2007:5029,5029,MÍT KHÔ,Dried jackfruit,237,259,100,100 g phần ăn được,0.0
+fct2007:5030,5030,MÍT MẬT,"Jack fruit, honey",238,260,100,100 g phần ăn được,55.0
+fct2007:5031,5031,MƠ,"Apricot, Apricot nectar",239,261,100,100 g phần ăn được,14.0
+fct2007:5032,5032,MƠ KHÔ,"Apricot dried, unsulfured",240,262,100,100 g phần ăn được,0.0
+fct2007:5033,5033,"MUỖM, QUÉO","Mango, common; Indian mango, unripe",241,263,100,100 g phần ăn được,20.0
+fct2007:5034,5034,NA,"Sugarapple, sweetsop",242,264,100,100 g phần ăn được,44.4
+fct2007:5035,5035,NHÃN,Longan,243,265,100,100 g phần ăn được,45.0
+fct2007:5036,5036,NHÃN KHÔ,"Longan, dried",244,266,100,100 g phần ăn được,0.0
+fct2007:5037,5037,NHO NGỌT,"Grape, European, sweet",245,267,100,100 g phần ăn được,1.9
+fct2007:5038,5038,NHO TA (NHO CHUA),"Grape fruit, sour",246,268,100,100 g phần ăn được,13.0
+fct2007:5039,5039,NHÓT,Silver berry,247,269,100,100 g phần ăn được,24.0
+fct2007:5040,5040,Ổi,"Guava, common",248,270,100,100 g phần ăn được,5.0
+fct2007:5041,5041,QUẢ BƠ VỎ TÍM,"Avocado, purple",249,271,100,100 g phần ăn được,27.0
+fct2007:5042,5042,QUẢ BƠ VỎ XANH,"Avocado, green",250,272,100,100 g phần ăn được,28.0
+fct2007:5043,5043,QUẢ CÓC,-,251,273,100,100 g phần ăn được,25.0
+fct2007:5044,5044,QUẢ THANH LONG,Dragon's eyes fruit,252,274,100,100 g phần ăn được,
+fct2007:5045,5045,QUẢ TRỨNG GÀ,-,253,275,100,100 g phần ăn được,25.0
+fct2007:5046,5046,QUẤT CHÍN (CẢ VỎ),"Mandarin, whole fruit",254,276,100,100 g phần ăn được,4.0
+fct2007:5047,5047,QUÍT,Tangerine; Orange; Mandarin,255,277,100,100 g phần ăn được,19.8
+fct2007:5048,5048,SẦU RIÊNG,"Durian, Civet",256,278,100,100 g phần ăn được,75.0
+fct2007:5049,5049,SẤU CHÍN,"Sanpidus, ripe",257,279,100,100 g phần ăn được,24.0
+fct2007:5050,5050,TÁO TA,"Jujube, common or Chinese; Chinese date",258,280,100,100 g phần ăn được,14.0
+fct2007:5051,5051,TÁO TÂY,"Apple, common, domestic",259,281,100,100 g phần ăn được,12.0
+fct2007:5052,5052,VẢI,Litchi; lychee,260,282,100,100 g phần ăn được,48.0
+fct2007:5053,5053,VẢI KHÔ,"Litchi, dried with shells",261,283,100,100 g phần ăn được,44.0
+fct2007:5054,5054,VÚ SỮA,"Starapple, cainito",262,284,100,100 g phần ăn được,22.0
+fct2007:5055,5055,XOÀI CHÍN,"Mango, common; India mango, ripe",263,285,100,100 g phần ăn được,20.0
+fct2007:5056,5056,QUẢ KIWI,Kiwi fruit,264,286,100,100 g phần ăn được,14.0
+fct2007:6001,6001,BƠ,"Butter, unsalted",265,289,100,100 g phần ăn được,0.0
+fct2007:6002,6002,"DẦU THẢO MỘC (LẠC, VỪNG, CÁM...)","Vegetable oil, mix",266,290,100,100 g phần ăn được,0.0
+fct2007:6003,6003,MỠ LỢN MUỐI,"Lard, salted",267,291,100,100 g phần ăn được,0.0
+fct2007:6004,6004,MỠ LỢN NƯỚC,"Lard, liquid",268,292,100,100 g phần ăn được,0.0
+fct2007:6005,6005,BƠ THỰC VẬT,"Butter-margarine blend, stick, unsalted",269,293,100,100 g phần ăn được,0.0
+fct2007:6006,6006,DẦU BÔNG,"Cottonseed oil, salad or cooking",270,294,100,100 g phần ăn được,0.0
+fct2007:6007,6007,DẦU CÁM GẠO,Rice bran oil,271,295,100,100 g phần ăn được,0.0
+fct2007:6008,6008,DẦU CỌ,Palm oil,272,296,100,100 g phần ăn được,0.0
+fct2007:6009,6009,DẦU DỪA,Coconut oil,273,297,100,100 g phần ăn được,0.0
+fct2007:6010,6010,DẦU ĐẬU TƯƠNG,"Soybean oil, salad or cooking",274,298,100,100 g phần ăn được,0.0
+fct2007:6011,6011,DẦU LẠC,"Peanut oil, salad or cooking",275,299,100,100 g phần ăn được,0.0
+fct2007:6012,6012,DẦU MÈ,"Sesame oil, salad or cooking",276,300,100,100 g phần ăn được,0.0
+fct2007:6013,6013,DẦU NGÔ,"Corn oil, salad or cooking",277,301,100,100 g phần ăn được,0.0
+fct2007:6014,6014,DẦU OLIU,"Olive oil, salad or cooking",278,302,100,100 g phần ăn được,0.0
+fct2007:7001,7001,THỊT BÊ MỠ,"Veal meat, lean and fat",279,305,100,100 g phần ăn được,2.0
+fct2007:7002,7002,THỊT BÊ NẠC,"Veal meat, lean only",280,306,100,100 g phần ăn được,2.0
+fct2007:7003,7003,THỊT BÒ LOẠI I,"Beef, grade I",281,307,100,100 g phần ăn được,2.0
+fct2007:7004,7004,THỊT BÒ LOẠI II,"Beef, grade II",282,308,100,100 g phần ăn được,2.0
+fct2007:7005,7005,"THỊT BÒ, LƯNG, NẠC","Beef, top loin, seperable lean only, trimmed to 1/8"" fat, prime, raw",283,309,100,100 g phần ăn được,2.0
+fct2007:7006,7006,"THỊT BÒ, LƯNG, NẠC VÀ MỠ","Beef, top loin, seperable lean only, trimmed to 1/4"" fat, prime, raw",284,310,100,100 g phần ăn được,2.0
+fct2007:7007,7007,THỊT BỒ CÂU RA RÀNG,Pigeon young bird flesh skin and giblets,285,311,100,100 g phần ăn được,60.0
+fct2007:7008,7008,THỊT CHÓ SẤN,Dog meat,286,312,100,100 g phần ăn được,2.0
+fct2007:7009,7009,THỊT CHÓ VAI,"Dog, shoulder",287,313,100,100 g phần ăn được,2.0
+fct2007:7010,7010,"THỊT CỪU, NẠC","Mutton meat, lean",288,314,100,100 g phần ăn được,2.0
+fct2007:7011,7011,"THỊT DÊ, NẠC","Goat, meat, lean",289,315,100,100 g phần ăn được,2.0
+fct2007:7012,7012,THỊT GÀ RỪNG,Grouse field chicken,290,316,100,100 g phần ăn được,58.0
+fct2007:7013,7013,THỊT GÀ TA,"Chicken meat, average",291,317,100,100 g phần ăn được,52.0
+fct2007:7014,7014,THỊT GÀ TÂY,Turkey raw flesh and skin giblets,292,318,100,100 g phần ăn được,53.0
+fct2007:7015,7015,THỊT HƯƠU,Deer meat,293,319,100,100 g phần ăn được,2.0
+fct2007:7016,7016,THỊT LỢN MỠ,"Pork, lean and fat",294,320,100,100 g phần ăn được,2.0
+fct2007:7017,7017,THỊT LỢN NẠC,"Pork, lean",295,321,100,100 g phần ăn được,2.0
+fct2007:7018,7018,"THỊT LỢN NỬA NẠC, NỬA MỠ","Pork, medium fat",296,322,100,100 g phần ăn được,2.0
+fct2007:7019,7019,THỊT NGỖNG,Goose,297,323,100,100 g phần ăn được,52.0
+fct2007:7020,7020,THỊT NGỰA,Horse meat,298,324,100,100 g phần ăn được,2.0
+fct2007:7021,7021,THỊT THỎ NHÀ,"Rabbit meat, raw",299,325,100,100 g phần ăn được,45.0
+fct2007:7022,7022,THỊT THỎ RỪNG,Hare rabbit (field or wild),300,326,100,100 g phần ăn được,45.0
+fct2007:7023,7023,THỊT TRÂU,"Buffalo meat, average",301,327,100,100 g phần ăn được,0.0
+fct2007:7024,7024,THỊT TRÂU BẮP,Buffalo meat (shoulder),302,328,100,100 g phần ăn được,2.0
+fct2007:7025,7025,THỊT TRÂU CỔ,"Buffalo meat, neck",303,329,100,100 g phần ăn được,2.0
+fct2007:7026,7026,THỊT TRÂU ĐÙI,"Buffalo meat, leg",304,330,100,100 g phần ăn được,2.0
+fct2007:7027,7027,THỊT TRÂU THĂN,"Buffalo meat, lean (loin)",305,331,100,100 g phần ăn được,2.0
+fct2007:7028,7028,THỊT VỊT,"Duck meat, average",306,332,100,100 g phần ăn được,55.0
+fct2007:7029,7029,BẦU DỤC BÒ,"Beef, kidney",307,333,100,100 g phần ăn được,7.0
+fct2007:7030,7030,BẦU DỤC LỢN,"Pork, kidney",308,334,100,100 g phần ăn được,2.0
+fct2007:7031,7031,BÌ LỢN,Pork skin,309,335,100,100 g phần ăn được,10.0
+fct2007:7032,7032,CHÂN GIÒ LỢN,"Pork, leg",310,336,100,100 g phần ăn được,38.0
+fct2007:7033,7033,DẠ DÀY BÒ,"Stomach, beef",311,337,100,100 g phần ăn được,5.0
+fct2007:7034,7034,DẠ DÀY LỢN,"Stomach, hog",312,338,100,100 g phần ăn được,2.0
+fct2007:7035,7035,ĐẦU BÒ,"Head beef (without tongue, brain, ears).",313,339,100,100 g phần ăn được,68.0
+fct2007:7036,7036,ĐẦU LỢN,"Hog, head",314,340,100,100 g phần ăn được,68.0
+fct2007:7037,7037,ĐUÔI BÒ,"Beef, tail",315,341,100,100 g phần ăn được,46.0
+fct2007:7038,7038,ĐUÔI LỢN,"Hog, tail",316,342,100,100 g phần ăn được,30.0
+fct2007:7039,7039,GAN BÒ,"Beef, liver",317,343,100,100 g phần ăn được,0.0
+fct2007:7040,7040,GAN GÀ,Chicken liver,318,344,100,100 g phần ăn được,0.0
+fct2007:7041,7041,GAN LỢN,Pork liver,319,345,100,100 g phần ăn được,0.0
+fct2007:7042,7042,GAN VỊT,Duck liver,320,346,100,100 g phần ăn được,0.0
+fct2007:7043,7043,GÂN CHÂN BÒ,,321,347,100,100 g phần ăn được,0.0
+fct2007:7044,7044,LƯỠI BÒ,Beef tongue,322,348,100,100 g phần ăn được,8.0
+fct2007:7045,7045,LƯỠI LỢN,"Hog, tongue",323,349,100,100 g phần ăn được,3.0
+fct2007:7046,7046,LÒNG LỢN (RUỘT GIÀ),"Hog, intestine large raw",324,350,100,100 g phần ăn được,2.0
+fct2007:7047,7047,LÒNG LỢN (RUỘT NON),Hog intestine small raw without fat,325,351,100,100 g phần ăn được,2.0
+fct2007:7048,7048,MỀ GÀ,Chicken gizzard,326,352,100,100 g phần ăn được,4.0
+fct2007:7049,7049,ÓC BÒ,Brain beef,327,353,100,100 g phần ăn được,8.0
+fct2007:7050,7050,ÓC LỢN,Hog brain,328,354,100,100 g phần ăn được,8.0
+fct2007:7051,7051,PHỔI BÒ,"Beef, lung",329,355,100,100 g phần ăn được,8.0
+fct2007:7052,7052,PHỔI LỢN,"Hog lung, raw",330,356,100,100 g phần ăn được,8.0
+fct2007:7053,7053,SƯỜN LỢN,"Pork, ribs",331,357,100,100 g phần ăn được,57.0
+fct2007:7054,7054,TAI LỢN,Hog ears,332,358,100,100 g phần ăn được,4.0
+fct2007:7055,7055,TIM BÒ,"Beef, heart",333,359,100,100 g phần ăn được,8.0
+fct2007:7056,7056,TIM GÀ,Chicken heart,334,360,100,100 g phần ăn được,0.0
+fct2007:7057,7057,TIM LỢN,Hog heart,335,361,100,100 g phần ăn được,6.0
+fct2007:7058,7058,TIẾT BÒ,"Beef, blood",336,362,100,100 g phần ăn được,0.0
+fct2007:7059,7059,TIẾT LỢN LUỘC,"Hog blood, boiled",337,363,100,100 g phần ăn được,0.0
+fct2007:7060,7060,TIẾT LỢN SỐNG,"Hog blood, raw",338,364,100,100 g phần ăn được,0.0
+fct2007:7061,7061,TỦY XƯƠNG BÒ,Beef bone marrow,339,365,100,100 g phần ăn được,0.0
+fct2007:7062,7062,TỦY XƯƠNG LỢN,"Hog, bone marrow",340,366,100,100 g phần ăn được,0.0
+fct2007:7063,7063,BA TÊ,Pa tê,341,367,100,100 g phần ăn được,0.0
+fct2007:7064,7064,CHẢ LỢN,"Pork, mince fat meat grilled",342,368,100,100 g phần ăn được,0.0
+fct2007:7065,7065,CHẢ QUẾ LỢN,"Pork, cinnamon mince grilled",343,369,100,100 g phần ăn được,0.0
+fct2007:7066,7066,DĂM BÔNG LỢN,"Ham, pork",344,370,100,100 g phần ăn được,0.0
+fct2007:7067,7067,DỒI LỢN,Blood mix-pudding with viscera in large intestine,345,371,100,100 g phần ăn được,0.0
+fct2007:7068,7068,GIÒ BÒ,Beef dumpling,346,372,100,100 g phần ăn được,0.0
+fct2007:7069,7069,GIÒ LỤA,"Pork, mince lean meat steamed",347,373,100,100 g phần ăn được,0.0
+fct2007:7070,7070,GIÒ THỦ LỢN,"Pork, head meat, steamed",348,374,100,100 g phần ăn được,0.0
+fct2007:7071,7071,LẠP XƯỜNG,Chinese sausage,349,375,100,100 g phần ăn được,0.0
+fct2007:7072,7072,NEM CHẠO,,350,376,100,100 g phần ăn được,0.0
+fct2007:7073,7073,NEM CHUA,"Pork mince, fermented",351,377,100,100 g phần ăn được,0.0
+fct2007:7074,7074,RUỐC THỊT LỢN,,352,378,100,100 g phần ăn được,0.0
+fct2007:7075,7075,THỊT BÒ KHÔ,Dried beef,353,379,100,100 g phần ăn được,0.0
+fct2007:7076,7076,THỊT TRÂU KHÔ,"Buffalo meat, dried",354,380,100,100 g phần ăn được,0.0
+fct2007:7077,7077,XÚC XÍCH,Pork sausage,355,381,100,100 g phần ăn được,2.0
+fct2007:7078,7078,BỘT CÓC,Toad meat powder,356,382,100,100 g phần ăn được,0.0
+fct2007:7079,7079,CHÂU CHẤU,Locust,357,383,100,100 g phần ăn được,20.0
+fct2007:7080,7080,ẾCH (THỊT ĐÙI),Frog,358,384,100,100 g phần ăn được,0.0
+fct2007:7081,7081,NHỘNG,Silk worm,359,385,100,100 g phần ăn được,2.0
+fct2007:7082,7082,LÒNG GÀ (CẢ BỘ),Chicken giblets,360,386,100,100 g phần ăn được,0.0
+fct2007:8001,8001,CÁ BỐNG,"Goby, gudgeon",361,389,100,100 g phần ăn được,45.0
+fct2007:8002,8002,CÁ CHÀY,Pond fish,362,390,100,100 g phần ăn được,31.0
+fct2007:8003,8003,CÁ CHÉP,Carp,363,391,100,100 g phần ăn được,40.0
+fct2007:8004,8004,CÁ DƯA,Conger pike,364,392,100,100 g phần ăn được,
+fct2007:8005,8005,CÁ DẦU,,365,393,100,100 g phần ăn được,10.0
+fct2007:8006,8006,CÁ DIẾC,"Mullet, harder",366,394,100,100 g phần ăn được,45.0
+fct2007:8007,8007,CÁ ĐAO,"Sawfish, wolfherring",367,395,100,100 g phần ăn được,
+fct2007:8008,8008,CÁ ĐÉ,Chinese herring,368,396,100,100 g phần ăn được,
+fct2007:8009,8009,CÁ ĐỐI,"Mullet, gray mullet",369,397,100,100 g phần ăn được,42.0
+fct2007:8010,8010,CÁ ĐỒNG TIỀN,Goby,370,398,100,100 g phần ăn được,
+fct2007:8011,8011,CÁ HỒI,Salmon,371,399,100,100 g phần ăn được,40.0
+fct2007:8012,8012,"CÁ KHÔ (CHIM, THU, NỤ, ĐÉ)","Dried fish, miscellaneous",372,400,100,100 g phần ăn được,15.0
+fct2007:8013,8013,CÁ LÁC,,373,401,100,100 g phần ăn được,
+fct2007:8014,8014,CÁ MÈ,"Hypophthalmichthys, chub, dory, tench bream",374,402,100,100 g phần ăn được,36.0
+fct2007:8015,8015,CÁ MÒI,Sardin,375,403,100,100 g phần ăn được,45.0
+fct2007:8016,8016,CÁ MỠ,,376,404,100,100 g phần ăn được,0.0
+fct2007:8017,8017,CÁ MỐI,,377,405,100,100 g phần ăn được,
+fct2007:8018,8018,CÁ NẠC,Fish low fat,378,406,100,100 g phần ăn được,39.0
+fct2007:8019,8019,CÁ NGỪ,"Flying fish, tuna",379,407,100,100 g phần ăn được,42.0
+fct2007:8020,8020,CÁ NỤC,"Scad, anchovy",380,408,100,100 g phần ăn được,
+fct2007:8021,8021,CÁ PHÈN,"Goatfish, surmullet, red mullet",381,409,100,100 g phần ăn được,
+fct2007:8022,8022,CÁ QUẢ,"Fish, snake head",382,410,100,100 g phần ăn được,40.0
+fct2007:8023,8023,CÁ RÔ ĐỒNG,Anabas,383,411,100,100 g phần ăn được,44.0
+fct2007:8024,8024,CÁ RÔ PHI,"Tilapia, African carp",384,412,100,100 g phần ăn được,43.0
+fct2007:8025,8025,CÁ THỜN BƠN (CÁ BƠN),"Flounder, sole, turbot",385,413,100,100 g phần ăn được,
+fct2007:8026,8026,CÁ THU,"Mackerel, codfish, kingfish",386,414,100,100 g phần ăn được,35.0
+fct2007:8027,8027,CÁ THU ĐAO,,387,415,100,100 g phần ăn được,30.0
+fct2007:8028,8028,CÁ TRẠCH (CÁ CHẠCH),Loach,388,416,100,100 g phần ăn được,26.0
+fct2007:8029,8029,CÁ TRẮM CỎ,"Carp, amur",389,417,100,100 g phần ăn được,35.0
+fct2007:8030,8030,CÁ TRÊ,"Catfish, silurus, sheatfish, hito",390,418,100,100 g phần ăn được,40.0
+fct2007:8031,8031,CÁ TRÍCH,Herring,391,419,100,100 g phần ăn được,35.0
+fct2007:8032,8032,CÁ TRÔI,"Major carp, mud carp; cirrhina molitorella",392,420,100,100 g phần ăn được,27.6
+fct2007:8033,8033,CUA BỂ,"Crab, sea water",393,421,100,100 g phần ăn được,40.0
+fct2007:8034,8034,CUA ĐỒNG,"Crab, fresh water",394,422,100,100 g phần ăn được,69.0
+fct2007:8035,8035,GHẸ,Crab,395,423,100,100 g phần ăn được,68.0
+fct2007:8036,8036,HẢI SÂM,"Sea slug, sea cucumber",396,424,100,100 g phần ăn được,0.0
+fct2007:8037,8037,HẾN,Clam,397,425,100,100 g phần ăn được,82.0
+fct2007:8038,8038,LƯƠN,"Eel, silver - pike",398,426,100,100 g phần ăn được,35.0
+fct2007:8039,8039,MỰC KHÔ,"Dried cuttle fish, squid",399,427,100,100 g phần ăn được,4.0
+fct2007:8040,8040,MỰC TƯƠI,"Cuttle fish, raw (Squid)",400,428,100,100 g phần ăn được,22.0
+fct2007:8041,8041,ỐC BƯƠU,"Snail medium - size, edible",401,429,100,100 g phần ăn được,67.0
+fct2007:8042,8042,ỐC ĐÁ,"Marble snail, edible",402,430,100,100 g phần ăn được,80.0
+fct2007:8043,8043,ỐC NHỒI,"Snail large, edible",403,431,100,100 g phần ăn được,79.0
+fct2007:8044,8044,ỐC VẶN,Helix,404,432,100,100 g phần ăn được,70.0
+fct2007:8045,8045,"RẠM (MUỐI, ĐỒ)","Small sea - crab bicled, steamed",405,433,100,100 g phần ăn được,50.0
+fct2007:8046,8046,RẠM TƯƠI,Small sea - crab,406,434,100,100 g phần ăn được,50.0
+fct2007:8047,8047,RƯƠI,Tylorhynchus sinensis,407,435,100,100 g phần ăn được,5.0
+fct2007:8048,8048,SÒ,Oyster,408,436,100,100 g phần ăn được,80.0
+fct2007:8049,8049,TÉP GẠO,Tiny shrimp,409,437,100,100 g phần ăn được,8.0
+fct2007:8050,8050,TÉP KHÔ,"Tiny shrimp, dried",410,438,100,100 g phần ăn được,5.0
+fct2007:8051,8051,TÔM BIỂN,"Sea shrimp, sea-water shrimp",411,439,100,100 g phần ăn được,54.0
+fct2007:8052,8052,TÔM ĐỒNG,Fresh-water shrimp,412,440,100,100 g phần ăn được,10.0
+fct2007:8053,8053,TÔM KHÔ,"Shrimp, dried",413,441,100,100 g phần ăn được,5.0
+fct2007:8054,8054,TRAI,Manodonta,414,442,100,100 g phần ăn được,60.0
+fct2007:8055,8055,BÁNH PHỒNG TÔM RÁN,Deep fried shrimp paste,415,443,100,100 g phần ăn được,0.0
+fct2007:8056,8056,BÁNH PHỒNG TÔM SỐNG,Shrimp paste,416,444,100,100 g phần ăn được,0.0
+fct2007:8057,8057,BỘT CÁ,Fish flour with bones,417,445,100,100 g phần ăn được,0.0
+fct2007:8058,8058,RUỐC CÁ QUẢ,"Shredded snake-head fish, salted and dried",418,446,100,100 g phần ăn được,0.0
+fct2007:8059,8059,RUỐC TÔM,"Shredded shrimp, salted and dried",419,447,100,100 g phần ăn được,0.0
+fct2007:9001,9001,TRỨNG GÀ,"Hen egg, raw, whole",420,450,100,100 g phần ăn được,14.0
+fct2007:9002,9002,LÒNG ĐỎ TRỨNG GÀ,"Hen egg, yolk",421,451,100,100 g phần ăn được,0.0
+fct2007:9003,9003,LÒNG TRẮNG TRỨNG GÀ,"Hen egg, white",422,452,100,100 g phần ăn được,0.0
+fct2007:9004,9004,TRỨNG VỊT,"Duck egg, whole",423,453,100,100 g phần ăn được,12.0
+fct2007:9005,9005,LÒNG ĐỎ TRỨNG VỊT,"Duck egg, yolk",424,454,100,100 g phần ăn được,0.0
+fct2007:9006,9006,LÒNG TRẮNG TRỨNG VỊT,"Duck egg, white",425,455,100,100 g phần ăn được,0.0
+fct2007:9007,9007,TRỨNG CHIM CÚT,Quail egg,426,456,100,100 g phần ăn được,11.0
+fct2007:9008,9008,TRỨNG CÁ,Fish roe,427,457,100,100 g phần ăn được,0.0
+fct2007:9009,9009,TRỨNG CÁ MUỐI,"Fish caviar, black and red, granule",428,458,100,100 g phần ăn được,0.0
+fct2007:9010,9010,TRỨNG VỊT LỘN,"Duck egg, embryonated",429,459,100,100 g phần ăn được,12.0
+fct2007:9011,9011,BỘT TRỨNG,Chicken egg powder,430,460,100,100 g phần ăn được,0.0
+fct2007:10001,10001,SỮA BÒ TƯƠI,"Milk cow, fresh (fluid)",431,463,100,100 g phần ăn được,0.0
+fct2007:10002,10002,SỮA DÊ TƯƠI,"Milk goat's, whole",432,464,100,100 g phần ăn được,0.0
+fct2007:10003,10003,SỮA MẸ (SỮA NGƯỜI),"Breast milk (Human milk, whole).",433,465,100,100 g phần ăn được,0.0
+fct2007:10004,10004,SỮA CHUA (TỪ SỮA BÒ),Yogurt (whole milk),434,466,100,100 g phần ăn được,0.0
+fct2007:10005,10005,SỮA CHUA VỚT BÉO,"Yogurt, chocolate, nonfat milk",435,467,100,100 g phần ăn được,0.0
+fct2007:10006,10006,SỮA BỘT TOÀN PHẦN,"Milk powder, whole",436,468,100,100 g phần ăn được,0.0
+fct2007:10007,10007,SỮA BỘT TÁCH BÉO,Skimmed milk powder,437,469,100,100 g phần ăn được,0.0
+fct2007:10008,10008,SỮA ĐẶC CÓ ĐƯỜNG VIỆT NAM,"Milk condensed, sweetened",438,470,100,100 g phần ăn được,0.0
+fct2007:10009,10009,PHO MÁT,Cheese (whole fat),439,471,100,100 g phần ăn được,0.0
+fct2007:11001,11001,CHUỐI NƯỚC ĐƯỜNG,"Banana, canned, sweetened",440,474,100,100 g phần ăn được,0.0
+fct2007:11002,11002,DƯA CHUỘT HỘP,Cucumber (canned),441,475,100,100 g phần ăn được,0.0
+fct2007:11003,11003,DỨA HỘP,"Pineapple, canned, sweetened",442,476,100,100 g phần ăn được,0.0
+fct2007:11004,11004,LẠC CHAO DẦU,"Peanut, oil fried",443,477,100,100 g phần ăn được,0.0
+fct2007:11005,11005,MẮC COỌC NƯỚC ĐƯỜNG,Pyrus pachis in syrup,444,478,100,100 g phần ăn được,0.0
+fct2007:11006,11006,MẬN NƯỚC ĐƯỜNG,"Plum, canned, sweetened",445,479,100,100 g phần ăn được,10.0
+fct2007:11007,11007,MỨT BÍ NGÔ,Dried preserved squash,446,480,100,100 g phần ăn được,0.0
+fct2007:11008,11008,MỨT CAM CÓ VỎ,"Orange marmalade, jellies",447,481,100,100 g phần ăn được,0.0
+fct2007:11009,11009,MỨT CHUỐI,Banana jam,448,482,100,100 g phần ăn được,0.0
+fct2007:11010,11010,MỨT DỨA,Pineapple jam,449,483,100,100 g phần ăn được,0.0
+fct2007:11011,11011,MỨT ĐU ĐỦ,Papaya jam,450,484,100,100 g phần ăn được,0.0
+fct2007:11012,11012,NHÃN NƯỚC ĐƯỜNG,"Longan, canned, sweetened",451,485,100,100 g phần ăn được,0.0
+fct2007:11013,11013,NƯỚC DỨA HỘP,Pineapple juice,452,486,100,100 g phần ăn được,0.0
+fct2007:11014,11014,VẢI NƯỚC ĐƯỜNG,"Litchi, canned, sweetened",453,487,100,100 g phần ăn được,0.0
+fct2007:11015,11015,CÁ THU HỘP,"Mackerel, canned",454,488,100,100 g phần ăn được,0.0
+fct2007:11016,11016,CÁ TRÍCH HỘP,"Herring, canned",455,489,100,100 g phần ăn được,0.0
+fct2007:11017,11017,THỊT BÒ HỘP,"Beef, canned",456,490,100,100 g phần ăn được,0.0
+fct2007:11018,11018,THỊT GÀ HỘP,"Chicken, canned",457,491,100,100 g phần ăn được,0.0
+fct2007:11019,11019,THỊT LỢN HỘP,"Pork, canned",458,492,100,100 g phần ăn được,0.0
+fct2007:11020,11020,"THỊT LỢN, THỊT BÒ XAY HỘP","Pork and beef, minced canned",459,493,100,100 g phần ăn được,0.0
+fct2007:11021,11021,THỊT VỊT HẦM,"Duck, stewed meat",460,494,100,100 g phần ăn được,0.0
+fct2007:12001,12001,BÁNH BÍCH CỐT,Whole wheat rusk,461,497,100,100 g phần ăn được,0.0
+fct2007:12002,12002,BÁNH BÍCH QUY,Biscuits,462,498,100,100 g phần ăn được,0.0
+fct2007:12003,12003,BÁNH CHẢ,Sweet meat pie in lumps,463,499,100,100 g phần ăn được,0.0
+fct2007:12004,12004,BÁNH CON CÁ,"Small biscuits, fish figured",464,500,100,100 g phần ăn được,0.0
+fct2007:12005,12005,BÁNH ĐẬU XANH,Mungbean cake,465,501,100,100 g phần ăn được,0.0
+fct2007:12006,12006,BÁNH KEM XỐP,Wafers filled,466,502,100,100 g phần ăn được,0.0
+fct2007:12007,12007,BÁNH KHẢO CHAY,"Rice cake, plain",467,503,100,100 g phần ăn được,0.0
+fct2007:12008,12008,BÁNH QUẾ,Cinnamon waffle (roll),468,504,100,100 g phần ăn được,0.0
+fct2007:12009,12009,BÁNH SÔ CÔ LA,"Chocolate, filled",469,505,100,100 g phần ăn được,0.0
+fct2007:12010,12010,BÁNH THỎI SÔ CÔ LA,"Chocolate, sweet",470,506,100,100 g phần ăn được,0.0
+fct2007:12011,12011,BÁNH TRỨNG NHỆN,Small biscuit,471,507,100,100 g phần ăn được,0.0
+fct2007:12012,12012,BỘT CA CAO,Cocoa powder,472,508,100,100 g phần ăn được,0.0
+fct2007:12013,12013,ĐƯỜNG CÁT,Refined sugar,473,509,100,100 g phần ăn được,0.0
+fct2007:12014,12014,ĐƯỜNG KÍNH,Granulated sugar,474,510,100,100 g phần ăn được,0.0
+fct2007:12015,12015,KẸO BƠ CỨNG,"Toffee, sweets",475,511,100,100 g phần ăn được,0.0
+fct2007:12016,12016,KẸO CÀ PHÊ,Coffee sweets,476,512,100,100 g phần ăn được,0.0
+fct2007:12017,12017,KẸO CAM CHANH,"Sweets, caramel with citron, orange aroma",477,513,100,100 g phần ăn được,0.0
+fct2007:12018,12018,KẸO DỪA MỀM,Sweets with coconut aroma,478,514,100,100 g phần ăn được,0.0
+fct2007:12019,12019,KẸO DỨA MỀM,Pineapple sweets candy,479,515,100,100 g phần ăn được,0.0
+fct2007:12020,12020,KẸO LẠC,Peanut candy,480,516,100,100 g phần ăn được,0.0
+fct2007:12021,12021,KẸO PASTILLE (KẸO NGẬM BẠC HÀ),Menthol pastille,481,517,100,100 g phần ăn được,0.0
+fct2007:12022,12022,KẸO SÔ CÔ LA,Sweets with chocolate,482,518,100,100 g phần ăn được,0.0
+fct2007:12023,12023,KẸO SỮA,Sweets with milk,483,519,100,100 g phần ăn được,0.0
+fct2007:12024,12024,KẸO VỪNG VIÊN,Sesame candy,484,520,100,100 g phần ăn được,0.0
+fct2007:12025,12025,MẠCH NHA,Malt,485,521,100,100 g phần ăn được,0.0
+fct2007:12026,12026,MẬT ONG,Honey,486,522,100,100 g phần ăn được,0.0
+fct2007:12027,12027,MỨT LẠC,Peanut sugar (Jam),487,523,100,100 g phần ăn được,0.0
+fct2007:13001,13001,CARY BỘT,"Cari powder (Mix, turmeric, red pepper and other spices)",488,526,100,100 g phần ăn được,0.0
+fct2007:13002,13002,GỪNG KHÔ (BỘT),"Ginger root, dried powder",489,527,100,100 g phần ăn được,0.0
+fct2007:13003,13003,GỪNG TƯƠI,"Ginger root, fresh",490,528,100,100 g phần ăn được,10.0
+fct2007:13004,13004,HẠT TIÊU,"Peppercorn, seeds",491,529,100,100 g phần ăn được,0.0
+fct2007:13005,13005,MUỐI,Table salt,492,530,100,100 g phần ăn được,0.0
+fct2007:13006,13006,"NGHỆ KHÔ, BỘT","Turmeric rhizome, dried powder",493,531,100,100 g phần ăn được,0.0
+fct2007:13007,13007,NGHỆ TƯƠI,"Turmeric, rhizome, fresh",494,532,100,100 g phần ăn được,10.0
+fct2007:13008,13008,ỚT KHÔ BỘT,"Red pepper, dried powder",495,533,100,100 g phần ăn được,0.0
+fct2007:13009,13009,RIỀNG,"Alpinia root, fresh",496,534,100,100 g phần ăn được,10.0
+fct2007:13010,13010,MAGI,Soybean sauce,497,535,100,100 g phần ăn được,0.0
+fct2007:13011,13011,MẮM TÔM ĐẶC,Shrimp sauce concentrate,498,536,100,100 g phần ăn được,0.0
+fct2007:13012,13012,MẮM TÔM LOÃNG,"Shrimp sauce, diluted",499,537,100,100 g phần ăn được,0.0
+fct2007:13013,13013,MẮM TÉP CHUA,"Tiny shrimp, sour sauce",500,538,100,100 g phần ăn được,0.0
+fct2007:13014,13014,NƯỚC MẮM CÁ (LOẠI ĐẶC BIỆT),Fish - sauce (super quality).,501,539,100,100 g phần ăn được,0.0
+fct2007:13015,13015,NƯỚC MẮM CÁ LOẠI I,"Fish sauce, grade I",502,540,100,100 g phần ăn được,0.0
+fct2007:13016,13016,NƯỚC MẮM LOẠI II,"Fish sauce, grade II",503,541,100,100 g phần ăn được,0.0
+fct2007:13017,13017,NƯỚC MẮM CÁ,"Fish sauce, ready-to-serve",504,542,100,100 g phần ăn được,0.0
+fct2007:13018,13018,NƯỚC MẮM CÔ,"Fish sauce, concentrated",505,543,100,100 g phần ăn được,0.0
+fct2007:13019,13019,TƯƠNG NGÔ,Soybean sauce with rice and maize,506,544,100,100 g phần ăn được,0.0
+fct2007:13020,13020,TƯƠNG NẾP,Soybean sauce with glutinous rice,507,545,100,100 g phần ăn được,0.0
+fct2007:13021,13021,TƯƠNG ỚT,Red pepper sauce concentrate,508,546,100,100 g phần ăn được,0.0
+fct2007:13022,13022,XÌ DẦU,Soybean sauce,509,547,100,100 g phần ăn được,0.0
+fct2007:13023,13023,SỐT MAYONNAISE,Mayonnaise,510,548,100,100 g phần ăn được,0.0
+fct2007:14001,14001,"BIA (CỒN: 4,5 G)","Beer light (4,5 % Alcohol)",511,551,100,100 g phần ăn được,0.0
+fct2007:14002,14002,CÔ NHẮC (CỒN 32 G),Cognac,512,552,100,100 g phần ăn được,0.0
+fct2007:14003,14003,CỐC TAI (CỒN 13 G),"Cocktail, vermouth sweet",513,553,100,100 g phần ăn được,0.0
+fct2007:14004,14004,COCA COLA,Coca Cola,514,554,100,100 g phần ăn được,0.0
+fct2007:14005,14005,NƯỚC CAM TƯƠI,"Orange juice, fresh",515,555,100,100 g phần ăn được,0.0
+fct2007:14006,14006,NƯỚC DỪA NON TƯƠI,"Coconut milk, immature",516,556,100,100 g phần ăn được,0.0
+fct2007:14007,14007,NƯỚC ÉP CÀ CHUA,Tomato juice,517,557,100,100 g phần ăn được,0.0
+fct2007:14008,14008,NƯỚC KHOÁNG,Mineral water,518,558,100,100 g phần ăn được,0.0
+fct2007:14009,14009,NƯỚC QUÍT TƯƠI,Mandarins juice (fresh),519,559,100,100 g phần ăn được,0.0
+fct2007:14010,14010,"RƯỢU CAM, CHANH (CỒN 24,2 G)","Liqueur, orange flavor",520,560,100,100 g phần ăn được,0.0
+fct2007:14011,14011,RƯỢU NẾP (80G/ 24 ML) (CỒN 5 G),Rice glutinous (Alcohol fermentation rice 80 g water 24 ml),521,561,100,100 g phần ăn được,0.0
+fct2007:14012,14012,RƯỢU TRẮNG (CỒN 39 G),Vodka,522,562,100,100 g phần ăn được,0.0
+fct2007:14013,14013,"RƯỢU VANG ĐỎ (CỒN 9,5 G)",Red wine,523,563,100,100 g phần ăn được,0.0
+fct2007:14014,14014,"RƯỢU VANG TRẮNG (CỒN 9,5 G)",White wine,524,564,100,100 g phần ăn được,0.0
+fct2007:14015,14015,RƯỢU VANG TRẮNG NGỌT (CỒN 10.2 G),"White wine, sweet",525,565,100,100 g phần ăn được,0.0
+fct2007:14016,14016,"RƯỢU WHISKY (CỒN 35,2 G)",Whisky liqueur,526,566,100,100 g phần ăn được,0.0

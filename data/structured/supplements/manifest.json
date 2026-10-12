@@ -1,0 +1,887 @@
+{
+  "schema_version": 1,
+  "release": "2026-10-08",
+  "built_at": "2026-10-08T09:51:30.660871+00:00",
+  "files": {
+    "records.json": "b9a53dba0a2918aa4f8ed1b193770f525f1e1c95ce71d737a15fb595e8a45047"
+  },
+  "knowledge_sources": [
+    "cdc-carb-counting",
+    "cdc-carb-choices",
+    "cdc-meal-planning",
+    "cdc-eating-out",
+    "cdc-dessert",
+    "cdc-holidays",
+    "cdc-shift-work",
+    "nin-labels",
+    "binhchanh-plate",
+    "nin-balanced-meals",
+    "fda-sweeteners",
+    "sydney-about-gi",
+    "ada-plate",
+    "ada-grocery",
+    "fda-polyols",
+    "ada-vegetarian-plate",
+    "ada-protein",
+    "ada-vegan-meals",
+    "nin-cooked-weight-reference-2017",
+    "gi-vietnam-paper-2001",
+    "usda-cooking-yields",
+    "usda-retention"
+  ],
+  "domains": {
+    "label": 54,
+    "portion": 220,
+    "yield": 349,
+    "gi": 4393,
+    "carb_choice": 85,
+    "recipe": 54,
+    "retention": 270
+  },
+  "usable_labels": 42,
+  "source_decisions": [
+    {
+      "source_id": "ada-grocery",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "ada-plate",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "ada-protein",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "ada-vegan-meals",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "ada-vegetarian-plate",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "baclieu-diet",
+      "deployment": "reference_only",
+      "reason": "PDF có nội dung chẩn đoán, định lượng cho cá nhân và mục giới thiệu sản phẩm ổn định đường huyết; chưa duyệt làm bằng chứng trả lời. Không đưa toàn văn vào index."
+    },
+    {
+      "source_id": "binhchanh-plate",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-carb-choices",
+      "deployment": "knowledge_and_structured_tool",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-carb-counting",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-dessert",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-eating-out",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-holidays",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-hypoglycemia",
+      "deployment": "reference_only",
+      "reason": "Tài liệu rà soát nhánh an toàn; chưa triển khai hướng dẫn xử trí hạ đường huyết trong chat dinh dưỡng."
+    },
+    {
+      "source_id": "cdc-meal-planning",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "cdc-recipes",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "cdc-shift-work",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "fda-polyols",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "fda-sweeteners",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "gi-vietnam-paper-2001",
+      "deployment": "knowledge_and_structured_tool",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "mcm-product-01",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-10",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-11",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-12",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-13",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-14",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-37",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-39",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcm-product-40",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "mcmilk-disclosures",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "niddk-hypoglycemia",
+      "deployment": "reference_only",
+      "reason": "Tài liệu rà soát nhánh an toàn; chưa triển khai hướng dẫn xử trí hạ đường huyết trong chat dinh dưỡng."
+    },
+    {
+      "source_id": "nin-balanced-meals",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "nin-cooked-weight-reference-2017",
+      "deployment": "knowledge_and_structured_tool",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "nin-labels",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "nin-weight-reference-bibliography",
+      "deployment": "reference_only",
+      "reason": "Thông tin xuất bản xác minh nguồn sách NIN; không phải bằng chứng dinh dưỡng độc lập."
+    },
+    {
+      "source_id": "sydney-about-gi",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "sydney-gi-search",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-disclosures",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "th-milk-natural-1l",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "th-product-banh-gao-mozzarella-xot-pho-mai-th-true-food-300-g",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Trang TH true FOOD có số đạm/carb khác THmilk và vẫn không nêu rõ cơ sở lượng. Hai nguồn mâu thuẫn; HTTP tải trang đối chiếu bị 403, lưu trích đoạn chọn lọc đã đọc, không gọi là HTML đầy đủ."
+    },
+    {
+      "source_id": "th-product-banh-gao-xot-pho-mai-th-true-food-300-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-catalog",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "th-product-chao-tuoi-ga-chan-chi-hat-sen-240-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-chao-tuoi-nhung-huou-nam-huong-240-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-chao-tuoi-suon-to-yen-240-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-chao-tuoi-thit-ga-rau-cu-th-true-food-150-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-chao-tuoi-thit-heo-bi-do-th-true-food-150-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-gio-lua-th-true-food-250-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-kem-hop-th-true-ice-cream-tra-xanh-matcha-tu-nhien-180g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-kem-hop-th-true-ice-cream-tra-xanh-matchatu-nhien-50-g",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-nuoc-cam-tu-nhien-9994-nuoc-cam-ep-th-true-juice",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-nuoc-tao-tu-nhien-9996-nuoc-tao-ep-th-true-juice",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-nuoc-uong-sua-trai-cay-cam-tu-nhien-th-true-juice-milk",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-nuoc-uong-sua-trai-cay-mang-cau-th-true-juice-milk",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-an-co-duong",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-an-dua-tu-nhien",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-an-it-beo",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-an-khong-duong",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-an-nha-dam-tu-nhien",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-an-th-true-yogurt-it-duong",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-chua-kem-ngay-huong-vanilla-tu-nhien-th-true-yogurt-creamy",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Giữ để kiểm kê, loại khỏi phạm vi khuyến nghị cho người trưởng thành."
+    },
+    {
+      "source_id": "th-product-sua-chua-ngu-coc-ca-cao-tu-nhien-th-true-yogurt",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "THmilk ghi đường tổng 12,2 mg. Danh mục sữa chua hiện tại của TH true mart không có đúng sản phẩm cacao; chưa tìm được nhãn chính hãng đối chiếu đơn vị."
+    },
+    {
+      "source_id": "th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-cam-tu-nhien-110ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Giữ để kiểm kê, loại khỏi phạm vi khuyến nghị cho người trưởng thành."
+    },
+    {
+      "source_id": "th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-chuoi-lua-mach-tu-nhien-110ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Giữ để kiểm kê, loại khỏi phạm vi khuyến nghị cho người trưởng thành."
+    },
+    {
+      "source_id": "th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-tu-nhien-110ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Giữ để kiểm kê, loại khỏi phạm vi khuyến nghị cho người trưởng thành."
+    },
+    {
+      "source_id": "th-product-sua-hat-hanh-nhan-th-true-nut-180ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-hat-macca-th-true-nut-180-ml",
+      "deployment": "reference_only",
+      "reason": "Snapshot cũ có số natri cần sửa; công cụ dùng bản THMart được rà soát và ghi nguồn riêng, không dùng số cũ."
+    },
+    {
+      "source_id": "th-product-sua-hat-oc-cho-th-true-nut-180-ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-hat-va-gao-lut-do-th-true-nut-180-ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-bo-sung-ngu-coc-th-true-milk-light-meal-180ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-co-duong-1-lit",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-it-duong-1-lit",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-nguyen-chat-180ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-nguyen-chat-th-true-milk-110-ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-110ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-180ml",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-tra-dao-tu-nhien-th-true-tea",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Website TH true mart hiện tại vẫn ghi Natri 10 g. Nguồn thứ hai lặp lại lỗi không chứng minh 10 mg; cần nhãn/công bố đúng sản phẩm."
+    },
+    {
+      "source_id": "th-product-tra-huong-dao-tu-nhien-khong-duong-th-true-tea-350-ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Bảng THmilk thiếu cơ sở tính. Danh mục trà TH true mart hiện tại không liệt kê đúng hai bản không đường; URL cũ trà đào trả 404. Không dùng tên 350 ml làm cơ sở bảng dinh dưỡng."
+    },
+    {
+      "source_id": "th-product-tra-o-long-tu-nhien-th-true-tea",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "th-product-tra-oi-tu-nhien-th-true-tea-350-ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Website TH true mart hiện tại vẫn ghi Natri 10 g. Nguồn thứ hai lặp lại lỗi không chứng minh 10 mg; cần nhãn/công bố đúng sản phẩm."
+    },
+    {
+      "source_id": "th-product-tra-tac-tu-nhien-th-true-tea-350-ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Website TH true mart hiện tại vẫn ghi Natri 10 g. Nguồn thứ hai lặp lại lỗi không chứng minh 10 mg; cần nhãn/công bố đúng sản phẩm."
+    },
+    {
+      "source_id": "th-product-tra-vai-tu-nhien-th-true-tea",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Website TH true mart hiện tại vẫn ghi Natri 10 g. Nguồn thứ hai lặp lại lỗi không chứng minh 10 mg; cần nhãn/công bố đúng sản phẩm."
+    },
+    {
+      "source_id": "th-product-tra-xanh-tu-nhien-khong-duong-th-true-tea-350-ml",
+      "deployment": "blocked_label_metadata_only",
+      "reason": "Bảng THmilk thiếu cơ sở tính. Danh mục trà TH true mart hiện tại không liệt kê đúng hai bản không đường; URL cũ trà đào trả 404. Không dùng tên 350 ml làm cơ sở bảng dinh dưỡng."
+    },
+    {
+      "source_id": "th-product-tra-xanh-vi-chanh-tu-nhien-th-true-tea",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "thfood-mozzarella-review",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-category-review-bua-an-tien-loi-th-true-food",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-category-review-sua-chua-an-tu-nhien",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-category-review-sua-hat",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-category-review-tra-tu-nhien-th-true-tea",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-dao-current-review",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-home-review",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-macca-current-review",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "thmart-oi-current-review",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-tac-current-review",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "thmart-vai-current-review",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "usda-cooking-yields",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "usda-documentation",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "usda-downloads",
+      "deployment": "reference_only",
+      "reason": "Giữ nguồn gốc; danh mục, metadata, hoặc nội dung chưa chọn để trả lời."
+    },
+    {
+      "source_id": "usda-retention",
+      "deployment": "knowledge_index",
+      "reason": "Đoạn chọn lọc có locator và bản diễn đạt tiếng Việt."
+    },
+    {
+      "source_id": "vietduc-meal-decision-5267",
+      "deployment": "reference_only",
+      "reason": "Quyết định hành chính đi kèm bộ quy cách suất ăn; không dùng làm số dinh dưỡng hoặc khối lượng cân."
+    },
+    {
+      "source_id": "vietduc-meal-specifications-2024",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "usda-cooking-yields-csv",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    },
+    {
+      "source_id": "usda-retention-txt",
+      "deployment": "structured_tool",
+      "reason": "Dữ liệu bảng truy xuất theo bản ghi/đơn vị, không vector hóa toàn bảng."
+    }
+  ],
+  "source_collection_manifest_sha256": "5a72981309cc85916e781f14d9bfbe4f8b92481528e633ac4a2993b607495b1b",
+  "sources": {
+    "ada-grocery": {
+      "raw_file": "raw/ada-grocery.pdf",
+      "sha256": "0b5739123110a18ea86245da50d62ec7e714541e6e9421ca46ae28b750e77103"
+    },
+    "ada-plate": {
+      "raw_file": "raw/ada-plate.pdf",
+      "sha256": "b16ec89b39bb1ee4560ed4a37b36768ffd191f4686d942372f2d1a2e8f4c6040"
+    },
+    "ada-protein": {
+      "raw_file": "raw/ada-protein.html",
+      "sha256": "0f5f6511732b55dd64e4f77f82eb9044eef6a59e69074062fdba6a7cb4a9fb14"
+    },
+    "ada-vegan-meals": {
+      "raw_file": "raw/ada-vegan-meals.html",
+      "sha256": "64d163f0168833bce8baeb06fca15da14a264af4127c2d1ac1615a7846d87162"
+    },
+    "ada-vegetarian-plate": {
+      "raw_file": "raw/ada-vegetarian-plate.pdf",
+      "sha256": "b8bfbc1583a75998aa4dc5059a7bd3b4112ac86e4bf679b6a7133bdca579a0c5"
+    },
+    "binhchanh-plate": {
+      "raw_file": "raw/binhchanh-plate.html",
+      "sha256": "a40bd77bb7c81af7dfec591fa945d8dc265cd1f590da65f90047f419d6a3bf31"
+    },
+    "cdc-carb-choices": {
+      "raw_file": "raw/cdc-carb-choices.selected-excerpts.en.json",
+      "sha256": "2c2ee2f96056bf07628525ea90276ce81307bd6b369e5a1784af6f6a5b7840d1"
+    },
+    "cdc-carb-counting": {
+      "raw_file": "raw/cdc-carb-counting.selected-excerpts.en.json",
+      "sha256": "b18975162e1cdd6ecb394275c91e8c60e4a9a529b3e9e89795464680f10195dd"
+    },
+    "cdc-dessert": {
+      "raw_file": "raw/cdc-dessert.selected-excerpts.en.json",
+      "sha256": "7320e0f0507000e3ecb925080cdf363fb6767c3339a5c74efe19e6e4873b0379"
+    },
+    "cdc-eating-out": {
+      "raw_file": "raw/cdc-eating-out.selected-excerpts.en.json",
+      "sha256": "18b366d51105fcad1dde2da67b97852a3948c144c10345d755cdb9952d146a52"
+    },
+    "cdc-holidays": {
+      "raw_file": "raw/cdc-holidays.selected-excerpts.en.json",
+      "sha256": "1993abb39bd628eb3d0f7f398be76244a705333cc1b20cd006442ae6946d4e29"
+    },
+    "cdc-meal-planning": {
+      "raw_file": "raw/cdc-meal-planning.selected-excerpts.en.json",
+      "sha256": "ad7175a5a8e436792f84b8ddfb5f34acb52245a680eb8e46ad8d1a08550df4e1"
+    },
+    "cdc-recipes": {
+      "raw_file": "raw/cdc-recipes.pdf",
+      "sha256": "60ab9033500cc0d72b72ab72a07c47c9d627862f1808171d95db192447fb71ad"
+    },
+    "cdc-shift-work": {
+      "raw_file": "raw/cdc-shift-work.selected-excerpts.en.json",
+      "sha256": "f15fe5b62b49f8c4ce6e137ff6e2b4785f77d84063e70c8be9c0a2b157f09514"
+    },
+    "fda-polyols": {
+      "raw_file": "raw/fda-polyols.pdf",
+      "sha256": "3a95a515276f1dc1eaffbc12fe176586b1c957d113a97b17afa774d98bab2d12"
+    },
+    "fda-sweeteners": {
+      "raw_file": "raw/fda-sweeteners.html",
+      "sha256": "d97ac5c62ca1cc744a0048eeedc786c913606b2784f73bcb6506378865754a85"
+    },
+    "gi-vietnam-paper-2001": {
+      "raw_file": "raw/gi-vietnam-paper-2001.pdf",
+      "sha256": "f2ae2267dd475eef94301ecc56116b13ff3b503453081a32d0a4194e8717679e"
+    },
+    "mcm-product-01": {
+      "raw_file": "raw/mcm-product-01.pdf",
+      "sha256": "60d61e2b2d960859a302479d612363b4fadd64c635babe1f6e6620b9bcdd605a"
+    },
+    "mcm-product-10": {
+      "raw_file": "raw/mcm-product-10.pdf",
+      "sha256": "2715cffa24088bf23c23c3aaa6ec9eed87340ec58576585cf981615765ffe438"
+    },
+    "mcm-product-11": {
+      "raw_file": "raw/mcm-product-11.pdf",
+      "sha256": "658f670abbfec60b9102565622fae13e17849c4e50d94ffa9979e3b75cdb6718"
+    },
+    "mcm-product-12": {
+      "raw_file": "raw/mcm-product-12.pdf",
+      "sha256": "b7d5f6711abde286753b125ea3d4b459cb756b0b70e443d99701611f8e6e0cde"
+    },
+    "mcm-product-13": {
+      "raw_file": "raw/mcm-product-13.pdf",
+      "sha256": "584a90e4f556bcba6231b62350286e6e22d1ceed62701be6a441bb93ec2a864c"
+    },
+    "mcm-product-14": {
+      "raw_file": "raw/mcm-product-14.pdf",
+      "sha256": "aa50ef823489d3edbf35f4a23d4e8e3c54ff5a2b70e823378b73fe6f83ef30d0"
+    },
+    "mcm-product-37": {
+      "raw_file": "raw/mcm-product-37.pdf",
+      "sha256": "5e568979e3741962c1301cd375b0505834c165999d32c06e435f595f3cca3ea8"
+    },
+    "mcm-product-39": {
+      "raw_file": "raw/mcm-product-39.pdf",
+      "sha256": "7f6c02fb4974a22299a74dbc26315870da580542d4547fff116b9a36cef01036"
+    },
+    "mcm-product-40": {
+      "raw_file": "raw/mcm-product-40.pdf",
+      "sha256": "5455665603322cd1df7bd89faf16fd27015497a146f4f0812a1ef13f00524e80"
+    },
+    "nin-balanced-meals": {
+      "raw_file": "raw/nin-balanced-meals.html",
+      "sha256": "4e460d71ebbe3891928579d4988e3aa2116359f5af4b5769d4010a31a34556d2"
+    },
+    "nin-cooked-weight-reference-2017": {
+      "raw_file": "raw/nin-cooked-weight-reference-2017.pdf",
+      "sha256": "ee855166868dfb82e8eaeac9dfb0895308a4b832a23ceb41e6a5ffa6da781ba1"
+    },
+    "nin-labels": {
+      "raw_file": "raw/nin-labels.html",
+      "sha256": "4926fe505b779d4b82f8b739ed470b5fc50125512300fbde4e953522c7b27f4f"
+    },
+    "sydney-about-gi": {
+      "raw_file": "raw/sydney-about-gi.html",
+      "sha256": "c92f72dc41319cd9e9e82bbf3b1493d81a01cf1bb18523c25d137480490827f2"
+    },
+    "sydney-gi-search": {
+      "raw_file": "raw/sydney-gi-search.html",
+      "sha256": "e00b06af1b3337f9c134d7073bb25b4bbfec47b46938ccebc2773c6bf37abda1"
+    },
+    "th-product-banh-gao-mozzarella-xot-pho-mai-th-true-food-300-g": {
+      "raw_file": "raw/th-product-banh-gao-mozzarella-xot-pho-mai-th-true-food-300-g.html",
+      "sha256": "090e9cda1a63162a64ce00ed48539b4bcf9fa59c14781f28f03947d576eca81b"
+    },
+    "th-product-banh-gao-xot-pho-mai-th-true-food-300-g": {
+      "raw_file": "raw/th-product-banh-gao-xot-pho-mai-th-true-food-300-g.html",
+      "sha256": "8acfcdeae92be4e522947e899ff05dacca61cc40e7c53a8c181cffcdf32f1bf4"
+    },
+    "th-product-chao-tuoi-ga-chan-chi-hat-sen-240-g": {
+      "raw_file": "raw/th-product-chao-tuoi-ga-chan-chi-hat-sen-240-g.html",
+      "sha256": "58ba63fc5764de32e31432a7d0b5f66d04c23857087a5d09031ec5060b729f54"
+    },
+    "th-product-chao-tuoi-nhung-huou-nam-huong-240-g": {
+      "raw_file": "raw/th-product-chao-tuoi-nhung-huou-nam-huong-240-g.html",
+      "sha256": "fb0f9bbbf9a5b00fa782d430d072ad2283548f8772be98d376a6b12f183e8168"
+    },
+    "th-product-chao-tuoi-suon-to-yen-240-g": {
+      "raw_file": "raw/th-product-chao-tuoi-suon-to-yen-240-g.html",
+      "sha256": "f37276d013343a3e9e6329f7f136174baba3c42f64ff958043868a96b26e2d03"
+    },
+    "th-product-chao-tuoi-thit-ga-rau-cu-th-true-food-150-g": {
+      "raw_file": "raw/th-product-chao-tuoi-thit-ga-rau-cu-th-true-food-150-g.html",
+      "sha256": "443336357a2db4b46ce5860270115b5b0873a0b237d3b949c71c4d586f917152"
+    },
+    "th-product-chao-tuoi-thit-heo-bi-do-th-true-food-150-g": {
+      "raw_file": "raw/th-product-chao-tuoi-thit-heo-bi-do-th-true-food-150-g.html",
+      "sha256": "ce099e6e5a2c0d5f486b4d695ff5e875ddc9d30673cfa5350e5809b7ce2e513d"
+    },
+    "th-product-gio-lua-th-true-food-250-g": {
+      "raw_file": "raw/th-product-gio-lua-th-true-food-250-g.html",
+      "sha256": "03cd915374fc43282abe9a0da95351d89242094634a5f0fa2fa47795604825af"
+    },
+    "th-product-kem-hop-th-true-ice-cream-tra-xanh-matcha-tu-nhien-180g": {
+      "raw_file": "raw/th-product-kem-hop-th-true-ice-cream-tra-xanh-matcha-tu-nhien-180g.html",
+      "sha256": "e5f11ec64c3936306f55e681c66b4f455a43845291ad2dffe998c4ee9b3abbd9"
+    },
+    "th-product-kem-hop-th-true-ice-cream-tra-xanh-matchatu-nhien-50-g": {
+      "raw_file": "raw/th-product-kem-hop-th-true-ice-cream-tra-xanh-matchatu-nhien-50-g.html",
+      "sha256": "c6e119df15c3fb8c3f654d029e1764ce254bd4f2364a552e42624bfa04c82ada"
+    },
+    "th-product-nuoc-cam-tu-nhien-9994-nuoc-cam-ep-th-true-juice": {
+      "raw_file": "raw/th-product-nuoc-cam-tu-nhien-9994-nuoc-cam-ep-th-true-juice.html",
+      "sha256": "cc1e508849d43f4bd79e622dea250843070489353c0c7386921a086986cb7d09"
+    },
+    "th-product-nuoc-tao-tu-nhien-9996-nuoc-tao-ep-th-true-juice": {
+      "raw_file": "raw/th-product-nuoc-tao-tu-nhien-9996-nuoc-tao-ep-th-true-juice.html",
+      "sha256": "71ecbfd1c98f8a4d488c057f8a6b22ed13e047f3f52c99f8fd767af58b6a2d0f"
+    },
+    "th-product-nuoc-uong-sua-trai-cay-cam-tu-nhien-th-true-juice-milk": {
+      "raw_file": "raw/th-product-nuoc-uong-sua-trai-cay-cam-tu-nhien-th-true-juice-milk.html",
+      "sha256": "f2d620616a94827c02b493790554f95b74cce4402a1ed28f4d7e49dad7653178"
+    },
+    "th-product-nuoc-uong-sua-trai-cay-mang-cau-th-true-juice-milk": {
+      "raw_file": "raw/th-product-nuoc-uong-sua-trai-cay-mang-cau-th-true-juice-milk.html",
+      "sha256": "4c33804226c1c564270c921b0a461f8562e7faabe15a5335f383ea52e06d11d2"
+    },
+    "th-product-sua-chua-an-co-duong": {
+      "raw_file": "raw/th-product-sua-chua-an-co-duong.html",
+      "sha256": "6b449ae588eb166530ad97f7cede7bbfd6b93fd2d09e42dc45ffcd694f430322"
+    },
+    "th-product-sua-chua-an-dua-tu-nhien": {
+      "raw_file": "raw/th-product-sua-chua-an-dua-tu-nhien.html",
+      "sha256": "d392abffe850afdb58dbee4f8b4d139adbbcb208e90c17ae2358b2383e18f816"
+    },
+    "th-product-sua-chua-an-it-beo": {
+      "raw_file": "raw/th-product-sua-chua-an-it-beo.html",
+      "sha256": "7db4a6d46b2b3133dc0396f185c64119f475b92f29e66c777ec9e70fc52dc6a5"
+    },
+    "th-product-sua-chua-an-khong-duong": {
+      "raw_file": "raw/th-product-sua-chua-an-khong-duong.html",
+      "sha256": "69cd7f17e1faa419f19097db80bf9e1427a669ba9870f0852e3877c216a56cf0"
+    },
+    "th-product-sua-chua-an-nha-dam-tu-nhien": {
+      "raw_file": "raw/th-product-sua-chua-an-nha-dam-tu-nhien.html",
+      "sha256": "8a6abedcade15646f643d3c2f57fc0ee9753103a9eadc603591b559c2c0ceae2"
+    },
+    "th-product-sua-chua-an-th-true-yogurt-it-duong": {
+      "raw_file": "raw/th-product-sua-chua-an-th-true-yogurt-it-duong.html",
+      "sha256": "50dc19e752c2f36baff4d2f8c18eae5d46aca8a31ba863ff3ec1bc6925210761"
+    },
+    "th-product-sua-chua-kem-ngay-huong-vanilla-tu-nhien-th-true-yogurt-creamy": {
+      "raw_file": "raw/th-product-sua-chua-kem-ngay-huong-vanilla-tu-nhien-th-true-yogurt-creamy.html",
+      "sha256": "6f2741ad27d3bce1014eba78baa11b790ec9a881b635b88e4ab663ff779d2f6e"
+    },
+    "th-product-sua-chua-ngu-coc-ca-cao-tu-nhien-th-true-yogurt": {
+      "raw_file": "raw/th-product-sua-chua-ngu-coc-ca-cao-tu-nhien-th-true-yogurt.html",
+      "sha256": "a997dfeda9e64c521d1ace29ad1596274c344fad7dc3c8d56adb6394d5fcd35f"
+    },
+    "th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-cam-tu-nhien-110ml": {
+      "raw_file": "raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-cam-tu-nhien-110ml.html",
+      "sha256": "f82df77be8b1fea59b865c4fc99f053267c12f794e3352e0dac663aa574f6ed3"
+    },
+    "th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-chuoi-lua-mach-tu-nhien-110ml": {
+      "raw_file": "raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-chuoi-lua-mach-tu-nhien-110ml.html",
+      "sha256": "d3f19b780fc278788c2ad488dd3e98dc31729a413a750e61e5d6dce5d65c99f6"
+    },
+    "th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-tu-nhien-110ml": {
+      "raw_file": "raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-tu-nhien-110ml.html",
+      "sha256": "c419cb55641701ec415063b4df77f8dec7d63397bc0336aef3ad616ac109898f"
+    },
+    "th-product-sua-hat-hanh-nhan-th-true-nut-180ml": {
+      "raw_file": "raw/th-product-sua-hat-hanh-nhan-th-true-nut-180ml.html",
+      "sha256": "dc03eefe1275de436c755d4dbd78728ad3a57e70130f92bf72eff41597b1014d"
+    },
+    "th-product-sua-hat-oc-cho-th-true-nut-180-ml": {
+      "raw_file": "raw/th-product-sua-hat-oc-cho-th-true-nut-180-ml.html",
+      "sha256": "1bf841d9c3b7f65b4353893618a542d06a1ed4ef9957c33fe278244f55c30b1d"
+    },
+    "th-product-sua-hat-va-gao-lut-do-th-true-nut-180-ml": {
+      "raw_file": "raw/th-product-sua-hat-va-gao-lut-do-th-true-nut-180-ml.html",
+      "sha256": "01abb569395a836433d18b58ae7b7f5f7e33333d8b47b7a3cdf4be7b2f799489"
+    },
+    "th-product-sua-tuoi-bo-sung-ngu-coc-th-true-milk-light-meal-180ml": {
+      "raw_file": "raw/th-product-sua-tuoi-bo-sung-ngu-coc-th-true-milk-light-meal-180ml.html",
+      "sha256": "51be60cec3095370130d7ab2a1f1f6e1489d341f995e02aac439795420b12db3"
+    },
+    "th-product-sua-tuoi-tiet-trung-co-duong-1-lit": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-co-duong-1-lit.html",
+      "sha256": "69b288af3164fa18f55ab7e680732c25e2e40b650bc2f678a579113a2be49b46"
+    },
+    "th-product-sua-tuoi-tiet-trung-it-duong-1-lit": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-it-duong-1-lit.html",
+      "sha256": "172ab1240f552c188e05600f6ac223b778d55c115e1027815ac437d7aa5cd694"
+    },
+    "th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit.html",
+      "sha256": "0e2c2b0977133e388f287737cc093e45daa6287cfd36bd469c1f25c1448ab11d"
+    },
+    "th-product-sua-tuoi-tiet-trung-nguyen-chat-180ml": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-180ml.html",
+      "sha256": "55c148371d2ed0064edc448cbcc93069499a2d7454a748faca74ab21a45656df"
+    },
+    "th-product-sua-tuoi-tiet-trung-nguyen-chat-th-true-milk-110-ml": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-th-true-milk-110-ml.html",
+      "sha256": "c0d1176ee4a67ace4c1a22e9f01de50cdcf8d4d7c1478ff65fe486175fc4fddb"
+    },
+    "th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-110ml": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-110ml.html",
+      "sha256": "3cddfdaa1a1cb1baa5db94a8670bbf1c764497892f9ca13e5ba5610247c44db0"
+    },
+    "th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-180ml": {
+      "raw_file": "raw/th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-180ml.html",
+      "sha256": "3d69bffd99491a6966210d25fe212c4f6549fe6109761e6735b36bf1f6f8f48d"
+    },
+    "th-product-tra-dao-tu-nhien-th-true-tea": {
+      "raw_file": "raw/th-product-tra-dao-tu-nhien-th-true-tea.html",
+      "sha256": "a909ffb80878cc50916f33452f9e2d3db231338c21a5f742f2ae2e5c6a8103ec"
+    },
+    "th-product-tra-huong-dao-tu-nhien-khong-duong-th-true-tea-350-ml": {
+      "raw_file": "raw/th-product-tra-huong-dao-tu-nhien-khong-duong-th-true-tea-350-ml.html",
+      "sha256": "ef623074351aacc1c559085ada6ac000164016d46f4b451acfac17dd4aabb30e"
+    },
+    "th-product-tra-o-long-tu-nhien-th-true-tea": {
+      "raw_file": "raw/th-product-tra-o-long-tu-nhien-th-true-tea.html",
+      "sha256": "ff7f9e6e9a7728bbb90d38b1c828cd02be82e643bd9da96a5ba6955367ad7081"
+    },
+    "th-product-tra-oi-tu-nhien-th-true-tea-350-ml": {
+      "raw_file": "raw/th-product-tra-oi-tu-nhien-th-true-tea-350-ml.html",
+      "sha256": "f486b6b9262a3241700717ca1db08a2a9a9e7ff7040c6f2cc0d01e5ed72c9989"
+    },
+    "th-product-tra-tac-tu-nhien-th-true-tea-350-ml": {
+      "raw_file": "raw/th-product-tra-tac-tu-nhien-th-true-tea-350-ml.html",
+      "sha256": "9e82d2b16b3218ee84f1f8a3b488ff9275dc3af835c018665e069c215eeb68d3"
+    },
+    "th-product-tra-vai-tu-nhien-th-true-tea": {
+      "raw_file": "raw/th-product-tra-vai-tu-nhien-th-true-tea.html",
+      "sha256": "0553b836387ce440ab58b3703baf76ffe2db19147264e2b15bb971baa579bc8a"
+    },
+    "th-product-tra-xanh-tu-nhien-khong-duong-th-true-tea-350-ml": {
+      "raw_file": "raw/th-product-tra-xanh-tu-nhien-khong-duong-th-true-tea-350-ml.html",
+      "sha256": "811d063f0ffaef00588c113a6821671c2feeda1aed3032a1c2a2fa92741aaf20"
+    },
+    "th-product-tra-xanh-vi-chanh-tu-nhien-th-true-tea": {
+      "raw_file": "raw/th-product-tra-xanh-vi-chanh-tu-nhien-th-true-tea.html",
+      "sha256": "3bc77e82d5cd2a6995868edc2d5370c4342f06e2aa8c2d9b55722fec263b8dca"
+    },
+    "thmart-macca-current-review": {
+      "raw_file": "raw/thmart-macca-current-review.html",
+      "sha256": "17cd6c62b98978f823ec80515e0b1b410cf847240f5e45faf481051aa2506453"
+    },
+    "usda-cooking-yields": {
+      "raw_file": "raw/usda-cooking-yields.pdf",
+      "sha256": "69492fdf8334e8fbcf4a9204e70d685cbca5cf32f6e99a6648976db833e53765"
+    },
+    "usda-cooking-yields-csv": {
+      "raw_file": "raw/usda-cooking-yields.csv",
+      "sha256": "e6144d36488781c3eab2428bd4fd576d85092a93fc709aa05868d20fe6ba1f4f"
+    },
+    "usda-retention": {
+      "raw_file": "raw/usda-retention.pdf",
+      "sha256": "53ea1b82008226d8f4d24998d10a19995268bf64cd63da87543d0b94e6c8af8f"
+    },
+    "usda-retention-txt": {
+      "raw_file": "raw/usda-retention.txt",
+      "sha256": "5b71867f6649e801db3bf88c6cd1887b0673e853d4ba94aa0af2b3c091e983f9"
+    },
+    "vietduc-meal-specifications-2024": {
+      "raw_file": "raw/vietduc-meal-specifications-2024.pdf",
+      "sha256": "eee59650c2c78c995b0116664079b0c79ad29f296d84f4fbf501e823fdb24d5d"
+    }
+  },
+  "automatically_prescribes_or_builds_menus": false
+}

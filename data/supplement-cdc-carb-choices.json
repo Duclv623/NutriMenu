@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-carb-choices",
+  "original_url": "https://www.cdc.gov/diabetes/healthy-eating/carbohydrate-lists-starchy-foods.html",
+  "original_sha256": "2c2ee2f96056bf07628525ea90276ce81307bd6b369e5a1784af6f6a5b7840d1",
+  "segments": [
+    {
+      "section": "Starches / Fruits / Milk and milk substitutes / Non-starchy vegetables",
+      "text": "Giữ đúng cơ sở từng nhóm trong bảng: nhóm tinh bột và trái cây khoảng 15 g carb cho lượng thực phẩm ghi ở mỗi dòng; nhóm sữa 12 g; rau không nhiều tinh bột 5 g. Các nhóm đồ ngọt, món phối hợp và thức ăn nhanh còn có tiểu nhóm 15/30/45 g. Bảng gốc tái bản từ ADA năm 2014. Không lấy “cup” của bảng làm một bát Việt cố định. Ngũ cốc, mì và rau củ nhiều tinh bột ghi lượng đã nấu; riêng cân nặng trái cây trong bảng gồm vỏ, lõi, hạt. Sữa chua có thể khác đáng kể giữa sản phẩm, ưu tiên nhãn thực tế.\nĐoạn gốc chọn lọc: 1 carbohydrate choice = 12 grams carbohydrate",
+      "locators": [
+        "Starches / Fruits / Milk and milk substitutes / Non-starchy vegetables"
+      ],
+      "pages": []
+    }
+  ]
+}

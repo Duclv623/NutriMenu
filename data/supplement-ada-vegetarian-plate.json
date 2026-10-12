@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source_id": "ada-vegetarian-plate",
+  "original_url": "https://professional.diabetes.org/sites/dpro/files/2024-10/placemat_vegetarian_lettersize_rev1223.pdf",
+  "original_sha256": "b8bfbc1583a75998aa4dc5059a7bd3b4112ac86e4bf679b6a7133bdca579a0c5",
+  "segments": [
+    {
+      "section": "Ăn chay vẫn cần tính nguồn carb",
+      "text": "Đĩa ăn chay phối hợp rau, nguồn đạm thực vật và nhóm carbohydrate; phần đĩa không phải gram món ăn. Xem đúng thực phẩm và lượng trong nguồn.\nNguyên bản:\n© 2023 American Diabetes Association.\nScan for more meal\nplanning resources.\nVEGETARIAN PLACEMAT\nPortion Guide\nCarbohydrate \nFoods\nNon-Starchy \nVegetables\nProtein\nFoods\nWater or 0-Calorie\nDrinks\nPlan Your Portions\nUse a 9-inch plate to help you dish up smart portions.\ndiabetesfoodhub.org\nIn this plate the protein\nis mixed with the non-starchy \nvegetables and it features a \nbroccoli, pepper, onion, \nand tofu stir-fry, and a \nfarro and quinoa salad.\nTo order Diabetes Placemats, visit ShopDiabetes.org.",
+      "locators": [
+        "PDF page 1"
+      ],
+      "pages": [
+        1
+      ]
+    }
+  ]
+}

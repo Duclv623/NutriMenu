@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_id": "nin-labels",
+  "original_url": "https://viendinhduong.vn/vi/article/tin-tuc/cach-doc-nhan-dinh-duong-va-xay-dung-che-do-an-hop-ly-67dcd2e7ff7633c60d08acf2",
+  "original_sha256": "4926fe505b779d4b82f8b739ed470b5fc50125512300fbde4e953522c7b27f4f",
+  "segments": [
+    {
+      "section": "Đọc nhãn: 100 g, 100 ml, khẩu phần và lượng thực tế",
+      "text": "Trước khi tính, xác định bảng dinh dưỡng được công bố cho 100 g, 100 ml, một khẩu phần hay cả gói. Lượng thực tế ăn có thể khác lượng đó và một bao bì có thể chứa nhiều khẩu phần. Năng lượng và các chất thực tế được tính theo lượng sản phẩm đã dùng. Với chất công bố theo 100 ml, cần lượng đã uống theo ml; không đổi thành gram nếu chưa có hệ số khối lượng riêng phù hợp.\nĐoạn gốc:\nBước 2: Xác định lượng sản phẩm công bố giá trị dinh dưỡng. Thông tin này thường được hiển thị ngay trên bảng các thông tin dinh dưỡng. Thông thường các thông tin và giá trị dinh dưỡng được tính trên 100ml hay 100 gam hay một khẩu phần (serving) của sản phẩm, có một vài trường hợp được tính trên cả gói sản phẩm đó. Bởi vậy khi tiêu thụ sản phẩm, cần đặc biệt chú ý tới lượng tiêu thụ để tính toán được năng lượng hay lượng các chất dinh dưỡng thực chất chúng ta đưa vào cơ thể. Một sản phẩm bao gói sẵn có thể bao gồm nhiều khẩu phần khác nhau, ví dụ một hộp cà phê sẽ bao gồm nhiều gói riêng biệt (1 gói là 1 khẩu phần) hoặc một hộp bánh có thể bao gồm nhiều bánh đóng riêng biệt (1 cái bánh là một khẩu phần). Lưu ý đây là một bước hết sức quan trọng để tính toán được năng lượng và giá trị các chất dinh dưỡng mà chúng ta tiêu thụ.\nNăng lượng và giá trị dinh dưỡng của thực phẩm được công bố trên lượng sản phẩm đã xác định tại bước 2.\nNăng lượng: Đây là năng lượng mà người tiêu dùng sẽ nhận được từ 100 ml hoặc 100 gam hoặc một khẩu phần đã xác định ở bước 2. Nếu trong trường hợp đang theo dõi calo để giảm cân, duy trì cân nặng, hoặc tăng cân, đây là thông tin quan trọng nhất mà cần phải quan tâm trên nhãn dinh dưỡng.\nĐặc biệt người tiêu dùng cần lưu ý, những thông tin về giá trị dinh dưỡng được công bố trên nhãn là những thông tin trên một lượng sản phẩm được xác định (100 ml hoặc 100 gam hoặc một khẩu phần). Năng lượng và giá trị các chất dinh dưỡng thực tế đưa vào cơ thể được tính toán dựa trên lượng thực phẩm thực tế mà chúng ta tiêu thụ.",
+      "locators": [
+        "block-0159",
+        "block-0161",
+        "block-0163",
+        "block-0180"
+      ],
+      "pages": []
+    }
+  ]
+}

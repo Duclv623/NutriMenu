@@ -1,0 +1,1512 @@
+{
+  "nutrient__protein__g": {
+    "key": "protein",
+    "unit": "g",
+    "labels_vi": [
+      "Chất đạm"
+    ],
+    "labels_en": [
+      "Protein"
+    ]
+  },
+  "nutrient__total-lipid-fat__g": {
+    "key": "total-lipid-fat",
+    "unit": "g",
+    "labels_vi": [
+      "Chất béo (Fat)"
+    ],
+    "labels_en": [
+      "Total lipid (Fat)"
+    ]
+  },
+  "nutrient__carbohydrate-by-difference__g": {
+    "key": "carbohydrate-by-difference",
+    "unit": "g",
+    "labels_vi": [
+      "Chất bột đường"
+    ],
+    "labels_en": [
+      "Carbohydrate by difference"
+    ]
+  },
+  "nutrient__retinol__mcg": {
+    "key": "retinol",
+    "unit": "mcg",
+    "labels_vi": [
+      "Retinol"
+    ],
+    "labels_en": [
+      "Retinol"
+    ]
+  },
+  "nutrient__vit-a-rae__mcg": {
+    "key": "vit-a-rae",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit A-RAE"
+    ],
+    "labels_en": [
+      "Vit A-RAE"
+    ]
+  },
+  "nutrient__carotene__mcg": {
+    "key": "carotene",
+    "unit": "mcg",
+    "labels_vi": [
+      "ß-carotene"
+    ],
+    "labels_en": [
+      "ß-carotene"
+    ]
+  },
+  "nutrient__vit-c__mg": {
+    "key": "vit-c",
+    "unit": "mg",
+    "labels_vi": [
+      "Vit C"
+    ],
+    "labels_en": [
+      "Vit C"
+    ]
+  },
+  "nutrient__ca__mg": {
+    "key": "ca",
+    "unit": "mg",
+    "labels_vi": [
+      "Canxi"
+    ],
+    "labels_en": [
+      "Ca"
+    ]
+  },
+  "nutrient__fe__mg": {
+    "key": "fe",
+    "unit": "mg",
+    "labels_vi": [
+      "Sắt"
+    ],
+    "labels_en": [
+      "Fe"
+    ]
+  },
+  "nutrient__na__mg": {
+    "key": "na",
+    "unit": "mg",
+    "labels_vi": [
+      "Natri"
+    ],
+    "labels_en": [
+      "Na"
+    ]
+  },
+  "nutrient__k__mg": {
+    "key": "k",
+    "unit": "mg",
+    "labels_vi": [
+      "Kali"
+    ],
+    "labels_en": [
+      "K"
+    ]
+  },
+  "nutrient__zn__mg": {
+    "key": "zn",
+    "unit": "mg",
+    "labels_vi": [
+      "Kẽm"
+    ],
+    "labels_en": [
+      "Zn"
+    ]
+  },
+  "nutrient__water__g": {
+    "key": "water",
+    "unit": "g",
+    "labels_vi": [
+      "Nước"
+    ],
+    "labels_en": [
+      "Water"
+    ]
+  },
+  "nutrient__tryptophan__mg": {
+    "key": "tryptophan",
+    "unit": "mg",
+    "labels_vi": [
+      "Tryptophan"
+    ],
+    "labels_en": [
+      "Tryptophan"
+    ]
+  },
+  "nutrient__threonine__mg": {
+    "key": "threonine",
+    "unit": "mg",
+    "labels_vi": [
+      "Threonine"
+    ],
+    "labels_en": [
+      "Threonine"
+    ]
+  },
+  "nutrient__isoleucine__mg": {
+    "key": "isoleucine",
+    "unit": "mg",
+    "labels_vi": [
+      "Isoleucine"
+    ],
+    "labels_en": [
+      "Isoleucine"
+    ]
+  },
+  "nutrient__leucine__mg": {
+    "key": "leucine",
+    "unit": "mg",
+    "labels_vi": [
+      "Leucine"
+    ],
+    "labels_en": [
+      "Leucine"
+    ]
+  },
+  "nutrient__lysine__mg": {
+    "key": "lysine",
+    "unit": "mg",
+    "labels_vi": [
+      "Lysine"
+    ],
+    "labels_en": [
+      "Lysine"
+    ]
+  },
+  "nutrient__methionine__mg": {
+    "key": "methionine",
+    "unit": "mg",
+    "labels_vi": [
+      "Methionine"
+    ],
+    "labels_en": [
+      "Methionine"
+    ]
+  },
+  "nutrient__cystine__mg": {
+    "key": "cystine",
+    "unit": "mg",
+    "labels_vi": [
+      "Cystine"
+    ],
+    "labels_en": [
+      "Cystine"
+    ]
+  },
+  "nutrient__phenylalanine__mg": {
+    "key": "phenylalanine",
+    "unit": "mg",
+    "labels_vi": [
+      "Phenylalanine"
+    ],
+    "labels_en": [
+      "Phenylalanine"
+    ]
+  },
+  "nutrient__tyrosine__mg": {
+    "key": "tyrosine",
+    "unit": "mg",
+    "labels_vi": [
+      "Tyrosine"
+    ],
+    "labels_en": [
+      "Tyrosine"
+    ]
+  },
+  "nutrient__valine__mg": {
+    "key": "valine",
+    "unit": "mg",
+    "labels_vi": [
+      "Valine"
+    ],
+    "labels_en": [
+      "Valine"
+    ]
+  },
+  "nutrient__arginine__mg": {
+    "key": "arginine",
+    "unit": "mg",
+    "labels_vi": [
+      "Arginine"
+    ],
+    "labels_en": [
+      "Arginine"
+    ]
+  },
+  "nutrient__histidine__mg": {
+    "key": "histidine",
+    "unit": "mg",
+    "labels_vi": [
+      "Histidine"
+    ],
+    "labels_en": [
+      "Histidine"
+    ]
+  },
+  "nutrient__alanine__mg": {
+    "key": "alanine",
+    "unit": "mg",
+    "labels_vi": [
+      "Alanine"
+    ],
+    "labels_en": [
+      "Alanine"
+    ]
+  },
+  "nutrient__aspartic-acid__mg": {
+    "key": "aspartic-acid",
+    "unit": "mg",
+    "labels_vi": [
+      "Axit Aspartic"
+    ],
+    "labels_en": [
+      "Aspartic acid"
+    ]
+  },
+  "nutrient__glutamic-acid__mg": {
+    "key": "glutamic-acid",
+    "unit": "mg",
+    "labels_vi": [
+      "Axit Glutamic"
+    ],
+    "labels_en": [
+      "Glutamic acid"
+    ]
+  },
+  "nutrient__glycine__mg": {
+    "key": "glycine",
+    "unit": "mg",
+    "labels_vi": [
+      "Glycine"
+    ],
+    "labels_en": [
+      "Glycine"
+    ]
+  },
+  "nutrient__proline__mg": {
+    "key": "proline",
+    "unit": "mg",
+    "labels_vi": [
+      "Proline"
+    ],
+    "labels_en": [
+      "Proline"
+    ]
+  },
+  "nutrient__serine__mg": {
+    "key": "serine",
+    "unit": "mg",
+    "labels_vi": [
+      "Serine"
+    ],
+    "labels_en": [
+      "Serine"
+    ]
+  },
+  "nutrient__fatty-acids-total-saturated__g": {
+    "key": "fatty-acids-total-saturated",
+    "unit": "g",
+    "labels_vi": [
+      "Axit béo bão hòa tổng số"
+    ],
+    "labels_en": [
+      "Fatty acids, total saturated"
+    ]
+  },
+  "nutrient__c16-0__g": {
+    "key": "c16-0",
+    "unit": "g",
+    "labels_vi": [
+      "C16:0"
+    ],
+    "labels_en": [
+      "C16:0"
+    ]
+  },
+  "nutrient__c18-0__g": {
+    "key": "c18-0",
+    "unit": "g",
+    "labels_vi": [
+      "C18:0"
+    ],
+    "labels_en": [
+      "C18:0"
+    ]
+  },
+  "nutrient__fatty-acids-total-monounsaturated__g": {
+    "key": "fatty-acids-total-monounsaturated",
+    "unit": "g",
+    "labels_vi": [
+      "Axit béo không bão hòa đơn tổng số"
+    ],
+    "labels_en": [
+      "Fatty acids, total monounsaturated"
+    ]
+  },
+  "nutrient__c18-1-c__g": {
+    "key": "c18-1-c",
+    "unit": "g",
+    "labels_vi": [
+      "C18:1 c"
+    ],
+    "labels_en": [
+      "C18:1 c"
+    ]
+  },
+  "nutrient__fatty-acids-total-polyunsaturated__g": {
+    "key": "fatty-acids-total-polyunsaturated",
+    "unit": "g",
+    "labels_vi": [
+      "Axit béo không bão hòa đa tổng số"
+    ],
+    "labels_en": [
+      "Fatty acids, total polyunsaturated"
+    ]
+  },
+  "nutrient__c-18-2-cis-n-6-linoleic-acid__g": {
+    "key": "c-18-2-cis-n-6-linoleic-acid",
+    "unit": "g",
+    "labels_vi": [
+      "C 18:2, cis, n-6 (Linoleic Acid)"
+    ],
+    "labels_en": [
+      "C 18:2, cis, n-6 (Linoleic Acid)"
+    ]
+  },
+  "nutrient__c-18-3-cis-n-3-alpha-linolenic-acid__g": {
+    "key": "c-18-3-cis-n-3-alpha-linolenic-acid",
+    "unit": "g",
+    "labels_vi": [
+      "C 18:3, cis, n-3 (Alpha-Linolenic Acid)"
+    ],
+    "labels_en": [
+      "C 18:3, cis, n-3 (Alpha-Linolenic Acid)"
+    ]
+  },
+  "nutrient__sugars-total__g": {
+    "key": "sugars-total",
+    "unit": "g",
+    "labels_vi": [
+      "Sugars, total"
+    ],
+    "labels_en": [
+      "Sugars, total"
+    ]
+  },
+  "nutrient__ash__g": {
+    "key": "ash",
+    "unit": "g",
+    "labels_vi": [
+      "Ash"
+    ],
+    "labels_en": [
+      "Ash"
+    ]
+  },
+  "nutrient__mg__mg": {
+    "key": "mg",
+    "unit": "mg",
+    "labels_vi": [
+      "Magie"
+    ],
+    "labels_en": [
+      "Mg"
+    ]
+  },
+  "nutrient__p__mg": {
+    "key": "p",
+    "unit": "mg",
+    "labels_vi": [
+      "Photpho"
+    ],
+    "labels_en": [
+      "P"
+    ]
+  },
+  "nutrient__cu__mg": {
+    "key": "cu",
+    "unit": "mg",
+    "labels_vi": [
+      "Đồng"
+    ],
+    "labels_en": [
+      "Cu"
+    ]
+  },
+  "nutrient__mn__mg": {
+    "key": "mn",
+    "unit": "mg",
+    "labels_vi": [
+      "Mangan"
+    ],
+    "labels_en": [
+      "Mn"
+    ]
+  },
+  "nutrient__se__mcg": {
+    "key": "se",
+    "unit": "mcg",
+    "labels_vi": [
+      "Selen"
+    ],
+    "labels_en": [
+      "Se"
+    ]
+  },
+  "nutrient__vit-d-d2-d3__mcg": {
+    "key": "vit-d-d2-d3",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit D (D2 +D3)"
+    ],
+    "labels_en": [
+      "Vit D (D2 +D3)"
+    ]
+  },
+  "nutrient__vit-e__mg": {
+    "key": "vit-e",
+    "unit": "mg",
+    "labels_vi": [
+      "Vit E"
+    ],
+    "labels_en": [
+      "Vit E"
+    ]
+  },
+  "nutrient__thiamin__mg": {
+    "key": "thiamin",
+    "unit": "mg",
+    "labels_vi": [
+      "Vitamin B1 (Thiamin)"
+    ],
+    "labels_en": [
+      "Thiamin"
+    ]
+  },
+  "nutrient__riboflavin__mg": {
+    "key": "riboflavin",
+    "unit": "mg",
+    "labels_vi": [
+      "Vitamin B2 (Riboflavin)"
+    ],
+    "labels_en": [
+      "Riboflavin"
+    ]
+  },
+  "nutrient__niacin__mg": {
+    "key": "niacin",
+    "unit": "mg",
+    "labels_vi": [
+      "Vitamin B3 (Niacin)"
+    ],
+    "labels_en": [
+      "Niacin"
+    ]
+  },
+  "nutrient__pantothenic-acid__mg": {
+    "key": "pantothenic-acid",
+    "unit": "mg",
+    "labels_vi": [
+      "Vitamin B5 (axit pantothenic)"
+    ],
+    "labels_en": [
+      "Pantothenic acid"
+    ]
+  },
+  "nutrient__vit-b6__mg": {
+    "key": "vit-b6",
+    "unit": "mg",
+    "labels_vi": [
+      "Vit B6"
+    ],
+    "labels_en": [
+      "Vit B6"
+    ]
+  },
+  "nutrient__folate-total__mcg": {
+    "key": "folate-total",
+    "unit": "mcg",
+    "labels_vi": [
+      "Folate tổng số"
+    ],
+    "labels_en": [
+      "Folate, total"
+    ]
+  },
+  "nutrient__folate-food__mcg": {
+    "key": "folate-food",
+    "unit": "mcg",
+    "labels_vi": [
+      "Folate, food"
+    ],
+    "labels_en": [
+      "Folate, food"
+    ]
+  },
+  "nutrient__vit-k-phylloquinone__mcg": {
+    "key": "vit-k-phylloquinone",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit K (phylloquinone)"
+    ],
+    "labels_en": [
+      "Vit K (phylloquinone)"
+    ]
+  },
+  "nutrient__c16-1-c__g": {
+    "key": "c16-1-c",
+    "unit": "g",
+    "labels_vi": [
+      "C16:1 c"
+    ],
+    "labels_en": [
+      "C16:1 c"
+    ]
+  },
+  "nutrient__c20-4-n-6__g": {
+    "key": "c20-4-n-6",
+    "unit": "g",
+    "labels_vi": [
+      "C20:4 n-6"
+    ],
+    "labels_en": [
+      "C20:4 n-6"
+    ]
+  },
+  "nutrient__lycopene__mcg": {
+    "key": "lycopene",
+    "unit": "mcg",
+    "labels_vi": [
+      "Lycopene"
+    ],
+    "labels_en": [
+      "Lycopene"
+    ]
+  },
+  "nutrient__lutein-zeaxanthin__mcg": {
+    "key": "lutein-zeaxanthin",
+    "unit": "mcg",
+    "labels_vi": [
+      "Lutein + zeaxanthin"
+    ],
+    "labels_en": [
+      "Lutein + zeaxanthin"
+    ]
+  },
+  "nutrient__fibre-total-dietary__g": {
+    "key": "fibre-total-dietary",
+    "unit": "g",
+    "labels_vi": [
+      "Chất xơ"
+    ],
+    "labels_en": [
+      "Fibre, total dietary"
+    ]
+  },
+  "nutrient__cholesterol__mg": {
+    "key": "cholesterol",
+    "unit": "mg",
+    "labels_vi": [
+      "Cholesterol"
+    ],
+    "labels_en": [
+      "Cholesterol"
+    ]
+  },
+  "nutrient__c18-1-undifferentiated__g": {
+    "key": "c18-1-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C18:1 undifferentiated"
+    ],
+    "labels_en": [
+      "C18:1 undifferentiated"
+    ]
+  },
+  "nutrient__vit-b12__mcg": {
+    "key": "vit-b12",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit B12"
+    ],
+    "labels_en": [
+      "Vit B12"
+    ]
+  },
+  "nutrient__c4-0__g": {
+    "key": "c4-0",
+    "unit": "g",
+    "labels_vi": [
+      "C4:0"
+    ],
+    "labels_en": [
+      "C4:0"
+    ]
+  },
+  "nutrient__c6-0__g": {
+    "key": "c6-0",
+    "unit": "g",
+    "labels_vi": [
+      "C6:0"
+    ],
+    "labels_en": [
+      "C6:0"
+    ]
+  },
+  "nutrient__c8-0__g": {
+    "key": "c8-0",
+    "unit": "g",
+    "labels_vi": [
+      "C8:0"
+    ],
+    "labels_en": [
+      "C8:0"
+    ]
+  },
+  "nutrient__c10-0__g": {
+    "key": "c10-0",
+    "unit": "g",
+    "labels_vi": [
+      "C10:0"
+    ],
+    "labels_en": [
+      "C10:0"
+    ]
+  },
+  "nutrient__c12-0__g": {
+    "key": "c12-0",
+    "unit": "g",
+    "labels_vi": [
+      "C12:0"
+    ],
+    "labels_en": [
+      "C12:0"
+    ]
+  },
+  "nutrient__c14-0__g": {
+    "key": "c14-0",
+    "unit": "g",
+    "labels_vi": [
+      "C14:0"
+    ],
+    "labels_en": [
+      "C14:0"
+    ]
+  },
+  "nutrient__c16-1-undifferentiated__g": {
+    "key": "c16-1-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C16:1 undifferentiated"
+    ],
+    "labels_en": [
+      "C16:1 undifferentiated"
+    ]
+  },
+  "nutrient__c18-2-undifferentiated__g": {
+    "key": "c18-2-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C18:2 undifferentiated"
+    ],
+    "labels_en": [
+      "C18:2 undifferentiated"
+    ]
+  },
+  "nutrient__c18-3-undifferentiated__g": {
+    "key": "c18-3-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C18:3 undifferentiated"
+    ],
+    "labels_en": [
+      "C18:3 undifferentiated"
+    ]
+  },
+  "nutrient__f__mcg": {
+    "key": "f",
+    "unit": "mcg",
+    "labels_vi": [
+      "F"
+    ],
+    "labels_en": [
+      "F"
+    ]
+  },
+  "nutrient__vit-d3-cholecalciferol__mcg": {
+    "key": "vit-d3-cholecalciferol",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit D3 (cholecalciferol)"
+    ],
+    "labels_en": [
+      "Vit D3 (cholecalciferol)"
+    ]
+  },
+  "nutrient__tocopherol-alpha__mg": {
+    "key": "tocopherol-alpha",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocopherol, alpha"
+    ],
+    "labels_en": [
+      "Tocopherol, alpha"
+    ]
+  },
+  "nutrient__folate-dfe__mcg": {
+    "key": "folate-dfe",
+    "unit": "mcg",
+    "labels_vi": [
+      "Folate, DFE"
+    ],
+    "labels_en": [
+      "Folate, DFE"
+    ]
+  },
+  "nutrient__choline-total__mg": {
+    "key": "choline-total",
+    "unit": "mg",
+    "labels_vi": [
+      "Choline, total"
+    ],
+    "labels_en": [
+      "Choline, total"
+    ]
+  },
+  "nutrient__c20-0__g": {
+    "key": "c20-0",
+    "unit": "g",
+    "labels_vi": [
+      "C20:0"
+    ],
+    "labels_en": [
+      "C20:0"
+    ]
+  },
+  "nutrient__c22-0__g": {
+    "key": "c22-0",
+    "unit": "g",
+    "labels_vi": [
+      "C22:0"
+    ],
+    "labels_en": [
+      "C22:0"
+    ]
+  },
+  "nutrient__fatty-acids-total-trans__g": {
+    "key": "fatty-acids-total-trans",
+    "unit": "g",
+    "labels_vi": [
+      "Fatty acids, total trans"
+    ],
+    "labels_en": [
+      "Fatty acids, total trans"
+    ]
+  },
+  "nutrient__c13-0__g": {
+    "key": "c13-0",
+    "unit": "g",
+    "labels_vi": [
+      "C13:0"
+    ],
+    "labels_en": [
+      "C13:0"
+    ]
+  },
+  "nutrient__c15-0__g": {
+    "key": "c15-0",
+    "unit": "g",
+    "labels_vi": [
+      "C15:0"
+    ],
+    "labels_en": [
+      "C15:0"
+    ]
+  },
+  "nutrient__c15-1__g": {
+    "key": "c15-1",
+    "unit": "g",
+    "labels_vi": [
+      "C15:1"
+    ],
+    "labels_en": [
+      "C15:1"
+    ]
+  },
+  "nutrient__c16-1-t__g": {
+    "key": "c16-1-t",
+    "unit": "g",
+    "labels_vi": [
+      "C16:1 t"
+    ],
+    "labels_en": [
+      "C16:1 t"
+    ]
+  },
+  "nutrient__c17-1__g": {
+    "key": "c17-1",
+    "unit": "g",
+    "labels_vi": [
+      "C17:1"
+    ],
+    "labels_en": [
+      "C17:1"
+    ]
+  },
+  "nutrient__c18-1-t__g": {
+    "key": "c18-1-t",
+    "unit": "g",
+    "labels_vi": [
+      "C18:1 t"
+    ],
+    "labels_en": [
+      "C18:1 t"
+    ]
+  },
+  "nutrient__c18-1-11-t-18-1t-n-7__g": {
+    "key": "c18-1-11-t-18-1t-n-7",
+    "unit": "g",
+    "labels_vi": [
+      "C18:1-11 t (18:1t n-7)"
+    ],
+    "labels_en": [
+      "C18:1-11 t (18:1t n-7)"
+    ]
+  },
+  "nutrient__c20-1__g": {
+    "key": "c20-1",
+    "unit": "g",
+    "labels_vi": [
+      "C20:1"
+    ],
+    "labels_en": [
+      "C20:1"
+    ]
+  },
+  "nutrient__c22-1-undifferentiated__g": {
+    "key": "c22-1-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C22:1 undifferentiated"
+    ],
+    "labels_en": [
+      "C22:1 undifferentiated"
+    ]
+  },
+  "nutrient__c22-1-c__g": {
+    "key": "c22-1-c",
+    "unit": "g",
+    "labels_vi": [
+      "C22:1 c"
+    ],
+    "labels_en": [
+      "C22:1 c"
+    ]
+  },
+  "nutrient__c22-1-t__g": {
+    "key": "c22-1-t",
+    "unit": "g",
+    "labels_vi": [
+      "C22:1 t"
+    ],
+    "labels_en": [
+      "C22:1 t"
+    ]
+  },
+  "nutrient__c24-1-c__g": {
+    "key": "c24-1-c",
+    "unit": "g",
+    "labels_vi": [
+      "C24:1 c"
+    ],
+    "labels_en": [
+      "C24:1 c"
+    ]
+  },
+  "nutrient__c18-2-clas__g": {
+    "key": "c18-2-clas",
+    "unit": "g",
+    "labels_vi": [
+      "C18:2 CLAs"
+    ],
+    "labels_en": [
+      "C18:2 CLAs"
+    ]
+  },
+  "nutrient__c18-2-t-t__g": {
+    "key": "c18-2-t-t",
+    "unit": "g",
+    "labels_vi": [
+      "C18:2 t,t"
+    ],
+    "labels_en": [
+      "C18:2 t,t"
+    ]
+  },
+  "nutrient__c18-2-i__g": {
+    "key": "c18-2-i",
+    "unit": "g",
+    "labels_vi": [
+      "C18:2 i"
+    ],
+    "labels_en": [
+      "C18:2 i"
+    ]
+  },
+  "nutrient__c18-2-t-not-further-defined__g": {
+    "key": "c18-2-t-not-further-defined",
+    "unit": "g",
+    "labels_vi": [
+      "C18:2 t not further defined"
+    ],
+    "labels_en": [
+      "C18:2 t not further defined"
+    ]
+  },
+  "nutrient__c18-3-n-6-c-c-c__g": {
+    "key": "c18-3-n-6-c-c-c",
+    "unit": "g",
+    "labels_vi": [
+      "C18:3 n-6 c,c,c"
+    ],
+    "labels_en": [
+      "C18:3 n-6 c,c,c"
+    ]
+  },
+  "nutrient__c18-3i__g": {
+    "key": "c18-3i",
+    "unit": "g",
+    "labels_vi": [
+      "C18:3i"
+    ],
+    "labels_en": [
+      "C18:3i"
+    ]
+  },
+  "nutrient__c18-4__g": {
+    "key": "c18-4",
+    "unit": "g",
+    "labels_vi": [
+      "C18:4"
+    ],
+    "labels_en": [
+      "C18:4"
+    ]
+  },
+  "nutrient__c20-2-n-6-c-c__g": {
+    "key": "c20-2-n-6-c-c",
+    "unit": "g",
+    "labels_vi": [
+      "C20:2 n-6 c,c"
+    ],
+    "labels_en": [
+      "C20:2 n-6 c,c"
+    ]
+  },
+  "nutrient__c20-3-undifferentiated__g": {
+    "key": "c20-3-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C20:3 undifferentiated"
+    ],
+    "labels_en": [
+      "C20:3 undifferentiated"
+    ]
+  },
+  "nutrient__c20-3-n-3__g": {
+    "key": "c20-3-n-3",
+    "unit": "g",
+    "labels_vi": [
+      "C20:3 n-3"
+    ],
+    "labels_en": [
+      "C20:3 n-3"
+    ]
+  },
+  "nutrient__c20-3-n-6__g": {
+    "key": "c20-3-n-6",
+    "unit": "g",
+    "labels_vi": [
+      "C20:3 n-6"
+    ],
+    "labels_en": [
+      "C20:3 n-6"
+    ]
+  },
+  "nutrient__c20-4-undifferentiated__g": {
+    "key": "c20-4-undifferentiated",
+    "unit": "g",
+    "labels_vi": [
+      "C20:4 undifferentiated"
+    ],
+    "labels_en": [
+      "C20:4 undifferentiated"
+    ]
+  },
+  "nutrient__c21-5__g": {
+    "key": "c21-5",
+    "unit": "g",
+    "labels_vi": [
+      "C21:5"
+    ],
+    "labels_en": [
+      "C21:5"
+    ]
+  },
+  "nutrient__c22-4__g": {
+    "key": "c22-4",
+    "unit": "g",
+    "labels_vi": [
+      "C22:4"
+    ],
+    "labels_en": [
+      "C22:4"
+    ]
+  },
+  "nutrient__c22-5-n-3-dpa__g": {
+    "key": "c22-5-n-3-dpa",
+    "unit": "g",
+    "labels_vi": [
+      "C22:5 n-3 (DPA)"
+    ],
+    "labels_en": [
+      "C22:5 n-3 (DPA)"
+    ]
+  },
+  "nutrient__fatty-acids-total-trans-monoenoic__g": {
+    "key": "fatty-acids-total-trans-monoenoic",
+    "unit": "g",
+    "labels_vi": [
+      "Fatty acids, total trans-monoenoic"
+    ],
+    "labels_en": [
+      "Fatty acids, total trans-monoenoic"
+    ]
+  },
+  "nutrient__fatty-acids-total-trans-polyenoic__g": {
+    "key": "fatty-acids-total-trans-polyenoic",
+    "unit": "g",
+    "labels_vi": [
+      "Fatty acids, total trans-polyenoic"
+    ],
+    "labels_en": [
+      "Fatty acids, total trans-polyenoic"
+    ]
+  },
+  "nutrient__phytosterols__mg": {
+    "key": "phytosterols",
+    "unit": "mg",
+    "labels_vi": [
+      "Phytosterols"
+    ],
+    "labels_en": [
+      "Phytosterols"
+    ]
+  },
+  "nutrient__stigmasterol__mg": {
+    "key": "stigmasterol",
+    "unit": "mg",
+    "labels_vi": [
+      "Stigmasterol"
+    ],
+    "labels_en": [
+      "Stigmasterol"
+    ]
+  },
+  "nutrient__campesterol__mg": {
+    "key": "campesterol",
+    "unit": "mg",
+    "labels_vi": [
+      "Campesterol"
+    ],
+    "labels_en": [
+      "Campesterol"
+    ]
+  },
+  "nutrient__beta-sitosterol__mg": {
+    "key": "beta-sitosterol",
+    "unit": "mg",
+    "labels_vi": [
+      "Beta-sitosterol"
+    ],
+    "labels_en": [
+      "Beta-sitosterol"
+    ]
+  },
+  "nutrient__glucose-dextrose__g": {
+    "key": "glucose-dextrose",
+    "unit": "g",
+    "labels_vi": [
+      "Glucose (Dextrose)"
+    ],
+    "labels_en": [
+      "Glucose (Dextrose)"
+    ]
+  },
+  "nutrient__fructose__g": {
+    "key": "fructose",
+    "unit": "g",
+    "labels_vi": [
+      "Fructose"
+    ],
+    "labels_en": [
+      "Fructose"
+    ]
+  },
+  "nutrient__lactose__g": {
+    "key": "lactose",
+    "unit": "g",
+    "labels_vi": [
+      "Lactose"
+    ],
+    "labels_en": [
+      "Lactose"
+    ]
+  },
+  "nutrient__maltose__g": {
+    "key": "maltose",
+    "unit": "g",
+    "labels_vi": [
+      "Maltose"
+    ],
+    "labels_en": [
+      "Maltose"
+    ]
+  },
+  "nutrient__galactose__g": {
+    "key": "galactose",
+    "unit": "g",
+    "labels_vi": [
+      "Galactose"
+    ],
+    "labels_en": [
+      "Galactose"
+    ]
+  },
+  "nutrient__starch__g": {
+    "key": "starch",
+    "unit": "g",
+    "labels_vi": [
+      "Starch"
+    ],
+    "labels_en": [
+      "Starch"
+    ]
+  },
+  "nutrient__phytic-acid__mg": {
+    "key": "phytic-acid",
+    "unit": "mg",
+    "labels_vi": [
+      "Phytic acid"
+    ],
+    "labels_en": [
+      "Phytic acid"
+    ]
+  },
+  "nutrient__vit-a__mg": {
+    "key": "vit-a",
+    "unit": "mg",
+    "labels_vi": [
+      "Vit A"
+    ],
+    "labels_en": [
+      "Vit A"
+    ]
+  },
+  "nutrient__vit-a-re__mcg": {
+    "key": "vit-a-re",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit A- RE"
+    ],
+    "labels_en": [
+      "Vit A- RE"
+    ]
+  },
+  "nutrient__carotene-alpha__mcg": {
+    "key": "carotene-alpha",
+    "unit": "mcg",
+    "labels_vi": [
+      "Carotene, alpha"
+    ],
+    "labels_en": [
+      "Carotene, alpha"
+    ]
+  },
+  "nutrient__cryptoxanthin-beta__mcg": {
+    "key": "cryptoxanthin-beta",
+    "unit": "mcg",
+    "labels_vi": [
+      "Cryptoxanthin, beta"
+    ],
+    "labels_en": [
+      "Cryptoxanthin, beta"
+    ]
+  },
+  "nutrient__vit-d2-ergocalciferol__mcg": {
+    "key": "vit-d2-ergocalciferol",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit D2 (ergocalciferol)"
+    ],
+    "labels_en": [
+      "Vit D2 (ergocalciferol)"
+    ]
+  },
+  "nutrient__vit-e-added__mg": {
+    "key": "vit-e-added",
+    "unit": "mg",
+    "labels_vi": [
+      "Vit E, added"
+    ],
+    "labels_en": [
+      "Vit E, added"
+    ]
+  },
+  "nutrient__tocopherol-beta__mg": {
+    "key": "tocopherol-beta",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocopherol, beta"
+    ],
+    "labels_en": [
+      "Tocopherol, beta"
+    ]
+  },
+  "nutrient__tocopherol-gamma__mg": {
+    "key": "tocopherol-gamma",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocopherol, gamma"
+    ],
+    "labels_en": [
+      "Tocopherol, gamma"
+    ]
+  },
+  "nutrient__tocopherol-delta__mg": {
+    "key": "tocopherol-delta",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocopherol, delta"
+    ],
+    "labels_en": [
+      "Tocopherol, delta"
+    ]
+  },
+  "nutrient__tocotrienol-alpha__mg": {
+    "key": "tocotrienol-alpha",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocotrienol, alpha"
+    ],
+    "labels_en": [
+      "Tocotrienol, alpha"
+    ]
+  },
+  "nutrient__tocotrienol-beta__mg": {
+    "key": "tocotrienol-beta",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocotrienol, beta"
+    ],
+    "labels_en": [
+      "Tocotrienol, beta"
+    ]
+  },
+  "nutrient__tocotrienol-gamma__mg": {
+    "key": "tocotrienol-gamma",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocotrienol, gamma"
+    ],
+    "labels_en": [
+      "Tocotrienol, gamma"
+    ]
+  },
+  "nutrient__tocotrienol-delta__mg": {
+    "key": "tocotrienol-delta",
+    "unit": "mg",
+    "labels_vi": [
+      "Tocotrienol, delta"
+    ],
+    "labels_en": [
+      "Tocotrienol, delta"
+    ]
+  },
+  "nutrient__niacin-equivalents__mg": {
+    "key": "niacin-equivalents",
+    "unit": "mg",
+    "labels_vi": [
+      "Niacin equivalents"
+    ],
+    "labels_en": [
+      "Niacin equivalents"
+    ]
+  },
+  "nutrient__vit-b12-added__mcg": {
+    "key": "vit-b12-added",
+    "unit": "mcg",
+    "labels_vi": [
+      "Vit B12, added"
+    ],
+    "labels_en": [
+      "Vit B12, added"
+    ]
+  },
+  "nutrient__c17-0__g": {
+    "key": "c17-0",
+    "unit": "g",
+    "labels_vi": [
+      "C17:0"
+    ],
+    "labels_en": [
+      "C17:0"
+    ]
+  },
+  "nutrient__c24-0__g": {
+    "key": "c24-0",
+    "unit": "g",
+    "labels_vi": [
+      "C24:0"
+    ],
+    "labels_en": [
+      "C24:0"
+    ]
+  },
+  "nutrient__c14-1__g": {
+    "key": "c14-1",
+    "unit": "g",
+    "labels_vi": [
+      "C14:1"
+    ],
+    "labels_en": [
+      "C14:1"
+    ]
+  },
+  "nutrient__c20-5-n-3-epa__g": {
+    "key": "c20-5-n-3-epa",
+    "unit": "g",
+    "labels_vi": [
+      "C20:5 n-3 (EPA)"
+    ],
+    "labels_en": [
+      "C20:5 n-3 (EPA)"
+    ]
+  },
+  "nutrient__c22-6-n-3-dha__g": {
+    "key": "c22-6-n-3-dha",
+    "unit": "g",
+    "labels_vi": [
+      "C22:6 n-3 (DHA)"
+    ],
+    "labels_en": [
+      "C22:6 n-3 (DHA)"
+    ]
+  },
+  "nutrient__folic-acid__mcg": {
+    "key": "folic-acid",
+    "unit": "mcg",
+    "labels_vi": [
+      "Folic acid"
+    ],
+    "labels_en": [
+      "Folic acid"
+    ]
+  },
+  "nutrient__caffeine__mg": {
+    "key": "caffeine",
+    "unit": "mg",
+    "labels_vi": [
+      "Caffeine"
+    ],
+    "labels_en": [
+      "Caffeine"
+    ]
+  },
+  "nutrient__calcium__mg": {
+    "key": "calcium",
+    "unit": "mg",
+    "labels_vi": [
+      "Canxi"
+    ],
+    "labels_en": [
+      "Calcium"
+    ]
+  },
+  "nutrient__theobromine__mg": {
+    "key": "theobromine",
+    "unit": "mg",
+    "labels_vi": [
+      "Theobromine"
+    ],
+    "labels_en": [
+      "Theobromine"
+    ]
+  },
+  "nutrient__hydroxyproline__g": {
+    "key": "hydroxyproline",
+    "unit": "g",
+    "labels_vi": [
+      "Hydroxyproline"
+    ],
+    "labels_en": [
+      "Hydroxyproline"
+    ]
+  },
+  "nutrient__sugars-added__g": {
+    "key": "sugars-added",
+    "unit": "g",
+    "labels_vi": [
+      "Sugars, added"
+    ],
+    "labels_en": [
+      "Sugars, added"
+    ]
+  },
+  "nutrient__dihydrophylloquinone__mcg": {
+    "key": "dihydrophylloquinone",
+    "unit": "mcg",
+    "labels_vi": [
+      "Dihydrophylloquinone"
+    ],
+    "labels_en": [
+      "Dihydrophylloquinone"
+    ]
+  },
+  "nutrient__menaquinone-4__mcg": {
+    "key": "menaquinone-4",
+    "unit": "mcg",
+    "labels_vi": [
+      "Menaquinone-4"
+    ],
+    "labels_en": [
+      "Menaquinone-4"
+    ]
+  },
+  "nutrient__alcohol-ethyl__g": {
+    "key": "alcohol-ethyl",
+    "unit": "g",
+    "labels_vi": [
+      "Alcohol, ethyl"
+    ],
+    "labels_en": [
+      "Alcohol, ethyl"
+    ]
+  },
+  "nutrient__sucrose__g": {
+    "key": "sucrose",
+    "unit": "g",
+    "labels_vi": [
+      "Sucrose"
+    ],
+    "labels_en": [
+      "Sucrose"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source_id": "sydney-about-gi",
+  "original_url": "https://glycemicindex.com/about-gi/",
+  "original_sha256": "c92f72dc41319cd9e9e82bbf3b1493d81a01cf1bb18523c25d137480490827f2",
+  "segments": [
+    {
+      "section": "Phương pháp đo GI — carbohydrate khả dụng",
+      "text": "GI cần phép thử với thực phẩm và cách chuẩn bị cụ thể; không suy từ kcal hoặc gram carb. Phương pháp trong nguồn dùng ít nhất 10 người khỏe mạnh và 50 g carbohydrate khả dụng; mốc so sánh là glucose.\nĐoạn gốc:\nFollowing the international standard method, the GI value of a food is determined by feeding 10 or more healthy people a portion of the food containing 50 grams of digestible (available) carbohydrate and then measuring the effect on their blood glucose levels over the next two hours. For each person, the area under their two-hour blood glucose response (glucose AUC) for this food is then measured. On another occasion, the same 10 people consume an equal-carbohydrate portion of the sugar glucose (the reference food) and their two-hour blood glucose response is also measured. A GI value for the test food is then calculated for each person by dividing their glucose AUC for the test food by their glucose AUC for the reference food. The final GI value for the test food is the average GI value for the 10 people.The GI of foods has important implications for the food industry. Terms such as complex carbohydrates and simple sugars are now recognised as having little nutritional or physiological significance. The WHO/FAO recommend that these terms be removed and replaced with the total carbohydrate content of the food and its GI value.",
+      "locators": [
+        "block-0036"
+      ],
+      "pages": []
+    }
+  ]
+}

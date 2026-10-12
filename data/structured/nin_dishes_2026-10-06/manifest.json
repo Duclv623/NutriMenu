@@ -1,0 +1,119 @@
+{
+  "dataset": "dishes",
+  "expected_total": 1250,
+  "per_page": 100,
+  "requests": [
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=1&pageSize=100",
+      "file": "raw/page_001.json",
+      "retrieved_at": "2026-10-06T02:50:03.686472+00:00",
+      "sha256": "0afb22ba96317071c5a6296d56a0e92280d496bcff6494d9f645cd0fd42e7054",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=2&pageSize=100",
+      "file": "raw/page_002.json",
+      "retrieved_at": "2026-10-06T02:50:04.867995+00:00",
+      "sha256": "805ccbdab74851456e01b09857fc7e2f0354a61a86a7471411edd5f0f34e5a8b",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=3&pageSize=100",
+      "file": "raw/page_003.json",
+      "retrieved_at": "2026-10-06T02:50:06.016341+00:00",
+      "sha256": "9a986af68132806f88efeba80a7d650a199f6a22be17260a2b48fd30cdd02f53",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=4&pageSize=100",
+      "file": "raw/page_004.json",
+      "retrieved_at": "2026-10-06T02:50:07.171915+00:00",
+      "sha256": "3e3212d91bebfeaa399280ec283aa4a7aea9fc54aae2f89bbc3e5c1d38ef59b8",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=5&pageSize=100",
+      "file": "raw/page_005.json",
+      "retrieved_at": "2026-10-06T02:50:08.348251+00:00",
+      "sha256": "d42f4853fd96d2bcc2a2c91909c2bcac0c46146bc0db89e7dcedfca8d63e94cf",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=6&pageSize=100",
+      "file": "raw/page_006.json",
+      "retrieved_at": "2026-10-06T02:50:09.487392+00:00",
+      "sha256": "5d812550844cd4d17b1d55d7a589e9b41272d78b36091ad77192eeba0be032f8",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=7&pageSize=100",
+      "file": "raw/page_007.json",
+      "retrieved_at": "2026-10-06T02:50:10.637032+00:00",
+      "sha256": "9456d1d70579abd9dc5abc6b9411425a9158ffd1b7fbaef0d8b5701c61daa358",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=8&pageSize=100",
+      "file": "raw/page_008.json",
+      "retrieved_at": "2026-10-06T02:50:11.777779+00:00",
+      "sha256": "ae3f3fdfe73e43a579db9f497a18e0e088fa73517bd70c1c8b7d1dcb0f349cd5",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=9&pageSize=100",
+      "file": "raw/page_009.json",
+      "retrieved_at": "2026-10-06T02:50:12.927268+00:00",
+      "sha256": "c158632a22f470f94d3682b691347663a923acb07e1ef8be757463ffd3cc594e",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=10&pageSize=100",
+      "file": "raw/page_010.json",
+      "retrieved_at": "2026-10-06T02:50:14.071337+00:00",
+      "sha256": "fc13cbffb0ea85c6e45d76d48d77ccd2f2c7f932a4cabc6a7dce0e431889557a",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=11&pageSize=100",
+      "file": "raw/page_011.json",
+      "retrieved_at": "2026-10-06T02:50:15.208712+00:00",
+      "sha256": "c668bd249900b0b7055f40f6c680d2cb56c9741203821fd3fb9bb0da78d429de",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=12&pageSize=100",
+      "file": "raw/page_012.json",
+      "retrieved_at": "2026-10-06T02:50:16.429160+00:00",
+      "sha256": "1670cc238c1ad1b31f50504a3f9766677b7e29e8361debb01e271297dc98a075",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData?page=13&pageSize=100",
+      "file": "raw/page_013.json",
+      "retrieved_at": "2026-10-06T02:50:17.536258+00:00",
+      "sha256": "3d78c8f66de0bae05fd666a5574ea706fdf35ad39f9eaea6cbb3b55824104c42",
+      "rows": 50
+    }
+  ],
+  "source_title": "Viện Dinh dưỡng — Tra cứu giá trị dinh dưỡng món ăn",
+  "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-mon-an",
+  "api_url": "https://viendinhduong.vn/api/fe/tool/getPageFoodData",
+  "reference_basis": "100 g món ăn",
+  "normalization": "Empty values become null; numeric strings parsed; nested salt equivalents preserved; no nutrient inference",
+  "clinical_review": false,
+  "exports": {
+    "dishes_all_nutrients.csv": "abba9cbcddfc7bb73956004fa135fbbbbcc844edfc0c9a906f72bd7f12973d2d",
+    "dishes_core.csv": "7e4fe283635d40aa47807b3427080f52e6441fcb3a2171a40b55563a6ec1c1ee",
+    "dishes_core.json": "1d73ffe4b7834d8fc14c7634e53bae190d2e03bb22ef404db801a747a431bbb2",
+    "dishes_full.json": "97052961b3c229a06f293ae5bb121b32c7df506bfc9142998ccc231226160c89",
+    "nutrient_dictionary.json": "4b4363b5cfdced9f86a98cb3c60abe09636164ca19410e187b4614dfdea638fa",
+    "nutrients_long.csv": "6e3414b2f8ecc45c30684ecb76efc86b52bb511264862db1039982a3348b406e",
+    "quality_report.json": "e743816181897f0476e5203abb3369ac1f9c1da3f3810b1a74f23b33b2f34ee9"
+  },
+  "reference_amount_g": 100,
+  "reference_basis_verification": {
+    "method": "dataset_owner_confirmation",
+    "date": "2026-10-08",
+    "note": "Dataset owner confirmed all 1250 NIN dishes are per 100 g; source nutrient values are unchanged"
+  }
+}

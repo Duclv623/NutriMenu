@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-meal-planning",
+  "original_url": "https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html",
+  "original_sha256": "ad7175a5a8e436792f84b8ddfb5f34acb52245a680eb8e46ad8d1a08550df4e1",
+  "segments": [
+    {
+      "section": "The plate method",
+      "text": "Dùng đĩa đường kính khoảng 9 inch: một nửa rau không chứa nhiều tinh bột, một phần tư nguồn đạm nạc, một phần tư nhóm thực phẩm chứa carbohydrate. Chọn nước hoặc đồ uống không đường phù hợp. Phương pháp chia diện tích đĩa giúp cân đối nhóm thực phẩm; không xác định sẵn gram cơm hay lượng carb chính xác cho từng người.\nĐoạn gốc chọn lọc: Fill half with nonstarchy veggies, such as salad, green beans, and broccoli.",
+      "locators": [
+        "The plate method"
+      ],
+      "pages": []
+    },
+    {
+      "section": "About portion size",
+      "text": "Khẩu phần thực tế là lượng bạn chọn ăn; đơn vị phục vụ trên nhãn/tài liệu là lượng quy định dùng để công bố số liệu. Có thể chia món ăn ngoài, để riêng phần mang về và đong đồ ăn nhẹ thay vì ăn trực tiếp từ cả túi. Ước lượng bằng bàn tay chỉ là hướng dẫn gần đúng, không phải phép cân đã xác minh cho mọi người.\nĐoạn gốc chọn lọc: Portion size and serving size aren't always the same.",
+      "locators": [
+        "About portion size"
+      ],
+      "pages": []
+    }
+  ]
+}

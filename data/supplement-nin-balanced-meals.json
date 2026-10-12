@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_id": "nin-balanced-meals",
+  "original_url": "https://viendinhduong.vn/vi/article/tin-tuc/69461f0da1f589c173022b13",
+  "original_sha256": "4e460d71ebbe3891928579d4988e3aa2116359f5af4b5769d4010a31a34556d2",
+  "segments": [
+    {
+      "section": "Bữa ăn cân đối",
+      "text": "\nĐoạn gốc:\nPhương pháp đĩa\nPhương pháp này giúp kiểm soát khẩu phần và đảm bảo rằng mỗi bữa ăn được đầy đủ, đa dạng, cân bằng với nhiều chất dinh dưỡng. Phương pháp này đặc biệt hữu ích cho những người bệnh đái tháo đường cần kiểm soát lượng carbohydrate nạp vào và duy trì lượng đường trong máu ổn định.",
+      "locators": [
+        "block-0171",
+        "block-0172"
+      ],
+      "pages": []
+    }
+  ]
+}

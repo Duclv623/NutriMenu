@@ -1,0 +1,41 @@
+{
+  "records": 853,
+  "unique_food_codes": 853,
+  "nutrient_rows": 34544,
+  "nutrient_columns": 151,
+  "categories": {
+    "Dầu, mỡ, bơ": 15,
+    "Gia vị, nước chấm": 46,
+    "Hạt, quả giàu đạm, béo và sản phẩm chế biến": 45,
+    "Khoai củ và sản phẩm chế biến": 36,
+    "Ngũ cốc và sản phẩm chế biến": 34,
+    "Nước giải khát": 24,
+    "Quả chín": 59,
+    "Rau, quả, củ dùng làm rau": 169,
+    "Sữa và sản phẩm chế biến": 15,
+    "Thịt và sản phẩm chế biến": 150,
+    "Thủy sản và sản phẩm chế biến": 103,
+    "Thức ăn truyền thống": 78,
+    "Trứng và sản phẩm chế biến": 12,
+    "Đồ hộp": 23,
+    "Đồ ngọt (đường, bánh, mứt, kẹo)": 44
+  },
+  "missing_core_values": {
+    "energy_kcal": 2,
+    "protein_g": 39,
+    "fat_g": 160,
+    "carbohydrate_g": 174,
+    "dietary_fiber_g": 402,
+    "sodium_mg": 440
+  },
+  "issues": [
+    {
+      "food_code": "7090002",
+      "issue": "negative_value",
+      "key": "carbohydrate-by-difference",
+      "value": -0.03
+    }
+  ],
+  "core_macros_present_nonnegative": 535,
+  "validated_against": "API pagination, unique IDs/codes, schema and value/unit checks; not clinical validation"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-carb-counting",
+  "original_url": "https://www.cdc.gov/diabetes/healthy-eating/carb-counting-manage-blood-sugar.html",
+  "original_sha256": "b18975162e1cdd6ecb394275c91e8c60e4a9a529b3e9e89795464680f10195dd",
+  "segments": [
+    {
+      "section": "How are carbs measured?",
+      "text": "Carbohydrate được tính bằng gram. Một đơn vị carb trong lập kế hoạch bữa ăn thường khoảng 15 g carbohydrate; đây không phải 15 g khối lượng thực phẩm. Đọc tổng carbohydrate trên nhãn và nhân theo lượng thực tế ăn. Lượng carb phù hợp mỗi ngày tùy tuổi, cân nặng, mức vận động và điều trị; thực đơn mẫu 1.800 kcal/200 g carb trong bài không phải mức mặc định cho người dùng.\nĐoạn gốc chọn lọc: For diabetes meal planning, 1 carb serving is about 15 grams of carbs. This isn't always the same as what you think of as a serving of food.",
+      "locators": [
+        "How are carbs measured?"
+      ],
+      "pages": []
+    },
+    {
+      "section": "What are the different kinds of carbs?",
+      "text": "Carb gồm đường, tinh bột và chất xơ. Đường có thể có sẵn trong trái cây/sữa hoặc được bổ sung. Tinh bột có trong ngũ cốc, rau củ giàu tinh bột và các loại đậu. Không chỉ nhìn dòng đường rồi coi đó là toàn bộ carbohydrate.\nĐoạn gốc chọn lọc: There are 3 types of carbs.",
+      "locators": [
+        "What are the different kinds of carbs?"
+      ],
+      "pages": []
+    }
+  ]
+}

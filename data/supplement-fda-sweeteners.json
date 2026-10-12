@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_id": "fda-sweeteners",
+  "original_url": "https://www.fda.gov/food/food-additives-petitions/aspartame-and-other-sweeteners-food",
+  "original_sha256": "d97ac5c62ca1cc744a0048eeedc786c913606b2784f73bcb6506378865754a85",
+  "segments": [
+    {
+      "section": "Chất tạo ngọt và danh sách thành phần",
+      "text": "FDA mô tả chất tạo ngọt dùng trong thực phẩm. Xem tên chất trong danh sách thành phần trên nhãn. Một nhận định về chất tạo ngọt không xác định tổng carbohydrate của mọi sản phẩm.\nĐoạn gốc:\nSweeteners or sugar substitutes, such as aspartame, sucralose, and stevia derived substances, are ingredients used to sweeten and in some cases enhance the flavor of foods. Some sweeteners are much sweeter than table sugar, and smaller amounts are needed to achieve the same level of sweetness as sugar in food. People may choose to use sweeteners instead of sugar for various reasons. For example, sweeteners contribute only a few or no calories to the diet and generally will not raise blood sugar levels.\nSweeteners are widely used in foods and beverages marketed as \"sugar-free\" or \"diet,\" including baked goods, soft drinks, powdered drink mixes, candy, puddings, canned foods, jams and jellies, dairy products, and many other foods and beverages. Consumers can identify whether a product has a sweetener by looking for the sweetener’s name in the ingredient list on the product label.",
+      "locators": [
+        "block-0064",
+        "block-0065"
+      ],
+      "pages": []
+    }
+  ]
+}

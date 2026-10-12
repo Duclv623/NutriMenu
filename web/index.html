@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NutriGuide — Trợ lý kiến thức dinh dưỡng</title>
+  <link rel="icon" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/styles.css?v=20261011"><script src="/static/app.js?v=20261011" defer></script>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><span class="logo">N</span><div>NutriGuide<small>ĐỒ ÁN TỐT NGHIỆP · TV3</small></div></div>
+    <button id="new-chat" class="new-chat">＋ Cuộc trò chuyện mới</button>
+    <details id="history-panel" class="history-panel" open><summary>Lịch sử đã lưu</summary><div id="sessions" class="sessions"></div></details>
+    <div class="aside-note">Kiến thức có nguồn.<br>Không thay thế chuyên gia.<br><a href="/docs" target="_blank" rel="noopener">Tài liệu API ↗</a></div>
+  </aside>
+  <main>
+    <header><div><span class="eyebrow">TRỢ LÝ GIÁO DỤC DINH DƯỠNG</span><h1>Hiểu rõ hơn, lựa chọn tốt hơn.</h1></div><span id="status" role="status">Đang kiểm tra…</span></header>
+    <div class="scope">Dành cho người trưởng thành mắc đái tháo đường type 2. Không chẩn đoán, kê thuốc hay xử lý cấp cứu. Khi nguy cấp, gọi 115.</div>
+    <section id="intro"><h2>Bạn muốn tìm hiểu điều gì?</h2><p>Câu trả lời được đối chiếu với tài liệu đã duyệt. Mở nguồn để xem đoạn trích trong tài liệu gốc.</p>
+      <div class="suggestions">
+        <button data-question="Người đái tháo đường nên ăn trái cây nguyên miếng hay uống nước ép?">Trái cây & nước ép ↗</button>
+        <button data-question="Chất xơ có vai trò gì trong chế độ ăn?">Vai trò của chất xơ ↗</button>
+        <button data-question="Có phải người tiểu đường nào cũng cần ăn bữa phụ không?">Bữa chính & bữa phụ ↗</button>
+        <button data-question="Nên lựa chọn nguồn chất béo như thế nào?">Lựa chọn chất béo ↗</button>
+        <button data-question="200g sữa bò tươi có bao nhiêu đạm và calo?">Tra thành phần thực phẩm ↗</button>
+        <button data-question="100g ngô bắp tươi trong bảng 2007 có bao nhiêu canxi?">Tra bảng thực phẩm 2007 ↗</button>
+      </div>
+    </section>
+    <section id="messages" aria-live="polite" aria-label="Nội dung trò chuyện"></section>
+    <div id="error" role="alert" hidden></div>
+    <form id="chat-form">
+      <label class="sr-only" for="question">Câu hỏi</label>
+      <div class="composer"><textarea id="question" rows="2" maxlength="2000" placeholder="Hỏi về kiến thức dinh dưỡng… Không nhập tên, số điện thoại hoặc hồ sơ bệnh án." required></textarea><button id="send" type="submit">Gửi ↗</button></div>
+      <p class="privacy">Câu trả lời kiến thức dùng API AI thật; câu hỏi và trích đoạn liên quan được gửi tới nhà cung cấp đang cấu hình. Thông báo an toàn và yêu cầu làm rõ do hệ thống trả theo quy tắc.</p>
+      <div class="preferences"><label><input type="checkbox" id="save-history"> Lưu lịch sử trên máy chủ (tối đa <span id="retention">7</span> ngày)</label></div>
+      <p class="privacy">Khi không chọn lưu lịch sử, ngữ cảnh chỉ được giữ tạm tối đa 30 phút để hỏi tiếp nối. Không nhập thông tin định danh hoặc dữ liệu bệnh nhân thật. Bạn có thể xóa lịch sử đã lưu.</p>
+    </form>
+  </main>
+</div>
+</body></html>

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-shift-work",
+  "original_url": "https://www.cdc.gov/diabetes/articles/diabetes-shift-work.html",
+  "original_sha256": "f15fe5b62b49f8c4ce6e137ff6e2b4785f77d84063e70c8be9c0a2b157f09514",
+  "segments": [
+    {
+      "section": "Lifestyle tips for shift workers / Eating Habits / Medication Schedule",
+      "text": "Chuẩn bị đồ ăn trước ca, cố gắng giữ thời điểm ăn ổn định và tránh bữa rất lớn giữa đêm. Theo dõi đường huyết phù hợp với ca và mức hoạt động. “Đo buổi sáng” không tự đồng nghĩa “đo lúc đói” nếu vừa ăn khi làm ca đêm. Trao đổi với bác sĩ về lịch dùng thuốc và những thuốc cần dùng cùng thức ăn; chatbot không tự dời liều. Lịch ngủ và ăn cần phù hợp ca thực tế, không áp một giờ biểu cố định cho mọi người.\nĐoạn gốc chọn lọc: Prepping your food ahead is a great way to set yourself up for success and have healthy options at any hour.",
+      "locators": [
+        "Lifestyle tips for shift workers / Eating Habits / Medication Schedule"
+      ],
+      "pages": []
+    }
+  ]
+}

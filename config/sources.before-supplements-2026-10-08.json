@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "byt5481-nutrition",
+      "filename": "dinh-kem-16.pdf",
+      "title": "Bộ Y tế — Hướng dẫn chẩn đoán và điều trị đái tháo đường típ 2, mục 5.2 Dinh dưỡng",
+      "url": "https://syt.dongnai.gov.vn/vi/van-ban/detail/V-v-trien-khai-thuc-hien-Quyet-dinh-so-5481-QD-BYT-ngay-30-12-2020-cua-Bo-truong-Bo-Y-te-4905/?download=1&id=0",
+      "year": 2020,
+      "version": "5481/QĐ-BYT ngày 30/12/2020; theo dõi sửa đổi 1353/QĐ-BYT 23/02/2021",
+      "enabled": true,
+      "role": "knowledge",
+      "expected_pages": 77,
+      "extraction_mode": "layout",
+      "sha256": "305fc9c51d54418f5798e7691d59f94d24545e0dd728945e2225794730694486",
+      "printed_page_offset": -2,
+      "warnings": [
+        "Tài liệu năm 2020, cần đối chiếu khuyến cáo mới và rà soát chuyên môn.",
+        "Các mức dinh dưỡng tham khảo không tự động áp dụng cho mọi cá nhân.",
+        "Một số chữ tiếng Việt có lỗi font trong lớp text; xem PDF gốc để đối chiếu."
+      ],
+      "segments": [
+        {
+          "pages": [
+            30,
+            31,
+            32,
+            33,
+            34
+          ],
+          "section": "5.2 Dinh dưỡng",
+          "start_regex": "(?m)^5\\.\\s*2\\.\\s*Dinh",
+          "end_regex": "(?m)^6\\.\\s*Quản lý"
+        }
+      ]
+    },
+    {
+      "id": "byt2879",
+      "filename": "Quyet-dinh-2879-BYT.pdf",
+      "title": "Hướng dẫn chế độ ăn bệnh viện — QĐ2879/QĐ-BYT",
+      "year": 2006,
+      "enabled": false,
+      "role": "supplementary",
+      "reason": "Bản cắt 6 trang còn chứa bệnh thận và bảng DD03; cần duyệt từng bảng, giữ điều kiện khẩu phần tham khảo 50–55 kg. Chưa đưa vào corpus mặc định."
+    },
+    {
+      "id": "byt1353",
+      "filename": "quyet_dinh_1353_dai_thao_duong_type_2.pdf",
+      "title": "Sửa đổi hướng dẫn đái tháo đường típ 2 — QĐ1353/QĐ-BYT",
+      "year": 2021,
+      "enabled": false,
+      "role": "version_metadata",
+      "reason": "Sửa đổi insulin, không phải kiến thức dinh dưỡng cho RAG."
+    },
+    {
+      "id": "vtn-fct-2007",
+      "filename": "VTN_FCT_2007.pdf",
+      "title": "Bảng thành phần thực phẩm Việt Nam 2007",
+      "year": 2007,
+      "enabled": true,
+      "role": "structured_food_data",
+      "reason": "Đã kết nối: bảng tra cứu có cấu trúc và văn bản hướng dẫn/danh mục.",
+      "version": "2007; trích bảng theo tọa độ, 526 thực phẩm",
+      "sha256": "6c4838ba5623df6d62b2bf4ef1a82968bbfad8a10980247c32b7e60c0c9ca281",
+      "segments": [
+        {
+          "section": "Hướng dẫn/danh mục: truy hồi văn bản; toàn bộ 526 bảng: công cụ dinh dưỡng"
+        }
+      ],
+      "warnings": [
+        "Nguồn năm 2007; giữ riêng phiên bản, không đồng nhất Celluloza với tổng chất xơ."
+      ]
+    },
+    {
+      "id": "nin-healthy-meals",
+      "filename": "bữa ăn lành mạnh của Viện Dinh Dưỡng.docx",
+      "title": "Viện Dinh dưỡng — Cách thực hiện bữa ăn lành mạnh cho người đái tháo đường",
+      "url": "https://viendinhduong.vn/vi/article/tin-tuc/69465602baf53db1e6077952",
+      "year": 2025,
+      "version": "2025; bản DOCX thu thập 06/10/2026; đối chiếu 07/10/2026: giữ nội dung đã duyệt, sửa lỗi gõ ndên",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "docx",
+      "sha256": "07b1c41c95d59f4a529ab382b47499fd7c17d5f6d929ea7787c81b5dcf7ec833",
+      "segments": [
+        {
+          "section": "Nội dung DOCX đã duyệt"
+        }
+      ],
+      "body_ranges": [
+        [
+          3,
+          19
+        ]
+      ],
+      "headings": [
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường",
+        "Thực đơn tham khảo cho người bệnh đái tháo đường"
+      ],
+      "warnings": [
+        "Bài giáo dục; số liệu/ví dụ không tự áp dụng thành khẩu phần cá nhân.",
+        "Bài gắn nhãn Natri nhưng câu văn nêu muối; không diễn giải giới hạn muối thành giới hạn natri.",
+        "Thực đơn trong bảng chỉ là ví dụ tham khảo, chưa chuẩn hóa thành công thức của Food Service."
+      ],
+      "text_corrections": {
+        "ndên ăn nhiều rau": "nên ăn nhiều rau"
+      }
+    },
+    {
+      "id": "endocrine-diet",
+      "filename": "chế độ ăn Bệnh viện Nội tiết Trung ương.docx",
+      "title": "Bệnh viện Nội tiết Trung ương — Chế độ ăn cho người đái tháo đường",
+      "url": "https://benhviennoitiet.vn/che-do-an-cho-nguoi-dai-thao-duong/",
+      "year": 2026,
+      "version": "2026; bản DOCX thu thập 06/10/2026",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "docx",
+      "sha256": "ac23c3beb69c1ace50e0522a51b21f007f21551ac6b47af1d604643e1c542afb",
+      "segments": [
+        {
+          "section": "Nội dung DOCX đã duyệt"
+        }
+      ],
+      "body_ranges": [
+        [
+          3,
+          29
+        ]
+      ],
+      "headings": [
+        "1) Nền tảng: “Đủ – Cân bằng – Điều độ – Đa dạng”",
+        "2) Kiểm soát carbohydrate (tinh bột/đường): “Chất lượng + số lượng + nhịp ăn”",
+        "a) Dùng “Phương pháp Đĩa” (Plate Method) để chia khẩu phần",
+        "b) Giảm đường thêm và tinh bột tinh chế",
+        "c) Ăn đều bữa, ổn định lượng carbohydrate giữa các bữa",
+        "d) Kết hợp carbohydrate với chất đạm/chất béo/chất xơ để đường máu tăng chậm hơn.",
+        "3) Tăng chất xơ: “Rau nhiều + hạt nguyên + đậu đỗ”",
+        "4) Chọn chất đạm “nạc” và cách chế biến",
+        "5) Hạn chế muối/natri, chất béo không lành mạnh và thực phẩm chế biến sẵn"
+      ],
+      "warnings": [
+        "Bài giáo dục; số liệu/ví dụ không tự áp dụng thành khẩu phần cá nhân."
+      ]
+    },
+    {
+      "id": "niddk-healthy-living",
+      "filename": "Healthy Living with Diabetes của NIDDK.docx",
+      "title": "NIDDK — Healthy Living with Diabetes (bản dịch tiếng Việt đã rà thuật ngữ)",
+      "url": "https://www.niddk.nih.gov/health-information/diabetes/overview/healthy-living-with-diabetes",
+      "year": 2023,
+      "version": "2023; bản DOCX thu thập 06/10/2026",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "docx",
+      "sha256": "14edecdfaeca62990564f004643b81a29bf338f7b8c9e18620a0f4a134713555",
+      "segments": [
+        {
+          "section": "Nội dung DOCX đã duyệt"
+        }
+      ],
+      "body_ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          51,
+          62
+        ],
+        [
+          66,
+          79
+        ],
+        [
+          86,
+          89
+        ],
+        [
+          92,
+          97
+        ],
+        [
+          101,
+          113
+        ]
+      ],
+      "headings": [
+        "Tôi nên lên kế hoạch ăn uống như thế nào khi bị tiểu đường?",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh.",
+        "Tìm thời điểm tốt nhất để ăn hoặc uống.",
+        "Lên kế hoạch lượng thức ăn hoặc đồ uống cần tiêu thụ.",
+        "Đếm lượng carbohydrate",
+        "Phương pháp đĩa ăn",
+        "Hãy trao đổi với chuyên gia chăm sóc sức khỏe của bạn trước khi dùng thực phẩm chức năng.",
+        "Hoạt động thể chất có thể giúp kiểm soát bệnh tiểu đường của tôi như thế nào?",
+        "Thực hiện các loại hoạt động thể chất khác nhau",
+        "Các hoạt động aerobic",
+        "Tập luyện sức mạnh hoặc tập luyện kháng lực",
+        "Các hoạt động giữ thăng bằng và kéo giãn",
+        "Hãy đảm bảo an toàn khi tham gia hoạt động thể chất.",
+        "Uống nhiều nước",
+        "Hãy chăm sóc đôi chân của bạn",
+        "Tôi có thể làm gì để đạt được hoặc duy trì cân nặng khỏe mạnh?",
+        "Tôi có nên bỏ thuốc lá không?",
+        "Tôi có thể chăm sóc sức khỏe tinh thần của mình như thế nào?"
+      ],
+      "warnings": [
+        "Bài giáo dục; số liệu/ví dụ không tự áp dụng thành khẩu phần cá nhân.",
+        "Bản dịch được sửa một số thuật ngữ theo bản tiếng Anh; ảnh và phần ngoài phạm vi chưa index."
+      ],
+      "text_corrections": {
+        "Phương pháp tấm": "Phương pháp đĩa ăn",
+        "hay còn gọi là tinh bột": "gọi tắt là carb",
+        "rau không chứa tinh bột": "rau không giàu tinh bột",
+        "Các loại rau không chứa tinh bột": "Các loại rau không giàu tinh bột",
+        "rau lá xanh, ớt, cà rốt hoặc đậu xanh": "rau lá xanh, ớt, cà rốt hoặc đậu que",
+        "nên chiếm một phần tư khẩu phần ăn của bạn": "nên chiếm một phần tư đĩa ăn của bạn",
+        "Các loại thực phẩm giàu tinh bột và chất xơ": "Nhóm thực phẩm carbohydrate giàu chất xơ",
+        "có nhiều tinh bột hơn các loại thực phẩm khác": "có nhiều carbohydrate hơn các loại thực phẩm khác",
+        "Hãy lưu ý đến lượng tinh bột khi lên kế hoạch cho bữa ăn của bạn.": "Hãy lưu ý đến lượng carbohydrate khi lên kế hoạch cho bữa ăn của bạn."
+      }
+    },
+    {
+      "id": "nin-duplicate",
+      "filename": "bữa ăn lành mạnh của Viện Dinh Dưỡng.docx",
+      "title": "Bản trùng bài Viện Dinh dưỡng",
+      "year": 2025,
+      "enabled": false,
+      "role": "duplicate",
+      "reason": "Trùng bài nin-healthy-meals, chỉ khác lỗi gõ ndên/nên."
+    },
+    {
+      "id": "ada2026-reference",
+      "filename": "dc26S005.pdf",
+      "title": "ADA Standards of Care 2026, Section 5",
+      "year": 2026,
+      "enabled": false,
+      "role": "reference_only",
+      "reason": "Thông báo nguồn yêu cầu quyền phù hợp trước text/data mining/AI; không index trong lần triển khai này."
+    },
+    {
+      "id": "ada-labels",
+      "filename": "ada-reading-labels-2024.pdf",
+      "title": "ADA — Đọc nhãn thực phẩm, khẩu phần, carbohydrate và đường",
+      "url": "https://diabetes.org/sites/default/files/2024-10/Reading-Nutrition-Labels-FINAL_0.pdf",
+      "year": 2024,
+      "version": "Handout trong thư mục 2024; thu thập và kiểm tra trang 07/10/2026",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "pdf",
+      "language": "en",
+      "expected_pages": 2,
+      "sha256": "ac5224fca603cd0a1324f1869f359ca613a123322f51c70aac9ef40c8bd6e6b9",
+      "warnings": [
+        "Tài liệu giáo dục tiếng Anh; số liệu ví dụ không phải nhãn sản phẩm Việt hoặc khẩu phần cá nhân."
+      ],
+      "review_note": "Đã đối chiếu hình ảnh cả hai trang với text. Chỉ nạp các mục đã chọn; loại phần minh họa và các khẳng định tổng quát cần đối chiếu thêm. Không phải thẩm định lâm sàng.",
+      "segments": [
+        {
+          "pages": [
+            1
+          ],
+          "section": "Đọc nhãn: khẩu phần, số khẩu phần trong hộp và ví dụ hai lát bánh mì",
+          "start_regex": "(?m)^Things to Look",
+          "end_regex": "(?m)^Nutrition Facts"
+        },
+        {
+          "pages": [
+            1
+          ],
+          "section": "Đọc nhãn: thứ tự nguyên liệu theo khối lượng",
+          "start_regex": "(?m)^Ingredients:",
+          "end_regex": "(?m)^Learn more"
+        },
+        {
+          "pages": [
+            2
+          ],
+          "section": "Đọc nhãn: phần trăm giá trị dinh dưỡng hằng ngày %DV",
+          "start_regex": "(?m)^Percent Daily",
+          "end_regex": "(?m)^Saturated Fat:"
+        },
+        {
+          "pages": [
+            2
+          ],
+          "section": "Đọc nhãn: tổng carbohydrate, chất xơ và đường thêm",
+          "start_regex": "(?m)^Total Carbs:",
+          "end_regex": "(?m)^Find Support"
+        }
+      ]
+    },
+    {
+      "id": "ada-sweeteners",
+      "filename": "ada-sugar-substitutes-2023.pdf",
+      "title": "ADA — Đường ăn kiêng, không thêm đường và polyol",
+      "url": "https://professional.diabetes.org/sites/dpro/files/2023-12/sugar_substitutes.pdf",
+      "year": 2023,
+      "version": "Handout trong thư mục 2023; thu thập và kiểm tra trang 07/10/2026",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "pdf",
+      "language": "en",
+      "expected_pages": 2,
+      "sha256": "e1363c375a2e576722e0e76d6b0396a513a5f6d2963c716342fac1c0043d30e1",
+      "warnings": [
+        "Tài liệu giáo dục tiếng Anh; số liệu ví dụ không phải nhãn sản phẩm Việt hoặc khẩu phần cá nhân."
+      ],
+      "review_note": "Đã đối chiếu hình ảnh cả hai trang với text. Chỉ nạp các mục đã chọn; loại phần minh họa và các khẳng định tổng quát cần đối chiếu thêm. Không phải thẩm định lâm sàng.",
+      "segments": [
+        {
+          "pages": [
+            1
+          ],
+          "section": "Không thêm đường: no added sugar và đường có sẵn trong nguyên liệu",
+          "start_regex": "(?m)^• No added sugar",
+          "end_regex": "(?m)^Continued",
+          "related_sections": [
+            "ada-labels::Đọc nhãn: tổng carbohydrate, chất xơ và đường thêm"
+          ]
+        },
+        {
+          "pages": [
+            2
+          ],
+          "section": "Polyol sugar alcohols: carbohydrate, năng lượng và đặc điểm",
+          "start_regex": "(?m)^Sugar alcohols are",
+          "end_regex": "(?m)^SUGARSUGAR"
+        },
+        {
+          "pages": [
+            2
+          ],
+          "section": "Đường ăn kiêng, sugar free, zero sugar: đọc nhãn và sử dụng vừa phải",
+          "start_regex": "(?m)^Food labels may"
+        }
+      ]
+    },
+    {
+      "id": "ada-food-groups",
+      "filename": "ada-food-groups-2023.pdf",
+      "title": "ADA — Nhóm thực phẩm, sữa, ngũ cốc và khẩu phần",
+      "url": "https://professional.diabetes.org/sites/dpro/files/2023-12/food_groups_and_portion_sizes.pdf",
+      "year": 2023,
+      "version": "Handout trong thư mục 2023; thu thập và kiểm tra trang 07/10/2026",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "pdf",
+      "language": "en",
+      "expected_pages": 2,
+      "sha256": "b39ac600c3cb8ba110a0b8c89dbcc17f677e257b566f0209873ac49c97b669ae",
+      "warnings": [
+        "Tài liệu giáo dục tiếng Anh; số liệu ví dụ không phải nhãn sản phẩm Việt hoặc khẩu phần cá nhân."
+      ],
+      "review_note": "Đã đối chiếu hình ảnh cả hai trang với text. Chỉ nạp các mục đã chọn; loại phần minh họa và các khẳng định tổng quát cần đối chiếu thêm. Không phải thẩm định lâm sàng.",
+      "segments": [
+        {
+          "pages": [
+            1
+          ],
+          "section": "Rau ít tinh bột và cách chọn rau",
+          "start_regex": "(?m)^Non-starchy",
+          "end_regex": "(?m)^Protein helps"
+        },
+        {
+          "pages": [
+            1
+          ],
+          "section": "Chất đạm: thịt nạc, cá, đậu, chất xơ và carbohydrate",
+          "start_regex": "(?m)^Protein helps",
+          "end_regex": "(?m)^Carbohydrates like"
+        },
+        {
+          "pages": [
+            1
+          ],
+          "section": "Carbohydrate: trái cây, ngũ cốc nguyên hạt, chất xơ và đường thêm",
+          "start_regex": "(?m)^Carbohydrates like",
+          "end_regex": "(?m)^Understanding how"
+        },
+        {
+          "pages": [
+            2
+          ],
+          "section": "Sữa và thức uống thay thế: carbohydrate, đạm và đọc nhãn",
+          "start_regex": "(?m)^Dairy",
+          "end_regex": "(?m)^Fun foods",
+          "related_sections": [
+            "ada-labels::Đọc nhãn: tổng carbohydrate, chất xơ và đường thêm"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada-cooking",
+      "filename": "ada-cooking-2023.pdf",
+      "title": "ADA — Cách chế biến và nêm gia vị",
+      "url": "https://professional.diabetes.org/sites/dpro/files/2023-12/healthy_ways_to_cook_and_season_food.pdf",
+      "year": 2023,
+      "version": "Handout trong thư mục 2023; thu thập và kiểm tra trang 07/10/2026",
+      "enabled": true,
+      "role": "knowledge",
+      "format": "pdf",
+      "language": "en",
+      "expected_pages": 2,
+      "sha256": "484519815ad719a9ffc12b1fb603e70163985a0745fe06ffc91d29c431b74d21",
+      "warnings": [
+        "Tài liệu giáo dục tiếng Anh; số liệu ví dụ không phải nhãn sản phẩm Việt hoặc khẩu phần cá nhân."
+      ],
+      "review_note": "Đã đối chiếu hình ảnh cả hai trang với text. Chỉ nạp các mục đã chọn; loại phần minh họa và các khẳng định tổng quát cần đối chiếu thêm. Không phải thẩm định lâm sàng.",
+      "segments": [
+        {
+          "pages": [
+            1
+          ],
+          "section": "Nấu ăn: nướng, hấp, xào, chần và lựa chọn dầu",
+          "start_regex": "(?m)^Baking",
+          "end_regex": "(?m)^Healthy eating"
+        },
+        {
+          "pages": [
+            1
+          ],
+          "section": "Nguyên tắc chế biến: ít chất béo, muối và đường",
+          "start_regex": "(?m)^Healthy eating",
+          "end_regex": "(?m)^Let’s explore"
+        },
+        {
+          "pages": [
+            2
+          ],
+          "section": "Nêm món ăn: thảo mộc, gia vị, nước xốt, đường và natri",
+          "start_regex": "(?m)^Be mindful"
+        }
+      ]
+    }
+  ]
+}

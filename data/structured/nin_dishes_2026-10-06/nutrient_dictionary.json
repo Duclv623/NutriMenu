@@ -1,0 +1,470 @@
+{
+  "nutrient__nang-luong__Kcal": {
+    "key": "nang-luong",
+    "unit": "Kcal",
+    "labels_vi": [
+      "Năng lượng"
+    ],
+    "labels_en": [
+      "Energy"
+    ]
+  },
+  "nutrient__chat-dam__g": {
+    "key": "chat-dam",
+    "unit": "g",
+    "labels_vi": [
+      "Chất đạm"
+    ],
+    "labels_en": [
+      "Protein"
+    ]
+  },
+  "nutrient__chat-beo__g": {
+    "key": "chat-beo",
+    "unit": "g",
+    "labels_vi": [
+      "Chất béo"
+    ],
+    "labels_en": [
+      "Fat",
+      "Lipid",
+      "Lipid Glucid"
+    ]
+  },
+  "nutrient__chat-bot-duong__g": {
+    "key": "chat-bot-duong",
+    "unit": "g",
+    "labels_vi": [
+      "Chất bột đường"
+    ],
+    "labels_en": [
+      "Carbohydrate",
+      "Glucid"
+    ]
+  },
+  "nutrient__vitamin-a__μg": {
+    "key": "vitamin-a",
+    "unit": "μg",
+    "labels_vi": [
+      "Vitamin A"
+    ],
+    "labels_en": [
+      "Vitamin A"
+    ]
+  },
+  "nutrient__beta-caroten__μg": {
+    "key": "beta-caroten",
+    "unit": "μg",
+    "labels_vi": [
+      " Beta-caroten",
+      " Beta-caroten ",
+      "Beta-caroten",
+      "Beta-caroten "
+    ],
+    "labels_en": [
+      " Beta-caroten",
+      " Beta-caroten ",
+      "Beta-caroten",
+      "Beta-caroten ",
+      "Beta-caroten/",
+      "Beta-carotenum"
+    ]
+  },
+  "nutrient__vitamin-c__mg": {
+    "key": "vitamin-c",
+    "unit": "mg",
+    "labels_vi": [
+      " Vitamin C",
+      " Vitamin C ",
+      "Vitamin C",
+      "Vitamin C "
+    ],
+    "labels_en": [
+      " Vitamin C",
+      " Vitamin C ",
+      "Vitamin C",
+      "Vitamin C "
+    ]
+  },
+  "nutrient__calcium__mg": {
+    "key": "calcium",
+    "unit": "mg",
+    "labels_vi": [
+      "Calcium"
+    ],
+    "labels_en": [
+      "Calcium"
+    ]
+  },
+  "nutrient__iron__mg": {
+    "key": "iron",
+    "unit": "mg",
+    "labels_vi": [
+      "Iron"
+    ],
+    "labels_en": [
+      "Iron"
+    ]
+  },
+  "nutrient__zinc__mg": {
+    "key": "zinc",
+    "unit": "mg",
+    "labels_vi": [
+      "Zinc"
+    ],
+    "labels_en": [
+      "Zinc"
+    ]
+  },
+  "nutrient__natri__mg": {
+    "key": "natri",
+    "unit": "mg",
+    "labels_vi": [
+      "Natri"
+    ],
+    "labels_en": [
+      "Natri",
+      "Sodium"
+    ]
+  },
+  "nutrient__tuong-duong-muoi__g": {
+    "key": "tuong-duong-muoi",
+    "unit": "g",
+    "labels_vi": [
+      "Tương đương Muối"
+    ],
+    "labels_en": [
+      "Salt"
+    ]
+  },
+  "nutrient__cholesterol__mg": {
+    "key": "cholesterol",
+    "unit": "mg",
+    "labels_vi": [
+      "Cholesterol"
+    ],
+    "labels_en": [
+      "Cholesterol"
+    ]
+  },
+  "nutrient__magnesium__mg": {
+    "key": "magnesium",
+    "unit": "mg",
+    "labels_vi": [
+      "Magnesium"
+    ],
+    "labels_en": [
+      "Magnesium"
+    ]
+  },
+  "nutrient__transfat__mg": {
+    "key": "transfat",
+    "unit": "mg",
+    "labels_vi": [
+      "Transfat"
+    ],
+    "labels_en": [
+      "Transfat"
+    ]
+  },
+  "nutrient__canxi__mg": {
+    "key": "canxi",
+    "unit": "mg",
+    "labels_vi": [
+      "Canxi"
+    ],
+    "labels_en": [
+      "Calcium",
+      "Canxi"
+    ]
+  },
+  "nutrient__sat__mg": {
+    "key": "sat",
+    "unit": "mg",
+    "labels_vi": [
+      "Sắt"
+    ],
+    "labels_en": [
+      "Iron",
+      "Sắt",
+      "iron"
+    ]
+  },
+  "nutrient__kem__mg": {
+    "key": "kem",
+    "unit": "mg",
+    "labels_vi": [
+      "Kẽm"
+    ],
+    "labels_en": [
+      "Kẽm",
+      "Zinc",
+      "zinc"
+    ]
+  },
+  "nutrient__kali__mg": {
+    "key": "kali",
+    "unit": "mg",
+    "labels_vi": [
+      "Kali"
+    ],
+    "labels_en": [
+      "Kali"
+    ]
+  },
+  "nutrient__xo__g": {
+    "key": "xo",
+    "unit": "g",
+    "labels_vi": [
+      "Xơ"
+    ],
+    "labels_en": [
+      "1,4",
+      "Fiber",
+      "Fibera",
+      "Fibre",
+      "Xơ"
+    ]
+  },
+  "nutrient__vitamin-c__g": {
+    "key": "vitamin-c",
+    "unit": "g",
+    "labels_vi": [
+      " Vitamin C",
+      "Vitamin C",
+      "Vitamin C "
+    ],
+    "labels_en": [
+      " Vitamin C",
+      "Vitamin C",
+      "Vitamin C "
+    ]
+  },
+  "nutrient__carbohydrate__g": {
+    "key": "carbohydrate",
+    "unit": "g",
+    "labels_vi": [
+      "Carbohydrate"
+    ],
+    "labels_en": [
+      "Glucid",
+      "Lipid"
+    ]
+  },
+  "nutrient__xo__mg": {
+    "key": "xo",
+    "unit": "mg",
+    "labels_vi": [
+      "Xơ"
+    ],
+    "labels_en": [
+      "Fiber",
+      "Xơ"
+    ]
+  },
+  "nutrient__lipid__g": {
+    "key": "lipid",
+    "unit": "g",
+    "labels_vi": [
+      "Lipid"
+    ],
+    "labels_en": [
+      "Lipid"
+    ]
+  },
+  "nutrient__beta-caroten__mg": {
+    "key": "beta-caroten",
+    "unit": "mg",
+    "labels_vi": [
+      " Beta-caroten",
+      "Beta-caroten"
+    ],
+    "labels_en": [
+      " Beta-caroten",
+      "Beta-caroten",
+      "Potassium"
+    ]
+  },
+  "nutrient__magie__mg": {
+    "key": "magie",
+    "unit": "mg",
+    "labels_vi": [
+      "Magie"
+    ],
+    "labels_en": [
+      "Magnesium"
+    ]
+  },
+  "nutrient__xo__μg": {
+    "key": "xo",
+    "unit": "μg",
+    "labels_vi": [
+      "Xơ"
+    ],
+    "labels_en": [
+      "Fiber",
+      "Fibre",
+      "Xơ"
+    ]
+  },
+  "nutrient__carbglucid__g": {
+    "key": "carbglucid",
+    "unit": "g",
+    "labels_vi": [
+      "CarbGlucid"
+    ],
+    "labels_en": [
+      "Glucid"
+    ]
+  },
+  "nutrient__vitamin-c__μg": {
+    "key": "vitamin-c",
+    "unit": "μg",
+    "labels_vi": [
+      "Vitamin C"
+    ],
+    "labels_en": [
+      "Vitamin C"
+    ]
+  },
+  "nutrient__28-8g__g": {
+    "key": "28-8g",
+    "unit": "g",
+    "labels_vi": [
+      "28,8g"
+    ],
+    "labels_en": [
+      "28,8g"
+    ]
+  },
+  "nutrient__mufa-pufa__g": {
+    "key": "mufa-pufa",
+    "unit": "g",
+    "labels_vi": [
+      "MUFA+PUFA"
+    ],
+    "labels_en": [
+      "MUFA+PUFA"
+    ]
+  },
+  "nutrient__beta-caroten__g": {
+    "key": "beta-caroten",
+    "unit": "g",
+    "labels_vi": [
+      "Beta-caroten"
+    ],
+    "labels_en": [
+      "Beta-caroten"
+    ]
+  },
+  "nutrient__potassium__mg": {
+    "key": "potassium",
+    "unit": "mg",
+    "labels_vi": [
+      "Potassium"
+    ],
+    "labels_en": [
+      "Potassium"
+    ]
+  },
+  "nutrient__182-6-g__μg": {
+    "key": "182-6-g",
+    "unit": "μg",
+    "labels_vi": [
+      "182,6μg"
+    ],
+    "labels_en": [
+      "182,6μg"
+    ]
+  },
+  "nutrient__2mg__mg": {
+    "key": "2mg",
+    "unit": "mg",
+    "labels_vi": [
+      "2mg"
+    ],
+    "labels_en": [
+      "2mg"
+    ]
+  },
+  "nutrient__85-5mg__mg": {
+    "key": "85-5mg",
+    "unit": "mg",
+    "labels_vi": [
+      "85,5mg"
+    ],
+    "labels_en": [
+      "85,5mg"
+    ]
+  },
+  "nutrient__chat-bot-duong__μg": {
+    "key": "chat-bot-duong",
+    "unit": "μg",
+    "labels_vi": [
+      "Chất bột đường"
+    ],
+    "labels_en": [
+      "Glucid"
+    ]
+  },
+  "nutrient__chat-xo__g": {
+    "key": "chat-xo",
+    "unit": "g",
+    "labels_vi": [
+      "Chất xơ"
+    ],
+    "labels_en": [
+      "Fiber"
+    ]
+  },
+  "nutrient__potassium__μg": {
+    "key": "potassium",
+    "unit": "μg",
+    "labels_vi": [
+      "Potassium"
+    ],
+    "labels_en": [
+      "Potassium"
+    ]
+  },
+  "nutrient__mufa-pufa__mg": {
+    "key": "mufa-pufa",
+    "unit": "mg",
+    "labels_vi": [
+      "MUFA+PUFA"
+    ],
+    "labels_en": [
+      "MUFA+PUFA"
+    ]
+  },
+  "nutrient__beta-carote__μg": {
+    "key": "beta-carote",
+    "unit": "μg",
+    "labels_vi": [
+      "Beta-carote"
+    ],
+    "labels_en": [
+      "Beta-carote"
+    ]
+  },
+  "nutrient__magi__mg": {
+    "key": "magi",
+    "unit": "mg",
+    "labels_vi": [
+      "Magỉ"
+    ],
+    "labels_en": [
+      "Magnesium"
+    ]
+  },
+  "nutrient__vitamin-a__mg": {
+    "key": "vitamin-a",
+    "unit": "mg",
+    "labels_vi": [
+      "Vitamin A"
+    ],
+    "labels_en": [
+      "Vitamin A"
+    ]
+  }
+}

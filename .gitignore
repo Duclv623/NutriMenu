@@ -1,0 +1,48 @@
+# Môi trường Python
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Runtime / generated
+storage/
+tmp/
+*.log
+
+# Dữ liệu thô nặng (raw PDFs, DOCXs — không cần thiết để code)
+data/collected/
+data/exports/
+data/structured/nin_dishes_2026-10-06/raw/
+data/structured/nin_foods_2026-10-06/raw/
+
+# Tài liệu nhóm / báo cáo không liên quan đến code
+*.docx
+PLAN.md
+Danh_muc_tai_lieu_TV3.md
+Khung_bao_cao_DATN_nhom_3.docx
+de_tai.docx
+idea.docx
+"phân tích và chia công việc.docx"
+
+# Ảnh cá nhân / không thuộc code
+*.jpg
+*.jpeg
+*.png
+*.gif
+!web/favicon.svg
+
+# Docs nội bộ / báo cáo tự tạo (giữ lại README.md chính)
+docs/
+
+# Snapshot / eval results
+docs/eval_expanded/
+
+# evals giữ để thành viên khác biết API contract
+# evals/ — KHÔNG ignore, cần để test

@@ -1,0 +1,12 @@
+fastapi==0.142.2
+uvicorn==0.54.0
+openai==3.24.0
+pydantic==2.13.5
+pydantic-settings==2.15.0
+pypdf==6.19.0
+numpy==2.5.3
+rank-bm25==0.2.2
+tiktoken==0.14.0
+httpx==0.28.1
+PyJWT==2.15.1
+cryptography==50.0.2
