@@ -10,6 +10,10 @@ from rag_app.config import Settings
 from rag_app.domain import GeneratedAnswer, Hit
 from rag_app.prompts import GROUNDING_PROMPT, SYSTEM_PROMPT
 from rag_app.retrieval import fold
+from rag_app.routing import (
+    DIRECT_PROMPT, DIRECT_REVIEW_PROMPT, ROUTING_PROMPT, ResponsePlan,
+    constrain_plan, direct_text_is_allowed,
+)
 from rag_app.safety import (
     is_elliptical_intake_followup,
     is_intake_advice,
@@ -36,6 +40,20 @@ class GroundingReview(BaseModel):
     accepted_blocks: list[ReviewedBlock]
     needs_revision: bool = False
     revision_reason: str = ""
+
+
+class DirectDraft(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    text: str
+    uncertainty: str
+
+
+class DirectReview(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    safe: bool
+    answers_question: bool
+    requires_evidence: bool
+    reason: str
 
 
 def normalize_evidence_text(value: str):
@@ -219,6 +237,9 @@ def safe_provider_failure(error: Exception, fallback: str) -> ProviderFailure:
 
 
 class Provider(Protocol):
+    def plan_response(self, question: str, history: list[dict]): ...
+    def generate_direct(self, question: str, plan: ResponsePlan, history: list[dict]): ...
+    def generate_practical(self, question: str, hits: list[Hit], history: list[dict], plan: ResponsePlan): ...
     def embed(self, texts: list[str]) -> list[list[float]]: ...
     def generate(
         self, question: str, hits: list[Hit], history: list[dict], *, system_prompt: str = SYSTEM_PROMPT,
@@ -257,6 +278,89 @@ class OpenAIProvider:
         if self._embedder is not None and hasattr(self._embedder, "close"):
             self._embedder.close()
 
+    def response_metadata(self, answer, calls, *, review_model=None):
+        answer._provider_model = self.settings.openai_model
+        answer._provider_name = self.name
+        answer._grounding_model = review_model
+        answer._provider_response_ids = [r.id for r in calls if getattr(r, 'id', None)]
+        return answer, {
+            'input_tokens': sum(r.usage.input_tokens for r in calls),
+            'output_tokens': sum(r.usage.output_tokens for r in calls),
+        }
+
+    def plan_response(self, question: str, history: list[dict]):
+        try:
+            call = self.client.responses.parse(
+                model=self.settings.openai_model,
+                input=[{'role': 'system', 'content': ROUTING_PROMPT},
+                       {'role': 'user', 'content': json.dumps({
+                           'QUESTION': redact(question.rsplit('\nCâu hỏi tiếp: ', 1)[-1]),
+                           'RESOLVED_QUESTION': redact(question),
+                           'USER_CONTEXT': [redact(t['question']) for t in history[-3:]],
+                       }, ensure_ascii=False)}],
+                text_format=ResponsePlan, max_output_tokens=500, store=False)
+            if call.status != 'completed' or call.output_parsed is None:
+                raise ProviderFailure('AI chưa xác định được cách trả lời; hãy thử lại.')
+            plan = constrain_plan(call.output_parsed, question)
+            metadata, usage = self.response_metadata(
+                GeneratedAnswer(supported=False, blocks=[], uncertainty=''), [call])
+            return plan, metadata, usage
+        except ProviderFailure:
+            raise
+        except Exception as error:
+            raise safe_provider_failure(error, 'Chưa phân loại được câu hỏi; hãy thử lại.') from error
+
+    def generate_direct(self, question: str, plan: ResponsePlan, history: list[dict]):
+        payload = {'QUESTION': redact(question), 'RESPONSE_GOAL': plan.model_dump(),
+                   'USER_CONTEXT': [redact(t['question']) for t in history[-3:]]}
+        if history and history[-1].get('response', {}).get('response_strategy') == 'direct_llm':
+            payload['PREVIOUS_ASSISTANT_TEXT_FOR_REPHRASING_ONLY'] = redact(
+                history[-1]['response'].get('answer', ''))[:3000]
+        try:
+            draft_call = self.client.responses.parse(
+                model=self.settings.openai_model,
+                input=[{'role': 'system', 'content': DIRECT_PROMPT},
+                       {'role': 'user', 'content': json.dumps(payload, ensure_ascii=False)}],
+                text_format=DirectDraft, max_output_tokens=900, store=False)
+            if draft_call.status != 'completed' or draft_call.output_parsed is None:
+                raise ProviderFailure('AI chưa hoàn thành câu trả lời trực tiếp; hãy thử lại.')
+            draft = draft_call.output_parsed
+            answer = GeneratedAnswer(supported=bool(draft.text.strip()), blocks=[
+                # Direct generation has no retrieved source IDs.
+                {'text': draft.text, 'citation_ids': []}] if draft.text.strip() else [],
+                uncertainty=draft.uncertainty)
+            calls = [draft_call]
+            if direct_text_is_allowed(answer):
+                review_call = self.client.responses.parse(
+                    model=self.settings.grounding_model or self.settings.openai_model,
+                    input=[{'role': 'system', 'content': DIRECT_REVIEW_PROMPT},
+                           {'role': 'user', 'content': json.dumps({**payload, 'DRAFT': draft.model_dump()}, ensure_ascii=False)}],
+                    text_format=DirectReview, max_output_tokens=600, store=False)
+                if review_call.status != 'completed' or review_call.output_parsed is None:
+                    raise ProviderFailure('Chưa hoàn thành kiểm tra câu trả lời trực tiếp; hãy thử lại.')
+                calls.append(review_call)
+                review = review_call.output_parsed
+                answer._grounding_review = {'direct_review': review.model_dump()}
+                answer.supported = review.safe and review.answers_question and not review.requires_evidence
+            else:
+                answer.supported = False
+                answer._grounding_review = {'direct_guard_rejected': True, 'draft': draft.model_dump()}
+            if not answer.supported:
+                answer.blocks = []
+            return self.response_metadata(answer, calls)
+        except ProviderFailure:
+            raise
+        except Exception as error:
+            raise safe_provider_failure(error, 'Chưa tạo được câu trả lời trực tiếp; hãy thử lại.') from error
+
+    def generate_practical(self, question: str, hits: list[Hit], history: list[dict], plan: ResponsePlan):
+        from rag_app.prompts import PRACTICAL_GUIDANCE
+
+        return self.generate(question, hits, history,
+                             system_prompt=SYSTEM_PROMPT + PRACTICAL_GUIDANCE,
+                             grounding_prompt=GROUNDING_PROMPT + PRACTICAL_GUIDANCE,
+                             response_goal=plan.model_dump())
+
     def embed(self, texts: list[str]) -> list[list[float]]:
         if self.settings.embedding_mode == "gemini":
             if self._embedder is None:
@@ -291,7 +395,8 @@ class OpenAIProvider:
 
     def generate(
         self, question: str, hits: list[Hit], history: list[dict], *, system_prompt: str = SYSTEM_PROMPT,
-        grounding_prompt: str = GROUNDING_PROMPT, review_unsupported_blocks: bool = True
+        grounding_prompt: str = GROUNDING_PROMPT, review_unsupported_blocks: bool = True,
+        response_goal: dict | None = None,
     ) -> tuple[GeneratedAnswer, dict]:
         excerpts = [
             {
@@ -311,6 +416,7 @@ class OpenAIProvider:
             "resolved_context_query": redact(question) if current_question != question else None,
             "previous_questions_for_context_only": [redact(m["question"]) for m in history[-3:]],
             "SOURCE_EXCERPTS": excerpts,
+            "RESPONSE_GOAL": response_goal,
         }
         try:
             sampling = {"temperature": 0} if self.settings.openai_model.startswith(("gpt-4o", "gpt-4.1")) else {}
@@ -363,6 +469,7 @@ class OpenAIProvider:
                         {"role": "system", "content": grounding_prompt},
                         {"role": "user", "content": json.dumps({
                             "QUESTION": redact(current_question),
+                            "RESPONSE_GOAL": response_goal,
                             "RESOLVED_CONTEXT_QUERY": redact(question) if current_question != question else None,
                             "PREVIOUS_QUESTIONS_FOR_CONTEXT_ONLY": [redact(m["question"]) for m in history[-3:]],
                             "SOURCE_EXCERPTS": review_sources,

@@ -124,7 +124,9 @@ function renderReferences(card, result) {
 }
 function addMessage(role, text, data) {
   const card = node("article", undefined, `message ${role}`);
-  card.append(node("div", role === "user" ? "BẠN" : (data && data.citations.length ? "NUTRIGUIDE · CÓ NGUỒN" : "NUTRIGUIDE"), "label"), node("div", text, "body"));
+  const answerLabel = data && data.citations.length ? "NUTRIGUIDE · CÓ NGUỒN"
+    : data && data.response_strategy === "direct_llm" ? "NUTRIGUIDE · HƯỚNG DẪN CHUNG" : "NUTRIGUIDE";
+  card.append(node("div", role === "user" ? "BẠN" : answerLabel, "label"), node("div", text, "body"));
   if (data) {
     if (data.clarification_question) card.append(node("p", data.clarification_question, "body"));
     if (data.food_result) renderNutrition(card, data.food_result);

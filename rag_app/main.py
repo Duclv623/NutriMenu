@@ -126,6 +126,7 @@ def create_app(settings: Settings | None = None, provider=None):
             "embedding_model": settings.active_embedding_model,
             "always_real_api": False,
             "knowledge_uses_real_api": True,
+            "adaptive_response_routing": True,
             "safety_requires_provider": False,
             "app_env": settings.app_env,
             "food_service_connected": service.foods.status()['ready'],

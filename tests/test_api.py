@@ -132,7 +132,7 @@ def test_source_pdf_allowlist(system):
     assert system.client.get("/api/documents/byt1353/pdf").status_code == 404
     assert system.client.get("/api/documents/not-real/pdf").status_code == 404
     docs = system.client.get("/api/documents").json()
-    assert len(docs) == 36
+    assert len(docs) == 37
     assert system.client.get('/api/documents/ada-labels/pdf').status_code == 200
 
 

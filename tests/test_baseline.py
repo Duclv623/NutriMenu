@@ -16,13 +16,13 @@ def test_corpus_is_nutrition_only(tmp_path):
     enabled = {s['id'] for s in load_manifest(cfg.source_manifest)['sources'] if s['enabled']}
     assert {c.source_id for c in chunks} == enabled
     assert {"byt5481-nutrition", "nin-healthy-meals", "endocrine-diet", "niddk-healthy-living", "vtn-fct-2007", "ada-labels", "ada-sweeteners", "ada-food-groups", "ada-cooking"}.issubset(enabled)
-    assert len(enabled) == 32
+    assert len(enabled) == 33
     pdf = [c for c in chunks if c.source_id == "byt5481-nutrition"]
     assert {p for c in pdf for p in c.pages} == {30, 31, 32, 33, 34}
     assert "Quản lý các bệnh đồng mắc" not in "\n".join(c.text for c in pdf)
     assert "Không tập thể dục" not in "\n".join(c.text for c in pdf)
     assert all(c.token_count <= cfg.chunk_tokens for c in chunks)
-    assert report["enabled_sources"] == 32
+    assert report["enabled_sources"] == 33
     assert len({p for c in chunks if c.source_id == 'vtn-fct-2007' for p in c.pages}) == 41
     assert all(not c.pages and c.locators for c in chunks if c.document_format == "docx")
 
@@ -39,8 +39,8 @@ def test_fruit_retrieval(tmp_path):
 
 def test_manifest_uses_local_files():
     manifest = load_manifest(Path("config/sources.json"))
-    assert len(manifest["sources"]) == 36
-    assert sum(bool(s["enabled"]) for s in manifest["sources"]) == 32
+    assert len(manifest["sources"]) == 37
+    assert sum(bool(s["enabled"]) for s in manifest["sources"]) == 33
 
 
 def test_routes_do_not_invent_menu_data():

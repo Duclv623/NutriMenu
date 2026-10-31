@@ -11,6 +11,7 @@ from rag_app.domain import ChatRequest, ChatResponse, Citation, GeneratedAnswer,
 from rag_app.food_data import food_hits, get_catalog
 from rag_app.provider import Provider, ProviderFailure, redact
 from rag_app.retrieval import Retriever, fold
+from rag_app.routing import constrain_plan, direct_text_is_allowed
 from rag_app.safety import (
     DISCLAIMER,
     classify,
@@ -143,12 +144,18 @@ class ChatService:
             'items':[{'id':i['id'],'name':i['name']} for i in reference['items']]}
         topic = topic_for_turn(query, history)
         turn = {'question': query, 'topic': topic[:1000], 'response': {'food_result': context,'reference_result':ref_context,
+                                              'answer': redact(response.answer)[:3000],
+                                              'response_strategy': response.response_strategy,
+                                              'clarification_question': response.clarification_question,
                                               'scope_restriction': response.scope_restriction}}
         trimmed = []
         for previous in history[-5:]:
             old = previous.get('response', {}).get('food_result')
             trimmed.append({'question': previous['question'], 'topic': previous.get('topic', previous['question'])[:1000], 'response': {
                 'scope_restriction': previous.get('response', {}).get('scope_restriction'),
+                'answer': previous.get('response', {}).get('answer', '')[:3000],
+                'response_strategy': previous.get('response', {}).get('response_strategy'),
+                'clarification_question': previous.get('response', {}).get('clarification_question'),
                 'reference_result':previous.get('response',{}).get('reference_result'),'food_result': None if old is None else {
                 'request': old.get('request'), 'unresolved': old.get('unresolved', []),
                 'items': [{'id': i['id'], 'name': i['name']} for i in old.get('items', [])],
@@ -188,7 +195,7 @@ class ChatService:
         query = re.sub(r'\bko\b', 'không', redact(request.message), flags=re.IGNORECASE)
         raw_query = query
         selected_plan = self.foods.resolve_selection(query, history)
-        contextual = bool(history) and is_contextual_followup(query)
+        contextual = bool(history) and is_contextual_followup(query, history)
         # A short new subject (e.g. brown rice after bread) is independent.
         # Short follow-ups within an explicit safety condition remain guarded.
         safety_contextual = contextual or bool(history) and len(query.split()) < 9
@@ -236,6 +243,7 @@ class ChatService:
             scope_restriction='special_population' if restricted else None,
         )
         if intent in {"medication", "emergency", "special_population"}:
+            response.response_strategy = 'safety'
             response.status = "safety"
             if intent == 'emergency':
                 response.answer = emergency_answer(request.message)
@@ -251,6 +259,7 @@ class ChatService:
                                + ' chưa được bật làm nguồn trả lời trong hệ thống. Mình chưa thể trả lời theo đúng phiên bản bạn yêu cầu.')
             return self.finish_response(response, request, owner, history, raw_query, started)
         if intent == 'food_lookup' and reference_domain:
+            response.response_strategy = 'structured_lookup'
             stage=time.perf_counter()
             if reference_selection:
                 plan=reference_selection[1]
@@ -275,6 +284,7 @@ class ChatService:
             if generated.uncertainty.strip():
                 response.warnings.append(generated.uncertainty)
         elif intent == 'food_lookup':
+            response.response_strategy = 'structured_lookup'
             if not self.foods.records:
                 raise ProviderFailure('Chưa nạp dữ liệu thực phẩm; kiểm tra data/structured.')
             stage = time.perf_counter()
@@ -342,14 +352,47 @@ class ChatService:
             response.answer = "Bạn đang hỏi về thực phẩm hay tình huống nào? Hãy nói rõ nội dung để mình tìm đúng tài liệu; mình chưa đủ dữ kiện để kết luận."
         else:
             stage = time.perf_counter()
+            # Resolve the user's topic before planning; an ordinary independent
+            # question does not inherit the previous dish or medical claims.
+            if contextual:
+                query = topic_for_turn(raw_query, history) + "\nCâu hỏi tiếp: " + raw_query
+            response_plan, metadata, usage = self.provider.plan_response(query, history if contextual else [])
+            response_plan = constrain_plan(response_plan, query)
+            self.record_generation(response, metadata, usage)
+            response.response_strategy = response_plan.strategy
+            response.clarification_question = response_plan.clarification_question or None
+            response.timings_ms['response_planning'] = int((time.perf_counter() - stage) * 1000)
+            if response_plan.goal == 'schedule' and response.clarification_question:
+                # The useful next step is collecting the missing schedule,
+                # not filling the screen with generic meal/snack paragraphs.
+                response.status = 'needs_clarification'
+                response.answer = 'Để sắp xếp các bữa theo ca làm, mình cần biết lịch làm và giờ ngủ của bạn.'
+                if hasattr(provider_client, 'trace'):
+                    response.timings_ms.update(provider_client.trace())
+                return self.finish_response(response, request, owner, history, raw_query, started)
+            if response_plan.strategy == 'direct_llm':
+                stage = time.perf_counter()
+                generated, usage = self.provider.generate_direct(query, response_plan, history if contextual else [])
+                self.record_generation(response, generated, usage)
+                response.timings_ms['direct_answer_and_review'] = int((time.perf_counter() - stage) * 1000)
+                if direct_text_is_allowed(generated):
+                    response.status = 'answered'
+                    response.answer = '\n\n'.join(b.text.strip() for b in generated.blocks)
+                    if generated.uncertainty.strip():
+                        response.warnings.append(generated.uncertainty)
+                    if hasattr(provider_client, 'trace'):
+                        response.timings_ms.update(provider_client.trace())
+                    return self.finish_response(response, request, owner, history, raw_query, started)
+                # A direct draft needing evidence is re-routed to sourced
+                # answering. A failed retrieval never enables direct guessing.
+                response.response_strategy = 'evidence_rag'
+            stage = time.perf_counter()
             retriever = self.retriever()
             if not retriever.chunks:
                 raise ProviderFailure(
                     "Chưa có index. Chạy python -m rag_app.cli ingest --mode lexical hoặc hybrid"
                 )
             # Contextual follow-up retrieval is bounded and uses only prior questions, not hallucinated answers.
-            if contextual:
-                query = topic_for_turn(raw_query, history) + "\nCâu hỏi tiếp: " + raw_query
             vector = None
             response.timings_ms['index'] = int((time.perf_counter()-stage)*1000)
             stage = time.perf_counter()
@@ -376,7 +419,10 @@ class ChatService:
             if hits:
                 citations = make_citations(hits)
                 stage = time.perf_counter()
-                generated, usage = self.provider.generate(query, hits, history if contextual else [])
+                if response.response_strategy == 'practical_rag':
+                    generated, usage = self.provider.generate_practical(query, hits, history if contextual else [], response_plan)
+                else:
+                    generated, usage = self.provider.generate(query, hits, history if contextual else [])
                 response.timings_ms['answer_and_review'] = int((time.perf_counter()-stage)*1000)
                 validated = validate_answer(generated, citations)
                 self.record_generation(response, generated, usage)
@@ -419,8 +465,8 @@ class ChatService:
                 'Bạn thường uống cỡ cốc/hộp bao nhiêu ml mỗi lần?' if 'uong' in fold(query) else
                 'Bạn thường ăn một phần cỡ nào (cỡ bát/đĩa hoặc lượng bạn thường lấy)?')
         response.latency_ms = int((time.perf_counter() - started) * 1000)
-        logger.info('chat_completed intent=%s status=%s origin=%s citations=%d duration_ms=%d',
-                    response.intent, response.status, response.answer_origin,
+        logger.info('chat_completed intent=%s strategy=%s status=%s origin=%s citations=%d duration_ms=%d',
+                    response.intent, response.response_strategy, response.status, response.answer_origin,
                     len(response.citations), response.latency_ms)
         if request.save_history:
             response.history_saved = True

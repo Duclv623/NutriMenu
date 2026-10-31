@@ -1,5 +1,7 @@
 # NutriGuide — Chatbot RAG của thành viên 3
 
+> **Cập nhật 31/10/2026:** chatbot chọn giữa trả lời trực tiếp bằng LLM, vận dụng nguyên tắc có nguồn và tra cứu bằng chứng/số liệu. Câu hỏi thiếu giờ làm/giờ ngủ được hỏi làm rõ trước. Nhánh trực tiếp không tìm tài liệu và không hiển thị nhãn “có nguồn”. Xem [cách hoạt động và kiểm thử](docs/release-2026-10-31/ADAPTIVE_ROUTING.md).
+
 > **Cập nhật triển khai 30/10/2026:** đã chặn phép tính 1.250 món NIN chờ xác minh cơ sở/đơn vị, sửa phân luồng và hội thoại, thu lại nguồn và bổ sung kiến thức ngắt thời gian ngồi. Dùng [ghi chú triển khai](RELEASE_NOTES_2026-10-30.md) để xem trạng thái và phần còn thiếu. Các số liệu/điểm kiểm tra ghi ngày cũ bên dưới là lịch sử. Gói bàn giao có checksum nằm trong `releases/NutriGuide-2026-10-30.zip`.
 
 Ứng dụng FastAPI + giao diện web tiếng Việt, đọc PDF và DOCX đã duyệt, tìm kiếm hybrid BM25 + Gemini embedding, dùng Gemini tạo và kiểm câu trả lời có nguồn. Phần sinh thực đơn CP-SAT thuộc TV2 và chưa tích hợp.

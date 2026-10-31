@@ -101,12 +101,14 @@ class ChatResponse(BaseModel):
     intent: Intent
     status: Literal[
         "answered",
+        "needs_clarification",
         "insufficient_evidence",
         "safety",
         "integration_required",
         "greeting",
     ]
     answer: str
+    response_strategy: Literal['direct_llm', 'practical_rag', 'evidence_rag', 'structured_lookup', 'safety', 'policy'] = 'policy'
     citations: list[Citation] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
     mode: str

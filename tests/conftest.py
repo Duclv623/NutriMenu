@@ -19,6 +19,27 @@ class FakeProvider:
         self.embed_calls = []
         self.answer = None
         self.error = None
+        self.plan_calls = []
+        self.direct_calls = []
+        self.practical_calls = []
+
+    def plan_response(self, question, history):
+        from rag_app.routing import ResponsePlan
+        self.plan_calls.append((question, history))
+        if self.error:
+            raise self.error
+        plan = getattr(self, 'response_plan', ResponsePlan(
+            strategy='evidence_rag', goal='source_lookup', focus='Trả lời câu hỏi có nguồn.'))
+        return plan, GeneratedAnswer(supported=False, blocks=[], uncertainty=''), {}
+
+    def generate_direct(self, question, plan, history):
+        self.direct_calls.append((question, plan, history))
+        return self.answer or GeneratedAnswer(supported=True, blocks=[AnswerBlock(
+            text='Bạn có thể chuẩn bị hộp đựng và ghi danh sách đồ cần mang từ tối hôm trước.', citation_ids=[])], uncertainty=''), {'input_tokens': 10, 'output_tokens': 10}
+
+    def generate_practical(self, question, hits, history, plan):
+        self.practical_calls.append((question, hits, history, plan))
+        return self.generate(question, hits, history)
 
     def embed(self, texts):
         self.embed_calls.append(texts)

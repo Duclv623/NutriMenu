@@ -5,7 +5,15 @@ from rag_app.retrieval import fold
 from rag_app.safety import is_elliptical_intake_followup
 
 
-def is_contextual_followup(message):
+def is_contextual_followup(message, history=None):
+    if re.fullmatch(r'(?:(?:ban|hay)\s+)?(?:giai thich (?:lai|de hieu hon)|'
+                    r'noi (?:lai|de hieu hon)|tom tat (?:lai|giup)|rut gon|cho vi du)'
+                    r'(?:\s+(?:don gian hon|ngan gon hon|giup toi|nhe))?[.!? ]*', fold(message)):
+        return True
+    if (history and history[-1].get('response', {}).get('clarification_question')
+            and re.search(r'\b(?:ca|lam|ngu|thuc|tu|den)\b', fold(message))
+            and re.search(r'\b\d{1,2}\s*(?:h\b|gio\b|:\d{2}\b)', fold(message))):
+        return True
     return is_elliptical_intake_followup(message) or is_portion_description(message) or bool(re.search(
         r'\b(?:do|nay|ay|vay|no)\b|^nhung\b|^(?:con|the)\b.*\b(?:thi sao|bao nhieu|duoc khong)\b', fold(message)))
 
@@ -19,7 +27,7 @@ def is_portion_description(message):
 
 
 def topic_for_turn(message, history):
-    if is_contextual_followup(message):
+    if is_contextual_followup(message, history):
         for turn in reversed(history):
             stored = turn.get('topic') or turn.get('response', {}).get('context_topic')
             if stored:
