@@ -7,6 +7,11 @@ import httpx
 from rag_app.config import ROOT
 
 FOODS = [
+    (169704, "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+     'Cơm gạo lứt hạt dài nấu chín', ['cơm gạo lứt chín', 'cơm gạo lứt', 'cơm gạo lứt nấu chín'], {}),
+    (168914, 'Rice noodles, cooked', 'Bún gạo đã nấu chín',
+     ['bún gạo chín', 'bún gạo', 'bún chín', 'bún'],
+     {'bún': 'Tạm tính bún theo bún gạo đã nấu chín, không gồm nước dùng và món ăn kèm.'}),
     (168878, 'Rice, white, long-grain, regular, enriched, cooked',
      'Cơm trắng gạo hạt dài nấu chín',
      ['cơm trắng', 'cơm trắng chín', 'cơm gạo tẻ chín', 'cơm gạo tẻ nấu chín', 'cơm chín', 'cơm'],

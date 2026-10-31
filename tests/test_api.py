@@ -170,11 +170,21 @@ def test_extractive_mode_removed():
         Settings(answer_mode="extractive", _env_file=None)
 
 
-@pytest.mark.parametrize("message", ["Xin chào", "Tạo thực đơn cho tôi"])
+@pytest.mark.parametrize("message", ["Xin chào"])
 def test_non_safety_chat_needs_real_key(tmp_path, message):
     cfg = Settings(storage_dir=tmp_path, openai_api_key="", gemini_api_key="", _env_file=None)
     with TestClient(create_app(cfg)) as client:
         assert ask(client, message).status_code == 503
+
+
+def test_unavailable_menu_is_reported_without_provider(tmp_path):
+    cfg = Settings(storage_dir=tmp_path, openai_api_key="", gemini_api_key="", _env_file=None)
+    with TestClient(create_app(cfg)) as client:
+        response = ask(client, 'Tạo thực đơn cho tôi')
+    assert response.status_code == 200
+    body = response.json()
+    assert body['status'] == 'integration_required' and body['answer_origin'] == 'static'
+    assert 'chưa' in body['answer'] and 'thực đơn' in body['answer']
 
 
 def test_hybrid_query_embedding_and_model_mismatch(system, corpus):

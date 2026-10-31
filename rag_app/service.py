@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from rag_app.config import Settings
 from rag_app.conversation import is_contextual_followup, is_portion_description, topic_for_turn
+from rag_app.dialogue import context_response
 from rag_app.domain import ChatRequest, ChatResponse, Citation, GeneratedAnswer, Hit
 from rag_app.food_data import food_hits, get_catalog
 from rag_app.provider import Provider, ProviderFailure, redact
@@ -251,9 +252,41 @@ class ChatService:
             # They are explicitly marked static, never presented as an AI answer.
             response.timings_ms['safety_routing'] = int((time.perf_counter() - started) * 1000)
             return self.finish_response(response, request, owner, history, query, started)
+        boundary = context_response(raw_query, history)
+        if boundary:
+            response.answer, response.clarification_question, response.status = boundary
+            response.response_strategy = 'safety' if response.status == 'safety' else 'policy'
+            if all(term in fold(raw_query) for term in ('sua chua', 'khong duong', 'it duong')):
+                example = self.supplements.yogurt_comparison_example()
+                if example:
+                    response.reference_result = example
+                    response.citations = make_citations(self.supplements.hits(example))
+                    lines = []
+                    for item, citation in zip(example['items'], response.citations, strict=True):
+                        n = item['payload']['nutrients']
+                        energy = f"{n['energy_kcal']:g}".replace('.', ',')
+                        carb = f"{n['carbohydrate_g']:g}".replace('.', ',')
+                        lines.append(f"{item['name']}: {energy} kcal và {carb} g carbohydrate trên 100 g. [{citation.id}]")
+                    first, second = [item['payload']['nutrients'] for item in example['items']]
+                    comparison = ('Ở cặp nhãn này, loại không đường có ít carbohydrate và năng lượng hơn. '
+                                  if all(first[key] < second[key] for key in ('carbohydrate_g', 'energy_kcal')) else '')
+                    response.answer = (
+                        'Mình không thể khuyên ăn không giới hạn chỉ vì tên gọi “không đường” hay “ít đường” nhé. '
+                        'Cần xem cả tổng carbohydrate và lượng bạn ăn.\n\n'
+                        'Để dễ hình dung, đây là hai nhãn Mộc Châu đã có trong dữ liệu, cùng cơ sở 100 g:\n\n'
+                        + '\n\n'.join(lines)
+                        + '\n\n' + comparison
+                        + 'Tên gọi chưa đủ để kết luận không có carbohydrate. Đây chỉ là ví dụ của đúng hai sản phẩm, không áp cho mọi hãng. '
+                        'Với đường tổng, mình không coi ô thiếu số liệu là 0 '
+                        'và không tự đồng nhất “không đường” với “không thêm đường”.'
+                    )
+                    response.clarification_question = 'Bạn đang dùng sản phẩm nào và thường ăn bao nhiêu gram hoặc bao nhiêu hộp mỗi lần?'
+                    response.status = 'answered'
+                    response.response_strategy = 'structured_lookup'
+            return self.finish_response(response, request, owner, history, raw_query, started)
         if self.provider is None:
             raise ProviderFailure("Chưa cấu hình key API ở backend. Câu trả lời kiến thức cần API thật.")
-        requested_version = re.search(r'\bada\s+(20\d{2})\b', fold(query))
+        requested_version = re.search(r'\bada\s+(?:standards\s+)?(20\d{2})\b', fold(query))
         if intent == 'knowledge' and requested_version:
             response.answer = ('Tài liệu ADA Standards ' + requested_version[1]
                                + ' chưa được bật làm nguồn trả lời trong hệ thống. Mình chưa thể trả lời theo đúng phiên bản bạn yêu cầu.')
@@ -270,6 +303,11 @@ class ChatService:
                 self.record_generation(response,meta,usage)
             result=self.supplements.execute(reference_domain,plan,query)
             response.reference_result=result
+            if not result['items']:
+                response.status = 'needs_clarification'
+                response.answer = 'Mình chưa chọn được đúng sản phẩm trong kho dữ liệu. Bạn cho mình tên đầy đủ và loại sản phẩm để tra cho chính xác nhé.'
+                response.clarification_question = 'Bạn đang dùng sản phẩm và phiên bản nào?'
+                return self.finish_response(response, request, owner, history, raw_query, started)
             hits=self.supplements.hits(result)
             response.timings_ms['reference_lookup']=int((time.perf_counter()-stage)*1000)
             stage=time.perf_counter()
@@ -278,7 +316,10 @@ class ChatService:
             response.timings_ms['answer_and_review']=int((time.perf_counter()-stage)*1000)
             validated=validate_answer(generated,make_citations(hits))
             if not validated:
-                raise ProviderFailure('AI chưa đối chiếu được kết quả tra cứu bổ sung; hãy thử lại.')
+                response.status = 'needs_clarification'
+                response.answer = 'Mình chưa đối chiếu được đầy đủ phần thông tin này nên chưa thể kết luận chắc chắn.'
+                response.clarification_question = 'Bạn cho mình tên đầy đủ của sản phẩm và thông tin cần xem nhé?'
+                return self.finish_response(response, request, owner, history, raw_query, started)
             response.status='answered'
             response.answer,response.citations=validated
             if generated.uncertainty.strip():
@@ -300,6 +341,11 @@ class ChatService:
             result=self.foods.execute(plan)
             result['request']=plan.model_dump()
             response.food_result=result
+            if not plan.items:
+                response.status = 'needs_clarification'
+                response.answer = 'Mình cần thêm chút thông tin để tra đúng món và tính đúng lượng.'
+                response.clarification_question = 'Bạn cho biết tên thực phẩm, lượng thực tế và chất muốn xem nhé?'
+                return self.finish_response(response, request, owner, history, raw_query, started)
             milk_choices = self.supplements.milk_volume_choices(plan)
             if milk_choices:
                 result['display_suppressed'] = True
@@ -350,12 +396,15 @@ class ChatService:
                 if generated.uncertainty.strip():
                     response.warnings.append(generated.uncertainty)
             else:
-                raise ProviderFailure('AI chưa đối chiếu được câu trả lời với dữ liệu thực phẩm; hãy thử lại.')
+                response.status = 'needs_clarification'
+                response.answer = 'Mình chưa đối chiếu được đầy đủ kết quả nên chưa muốn đưa một con số có thể làm bạn hiểu nhầm.'
+                response.clarification_question = 'Bạn xác nhận giúp tên, cách chế biến và lượng thực phẩm cần tính nhé?'
         elif intent == 'menu_request':
             response.status = "integration_required"
         elif intent == "greeting":
             response.status = "greeting"
             response.answer = social_answer(request.message)
+            return self.finish_response(response, request, owner, history, raw_query, started)
         elif any(term in fold(query) for term in ("api key", "apikey", "system prompt", "khoa bi mat", "mat khau may chu")):
             response.answer = "Mình không cung cấp khóa API, mật khẩu hoặc chỉ dẫn nội bộ. Bạn có thể hỏi về kiến thức dinh dưỡng và các nguồn tài liệu được hiển thị."
         elif re.search(r"\bbia\b.*\b(?:so lieu|nguon|trich dan|trang)\b", re.sub(r"\b(?:dung|khong|tranh) bia\b", "", fold(query))):
@@ -382,7 +431,8 @@ class ChatService:
                 # The useful next step is collecting the missing schedule,
                 # not filling the screen with generic meal/snack paragraphs.
                 response.status = 'needs_clarification'
-                response.answer = 'Để sắp xếp các bữa theo ca làm, mình cần biết lịch làm và giờ ngủ của bạn.'
+                response.answer = ('Để sắp xếp các bữa theo ca làm, mình cần biết lịch làm và giờ ngủ của bạn.'
+                    if re.search(r'\b(?:ca|dem|shift)\b', fold(query)) else 'Mình cần thêm một chút thông tin để hướng dẫn sát với tình huống của bạn.')
                 if hasattr(provider_client, 'trace'):
                     response.timings_ms.update(provider_client.trace())
                 return self.finish_response(response, request, owner, history, raw_query, started)

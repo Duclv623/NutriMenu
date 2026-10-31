@@ -376,8 +376,8 @@ class FoodCatalog:
     def execute(self,plan):
         output={'operation':plan.operation,'items':[],'unresolved':[],'totals':[],'notes':[], 'assumptions': [],
                 'catalog_counts':self.status()['datasets']}
-        if plan.clarification:
-            output['notes'].append(plan.clarification)
+        # Model-written clarification is dialogue data, never verified evidence.
+        output['clarification'] = plan.clarification
         for requested in plan.items:
             candidates=self.search(requested.name,plan.dataset)
             if not candidates:

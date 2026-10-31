@@ -2,6 +2,45 @@
   "schema_version": 1,
   "records": [
     {
+      "fdc_id": 169704,
+      "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+      "name": "Cơm gạo lứt hạt dài nấu chín",
+      "aliases": [
+        "cơm gạo lứt chín",
+        "cơm gạo lứt",
+        "cơm gạo lứt nấu chín"
+      ],
+      "assumptions": {},
+      "raw_file": "raw/169704.json",
+      "sha256": "57ce46b235508662651a58c633fa103432adad685656a353419e341655ee2494",
+      "source_url": "https://fdc.nal.usda.gov/food-details/169704/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
+      "fdc_id": 168914,
+      "description": "Rice noodles, cooked",
+      "name": "Bún gạo đã nấu chín",
+      "aliases": [
+        "bún gạo chín",
+        "bún gạo",
+        "bún chín",
+        "bún"
+      ],
+      "assumptions": {
+        "bún": "Tạm tính bún theo bún gạo đã nấu chín, không gồm nước dùng và món ăn kèm."
+      },
+      "raw_file": "raw/168914.json",
+      "sha256": "a11b3f6a3aab983da968d51071808f579096dbd151c16c13eab9da766efa3d95",
+      "source_url": "https://fdc.nal.usda.gov/food-details/168914/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
       "fdc_id": 168878,
       "description": "Rice, white, long-grain, regular, enriched, cooked",
       "name": "Cơm trắng gạo hạt dài nấu chín",
@@ -40,7 +79,7 @@
         "lườn gà chín": "Tạm tính lườn gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA."
       },
       "raw_file": "raw/2705954.json",
-      "sha256": "fe618f5680401e75875d80813266a1ac637e13602446f989370be6085f0408c4",
+      "sha256": "1cd257c407a162f9729dc7226404fed05bfdad56399e1f574de8c7edcc2ce242",
       "source_url": "https://fdc.nal.usda.gov/food-details/2705954/nutrients",
       "basis": "100 g phần ăn được đã nấu chín",
       "basis_amount_g": 100,
@@ -58,7 +97,7 @@
       ],
       "assumptions": {},
       "raw_file": "raw/171477.json",
-      "sha256": "afda67c5c25a711e1f646207c6bcda01342dde59a557a8901f8b684da65edc41",
+      "sha256": "8622491a1759d96b371d087e9d75fa1efc60f45c1b3a7a8c93434944a7e6e7fa",
       "source_url": "https://fdc.nal.usda.gov/food-details/171477/nutrients",
       "basis": "100 g phần ăn được đã nấu chín",
       "basis_amount_g": 100,

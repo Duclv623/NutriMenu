@@ -79,16 +79,15 @@ def test_contrastive_no_added_sugar_followup_retains_juice_context(system):
 
 def test_fresh_vague_referent_asks_for_subject_before_retrieving(system):
     response = system.client.post('/api/chat', json={'message': 'Cái đó có được không?'}).json()
-    assert response['status'] == 'insufficient_evidence'
-    assert system.provider.policy_calls and not system.provider.generate_calls
+    assert response['status'] == 'needs_clarification'
+    assert response['clarification_question'] and not system.provider.generate_calls
 
 
 def test_capability_response_reflects_available_food_catalog(system):
     response = system.client.post('/api/chat', json={'message': 'Bạn có thể làm gì?'}).json()
-    assert response['status'] == 'greeting'
-    assert 'tra thành phần thực phẩm và món ăn' in response['answer']
-    assert 'chưa hỗ trợ sinh/đổi thực đơn' in response['answer']
-    assert 'cơ sở khẩu phần' in response['answer']
+    assert response['status'] == 'answered'
+    assert 'tra thành phần thực phẩm' in response['answer']
+    assert 'lưu thực đơn' in response['answer'] and 'chưa được kết nối' in response['answer']
 
 
 def test_explicit_finance_question_redirects_to_nutrition_without_retrieval(system):

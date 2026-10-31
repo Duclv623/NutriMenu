@@ -1,5 +1,7 @@
 # NutriGuide — Chatbot RAG của thành viên 3
 
+> **Sửa chất lượng hội thoại 31/10/2026:** hỏi đúng dữ kiện còn thiếu, giữ giới hạn hồ sơ/thực đơn/nguồn và tách lời model viết khỏi bằng chứng tra cứu. Bổ sung dữ liệu USDA cho cơm gạo lứt và bún gạo chín. Cấu hình sinh và kiểm câu trả lời dùng `gemini-3.1-flash-lite`. Xem [kết quả kiểm tra lại](docs/release-2026-10-31/QUESTION_QUALITY_FIXES.md).
+
 > **Cập nhật 31/10/2026:** chatbot chọn giữa trả lời trực tiếp bằng LLM, vận dụng nguyên tắc có nguồn và tra cứu bằng chứng/số liệu. Câu hỏi thiếu giờ làm/giờ ngủ được hỏi làm rõ trước. Nhánh trực tiếp không tìm tài liệu và không hiển thị nhãn “có nguồn”. Xem [cách hoạt động và kiểm thử](docs/release-2026-10-31/ADAPTIVE_ROUTING.md).
 
 > **Tra cứu thực phẩm thường gặp:** đã nối câu hỏi sữa theo ml với kho nhãn sản phẩm và bổ sung riêng số liệu USDA cho cơm trắng/ức gà chín. Khi dùng mặc định tham khảo, câu trả lời ghi rõ giả định; không tự đổi ml thành gram. Xem [chi tiết và giới hạn](docs/release-2026-10-31/COMMON_FOOD_LOOKUP.md).
@@ -12,7 +14,7 @@
 
 Kho `data/collected/rag_supplements_2026-10-08` và ZIP giữ nguyên bản chốt thu thập, nên các báo cáo/manifest trong đó vẫn ghi trạng thái **chưa triển khai tại thời điểm thu**. Trạng thái đang chạy được ghi riêng trong báo cáo triển khai và `data/structured/supplements/manifest.json`; không sửa lịch sử hoặc bật toàn bộ file gốc.
 
-**Bản nâng cấp dữ liệu 08/10/2026:** bổ sung 4 PDF ADA về đọc nhãn, chất tạo ngọt, nhóm thực phẩm và chế biến (14 chunk mới); kiểm tra nguồn thay đổi trước khi khởi động, liên kết đoạn giải thích với điều kiện áp dụng và cache vector câu hỏi. Cấu hình máy hiện tại sinh/kiểm bằng `gemini-3.5-flash-lite`. Kết quả kiểm thử và giới hạn dữ liệu ở [báo cáo](docs/data-upgrade-2026-10-07/REPORT.md), [từng câu trả lời thật](docs/data-upgrade-2026-10-07/answers.md). Các lượt kiểm thử cũ bên dưới được giữ làm lịch sử, không phải điểm của bản hiện tại.
+**Bản nâng cấp dữ liệu 08/10/2026:** bổ sung 4 PDF ADA về đọc nhãn, chất tạo ngọt, nhóm thực phẩm và chế biến (14 chunk mới); kiểm tra nguồn thay đổi trước khi khởi động, liên kết đoạn giải thích với điều kiện áp dụng và cache vector câu hỏi. Lượt kiểm tra cũ dùng `gemini-3.5-flash-lite`. Kết quả kiểm thử và giới hạn dữ liệu ở [báo cáo](docs/data-upgrade-2026-10-07/REPORT.md), [từng câu trả lời thật](docs/data-upgrade-2026-10-07/answers.md). Các lượt kiểm thử cũ bên dưới được giữ làm lịch sử, không phải điểm của bản hiện tại.
 
 ## Chạy ngay trên máy hiện tại
 
@@ -56,7 +58,7 @@ Lệnh này gửi title/section/chunk tài liệu lên Gemini embedding. Cache t
 .\run.ps1
 ```
 
-Script kiểm tra index hybrid, fingerprint manifest/file nguồn/cấu hình chunk và danh tính embedding; tạo lại nếu chưa phù hợp. Thiếu file hoặc sai hash nguồn được báo rõ, không lặng lẽ bỏ qua. Đã bỏ tham số `-Offline` và chế độ `extractive`. Kiến thức và xã giao sinh/kiểm qua API thật. Ranh giới y tế và yêu cầu làm rõ tra cứu có thể trả thông báo theo quy tắc, được ghi `answer_origin=static`. Tác vụ tìm nguồn lexical dùng để đo baseline.
+Script kiểm tra index hybrid, fingerprint manifest/file nguồn/cấu hình chunk và danh tính embedding; tạo lại nếu chưa phù hợp. Thiếu file hoặc sai hash nguồn được báo rõ, không lặng lẽ bỏ qua. Đã bỏ tham số `-Offline` và chế độ `extractive`. Kiến thức dùng API thật; xã giao, giới hạn chức năng, ranh giới y tế và yêu cầu làm rõ có thể trả thông báo theo quy tắc, được ghi `answer_origin=static`. Tác vụ tìm nguồn lexical dùng để đo baseline.
 
 ## Cài ở máy khác
 

@@ -13,7 +13,7 @@ def run(name,amount=None,unit='g',dataset='auto',nutrients=None):
 
 def test_all_sources_and_pdf_pages_accounted_for():
     catalog=get_catalog()
-    assert catalog.status()['datasets']=={'nin_foods':853,'nin_dishes':1250,'fct2007':526,'usda':3}
+    assert catalog.status()['datasets']=={'nin_foods':853,'nin_dishes':1250,'fct2007':526,'usda':5}
     assert catalog.status()['unknown_portion_records']==1250
     assert all(r['reference_amount_g']==100 for r in catalog.records.values() if r['dataset']!='nin_dishes')
     report=json.loads((ROOT/'data/structured/fct2007/quality_report.json').read_text(encoding='utf-8'))
@@ -170,7 +170,7 @@ def test_nutrition_api_citations_and_ui_are_connected(system):
     assert system.client.get('/api/foods/not-real').status_code==404
     assert system.client.get('/api/documents/vtn-fct-2007/pdf').status_code==200
     last=system.client.get('/api/foods?offset=2620&limit=20').json()
-    assert last['total']==2632 and len(last['results'])==12
+    assert last['total']==2634 and len(last['results'])==14
     assert [r['dataset'] for r in last['results']].count('fct2007') == 9
-    assert [r['dataset'] for r in last['results']].count('usda') == 3
+    assert [r['dataset'] for r in last['results']].count('usda') == 5
     assert system.client.get('/api/foods?dataset=nin_dishes&offset=1250').json()['results']==[]

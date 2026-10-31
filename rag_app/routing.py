@@ -26,7 +26,7 @@ def constrain_plan(plan: ResponsePlan, question: str) -> ResponsePlan:
     exact = exact or re.search(r'\bGI\b|\d+\s*(?:(?:g|gram|gam|mg|ml|kcal)\b|%)', question)
     clinical = re.search(
         r'\b(?:thuoc|insulin|metformin|ha duong huyet|duong huyet|duong mau|'
-        r'bien chung|benh than|thai ky|chua khoi|tieu duong|dai thao duong)\b', q)
+        r'bien chung|benh than|thai ky|chua khoi|tieu duong|dai thao duong|polyol|khong them duong)\b', q)
     if exact:
         plan = plan.model_copy(update={'strategy': 'evidence_rag'})
     elif clinical and plan.strategy == 'direct_llm':
@@ -74,6 +74,7 @@ Lượt tiếp dùng RESOLVED_QUESTION và USER_CONTEXT để hiểu chủ thể
 
 
 DIRECT_PROMPT = '''Bạn là NutriGuide, trợ lý giáo dục dinh dưỡng tiếng Việt. Đây là nhánh trả lời trực tiếp bằng kiến thức phổ thông, KHÔNG truy xuất tài liệu.
+Xưng mình/bạn, thân thiện và rõ ý; tránh giọng quảng cáo, lời bảo đảm tuyệt đối và câu văn hành chính. Không tự nhận có khả năng đọc ảnh, hồ sơ hay dữ liệu chưa kết nối.
 Nếu yêu cầu diễn đạt lại và có PREVIOUS_ASSISTANT_TEXT_FOR_REPHRASING_ONLY, dùng nội dung đó để giải thích ngắn/dễ hiểu hơn; đây không phải nguồn chứng minh y khoa và không được mở rộng thêm khuyến cáo. Giữ đúng nghĩa khi dùng ví dụ/ẩn dụ, tránh tuyệt đối hóa đặc điểm của cả nhóm chất.
 Trả đúng QUESTION và RESPONSE_GOAL: giải thích khái niệm dễ hiểu hoặc đưa 2–4 việc làm cụ thể cho thói quen/chuẩn bị đồ ăn. Ngắn gọn, tự nhiên, không lặp câu hỏi hoặc kết bằng chuyển chuyên gia cho việc thông thường.
 Không tự đưa mục tiêu kcal/carb/gram/ml, lịch ăn điều trị, đánh giá món an toàn cho người bệnh, tác động đường huyết, thuốc/liều, chẩn đoán hay xử trí triệu chứng. Không tự tạo thực đơn/giả kết quả công cụ. Nếu câu hỏi đòi các nội dung này, text='', uncertainty='Cần đối chiếu nguồn chuyên môn.'.

@@ -35,7 +35,7 @@ def test_raw_breast_alias_preserves_raw_state():
     assert rows[0]['id'] == 'nin_foods:7089' and rows[0]['match_score'] == 100
 
 
-@pytest.mark.parametrize('name', ['ức gà chiên', 'ức gà luộc', 'ức gà chín còn da', 'cơm gạo lứt chín'])
+@pytest.mark.parametrize('name', ['ức gà chiên', 'ức gà luộc', 'ức gà chín còn da'])
 def test_explicit_unavailable_preparations_are_not_replaced_by_default_estimate(name):
     result = get_catalog().execute(FoodPlan(operation='lookup', items=[FoodItem(name=name, amount=100)]))
     assert not result['items'] and result['unresolved']
@@ -95,3 +95,9 @@ def test_usda_snapshot_tampering_is_rejected(tmp_path):
     (target / 'raw/168878.json').write_text('{}', encoding='utf-8')
     with pytest.raises(ValueError, match='checksum'):
         FoodCatalog(tmp_path)
+
+
+def test_cooked_brown_rice_uses_matching_verified_record():
+    result = get_catalog().execute(FoodPlan(operation='lookup', items=[FoodItem(name='cơm gạo lứt chín', amount=100)]))
+    assert result['items'][0]['id'] == 'usda:169704'
+    assert not result['unresolved']

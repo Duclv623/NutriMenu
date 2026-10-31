@@ -10,7 +10,7 @@ from pathlib import Path
 
 from rag_app.config import ROOT
 from rag_app.domain import Chunk, Hit
-from rag_app.food_data import FoodPlan, canonical, normalized
+from rag_app.food_data import FoodItem, FoodPlan, canonical, normalized
 from rag_app.retrieval import fold
 from rag_app.safety import is_intake_advice
 
@@ -62,7 +62,8 @@ class SupplementCatalog:
                 raise ValueError("Bản ghi bổ sung trùng hoặc cho phép tính chưa được duyệt")
             self.records[row["id"]] = row
         self._terms = {
-            rid: [search_text(row["name"]), *[search_text(a) for a in row["aliases"]]]
+            rid: [search_text(row["name"]), *[search_text(a) for a in row["aliases"]],
+                  search_text('TH ' + row['name']) if rid.startswith('supp-th-') else search_text(row['name'])]
             for rid, row in self.records.items()
         }
 
@@ -80,6 +81,23 @@ class SupplementCatalog:
                 for r in self.records.values()
             ),
         }
+
+    def yogurt_comparison_example(self):
+        """Use two reviewed labels as a named example, never as the user's brand."""
+        ids = ['supp-mcm-product-40-label-p4', 'supp-mcm-product-37-label-p5']
+        for rid in ids:
+            row = self.records.get(rid)
+            if not row or not row['calculation_enabled']:
+                return None
+            payload = row['payload']
+            if not payload.get('usable') or (payload.get('basis_amount'), payload.get('basis_unit')) != (100, 'g'):
+                return None
+            if any(payload['nutrients'].get(n) is None for n in ('energy_kcal', 'carbohydrate_g')):
+                return None
+        plan = FoodPlan(operation='compare', items=[FoodItem(name=rid) for rid in ids],
+                        nutrients=['năng lượng', 'carbohydrate', 'đường tổng'])
+        result = self.execute('label', plan, 'So sánh hai nhãn sữa chua làm ví dụ')
+        return result if len(result['items']) == 2 else None
 
     def milk_volume_choices(self, plan):
         """Ask for an actual milk label instead of guessing ml-to-g density."""
@@ -208,8 +226,7 @@ class SupplementCatalog:
             "notes": [],
             "request": plan.model_dump(),
         }
-        if plan.clarification:
-            result["notes"].append(plan.clarification)
+        result['clarification'] = plan.clarification
         q = fold(question)
         for requested in plan.items:
             matches = self.search(requested.name, domain, 100)
@@ -226,6 +243,9 @@ class SupplementCatalog:
                     matches = [r for r in matches if "mieng" in fold(r["name"])]
             if domain in ["label", "gi", "recipe", "yield"]:
                 # Never match an explicitly qualified type to the opposite type.
+                # In a comparison, each item can intentionally have a different
+                # qualifier; applying both from the whole question drops both.
+                qualifier_query = fold(requested.name) if len(plan.items) > 1 else q
                 for qualifier in [
                     "không đường",
                     "ít đường",
@@ -238,7 +258,7 @@ class SupplementCatalog:
                     "luộc",
                     "xào",
                 ]:
-                    if re.search(r"\b" + re.escape(fold(qualifier)) + r"\b", q):
+                    if re.search(r"\b" + re.escape(fold(qualifier)) + r"\b", qualifier_query):
                         matches = [
                             r
                             for r in matches
