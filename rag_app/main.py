@@ -1,3 +1,7 @@
+import asyncio
+import logging
+import sqlite3
+import time
 from contextlib import asynccontextmanager
 from html import escape
 from uuid import UUID, uuid4
@@ -5,17 +9,34 @@ from uuid import UUID, uuid4
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.concurrency import run_in_threadpool
 
 from rag_app.config import ROOT, Settings
 from rag_app.domain import ChatRequest, ChatResponse, FeedbackRequest
-from rag_app.ingestion import load_manifest
+from rag_app.ingestion import load_manifest, original_source_path
+from rag_app.observability import configure_logging
 from rag_app.provider import ProviderFailure, create_provider
 from rag_app.security import RateLimiter, identity
 from rag_app.service import ChatService
 from rag_app.store import Store
 
+logger = logging.getLogger(__name__)
+HISTORY_PURGE_INTERVAL_SECONDS = 3600
+
+
+async def purge_history_periodically(store, days, stop, interval):
+    while not stop.is_set():
+        try:
+            await asyncio.wait_for(stop.wait(), timeout=interval)
+        except TimeoutError:
+            try:
+                await run_in_threadpool(store.purge_history, days)
+            except sqlite3.Error as error:
+                logger.warning('history_purge_failed error_type=%s', type(error).__name__)
+
 
 def create_app(settings: Settings | None = None, provider=None):
+    configure_logging()
     settings = settings or Settings()
     store = Store(settings.storage_dir / "rag.sqlite3")
     provider = provider or (create_provider(settings) if settings.has_key else None)
@@ -24,10 +45,21 @@ def create_app(settings: Settings | None = None, provider=None):
 
     @asynccontextmanager
     async def lifespan(app):
-        store.purge_history(settings.history_retention_days)
-        yield
-        if provider and hasattr(provider, "close"):
-            provider.close()
+        await run_in_threadpool(store.purge_history, settings.history_retention_days)
+        stop = asyncio.Event()
+        maintenance = asyncio.create_task(purge_history_periodically(
+            store, settings.history_retention_days, stop, HISTORY_PURGE_INTERVAL_SECONDS))
+        logger.info('application_started env=%s answer_mode=%s', settings.app_env, settings.answer_mode)
+        try:
+            yield
+        finally:
+            stop.set()
+            try:
+                await maintenance
+            finally:
+                if provider and hasattr(provider, 'close'):
+                    provider.close()
+                logger.info('application_stopped')
 
     app = FastAPI(
         title="DATN — Chatbot giáo dục dinh dưỡng",
@@ -41,6 +73,8 @@ def create_app(settings: Settings | None = None, provider=None):
 
     @app.middleware("http")
     async def security_headers(request: Request, call_next):
+        started = time.perf_counter()
+        request.state.request_id = str(uuid4())
         # Origin check helps prevent cross-site paid requests. Production also requires JWT.
         origin = request.headers.get("origin")
         if (
@@ -48,8 +82,13 @@ def create_app(settings: Settings | None = None, provider=None):
             and origin
             and origin != str(request.base_url).rstrip("/")
         ):
+            logger.warning('origin_rejected request_id=%s', request.state.request_id)
             return JSONResponse({"detail": "Origin không được phép"}, status_code=403)
-        response = await call_next(request)
+        try:
+            response = await call_next(request)
+        except Exception as error:
+            logger.error('request_failed request_id=%s error_type=%s', request.state.request_id, type(error).__name__)
+            raise
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Referrer-Policy"] = "no-referrer"
         response.headers["Content-Security-Policy"] = (
@@ -57,12 +96,15 @@ def create_app(settings: Settings | None = None, provider=None):
         )
         if request.url.path.startswith("/api/"):
             response.headers["Cache-Control"] = "no-store"
-        response.headers["X-Request-ID"] = str(uuid4())
+        response.headers["X-Request-ID"] = request.state.request_id
+        route = request.scope.get('route')
+        logger.info('request_completed request_id=%s method=%s route=%s status=%d duration_ms=%d',
+                    request.state.request_id, request.method, getattr(route, 'path', 'unmatched'),
+                    response.status_code, int((time.perf_counter()-started)*1000))
         return response
 
     def current_owner(request: Request, response: Response):
         owner = identity(request, response, settings)
-        store.purge_history(settings.history_retention_days)
         return owner
 
     @app.get("/health")
@@ -103,6 +145,7 @@ def create_app(settings: Settings | None = None, provider=None):
         except PermissionError as error:
             raise HTTPException(404, "Không tìm thấy cuộc trò chuyện") from error
         except ProviderFailure as error:
+            logger.warning('provider_failed request_id=%s error_type=%s', request.state.request_id, type(error).__name__)
             raise HTTPException(503, str(error)) from error
         except ValueError as error:
             raise HTTPException(400, str(error)) from error
@@ -197,9 +240,8 @@ def create_app(settings: Settings | None = None, provider=None):
                      if s['id']==source_id and s.get('enabled') and s.get('original_raw_file')),None)
         if source is None:
             raise HTTPException(404,'Không tìm thấy nguồn gốc được duyệt')
-        base=ROOT/'data/collected/rag_supplements_2026-10-08'
-        path=(base/source['original_raw_file']).resolve()
-        if not path.is_relative_to(base.resolve()) or not path.is_file():
+        path=original_source_path(source)
+        if not path.is_file():
             raise HTTPException(404,'Không tìm thấy file nguồn gốc')
         return FileResponse(path,media_type='application/pdf' if path.suffix=='.pdf' else 'text/plain',filename=path.name)
 

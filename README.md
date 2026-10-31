@@ -1,5 +1,7 @@
 # NutriGuide — Chatbot RAG của thành viên 3
 
+> **Cập nhật triển khai 30/10/2026:** đã chặn phép tính 1.250 món NIN chờ xác minh cơ sở/đơn vị, sửa phân luồng và hội thoại, thu lại nguồn và bổ sung kiến thức ngắt thời gian ngồi. Dùng [ghi chú triển khai](RELEASE_NOTES_2026-10-30.md) để xem trạng thái và phần còn thiếu. Các số liệu/điểm kiểm tra ghi ngày cũ bên dưới là lịch sử. Gói bàn giao có checksum nằm trong `releases/NutriGuide-2026-10-30.zip`.
+
 Ứng dụng FastAPI + giao diện web tiếng Việt, đọc PDF và DOCX đã duyệt, tìm kiếm hybrid BM25 + Gemini embedding, dùng Gemini tạo và kiểm câu trả lời có nguồn. Phần sinh thực đơn CP-SAT thuộc TV2 và chưa tích hợp.
 
 **Hiện tại (11/10/2026):** index hybrid có **191 đoạn từ 31 nguồn được duyệt**, dùng Gemini embedding 768 chiều. Kho thực phẩm có **2.629 bản ghi**: 853 thực phẩm, 1.250 món ăn NIN và 526 thực phẩm PDF 2007. Kho bổ sung có **5.425 bản ghi**. Kiến thức dùng Gemini sinh và kiểm nguồn; thuốc, cấp cứu và đối tượng đặc biệt dùng thông báo cố định để hoạt động cả khi API lỗi. Tra cứu mơ hồ trả lựa chọn, hỏi khối lượng gram khi chưa quy đổi được. [Bản sửa và kiểm thử 11/10](docs/project-fix-2026-10-11/REPORT.md), [báo cáo kho bổ sung](docs/supplement-integration-2026-10-08/REPORT.md), [báo cáo kho thực phẩm](docs/food-integration/REPORT.md).

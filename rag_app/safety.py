@@ -10,11 +10,11 @@ DISCLAIMER = (
 
 SPECIAL_CONDITIONS = (
     "suy than", "chay than", "loc mau", "mang thai", "thai ky", "co bau",
-    "dang bau", "bau bi", "tieu duong thai", "tre em", "type 1", "tip 1", "typ 1", "tiep 1",
+    "dang bau", "mang bau", "benh than", "bau bi", "tieu duong thai", "tre em", "type 1", "tip 1", "typ 1", "tiep 1", "tip mot", "type mot",
 )
 EMERGENCY_SYMPTOMS = (
     "bat tinh", "co giat", "kho tho", "dau nguc", "hon me", "khong tinh",
-    "ngat", "cap cuu", "khong nuot duoc",
+    "ngat", "cap cuu", "khong nuot duoc", "lo mo", "lu lan",
 )
 
 
@@ -22,6 +22,10 @@ def asserted_conditions(message: str) -> str:
     """Remove explicitly denied conditions, without removing positive clauses."""
     q = fold(message)
     terms = "|".join(re.escape(t) for t in (*SPECIAL_CONDITIONS, *EMERGENCY_SYMPTOMS))
+    q = re.sub(
+        rf'\b(?:khong|chua)(?: he| con)?\s+(?:(?:bi|mac|dang|co|phai)\s+)?'
+        rf'(?:{terms})(?:\s+(?:hay|hoac|va)\s+(?:{terms}))*\b', '', q,
+    )
     q = re.sub(
         rf"\b(?:khong|chua)(?: con)?\s+(?:(?:bi|mac|dang|co|phai)\s+)?(?:{terms})\b",
         "", q,
@@ -62,6 +66,12 @@ def is_intake_advice(message: str) -> bool:
     """Recommended intake/suitability is not a food composition lookup."""
     q = re.sub(r'\bko\b', 'khong', fold(message))
     return bool(
+        is_elliptical_intake_followup(message)
+        or re.search(r'\b(?:an|uong)\s+bao nhieu\b', q)
+        or re.search(r'\b(?:nen|can)\s+(?:an|uong)\b.*\b(?:may|bao nhieu)\s+(?:to|bat|phan|ly|coc)\b', q)
+        or
+        re.search(r'\b(?:phu hop|thich hop|an toan|nen chon)\b', q)
+        or
         re.search(r'\b(?:nen|can|duoc phep)\s+(?:an|uong|dung|nap|tieu thu)\b', q)
         or re.search(r'\b(?:an|uong|nap|tieu thu)\b.*\b(?:duoc khong|co duoc|co on|thoai mai|khong gioi han)\b', q)
         or re.search(r'\b(?:an|uong|nap|tieu thu)\b.*\bbao nhieu\b.*\b(?:moi|mot|hang)\s+(?:ngay|bua)\b', q)
@@ -74,8 +84,16 @@ def is_elliptical_intake_followup(message: str) -> bool:
     q = fold(message).strip(' ?!.,')
     return bool(re.fullmatch(
         r'(?:(?:vay|the|toi|minh)\s+)*(?:(?:nen|can|phai)\s+)?'
-        r'(?:an|uong)\s+(?:nhu the nao|the nao|ra sao|bao nhieu(?: la vua)?)', q,
+        r'(?:(?:an|uong)\s+(?:nhu the nao|the nao|ra sao)|'
+        r'(?:(?:an|uong)\s+)?(?:bao nhieu|may\s+(?:to|bat|phan|ly|coc))'
+        r'(?:\s+(?:thi|la)\s+(?:on|vua|du|hop ly|phu hop|duoc|tot))?)', q,
     ))
+
+
+def is_intake_quantity_request(message: str) -> bool:
+    q = fold(message)
+    return bool(re.search(r'\b(?:an|uong)\b.*\b(?:bao nhieu|may\s+(?:to|bat|phan|ly|coc))\b', q)
+                or is_elliptical_intake_followup(message) and re.search(r'\b(?:bao nhieu|may)\b', q))
 
 
 def current_low_glucose(message: str) -> bool:
@@ -153,7 +171,8 @@ def classify(message: str) -> Intent:
             "bo lieu",
             "doi thuoc",
         )
-    ) or re.search(r"\bliều\b|dừng\s+(?:thuốc|insulin)", message.lower())):
+    ) or re.search(r"\bliều\b|dừng\s+(?:thuốc|insulin)", message.lower())
+       or re.search(r'\b(?:tiem|chich|uong|dung)\b.*\b\d+(?:[.,]\d+)?\s*(?:don vi|vien|mg)\b.*\b(?:duoc khong|may lan|bao nhieu lan|nen|truoc|sau)\b', medication_q)):
         return "medication"
     if any(re.search(r"\b" + re.escape(term) + r"\b", q) for term in SPECIAL_CONDITIONS) or re.search(r"\b([1-9]|1[0-7])\s*tuoi\b", q):
         return "special_population"

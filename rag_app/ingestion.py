@@ -14,6 +14,15 @@ from rag_app.documents import prepare_docx
 from rag_app.domain import Chunk
 
 
+def original_source_path(source):
+    collection = source.get('original_collection', 'rag_supplements_2026-10-08')
+    base = (ROOT / 'data/collected' / collection).resolve()
+    path = (base / source['original_raw_file']).resolve()
+    if not base.is_relative_to((ROOT / 'data/collected').resolve()) or not path.is_relative_to(base):
+        raise ValueError('Original source path outside collection')
+    return path
+
+
 def load_manifest(path: Path) -> dict:
     manifest = json.loads(path.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1 or not isinstance(manifest.get("sources"), list):
@@ -48,6 +57,11 @@ def corpus_fingerprint(settings: Settings) -> str:
         if source.get('sha256') and digest != source['sha256']:
             raise ValueError(f"Nguồn {source['id']} đã đổi; cần đối chiếu nội dung trước khi cập nhật SHA256.")
         inputs['files'][source['id']] = digest
+        if source.get('original_raw_file'):
+            original_digest = hashlib.sha256(original_source_path(source).read_bytes()).hexdigest()
+            if original_digest != source['original_sha256']:
+                raise ValueError('Original source changed: ' + source['id'])
+            inputs['files'][source['id'] + ':original'] = original_digest
     return hashlib.sha256(json.dumps(inputs, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
@@ -185,7 +199,7 @@ def build_chunks(settings: Settings) -> tuple[list[Chunk], dict]:
             prepared=json.loads(path.read_text(encoding='utf-8'))
             if prepared.get('source_id')!=source['id'] or prepared.get('original_sha256')!=source['original_sha256']:
                 raise ValueError('Curated provenance mismatch: '+source['id'])
-            original=(ROOT/'data/collected/rag_supplements_2026-10-08'/source['original_raw_file']).resolve()
+            original=original_source_path(source)
             if not original.is_relative_to((ROOT/'data/collected').resolve()) or hashlib.sha256(original.read_bytes()).hexdigest()!=source['original_sha256']:
                 raise ValueError('Curated original source changed: '+source['id'])
             before=len(chunks)
@@ -197,7 +211,8 @@ def build_chunks(settings: Settings) -> tuple[list[Chunk], dict]:
                         source_id=source['id'],title=source['title'],text=piece,section=segment['section'],
                         pages=segment.get('pages',[]),printed_pages=[],filename=source['filename'],source_url=source['url'],
                         year=source['year'],version=source['version'],sha256=digest,token_count=len(encoding.encode(piece)),
-                        warnings=source.get('warnings',[]),document_format='curated',locators=segment['locators']))
+                        warnings=source.get('warnings',[]),document_format='curated',locators=segment['locators'],
+                        language=source.get('language', 'vi'), related_sections=segment.get('related_sections', [])))
             reports.append({'source_id':source['id'],'sha256':digest,'chunks':len(chunks)-before,'format':'curated',
                             'original_sha256':source['original_sha256'],'selected_segments':len(prepared['segments'])})
             continue

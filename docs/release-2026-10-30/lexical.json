@@ -1,0 +1,498 @@
+{
+  "mode": "lexical",
+  "annotation_note": "Bộ thử ban đầu đối chiếu mục 5.2 PDF 5481; chưa được chuyên gia dinh dưỡng thẩm định. Hit@K không đo tính đúng y khoa của câu trả lời.",
+  "chunk_count": 192,
+  "index_revision": "ac8a4c5a-831c-4052-85cf-9c009258c1cc",
+  "knowledge_cases": 20,
+  "hit_at_1": 0.85,
+  "hit_at_3": 0.95,
+  "hit_at_5": 0.95,
+  "mrr_at_5": 0.8833333333333334,
+  "router_accuracy": 1.0,
+  "llm_answer_quality_evaluated": false,
+  "unanswerable_generation_evaluated": false,
+  "results": [
+    {
+      "id": "K01",
+      "question": "Nguyên tắc cơ bản của chế độ ăn đái tháo đường là gì?",
+      "expected_section": "5.2.1.",
+      "first_relevant_rank": 1,
+      "latency_ms": 3.039,
+      "retrieved_sections": [
+        "5.2.1. Nguyên tắc cơ bản trong chế độ ăn bệnh Đái tháo đường.",
+        "Bệnh viện Nội tiết Trung ương — Chế độ ăn cho người đái tháo đường",
+        "1) Nền tảng: “Đủ – Cân bằng – Điều độ – Đa dạng”",
+        "5) Hạn chế muối/natri, chất béo không lành mạnh và thực phẩm chế biến sẵn",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường"
+      ]
+    },
+    {
+      "id": "K02",
+      "question": "Có nên thay đổi quá nhanh cơ cấu và khối lượng bữa ăn không?",
+      "expected_section": "5.2.1.",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.299,
+      "retrieved_sections": [
+        "5.2.1. Nguyên tắc cơ bản trong chế độ ăn bệnh Đái tháo đường.",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường",
+        "Hệ số khối lượng khi nấu — phương pháp USDA",
+        "Hệ số giữ chất — phương pháp USDA",
+        "5.2.4. Cách phân bố bữa ăn: / a) Cơ cấu bữa ăn cần cá nhân hóa"
+      ]
+    },
+    {
+      "id": "K03",
+      "question": "Mức năng lượng khẩu phần cần cá nhân hóa theo những yếu tố nào?",
+      "expected_section": "5.2.2.",
+      "first_relevant_rank": null,
+      "latency_ms": 3.522,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / Trái cây",
+        "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+        "5.2.3. Nguồn cung cấp năng lượng: / g) Chất xơ :",
+        "5.2.3. Nguồn cung cấp năng lượng: / c) Chất đạm (Protein):",
+        "5.2.3. Nguồn cung cấp năng lượng: / c) Chất đạm (Protein):"
+      ]
+    },
+    {
+      "id": "K04",
+      "question": "Người thừa cân cần giảm cân đột ngột hay từ từ?",
+      "expected_section": "5.2.2.",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.252,
+      "retrieved_sections": [
+        "5.2.2. Kiểm soát cân nặng:",
+        "Tôi nên lên kế hoạch ăn uống như thế nào khi bị tiểu đường?",
+        "5.2.3. Nguồn cung cấp năng lượng: / g) Chất xơ :",
+        "Tôi có thể làm gì để đạt được hoặc duy trì cân nặng khỏe mạnh?",
+        "Tôi có thể chăm sóc sức khỏe tinh thần của mình như thế nào?"
+      ]
+    },
+    {
+      "id": "K05",
+      "question": "Nên lựa chọn nguồn chất bột đường như thế nào?",
+      "expected_section": "a) Chất bột đường",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.06,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "5.2.3. Nguồn cung cấp năng lượng: / Trái cây",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường"
+      ]
+    },
+    {
+      "id": "K06",
+      "question": "Gạo lứt và ngũ cốc nguyên hạt có được khuyến cáo trong tài liệu không?",
+      "expected_section": "a) Chất bột đường",
+      "first_relevant_rank": 3,
+      "latency_ms": 4.014,
+      "retrieved_sections": [
+        "Carbohydrate: trái cây, ngũ cốc nguyên hạt, chất xơ và đường thêm",
+        "3) Tăng chất xơ: “Rau nhiều + hạt nguyên + đậu đỗ”",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường",
+        "Phương pháp đĩa ăn"
+      ]
+    },
+    {
+      "id": "K07",
+      "question": "Có nên hạn chế bánh kẹo và mật ong không?",
+      "expected_section": "a) Chất bột đường",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.269,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "b) Giảm đường thêm và tinh bột tinh chế",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 496",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh."
+      ]
+    },
+    {
+      "id": "K08",
+      "question": "Chỉ số đường huyết của thực phẩm là gì?",
+      "expected_section": "a) Chất bột đường",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.118,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "5.2.3. Nguồn cung cấp năng lượng: / Trái cây",
+        "3) Tăng chất xơ: “Rau nhiều + hạt nguyên + đậu đỗ”",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường"
+      ]
+    },
+    {
+      "id": "K09",
+      "question": "Nên lựa chọn chất béo bão hòa hay không bão hòa thế nào?",
+      "expected_section": "b) Chất béo",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.448,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+        "4) Chọn chất đạm “nạc” và cách chế biến",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh.",
+        "5.2.3. Nguồn cung cấp năng lượng: / c) Chất đạm (Protein):",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh."
+      ]
+    },
+    {
+      "id": "K10",
+      "question": "Có nên dùng lại dầu đã chiên rán ở nhiệt độ cao không?",
+      "expected_section": "b) Chất béo",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.277,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 10",
+        "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+        "Tôi có nên bỏ thuốc lá không?",
+        "NIDDK — Healthy Living with Diabetes (bản dịch tiếng Việt đã rà thuật ngữ)"
+      ]
+    },
+    {
+      "id": "K11",
+      "question": "Nên chọn thịt gia cầm có da hay bỏ da?",
+      "expected_section": "c) Chất đạm",
+      "first_relevant_rank": 1,
+      "latency_ms": 1.872,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / c) Chất đạm (Protein):",
+        "5.2.3. Nguồn cung cấp năng lượng: / c) Chất đạm (Protein):",
+        "Mua thực phẩm thực hành",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 473",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 304"
+      ]
+    },
+    {
+      "id": "K12",
+      "question": "Tài liệu có khuyến cáo tăng cường cá và thủy hải sản không?",
+      "expected_section": "c) Chất đạm",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.517,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / c) Chất đạm (Protein):",
+        "About portion size",
+        "5.2.4. Cách phân bố bữa ăn: / a) Cơ cấu bữa ăn cần cá nhân hóa",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "Các hoạt động giữ thăng bằng và kéo giãn"
+      ]
+    },
+    {
+      "id": "K13",
+      "question": "Vitamin và muối khoáng có trong những nguồn nào?",
+      "expected_section": "d) Vi chất",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.084,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / d) Vi chất dinh dưỡng: Bao gồm: vitamin và muối khoáng",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 6",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 4",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường",
+        "5.2.3. Nguồn cung cấp năng lượng: / e) Muối:"
+      ]
+    },
+    {
+      "id": "K14",
+      "question": "Nên ăn trái cây nguyên miếng hay uống nước ép?",
+      "expected_section": "Trái cây",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.07,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / Trái cây",
+        "d) Kết hợp carbohydrate với chất đạm/chất béo/chất xơ để đường máu tăng chậm hơn.",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh.",
+        "Chia đĩa theo nhóm thực phẩm",
+        "a) Dùng “Phương pháp Đĩa” (Plate Method) để chia khẩu phần"
+      ]
+    },
+    {
+      "id": "K15",
+      "question": "Có nên hạn chế thực phẩm chế biến sẵn nhiều muối?",
+      "expected_section": "e) Muối",
+      "first_relevant_rank": 1,
+      "latency_ms": 1.915,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / e) Muối:",
+        "5) Hạn chế muối/natri, chất béo không lành mạnh và thực phẩm chế biến sẵn",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 8",
+        "FCT 2007 — hướng dẫn/danh mục, trang PDF 3",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):"
+      ]
+    },
+    {
+      "id": "K16",
+      "question": "Tài liệu nói gì về rượu bia và đồ uống có cồn?",
+      "expected_section": "f) Đồ uống",
+      "first_relevant_rank": 1,
+      "latency_ms": 1.947,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / f) Đồ uống có chứa cồn:",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh.",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh.",
+        "Chất tạo ngọt và polyol",
+        "Lên kế hoạch lượng thức ăn hoặc đồ uống cần tiêu thụ."
+      ]
+    },
+    {
+      "id": "K17",
+      "question": "Chất xơ có vai trò gì trong tiêu hóa và hấp thu?",
+      "expected_section": "g) Chất xơ",
+      "first_relevant_rank": 1,
+      "latency_ms": 1.989,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / g) Chất xơ :",
+        "3) Tăng chất xơ: “Rau nhiều + hạt nguyên + đậu đỗ”",
+        "5.2.3. Nguồn cung cấp năng lượng: / Trái cây",
+        "5.2.3. Nguồn cung cấp năng lượng: / a) Chất bột đường (Glucid):",
+        "What are the different kinds of carbs?"
+      ]
+    },
+    {
+      "id": "K18",
+      "question": "Chất xơ có nhiều ở những phần nào của cây?",
+      "expected_section": "g) Chất xơ",
+      "first_relevant_rank": 1,
+      "latency_ms": 2.007,
+      "retrieved_sections": [
+        "5.2.3. Nguồn cung cấp năng lượng: / g) Chất xơ :",
+        "3) Tăng chất xơ: “Rau nhiều + hạt nguyên + đậu đỗ”",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường",
+        "What are the different kinds of carbs?",
+        "Hãy chọn thực phẩm và đồ uống lành mạnh."
+      ]
+    },
+    {
+      "id": "K19",
+      "question": "Có phải người tiểu đường nào cũng cần ăn bữa phụ không?",
+      "expected_section": "a) Cơ cấu bữa ăn",
+      "first_relevant_rank": 3,
+      "latency_ms": 14.307,
+      "retrieved_sections": [
+        "5.2.4. Cách phân bố bữa ăn: / b) Sử dụng bữa phụ:",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường",
+        "5.2.4. Cách phân bố bữa ăn: / a) Cơ cấu bữa ăn cần cá nhân hóa",
+        "Plan ahead",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường"
+      ]
+    },
+    {
+      "id": "K20",
+      "question": "Năng lượng của bữa phụ có tính trong tổng năng lượng ngày không?",
+      "expected_section": "b) Sử dụng bữa phụ",
+      "first_relevant_rank": 1,
+      "latency_ms": 13.286,
+      "retrieved_sections": [
+        "5.2.4. Cách phân bố bữa ăn: / b) Sử dụng bữa phụ:",
+        "5.2.4. Cách phân bố bữa ăn: / a) Cơ cấu bữa ăn cần cá nhân hóa",
+        "Plan ahead",
+        "Tìm thời điểm tốt nhất để ăn hoặc uống.",
+        "Nguyên tắc xây dựng khẩu phần ăn cho người bệnh đái tháo đường"
+      ]
+    }
+  ],
+  "routing": [
+    {
+      "id": "K01",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K02",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K03",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K04",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K05",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K06",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K07",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K08",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K09",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K10",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K11",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K12",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K13",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K14",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K15",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K16",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K17",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K18",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K19",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "K20",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "R01",
+      "expected": "food_lookup",
+      "actual": "food_lookup"
+    },
+    {
+      "id": "R02",
+      "expected": "food_lookup",
+      "actual": "food_lookup"
+    },
+    {
+      "id": "R03",
+      "expected": "menu_request",
+      "actual": "menu_request"
+    },
+    {
+      "id": "R04",
+      "expected": "menu_request",
+      "actual": "menu_request"
+    },
+    {
+      "id": "R05",
+      "expected": "medication",
+      "actual": "medication"
+    },
+    {
+      "id": "R06",
+      "expected": "medication",
+      "actual": "medication"
+    },
+    {
+      "id": "R07",
+      "expected": "special_population",
+      "actual": "special_population"
+    },
+    {
+      "id": "R08",
+      "expected": "special_population",
+      "actual": "special_population"
+    },
+    {
+      "id": "R09",
+      "expected": "special_population",
+      "actual": "special_population"
+    },
+    {
+      "id": "R10",
+      "expected": "emergency",
+      "actual": "emergency"
+    },
+    {
+      "id": "R11",
+      "expected": "emergency",
+      "actual": "emergency"
+    },
+    {
+      "id": "R12",
+      "expected": "greeting",
+      "actual": "greeting"
+    },
+    {
+      "id": "U01",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U02",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U03",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U04",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U05",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U06",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U07",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    },
+    {
+      "id": "U08",
+      "expected": "knowledge",
+      "actual": "knowledge"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "nin_foods:1045",
+    "source_code": "1045",
+    "nutrient_key": "energy",
+    "old_value": 1.0,
+    "new_value": 351.8,
+    "source_field": "energy",
+    "evidence_file": "data/collected/review_2026-10-30/nin_foods/records.json",
+    "evidence_sha256": "6835ed34fce93636116c815a0a4f447e17ddff0c6c22b91a801465c653dcc45b",
+    "review_method": "Exact code and scalar comparison against refreshed NIN API; no inferred nutrient values",
+    "clinical_review": false
+  }
+]

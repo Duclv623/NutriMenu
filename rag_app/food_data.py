@@ -15,6 +15,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from rag_app.config import ROOT
+from rag_app.data_quality import review_record
 from rag_app.retrieval import fold
 from rag_app.safety import is_intake_advice
 
@@ -54,7 +55,7 @@ def canonical(name,unit):
         ('fat',r'^lipid|^chat beo|total lipid|^beo$|^fat$'),('carbohydrate',r'glucid|carbohydrate|chat bot duong|^carbs?$'),
         ('cellulose',r'celluloza'),('fiber',r'chat xo|fibre|fiber|^xo$'),
         ('sodium',r'natri|sodium|^na$'),('calcium',r'^calci\b|calcium|canxi'),('iron',r'^sat|iron'),
-        ('water',r'^nuoc|water'),('sugar',r'duong tong|sugars?.*total|total sugar|^duong$'),
+        ('water',r'^nuoc|water'),('added_sugars',r'duong them|duong bo sung|added sugars?'),('sugar',r'duong tong|sugars?.*total|total sugar|^duong$'),
         ('vitamin_c',r'vit.? ?c\b|vitamin c'),('potassium',r'^kali|potassium'),
         ('phosphorus',r'phot\s*pho|phospho|phosphor'),('magnesium',r'magie|magnesium'),
         ('zinc',r'^kem\b|zinc'),('copper',r'^dong\b|copper'),('selenium',r'selen'),
@@ -65,7 +66,7 @@ def canonical(name,unit):
         ('vitamin_b5',r'vit(?:amin)?\s*b5\b|pantothenic'),('vitamin_b6',r'vit(?:amin)?\s*b6\b|pyridoxin'),
         ('biotin',r'vit(?:amin)?\s*(?:b7|h)\b|biotin'),
         ('folic_acid',r'folic|vit(?:amin)?\s*b9\b'),
-        ('folate_food',r'folate.*food'),('folate',r'folat'),
+        ('folate_dfe',r'folate.*dfe'),('folate_food',r'folate.*food'),('folate',r'folat'),
         ('vitamin_b12',r'vit(?:amin)?\s*b12\b|cyanocobalamin'),
         ('vitamin_d',r'vit(?:amin)?\s*d\b'),('vitamin_e',r'vit(?:amin)?\s*e\b'),
         ('vitamin_k',r'vit(?:amin)?\s*k\b')]
@@ -143,6 +144,16 @@ class FoodCatalog:
         self.root=Path(root)
         self.records={}
         self.audit=[]
+        overrides_path = self.root / 'review_verified_overrides.json'
+        overrides = json.loads(overrides_path.read_text(encoding='utf-8')) if overrides_path.exists() else []
+        for override in overrides:
+            evidence = (ROOT / override['evidence_file']).resolve()
+            if not evidence.is_relative_to((ROOT / 'data/collected').resolve()) or hashlib.sha256(evidence.read_bytes()).hexdigest() != override['evidence_sha256']:
+                raise ValueError('Verified override evidence changed')
+            source_rows = json.loads(evidence.read_text(encoding='utf-8'))
+            source_row = next(r for r in source_rows if r['code'] == override['source_code'])
+            if number(source_row[override['source_field']]) != override['new_value']:
+                raise ValueError('Override does not match source value')
         for dataset,folder,filename,key in [
             ('nin_foods','nin_foods_2026-10-06','foods_core.csv','food_code'),
             ('nin_dishes','nin_dishes_2026-10-06','dishes_core.csv','dish_code')]:
@@ -201,12 +212,24 @@ class FoodCatalog:
                     self.audit.append({'record':record['id'],'issue':'duplicate_nutrient','key':key,'rows':count})
             record['_name']=normalized(record['name'])
             record['_english']=normalized(record.get('name_en',''))
+            for override in overrides:
+                if record['id'] == override['id']:
+                    nutrient = next(n for n in record['nutrients'] if n['key'] == override['nutrient_key'])
+                    if nutrient['value'] != override['old_value']:
+                        raise ValueError('Override baseline changed; review required')
+                    nutrient['previous_value'] = nutrient['value']
+                    nutrient['value'] = override['new_value']
+                    nutrient['quality_note'] = 'Giá trị cập nhật theo nguồn NIN thu 30/10/2026; giữ giá trị trước và bằng chứng riêng.'
+                    nutrient['review_evidence'] = override
+            for issue in review_record(record):
+                self.audit.append({'record': record['id'], 'issue': issue})
 
     def status(self):
         return {'ready':bool(self.records),'records':len(self.records),
             'datasets':dict(Counter(r['dataset'] for r in self.records.values())),
             'unknown_portion_records':sum(r['reference_amount_g'] is None for r in self.records.values()),
-            'quality_issues':len(self.audit)}
+            'quality_issues':len(self.audit),
+            'review_statuses':dict(Counter(r['review_status'] for r in self.records.values()))}
 
     def get(self,rid):
         return {k:v for k,v in self.records[rid].items() if not k.startswith('_')}
@@ -254,7 +277,7 @@ class FoodCatalog:
         return bool(re.search(r'\b(?:nin_foods|nin_dishes|fct2007):[a-z0-9-]+\b',q)
             or re.search(r'\d+(?:[.,]\d+)?\s*(?:g|gram|kg|ml|lit)\b',q)
             or re.search(r'bao nhieu|ham luong|thanh phan|chua (?:chat|gi)|tra cuu|so sanh|nhieu (?:dam|protein|calo|canxi)|it (?:calo|duong)|tong (?:calo|dam|dinh duong)',q)
-            and any(term in q for term in ('calo','kcal','dam','protein','beo','dinh duong','chat','canxi','natri','sat','vitamin','thuc pham','mon an','sua','com','pho','trung','thit','rau','gao','chuoi')))
+            and any(re.search(r'\b'+term+r'\b', q) for term in ('thuc pham','mon an','sua','com','pho','trung','thit','rau','gao','chuoi')))
 
     def bind_explicit_ids(self,plan,question):
         """A user's selected source ID takes precedence over model name parsing."""

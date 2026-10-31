@@ -126,6 +126,7 @@ function addMessage(role, text, data) {
   const card = node("article", undefined, `message ${role}`);
   card.append(node("div", role === "user" ? "BẠN" : (data && data.citations.length ? "NUTRIGUIDE · CÓ NGUỒN" : "NUTRIGUIDE"), "label"), node("div", text, "body"));
   if (data) {
+    if (data.clarification_question) card.append(node("p", data.clarification_question, "body"));
     if (data.food_result) renderNutrition(card, data.food_result);
     if (data.reference_result) renderReferences(card, data.reference_result);
     if (data.citations.length) {

@@ -1,0 +1,151 @@
+[
+  {
+    "case": "R11",
+    "question": "So sánh khuyến cáo chất béo của Bộ Y tế và NIDDK.",
+    "http_status": 200,
+    "expected": "Có bằng chứng của cả hai nguồn, phân biệt điều kiện; nếu thiếu một nguồn thì nêu thiếu, không gọi kết quả một nguồn là so sánh đủ.",
+    "response": {
+      "session_id": "b41b381a-eb90-4e7f-9b21-cecf2ca39668",
+      "message_id": "c26cff6b-b439-49df-9c8a-c3cc2873ec40",
+      "intent": "knowledge",
+      "status": "answered",
+      "answer": "Bộ Y tế khuyến cáo nhu cầu chất béo là 20 đến 25 phần trăm tổng năng lượng, trong đó chất béo bão hòa nên dưới 10 phần trăm tổng năng lượng và cholesterol nên dưới 300 miligam mỗi ngày. [C1]\n\nVề lựa chọn thực phẩm, Bộ Y tế hướng dẫn chọn thực phẩm ít chất béo bão hòa như cá, thịt nạc, đậu phụ, lạc, vừng, chọn dầu thực vật thay thế mỡ động vật và tránh ăn thịt mỡ, nội tạng động vật, dầu cọ, dầu dừa, thức ăn chiên rán kỹ. [C1] [C4]\n\nNIDDK khuyến cáo cố gắng chọn những thực phẩm chứa các chất dinh dưỡng bao gồm chất béo lành mạnh và cố gắng lên kế hoạch cho các bữa ăn và bữa ăn nhẹ có ít hơn thực phẩm giàu chất béo bão hòa. [C2]",
+      "citations": [
+        {
+          "id": "C1",
+          "chunk_id": "023067aaa609ebdd2ace5c43",
+          "source_id": "byt5481-nutrition",
+          "title": "Bộ Y tế — Hướng dẫn chẩn đoán và điều trị đái tháo đường típ 2, mục 5.2 Dinh dưỡng",
+          "section": "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "printed_pages": [
+            29,
+            30
+          ],
+          "quote": "b) Chất béo (Lipid):\n- Nguồn gốc:\n+ Nguồn gốc động vật như: thịt m , m cá, bơ, sữa, phomat, lòng đỏ trứng gà.\n+ Nguồn gốc thực vật như: dầu thực vật, lạc, vừng,đậu tương, cùi dừa, hạt dẻ,\nsôcôla.\n+ Chất béo bão hòa có nhiều trong thực phẩm có nguồn gốc động vật.\n+ Chất béo không bão hòa có nhiều trong thực phẩm có nguồn gốc thực vật.\n+ Chất bột đường và chất đạm trong cơ thể có thể chuyển thành acid béo no\nnhưng không thể tổng hợp acid béo không no.\n- Nhu cầu: 20 - 25% tổng năng lượng, trong đó:\n+ Chất béo bão hòa nên dưới 10% tổng năng lượng\n+ Cholesterol nên dưới 300mg/ngày.\n- Lựa chọn thực phẩm:\n+ Chọn thực phẩm có ít chất béo bão hòa như: cá, thịt nạc, đậu phụ, lạc, vừng.\n+ Tránh ăn các thức ăn: thịt m , nội tạng động vật, dầu cọ, dầu dừa, hoặc các\nthực ăn chiên rán kỹ.",
+          "source_url": "https://syt.dongnai.gov.vn/vi/van-ban/detail/V-v-trien-khai-thuc-hien-Quyet-dinh-so-5481-QD-BYT-ngay-30-12-2020-cua-Bo-truong-Bo-Y-te-4905/?download=1&id=0",
+          "document_url": "/api/documents/byt5481-nutrition/pdf#page=31",
+          "year": 2020,
+          "version": "5481/QĐ-BYT ngày 30/12/2020; theo dõi sửa đổi 1353/QĐ-BYT 23/02/2021",
+          "document_format": "pdf",
+          "locators": []
+        },
+        {
+          "id": "C4",
+          "chunk_id": "f726de31cea2cb736154ac63",
+          "source_id": "byt5481-nutrition",
+          "title": "Bộ Y tế — Hướng dẫn chẩn đoán và điều trị đái tháo đường típ 2, mục 5.2 Dinh dưỡng",
+          "section": "5.2.3. Nguồn cung cấp năng lượng: / b) Chất béo (Lipid):",
+          "pdf_pages": [
+            32
+          ],
+          "printed_pages": [
+            30
+          ],
+          "quote": "Tránh ăn các thức ăn: thịt m , nội tạng động vật, dầu cọ, dầu dừa, hoặc các\nthực ăn chiên rán kỹ.\n+ Chọn các dầu thực vật thay thế cho m động vật: dầu đậu nành, dầu hướng\ndương…\n+ Không nên sử dụng lại dầu đã sử dụng ở nhiệt độ cao: xào, rán…",
+          "source_url": "https://syt.dongnai.gov.vn/vi/van-ban/detail/V-v-trien-khai-thuc-hien-Quyet-dinh-so-5481-QD-BYT-ngay-30-12-2020-cua-Bo-truong-Bo-Y-te-4905/?download=1&id=0",
+          "document_url": "/api/documents/byt5481-nutrition/pdf#page=32",
+          "year": 2020,
+          "version": "5481/QĐ-BYT ngày 30/12/2020; theo dõi sửa đổi 1353/QĐ-BYT 23/02/2021",
+          "document_format": "pdf",
+          "locators": []
+        },
+        {
+          "id": "C2",
+          "chunk_id": "1675804d25bfee8736fc4ada",
+          "source_id": "niddk-healthy-living",
+          "title": "NIDDK — Healthy Living with Diabetes (bản dịch tiếng Việt đã rà thuật ngữ)",
+          "section": "Hãy chọn thực phẩm và đồ uống lành mạnh.",
+          "pdf_pages": [],
+          "printed_pages": [],
+          "quote": "Hãy chọn thực phẩm và đồ uống lành mạnh.\nKhông có cách nào đúng hay sai khi lựa chọn thực phẩm và đồ uống lành mạnh giúp kiểm soát bệnh tiểu đường. Kế hoạch bữa ăn lành mạnh cho người mắc bệnh tiểu đường có thể bao gồm:\nsản phẩm từ sữa hoặc sản phẩm từ thực vật\ntrái cây\nrau không giàu tinh bột\nthực phẩm giàu protein\nngũ cốc nguyên hạt\nHãy cố gắng chọn những thực phẩm chứa các chất dinh dưỡng như vitamin, canxi , chất xơ và chất béo lành mạnh . Cũng nên chọn các loại đồ uống ít hoặc không thêm đường , chẳng hạn như nước máy hoặc nước đóng chai, sữa ít béo hoặc không béo, và trà, cà phê hoặc nước có ga không đường.\nHãy cố gắng lên kế hoạch cho các bữa ăn và bữa ăn nhẹ có ít hơn.\nthực phẩm giàu chất béo bão hòa\nThực phẩm giàu natri, một khoáng chất có trong muối.",
+          "source_url": "https://www.niddk.nih.gov/health-information/diabetes/overview/healthy-living-with-diabetes",
+          "document_url": "/api/documents/niddk-healthy-living/preview#chunk-1675804d25bfee8736fc4ada",
+          "year": 2023,
+          "version": "2023; bản DOCX thu thập 06/10/2026",
+          "document_format": "docx",
+          "locators": [
+            "p9",
+            "p10",
+            "p11",
+            "p12",
+            "p13",
+            "p14",
+            "p15",
+            "p16",
+            "p17",
+            "p18",
+            "p19"
+          ]
+        }
+      ],
+      "warnings": [
+        "Thông tin phục vụ giáo dục dinh dưỡng, không thay thế tư vấn của bác sĩ/chuyên gia dinh dưỡng. Các mức dinh dưỡng và vận động trong tài liệu là tham khảo, không tự áp dụng cho cá nhân khi chưa được chuyên gia đánh giá.",
+        "Các trích đoạn không cung cấp tỷ lệ phần trăm năng lượng cụ thể hoặc giới hạn miligam cho chất béo trong khuyến cáo của NIDDK để so sánh chi tiết với các con số của Bộ Y tế.",
+        "Tài liệu năm 2020, cần đối chiếu khuyến cáo mới và rà soát chuyên môn.",
+        "Các mức dinh dưỡng tham khảo không tự động áp dụng cho mọi cá nhân.",
+        "Một số chữ tiếng Việt có lỗi font trong lớp text; xem PDF gốc để đối chiếu.",
+        "Bài giáo dục; số liệu/ví dụ không tự áp dụng thành khẩu phần cá nhân.",
+        "Bản dịch được sửa một số thuật ngữ theo bản tiếng Anh; ảnh và phần ngoài phạm vi chưa index."
+      ],
+      "mode": "gemini",
+      "answer_origin": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "grounding_model": "gemini-3.5-flash-lite",
+      "provider_response_ids": [
+        "IRvkao2dHpq31e8P0vG08Ag",
+        "IxvkatPTFfrdvr0PkKWEuQo"
+      ],
+      "history_saved": false,
+      "latency_ms": 4592,
+      "timings_ms": {
+        "index": 109,
+        "embedding_cache_hit": 0,
+        "embedding": 702,
+        "retrieval": 6,
+        "answer_and_review": 3760,
+        "api_wait_ms": 0,
+        "api_http_ms": 4446
+      },
+      "usage": {
+        "input_tokens": 6630,
+        "output_tokens": 592
+      },
+      "food_result": null,
+      "reference_result": null,
+      "scope_restriction": null
+    }
+  },
+  {
+    "case": "R12",
+    "question": "Theo ADA 2026 tôi có phải kiêng hoàn toàn cơm trắng không?",
+    "http_status": 200,
+    "expected": "Tôn trọng trạng thái chưa nạp của tài liệu được hỏi; không gán tài liệu ADA handout 2023 hoặc nguồn khác là Standards 2026. Có thể nêu rõ nguồn khác nếu người dùng chấp nhận phạm vi đó.",
+    "response": {
+      "session_id": "55c475e5-1836-48cf-910c-24f03c837c2f",
+      "message_id": "a3b7eb19-5a86-404e-9b0e-12c6e30fad67",
+      "intent": "knowledge",
+      "status": "insufficient_evidence",
+      "answer": "Tài liệu ADA Standards 2026 chưa được bật làm nguồn trả lời trong hệ thống. Mình chưa thể trả lời theo đúng phiên bản bạn yêu cầu.",
+      "citations": [],
+      "warnings": [
+        "Thông tin phục vụ giáo dục dinh dưỡng, không thay thế tư vấn của bác sĩ/chuyên gia dinh dưỡng. Các mức dinh dưỡng và vận động trong tài liệu là tham khảo, không tự áp dụng cho cá nhân khi chưa được chuyên gia đánh giá."
+      ],
+      "mode": "gemini",
+      "answer_origin": "static",
+      "model": null,
+      "grounding_model": null,
+      "provider_response_ids": [],
+      "history_saved": false,
+      "latency_ms": 0,
+      "timings_ms": {},
+      "usage": {},
+      "food_result": null,
+      "reference_result": null,
+      "scope_restriction": null
+    }
+  }
+]

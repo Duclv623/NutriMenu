@@ -28,6 +28,15 @@ def tokens(text: str) -> list[str]:
     return unigrams + bigrams
 
 
+def is_noodle_meal_advice(query: str) -> bool:
+    q = fold(query)
+    return bool(
+        re.search(r'\b(?:an|bua sang|sang)\b.*\b(?:pho|bun|(?<!banh )mi|mien|hu tieu)\b', q)
+        and not re.search(r'\b(?:so sanh|nhanh hon|chi so duong huyet|calo|kcal|thanh phan|thuc don|bang)\b', q)
+        and not re.search(r'\bGI\b', query)
+    )
+
+
 def expand_query(query: str) -> str:
     terms = {
         "carb": "glucid carbohydrate chất bột đường",
@@ -51,10 +60,12 @@ def expand_query(query: str) -> str:
         "sữa không đường": "unsweetened dairy carbohydrates nutrition facts label",
     }
     expanded = query + " " + " ".join(v for k, v in terms.items() if fold(k) in fold(query))
-    if re.search(r'\b(?:an|bua sang|sang)\b.*\b(?:pho|bun)\b', fold(query)):
+    if re.search(r'\b(?:an|bua sang|sang)\b.*\b(?:pho|bun|mi|mien|hu tieu)\b', fold(query)):
         # Everyday dish questions still need meal/portion principles when the
         # approved sources cannot prescribe a particular bowl of that dish.
         expanded += " meal planning portion size eating out carbohydrate"
+        if is_noodle_meal_advice(query):
+            expanded += " noodle dishes less noodles more vegetables clear soup lean meat"
     return expanded
 
 
@@ -93,7 +104,15 @@ class Retriever:
         }.items():
             if any(alias in query_folded for alias in aliases):
                 named.append(source)
-        allowed = {i for i, c in enumerate(self.chunks) if not named or c.source_id in named}
+        allowed = {i for i, c in enumerate(self.chunks) if not named or c.source_id in named
+                   or 'nin-healthy-meals' in named and (c.source_id.startswith('nin-') or 'dinh duong' in fold(c.title))}
+        # Requested intake quantities need portion evidence; a plate-area diagram
+        # cannot determine how much of a named mixed dish somebody should eat.
+        from rag_app.safety import is_intake_quantity_request
+        current_question = query.rsplit('\nCâu hỏi tiếp: ', 1)[-1]
+        if is_intake_quantity_request(current_question) and not re.search(r'\bdia\b|\bplate\b', query_folded):
+            allowed = {i for i in allowed if not re.search(
+                r'phuong phap dia|the plate method|chia dia', fold(self.chunks[i].section))}
         if named == ['nin-healthy-meals']:
             allowed={i for i,c in enumerate(self.chunks) if c.source_id.startswith('nin-')}
         # Snack-specific evidence cannot decide a breakfast/general-food query.
@@ -156,12 +175,29 @@ class Retriever:
             for rank, i in enumerate(ranked[:30], start=1):
                 scores[i] = scores.get(i, 0) + 1 / (60 + rank)
         selected = sorted(scores, key=lambda i: (-scores[i], self.chunks[i].id))[:top_k]
+        if len(named) > 1:
+            representatives = []
+            for source in named:
+                candidates = [i for i in allowed if self.chunks[i].source_id == source and lexical[i] > 0]
+                if candidates:
+                    representative = max(candidates, key=lambda i: scores.get(i, 0) + lexical[i] * 0.000001)
+                    representatives.append(representative)
+            selected = list(dict.fromkeys(representatives + selected))[:top_k]
         # RRF can crowd out the strongest keyword match when broad dense matches
         # also have modest lexical scores. Keep one slot for that direct evidence.
         if mode == "hybrid" and dense is not None and ranks and ranks[0]:
             best_lexical = ranks[0][0]
             if best_lexical not in selected:
                 selected = selected[: max(0, top_k - 1)] + [best_lexical]
+        # Preserve component-level ordering advice alongside generic portion
+        # evidence. Vietnamese wording can otherwise crowd out the English
+        # noodle-specific excerpt in both lexical and hybrid retrieval.
+        if is_noodle_meal_advice(query):
+            practical = [i for i in allowed if self.chunks[i].source_id == 'singhealth-noodle-choices']
+            if practical:
+                representative = max(practical, key=lambda i: lexical[i])
+                if representative not in selected:
+                    selected = selected[:max(0, top_k - 1)] + [representative]
         # Keep a source's explicitly linked qualification with its definition.
         # Example: "no added sugar" needs the same handout's moderation caveat.
         # Never use arbitrary neighbouring chunks or cross-source assumptions.
@@ -176,6 +212,8 @@ class Retriever:
                         and j not in selected and j not in companions):
                     companions.append(j)
         protected = {i for i in selected if self.chunks[i].related_sections}
+        if len(named) > 1:
+            protected.update(selected[:min(len(named), top_k)])
         if ranks and ranks[0]:
             protected.add(ranks[0][0])
         for j in companions[:max(0, top_k - 1)]:

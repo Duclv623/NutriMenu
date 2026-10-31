@@ -499,7 +499,7 @@
       "enabled": true,
       "role": "knowledge",
       "language": "vi",
-      "sha256": "a669ffb501cea90d6b49283a627aa792fe7abac297c51d31359788eaa1820f33",
+      "sha256": "1533ce38007cc934642be777620e27c0ca2eb8af88d5af179dc75b7c418aaa1f",
       "collection_release": "2026-10-08",
       "segments": [
         {
@@ -995,6 +995,56 @@
       ],
       "original_raw_file": "raw/usda-retention.pdf",
       "original_sha256": "53ea1b82008226d8f4d24998d10a19995268bf64cd63da87543d0b94e6c8af8f"
+    },
+    {
+      "id": "ada-sitting-breaks",
+      "filename": "supplement-ada-sitting-breaks.json",
+      "format": "curated",
+      "title": "ADA — Breaking Sitting Streaks",
+      "url": "https://diabetes.org/health-wellness/fitness/break-sitting-streak",
+      "year": 2026,
+      "version": "Thu 30/10/2026; trang không xác định năm xuất bản; không gán là Standards 2026.",
+      "enabled": true,
+      "role": "knowledge",
+      "language": "vi",
+      "sha256": "1c22e31b51085c9df59798d8de5bb6b5ff5d4d53e2046045e5818e444dba8729",
+      "original_collection": "review_2026-10-30",
+      "original_raw_file": "raw/ada-sitting.html",
+      "original_sha256": "f028760b91a36db4b64e035f31e006d2add57016a6f3026aee0eb9c4a5c5eed3",
+      "segments": [
+        {
+          "section": "Ngắt thời gian ngồi lâu bằng vận động ngắn"
+        }
+      ],
+      "warnings": [
+        "Nguyên tắc vận động chung; chương trình cá nhân cần được chuyên gia đánh giá.",
+        "Năm 2026 là ngày thu, không phải xác nhận năm xuất bản hay phiên bản Standards."
+      ]
+    },
+    {
+      "id": "singhealth-noodle-choices",
+      "filename": "supplement-singhealth-noodle-choices.json",
+      "format": "curated",
+      "title": "SingHealth / KKH dietitians — Healthier Picks at the Food Court",
+      "url": "https://www.healthxchange.sg/how-to-prevent/food-tips/healthier-picks-at-the-food-court",
+      "year": 2026,
+      "version": "Selected noodle advice collected 31/10/2026; collection year, not publication year.",
+      "enabled": true,
+      "role": "knowledge",
+      "language": "en",
+      "sha256": "0ea9b0b6712eaacf1c5f42f1e7bcaf72665ddb3c8a89139dd14a1e3acf6bffa1",
+      "collection_release": "2026-10-31",
+      "segments": [
+        {
+          "section": "When having noodle dishes — eating out choices"
+        }
+      ],
+      "warnings": [
+        "Hướng dẫn chọn món nói chung, không xác định khẩu phần cá nhân cho người bệnh đái tháo đường."
+      ],
+      "original_collection": "practical_meals_2026-10-31",
+      "original_raw_file": "singhealth-noodle-choices.html",
+      "original_sha256": "a3c20f9a2197368f897fc94850871c1716019551c111d58846b5c0e52bbf26b6"
     }
   ]
 }

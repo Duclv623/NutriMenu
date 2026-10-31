@@ -1,3 +1,4 @@
+import logging
 import re
 import threading
 import time
@@ -5,6 +6,7 @@ from collections import OrderedDict
 from uuid import uuid4
 
 from rag_app.config import Settings
+from rag_app.conversation import is_contextual_followup, is_portion_description, topic_for_turn
 from rag_app.domain import ChatRequest, ChatResponse, Citation, GeneratedAnswer, Hit
 from rag_app.food_data import food_hits, get_catalog
 from rag_app.provider import Provider, ProviderFailure, redact
@@ -16,12 +18,15 @@ from rag_app.safety import (
     is_diagnosis_request,
     is_elliptical_intake_followup,
     is_intake_advice,
+    is_intake_quantity_request,
     outside_nutrition_scope,
     social_answer,
     static_answer,
 )
 from rag_app.store import Store
 from rag_app.supplements import SupplementCatalog
+
+logger = logging.getLogger(__name__)
 
 
 def make_citations(hits: list[Hit]) -> list[Citation]:
@@ -53,6 +58,11 @@ def make_citations(hits: list[Hit]) -> list[Citation]:
 
 
 def validate_answer(generated: GeneratedAnswer, citations: list[Citation]):
+    """Final atomic guard; semantic partial acceptance belongs to the provider review.
+
+    Dropping arbitrary blocks here could remove a qualification that makes another
+    block safe. The provider already retains individually reviewed partial answers.
+    """
     available = {c.id: c for c in citations}
     if not generated.supported or not generated.blocks:
         return None
@@ -61,11 +71,14 @@ def validate_answer(generated: GeneratedAnswer, citations: list[Citation]):
     for block in generated.blocks:
         ids = list(dict.fromkeys(block.citation_ids))
         if not block.text.strip() or not ids or any(i not in available for i in ids):
+            logger.warning('answer_rejected reason=invalid_citation_or_empty_block')
             return None
         # The model is not allowed to fabricate source links or apparent additional citations.
         if re.search(r"https?://|\[C\d+\]", block.text):
+            logger.warning('answer_rejected reason=unapproved_link_or_marker')
             return None
         if classify(block.text) == "medication":
+            logger.warning('answer_rejected reason=medication_instruction')
             return None
         blocks.append(block.text.strip() + " " + " ".join(f"[{i}]" for i in ids))
         used.extend(ids)
@@ -128,12 +141,13 @@ class ChatService:
         ref_context=None if reference is None else {
             'domain':reference['domain'],'request':reference['request'],'unresolved':reference['unresolved'],
             'items':[{'id':i['id'],'name':i['name']} for i in reference['items']]}
-        turn = {'question': query, 'response': {'food_result': context,'reference_result':ref_context,
+        topic = topic_for_turn(query, history)
+        turn = {'question': query, 'topic': topic[:1000], 'response': {'food_result': context,'reference_result':ref_context,
                                               'scope_restriction': response.scope_restriction}}
         trimmed = []
         for previous in history[-5:]:
             old = previous.get('response', {}).get('food_result')
-            trimmed.append({'question': previous['question'], 'response': {
+            trimmed.append({'question': previous['question'], 'topic': previous.get('topic', previous['question'])[:1000], 'response': {
                 'scope_restriction': previous.get('response', {}).get('scope_restriction'),
                 'reference_result':previous.get('response',{}).get('reference_result'),'food_result': None if old is None else {
                 'request': old.get('request'), 'unresolved': old.get('unresolved', []),
@@ -172,10 +186,9 @@ class ChatService:
         if hasattr(provider_client, 'start_trace'):
             provider_client.start_trace()
         query = re.sub(r'\bko\b', 'không', redact(request.message), flags=re.IGNORECASE)
+        raw_query = query
         selected_plan = self.foods.resolve_selection(query, history)
-        contextual = bool(history) and (is_elliptical_intake_followup(query) or bool(re.search(
-            r"\b(?:do|nay|ay|vay|no)\b|^nhung\b|^(?:con|the)\b.*\b(?:thi sao|bao nhieu|duoc khong)\b",
-            fold(query))))
+        contextual = bool(history) and is_contextual_followup(query)
         # A short new subject (e.g. brown rice after bread) is independent.
         # Short follow-ups within an explicit safety condition remain guarded.
         safety_contextual = contextual or bool(history) and len(query.split()) < 9
@@ -232,6 +245,11 @@ class ChatService:
             return self.finish_response(response, request, owner, history, query, started)
         if self.provider is None:
             raise ProviderFailure("Chưa cấu hình key API ở backend. Câu trả lời kiến thức cần API thật.")
+        requested_version = re.search(r'\bada\s+(20\d{2})\b', fold(query))
+        if intent == 'knowledge' and requested_version:
+            response.answer = ('Tài liệu ADA Standards ' + requested_version[1]
+                               + ' chưa được bật làm nguồn trả lời trong hệ thống. Mình chưa thể trả lời theo đúng phiên bản bạn yêu cầu.')
+            return self.finish_response(response, request, owner, history, raw_query, started)
         if intent == 'food_lookup' and reference_domain:
             stage=time.perf_counter()
             if reference_selection:
@@ -254,6 +272,8 @@ class ChatService:
                 raise ProviderFailure('AI chưa đối chiếu được kết quả tra cứu bổ sung; hãy thử lại.')
             response.status='answered'
             response.answer,response.citations=validated
+            if generated.uncertainty.strip():
+                response.warnings.append(generated.uncertainty)
         elif intent == 'food_lookup':
             if not self.foods.records:
                 raise ProviderFailure('Chưa nạp dữ liệu thực phẩm; kiểm tra data/structured.')
@@ -283,6 +303,9 @@ class ChatService:
                 response.answer_origin = 'static'
                 return self.finish_response(response, request, owner, history, query, started)
             if result['items'] and all(not item['calculation_available'] for item in result['items']):
+                if any(item.get('review_status') in {'unreviewed', 'quarantined'} for item in result['items']):
+                    response.answer = 'Số liệu món ăn đang chờ xác minh cơ sở khối lượng hoặc đơn vị nguồn, nên mình chưa thể tính theo lượng bạn hỏi. Không nên dùng số liệu này để tính khẩu phần.'
+                    return self.finish_response(response, request, owner, history, raw_query, started)
                 response.answer = (
                     "Mình chưa thể tính theo lượng bạn hỏi vì chưa có khối lượng gram tương ứng "
                     "với đơn vị bát, quả, hộp hoặc ml. Bạn có thể cho biết khối lượng thực phẩm "
@@ -298,6 +321,8 @@ class ChatService:
             if validated:
                 response.status='answered'
                 response.answer,response.citations=validated
+                if generated.uncertainty.strip():
+                    response.warnings.append(generated.uncertainty)
             else:
                 raise ProviderFailure('AI chưa đối chiếu được câu trả lời với dữ liệu thực phẩm; hãy thử lại.')
         elif intent == 'menu_request':
@@ -313,7 +338,7 @@ class ChatService:
             response.answer = "Mình hỗ trợ giáo dục dinh dưỡng cho người trưởng thành mắc đái tháo đường típ 2 và tra cứu thành phần thực phẩm. Mình không tư vấn đầu tư hoặc viết mã lập trình. Bạn có thể hỏi về lựa chọn thực phẩm hoặc cách kiểm soát carbohydrate."
         elif is_diagnosis_request(query):
             response.answer = "Mình không chẩn đoán bệnh hoặc kết luận từ chỉ số xét nghiệm cá nhân. Bạn cần trao đổi với bác sĩ để được đánh giá phù hợp. Mình có thể giải thích kiến thức dinh dưỡng chung từ tài liệu đã duyệt."
-        elif not history and fold(query).strip(" ?!.") in {"co duoc khong", "duoc khong", "co on khong", "no thi sao", "the thi sao", "nen an gi", "bao nhieu", "co hop ly khong", "an the nao", "cai do co duoc khong", "mon do co duoc khong", "loai do co duoc khong"}:
+        elif not history and (is_elliptical_intake_followup(query) or fold(query).strip(" ?!.") in {"co duoc khong", "duoc khong", "co on khong", "no thi sao", "the thi sao", "nen an gi", "bao nhieu", "co hop ly khong", "an the nao", "cai do co duoc khong", "mon do co duoc khong", "loai do co duoc khong"}):
             response.answer = "Bạn đang hỏi về thực phẩm hay tình huống nào? Hãy nói rõ nội dung để mình tìm đúng tài liệu; mình chưa đủ dữ kiện để kết luận."
         else:
             stage = time.perf_counter()
@@ -324,7 +349,7 @@ class ChatService:
                 )
             # Contextual follow-up retrieval is bounded and uses only prior questions, not hallucinated answers.
             if contextual:
-                query = history[-1]["question"] + "\nCâu hỏi tiếp: " + query
+                query = topic_for_turn(raw_query, history) + "\nCâu hỏi tiếp: " + raw_query
             vector = None
             response.timings_ms['index'] = int((time.perf_counter()-stage)*1000)
             stage = time.perf_counter()
@@ -341,6 +366,12 @@ class ChatService:
             hits = retriever.search(
                 query, self.settings.top_k, vector, self.settings.min_dense_score
             )
+            if is_intake_advice(raw_query) and re.search(r'\b(?:th|moc chau|mcc|topkid)\b', fold(raw_query)):
+                plan, meta, usage = self.provider.plan_food(raw_query, history)
+                self.record_generation(response, meta, usage)
+                result = self.supplements.execute('label', plan, raw_query)
+                response.reference_result = result
+                hits = hits + self.supplements.hits(result)
             response.timings_ms['retrieval'] = int((time.perf_counter()-stage)*1000)
             if hits:
                 citations = make_citations(hits)
@@ -371,10 +402,26 @@ class ChatService:
             self.record_generation(response, generated, usage)
         if hasattr(provider_client, 'trace'):
             response.timings_ms.update(provider_client.trace())
-        return self.finish_response(response, request, owner, history, query, started)
+        return self.finish_response(response, request, owner, history, raw_query, started)
 
     def finish_response(self, response, request, owner, history, query, started):
+        # Asking about the observed portion is dialogue control, not a sourced
+        # nutrition claim. Keep it separate from the model's reviewed answer.
+        if (history and response.intent == 'knowledge' and is_elliptical_intake_followup(query)
+                and is_intake_quantity_request(query) and '?' not in response.answer
+                and not any(is_portion_description(t['question']) or re.search(
+                    r'\d+\s*(?:g|gram|gam|ml)\b|\b(?:to|bat)\s+(?:nho|lon|vua)\b', fold(t['question']))
+                    for t in history[-3:])):
+            topic = fold(topic_for_turn(query, history))
+            response.clarification_question = (
+                'Bạn thường ăn tô/bát nhỏ hay lớn, và ăn hết hay chỉ một phần?'
+                if re.search(r'\b(?:pho|bun|chao|sup|mien|hu tieu)\b', topic) else
+                'Bạn thường uống cỡ cốc/hộp bao nhiêu ml mỗi lần?' if 'uong' in fold(query) else
+                'Bạn thường ăn một phần cỡ nào (cỡ bát/đĩa hoặc lượng bạn thường lấy)?')
         response.latency_ms = int((time.perf_counter() - started) * 1000)
+        logger.info('chat_completed intent=%s status=%s origin=%s citations=%d duration_ms=%d',
+                    response.intent, response.status, response.answer_origin,
+                    len(response.citations), response.latency_ms)
         if request.save_history:
             response.history_saved = True
             self.store.save_message(
@@ -382,7 +429,7 @@ class ChatService:
                 str(response.session_id),
                 str(response.message_id),
                 redact(request.message),
-                response.model_dump(mode="json"),
+                {**response.model_dump(mode="json"), 'context_topic': topic_for_turn(query, history)},
             )
         self.remember_turn(owner, response.session_id, history, query, response)
         return response

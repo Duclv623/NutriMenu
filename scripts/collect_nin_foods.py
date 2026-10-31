@@ -263,17 +263,18 @@ def export_dishes(output: Path, dishes: list[dict], manifest: dict) -> dict:
         "categories": dict(sorted(Counter(d.get('category_name', '') for d in dishes).items())),
         "missing_core_values": {column: sum(r.get(column) is None for r in rows) for column in ["energy_kcal", *core_mapping]},
         "records_with_dish_components": sum(bool(d.get("dish_components")) for d in dishes),
-        "reference_amount_requires_review": 0, "issues": issues,
-        "validated_against": "Pagination, unique IDs/codes and value checks; 100 g basis confirmed by dataset owner on 2026-10-08; clinical accuracy not validated",
+        "reference_amount_requires_review": len(dishes), "issues": issues,
+        "validated_against": "Pagination and schema only; per-record mass basis must be verified before calculation",
     }
     write_json(output / "quality_report.json", quality)
     manifest.update({"source_title": "Viện Dinh dưỡng — Tra cứu giá trị dinh dưỡng món ăn",
                      "source_url": DISH_PAGE_URL, "api_url": DISH_API_URL,
-                     "reference_basis": "100 g món ăn",
+                     "reference_basis": "unverified legacy 100 g export assumption",
                      "reference_amount_g": 100,
+                     "calculation_enabled": False,
                      "reference_basis_verification": {
-                         "method": "dataset_owner_confirmation", "date": "2026-10-08",
-                         "note": "Dataset owner confirmed all 1250 NIN dishes are per 100 g; source nutrient values are unchanged",
+                         "method": "unverified_export_assumption",
+                         "note": "The legacy export uses 100 g; this is not source evidence and must not enable calculation",
                      },
                      "normalization": "Empty values become null; numeric strings parsed; nested salt equivalents preserved; no nutrient inference",
                      "clinical_review": False})

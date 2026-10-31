@@ -120,6 +120,7 @@ class ChatResponse(BaseModel):
     usage: dict[str, int] = Field(default_factory=dict)
     food_result: dict | None = None
     reference_result: dict | None = None
+    clarification_question: str | None = None
     scope_restriction: Literal["special_population"] | None = None
 
 

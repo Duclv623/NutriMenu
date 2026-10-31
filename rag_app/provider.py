@@ -10,7 +10,11 @@ from rag_app.config import Settings
 from rag_app.domain import GeneratedAnswer, Hit
 from rag_app.prompts import GROUNDING_PROMPT, SYSTEM_PROMPT
 from rag_app.retrieval import fold
-from rag_app.safety import is_elliptical_intake_followup, is_intake_advice
+from rag_app.safety import (
+    is_elliptical_intake_followup,
+    is_intake_advice,
+    is_intake_quantity_request,
+)
 from rag_app.store import Store
 
 
@@ -77,6 +81,24 @@ def apply_grounding_review(answer: GeneratedAnswer, review: GroundingReview, exc
             sources[span.citation_id][i] for span in item.evidence for i in span.line_ids
         )
         block_folded = fold(answer.blocks[item.block_index].text)
+        if (re.search(r'\b(?:thit|dam) nac\b', block_folded)
+                and not re.search(r'\b(?:nac|lean|skinless|it mo|low[ -]fat)\b', fold(evidence_text))):
+            rejections.append(f'Block {item.block_index}: thịt thái lát/sliced meat không chứng minh thịt nạc. Chọn đúng dòng nguồn về đạm nạc hoặc bỏ ý chưa có bằng chứng.')
+            continue
+        if question:
+            current = question.rsplit('\nCâu hỏi tiếp: ', 1)[-1]
+            if 'uong' not in fold(question) and 'uong it thuong xuyen' in block_folded:
+                rejections.append('Câu hỏi đang hỏi ăn, không phải uống. Chỉ giữ vế nguồn đúng hoạt động; không chép cả câu thức ăn/đồ uống.')
+                continue
+            if (is_intake_advice(current)
+                    and re.search(r'\b(?:chia doi|nua|1/2)\b.*\b(?:to|bat)\b', block_folded)
+                    and not re.search(r'\b(?:half|mot nua|chia doi|1/2)\b', fold(evidence_text))):
+                rejections.append('Nguồn chỉ nói chia khẩu phần, không xác định chia đôi tô/bát. Bỏ lượng tự suy và giữ đúng nguyên tắc có nguồn.')
+                continue
+            if (is_intake_quantity_request(current) and not re.search(r'\bdia\b|\bplate\b', fold(question))
+                    and re.search(r'\b(?:dia an|nua dia|phan tu dia)\b', block_folded)):
+                rejections.append('Tỷ lệ diện tích đĩa không trả lời lượng món/tô/bát. Thay bằng giới hạn lượng cá nhân, nguyên tắc khẩu phần có nguồn và một câu hỏi làm rõ phần ăn thực tế.')
+                continue
         if question and re.search(r'\bzero sugar\b|\bnuoc ngot\b.*\bkhong duong\b', fold(question)):
             amount_question = re.search(r'\b(?:thoai mai|khong gioi han|bao nhieu cung|vo han)\b|\bmay\b.*\bcung duoc\b', fold(question))
             if amount_question and re.search(r'\b(?:calo|tang can)\b', block_folded):

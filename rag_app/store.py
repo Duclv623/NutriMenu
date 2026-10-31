@@ -1,4 +1,5 @@
 import json
+import logging
 import sqlite3
 from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
@@ -8,6 +9,8 @@ from uuid import uuid4
 import numpy as np
 
 from rag_app.domain import Chunk
+
+logger = logging.getLogger(__name__)
 
 
 class Store:
@@ -151,7 +154,8 @@ class Store:
     def purge_history(self, days: int):
         cutoff = (datetime.now(UTC) - timedelta(days=days)).isoformat()
         with self.connect() as db:
-            db.execute("DELETE FROM messages WHERE created<?", (cutoff,))
-            db.execute(
+            messages = db.execute("DELETE FROM messages WHERE created<?", (cutoff,)).rowcount
+            sessions = db.execute(
                 "DELETE FROM sessions WHERE NOT EXISTS(SELECT 1 FROM messages WHERE session=sessions.id)"
-            )
+            ).rowcount
+        logger.info('history_purged messages_deleted=%d sessions_deleted=%d', messages, sessions)

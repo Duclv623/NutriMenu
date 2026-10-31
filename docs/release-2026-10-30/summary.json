@@ -1,0 +1,84 @@
+{
+  "full_local_tests_before_last_targeted_changes": 284,
+  "live_chat_turns_total": 20,
+  "unique_scenarios": 12,
+  "judge_api_calls": 0,
+  "collection_statuses": {
+    "failed": 3,
+    "collected": 1,
+    "collected_pending_review": 103,
+    "selected_excerpt_reviewed_and_enabled": 1
+  },
+  "final_cases": {
+    "R01": {
+      "http": 200,
+      "status": "insufficient_evidence"
+    },
+    "R02": {
+      "http": 200,
+      "status": "insufficient_evidence"
+    },
+    "R03": {
+      "http": 200,
+      "status": "answered"
+    },
+    "R04": {
+      "http": 200,
+      "status": "safety"
+    },
+    "R05": {
+      "http": 200,
+      "status": "safety"
+    },
+    "R06": {
+      "http": 200,
+      "status": "safety"
+    },
+    "R07": {
+      "http": 200,
+      "status": "answered"
+    },
+    "R08": {
+      "http": 200,
+      "status": "answered"
+    },
+    "R09": {
+      "http": 200,
+      "status": "answered"
+    },
+    "R10": {
+      "http": 200,
+      "status": "insufficient_evidence"
+    },
+    "R11": {
+      "http": 200,
+      "status": "answered"
+    },
+    "R12": {
+      "http": 200,
+      "status": "insufficient_evidence"
+    }
+  },
+  "known_failed_earlier_attempts": [
+    "R09 insufficient evidence before source link fix",
+    "R11 HTTP 503 before composition-lookup route fix"
+  ],
+  "data_unresolved": {
+    "nin_dishes": 1250,
+    "blocked_labels": 12,
+    "source_failures": [
+      "nin_dishes",
+      "cdc-activity",
+      "thfood-mozzarella-review"
+    ]
+  },
+  "affected_local_tests_after_final_changes": 110,
+  "clean_package_validation": {
+    "files_hash_verified": 414,
+    "chunks": 192,
+    "sources": 32,
+    "food_records": 2629,
+    "api_key_used": false,
+    "dependency_environment": "existing .venv, no fresh pip installation"
+  }
+}

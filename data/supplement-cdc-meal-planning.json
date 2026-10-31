@@ -18,7 +18,10 @@
       "locators": [
         "About portion size"
       ],
-      "pages": []
+      "pages": [],
+      "related_sections": [
+        "niddk-healthy-living::Lên kế hoạch lượng thức ăn hoặc đồ uống cần tiêu thụ."
+      ]
     }
   ]
 }

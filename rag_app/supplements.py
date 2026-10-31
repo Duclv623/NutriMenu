@@ -318,7 +318,8 @@ class SupplementCatalog:
                 wanted.update(
                     "carbohydrate" for n in result["request"]["nutrients"] if fold(n) == "carb"
                 )
-                for key, value in payload["nutrients"].items():
+                for key in NUTRIENTS:
+                    value = payload['nutrients'].get(key)
                     name, unit, canonical_key = NUTRIENTS[key]
                     if wanted and canonical_key not in wanted:
                         continue
@@ -326,7 +327,7 @@ class SupplementCatalog:
                     computed = item["calculated_nutrients"]
                     amount = (
                         "chưa tính được"
-                        if computed is None or computed[key] is None
+                        if computed is None or computed.get(key) is None
                         else str(computed[key])
                     )
                     lines.append(

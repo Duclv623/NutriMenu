@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "source_id": "ada-sitting-breaks",
+  "original_url": "https://diabetes.org/health-wellness/fitness/break-sitting-streak",
+  "original_sha256": "f028760b91a36db4b64e035f31e006d2add57016a6f3026aee0eb9c4a5c5eed3",
+  "segments": [
+    {
+      "section": "Ngắt thời gian ngồi lâu bằng vận động ngắn",
+      "locators": [
+        "article-introduction-paragraph-2"
+      ],
+      "text": "Bài giáo dục Breaking Sitting Streaks của ADA khuyến nghị ngắt các đợt ngồi bằng hoạt động ngắn mỗi 30 phút; những đợt vận động ngắn có thể đặc biệt hữu ích với người đái tháo đường type 2. Đây là nguyên tắc giáo dục chung, không phải chương trình tập được cá nhân hóa."
+    }
+  ]
+}
