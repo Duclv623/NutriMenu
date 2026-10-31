@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from rag_app.config import ROOT
 from rag_app.data_quality import review_record
+from rag_app.food_reference import load_food_references
 from rag_app.retrieval import fold
 from rag_app.safety import is_intake_advice
 
@@ -27,6 +28,8 @@ SOURCES = {
                    'url':'https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-mon-an'},
     'fct2007': {'title':'Bảng thành phần thực phẩm Việt Nam 2007', 'year':2007,
                 'url':'/api/documents/vtn-fct-2007/pdf'},
+    'usda': {'title': 'USDA FoodData Central — thực phẩm tham khảo', 'year': 2026,
+             'url': 'https://fdc.nal.usda.gov/'},
 }
 
 
@@ -42,7 +45,7 @@ class FoodPlan(BaseModel):
     operation: Literal['lookup','compare','sum','search']
     items: list[FoodItem] = Field(max_length=5)
     nutrients: list[str] = Field(default_factory=list,max_length=15)
-    dataset: Literal['auto','nin_foods','nin_dishes','fct2007'] = 'auto'
+    dataset: Literal['auto','nin_foods','nin_dishes','fct2007','usda'] = 'auto'
     clarification: str = ''
 
 
@@ -200,8 +203,14 @@ class FoodCatalog:
                 for nutrient in record['nutrients']:
                     nutrient['key']=canonical(nutrient['name'],nutrient['unit'])
                 self.records[record['id']]=record
+        for record in load_food_references(self.root):
+            if record['id'] in self.records:
+                raise ValueError('Duplicate verified food reference')
+            self.records[record['id']] = record
         for record in self.records.values():
-            record['source']=SOURCES[record['dataset']]
+            record['source']=record.get('source', SOURCES[record['dataset']])
+            if record['id'] == 'nin_foods:7089' and 'raw' in record['name'].lower():
+                record['aliases'] = ['ức gà sống', 'lườn gà sống', 'ức gà công nghiệp sống']
             seen=Counter((n.get('source_key',n['key']),n['unit'],n.get('parent_key','')) for n in record['nutrients'])
             for nutrient in record['nutrients']:
                 key=(nutrient.get('source_key',nutrient['key']),nutrient['unit'],nutrient.get('parent_key',''))
@@ -251,7 +260,8 @@ class FoodCatalog:
                 score=200
             elif not compatible_spelling(query, r['name']):
                 continue
-            elif q in {name,r['_english']}:
+            elif q in {name,r['_english']} or any(q == normalized(a) and compatible_spelling(query, a)
+                                                   for a in r.get('aliases', [])):
                 score=100
             elif q and re.search(r'\b'+re.escape(q)+r'\b',name):
                 score=75-len(name.split())*.3
@@ -274,14 +284,14 @@ class FoodCatalog:
         if is_intake_advice(query):
             return False
         q=fold(query)
-        return bool(re.search(r'\b(?:nin_foods|nin_dishes|fct2007):[a-z0-9-]+\b',q)
+        return bool(re.search(r'\b(?:nin_foods|nin_dishes|fct2007|usda):[a-z0-9-]+\b',q)
             or re.search(r'\d+(?:[.,]\d+)?\s*(?:g|gram|kg|ml|lit)\b',q)
             or re.search(r'bao nhieu|ham luong|thanh phan|chua (?:chat|gi)|tra cuu|so sanh|nhieu (?:dam|protein|calo|canxi)|it (?:calo|duong)|tong (?:calo|dam|dinh duong)',q)
             and any(re.search(r'\b'+term+r'\b', q) for term in ('thuc pham','mon an','sua','com','pho','trung','thit','rau','gao','chuoi')))
 
     def bind_explicit_ids(self,plan,question):
         """A user's selected source ID takes precedence over model name parsing."""
-        ids=list(dict.fromkeys(re.findall(r'\b(?:nin_foods|nin_dishes|fct2007):[A-Za-z0-9-]+\b',question)))
+        ids=list(dict.fromkeys(re.findall(r'\b(?:nin_foods|nin_dishes|fct2007|usda):[A-Za-z0-9-]+\b',question)))
         known=[rid for rid in ids if rid in self.records]
         if len(known)==1 and len(plan.items)==1:
             plan.items[0].name=known[0]
@@ -327,6 +337,24 @@ class FoodCatalog:
     def simple_lookup(self, question):
         """Parse only explicit single-food quantity + nutrient questions.
         Complex/free-form requests still go through the real model planner."""
+        summed = re.fullmatch(r'\s*(?:tổng|tính tổng)\s+(.+?)\s+(?:có\s+)?bao nhiêu\s+(.+?)[?!.]*\s*', question, re.I)
+        if summed:
+            parts = re.split(r'\s+và\s+|\s*\+\s*', summed[1], flags=re.I)
+            fields = [s.strip(' ?!.') for s in re.split(r'\s+và\s+|,', summed[2], flags=re.I)]
+            items = []
+            for part in parts:
+                match = re.fullmatch(r'(\d+(?:[.,]\d+)?)\s*(g|gram|gam|kg)\s+(.+)', part, re.I)
+                if not match:
+                    return None
+                amount, unit, name = match.groups()
+                matches = self.search(name)
+                if not matches or matches[0]['match_score'] != 100:
+                    return None
+                items.append(FoodItem(name=name, amount=float(amount.replace(',', '.')), unit=unit.lower()))
+            if (2 <= len(items) <= 5 and fields
+                    and all(canonical(f, '') in {'energy', 'protein', 'fat', 'carbohydrate', 'fiber'} for f in fields)):
+                return FoodPlan(operation='sum', items=items, nutrients=fields)
+            return None
         match = re.fullmatch(r'\s*(\d+(?:[.,]\d+)?)\s*(g|gram|gam|kg|ml)\s+(.+?)\s+(?:có\s+)?bao nhiêu\s+(.+?)[?!.]*\s*', question, re.I)
         if not match:
             return None
@@ -346,14 +374,14 @@ class FoodCatalog:
             return None
 
     def execute(self,plan):
-        output={'operation':plan.operation,'items':[],'unresolved':[],'totals':[],'notes':[],
+        output={'operation':plan.operation,'items':[],'unresolved':[],'totals':[],'notes':[], 'assumptions': [],
                 'catalog_counts':self.status()['datasets']}
         if plan.clarification:
             output['notes'].append(plan.clarification)
         for requested in plan.items:
             candidates=self.search(requested.name,plan.dataset)
             if not candidates:
-                output['unresolved'].append({'query':requested.name,'reason':'Không tìm thấy thực phẩm phù hợp.','candidates':[]})
+                output['unresolved'].append({'query':requested.name,'reason':'Chưa có dữ liệu phù hợp với thực phẩm và cách chế biến này.', 'reason_code': 'missing_record', 'candidates':[]})
                 continue
             best=candidates[0]
             exact=[c for c in candidates if c['match_score']>=100]
@@ -383,7 +411,9 @@ class FoodCatalog:
                         continue
                     seen.add(name)
                     unique.append(c)
-                output['unresolved'].append({'query':requested.name,'reason':'Cần chọn đúng loại/trạng thái thực phẩm.',
+                output['unresolved'].append({'query':requested.name,
+                    'reason':'Cần chọn đúng loại/trạng thái thực phẩm.' if unique else 'Chưa có bản ghi khớp đúng tên và trạng thái đã nêu.',
+                    'reason_code': 'ambiguous' if unique else 'missing_record',
                     'candidates':[{'id':c['id'],'name':c['name'],'dataset':c['dataset']} for c in unique[:6]]})
                 continue
             item={k:v for k,v in best.items() if k not in {'match_score','nutrients'}}
@@ -391,6 +421,11 @@ class FoodCatalog:
             item['requested_amount']=requested.amount
             item['requested_unit']=requested.unit
             item['requested_name']=requested.name
+            assumption = next((text for alias, text in item.get('alias_assumptions', {}).items()
+                               if normalized(alias) == normalized(requested.name)), None)
+            item['assumptions'] = [assumption] if assumption else []
+            if assumption and assumption not in output['assumptions']:
+                output['assumptions'].append(assumption)
             unit=fold(requested.unit.strip())
             grams=requested.amount*(1000 if unit in {'kg','kilogram'} else 1) if requested.amount is not None and unit in {'g','gram','gam','kg','kilogram'} else None
             item['amount_g']=grams
@@ -438,6 +473,8 @@ class FoodCatalog:
                 output['notes'].append('Chưa tính tổng: cần khối lượng bằng gram và cơ sở khẩu phần đã xác minh cho mọi thành phần.')
         if not plan.items:
             output['notes'].append('Cần tên thực phẩm/món ăn để tra cứu.')
+        if plan.operation == 'sum' and output['unresolved']:
+            output['notes'].append('Chưa có tổng cho toàn bộ bữa vì còn thành phần chưa xác định; các giá trị riêng không phải tổng bữa.')
         wanted={canonical(n,'') for n in plan.nutrients} if plan.nutrients else {'energy','protein','fat','carbohydrate','fiber','sodium','calcium','iron'}
         output['display_totals']=[n for n in output['totals'] if n['key'] in wanted]
         return output
@@ -460,12 +497,16 @@ def food_hits(result):
             lines.append(f"- {n['name']}: giá trị gốc {n['value'] if n['value'] is not None else 'chưa có dữ liệu'} {n['unit']}; "
                 f"giá trị theo lượng hỏi {n['amount_value'] if n['amount_value'] is not None else 'chưa tính được'} {n['unit']}. "
                 +n.get('quality_note',''))
+        lines.extend(item.get('assumptions', []))
+        if item.get('limitations'):
+            lines.append(item['limitations'])
         if item['alternatives']:
             lines.append('Có bản ghi cùng tên ở nguồn khác: '+', '.join(i['id'] for i in item['alternatives'])+'. Không trộn số liệu giữa các nguồn.')
         body='\n'.join(lines)
         hits.append(Hit(score=1,chunk=Chunk(id=item['id'],source_id='vtn-fct-2007' if item['dataset']=='fct2007' else item['dataset'],
             title=item['source']['title'],text=body,section=item['name'],pages=[item['page']] if item['page'] else [],
-            printed_pages=[item['ordinal']] if item.get('ordinal') else [],filename='VTN_FCT_2007.pdf' if item['page'] else 'nutrients_long.csv',
+            printed_pages=[item['ordinal']] if item.get('ordinal') else [],
+            filename='VTN_FCT_2007.pdf' if item['page'] else item.get('source_metadata', {}).get('raw_file', 'nutrients_long.csv'),
             source_url=item['source']['url'],year=item['source']['year'],version=str(item['source']['year']),
             sha256=hashlib.sha256(body.encode()).hexdigest(),token_count=0,
             document_format='pdf' if item['page'] else 'structured',locators=[item['id']],
@@ -474,6 +515,7 @@ def food_hits(result):
     for unresolved in result['unresolved']:
         extra.append(f"Yêu cầu {unresolved['query']}: {unresolved['reason']} Lựa chọn: "+json.dumps(unresolved['candidates'],ensure_ascii=False))
     extra.extend(result['notes'])
+    extra.extend(result.get('assumptions', []))
     if result['totals']:
         extra.append('Tổng tính bằng code theo các lượng đã khai báo: '+json.dumps(result['display_totals'],ensure_ascii=False))
     if extra:

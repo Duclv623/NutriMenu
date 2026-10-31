@@ -1,0 +1,2297 @@
+[
+  {
+    "session_id": "8b6930f7-f82f-4460-a490-60c3aa4be945",
+    "message_id": "33af0c25-d4e2-480d-bf7a-d1235966ae19",
+    "intent": "food_lookup",
+    "status": "needs_clarification",
+    "answer": "Mình có dữ liệu nhãn sữa theo 100 ml. Để tính cho 200 ml, hãy chọn đúng sản phẩm bạn đang uống trong các lựa chọn bên dưới. Nếu sản phẩm của bạn chưa có trong danh sách, hãy cho biết tên và thông tin năng lượng trên nhãn.",
+    "response_strategy": "structured_lookup",
+    "citations": [],
+    "warnings": [
+      "Thông tin phục vụ giáo dục dinh dưỡng, không thay thế tư vấn của bác sĩ/chuyên gia dinh dưỡng. Các mức dinh dưỡng và vận động trong tài liệu là tham khảo, không tự áp dụng cho cá nhân khi chưa được chuyên gia đánh giá."
+    ],
+    "mode": "gemini",
+    "answer_origin": "static",
+    "model": null,
+    "grounding_model": null,
+    "provider_response_ids": [],
+    "history_saved": false,
+    "latency_ms": 622,
+    "timings_ms": {
+      "food_plan": 228
+    },
+    "usage": {},
+    "food_result": {
+      "operation": "lookup",
+      "items": [
+        {
+          "id": "nin_foods:10001",
+          "code": "10001",
+          "name": "Sữa bò tươi",
+          "name_en": "Milk cow, fresh (Fluid)",
+          "dataset": "nin_foods",
+          "page": null,
+          "category": "Sữa và sản phẩm chế biến",
+          "source_metadata": {
+            "food_code": "10001",
+            "source_record_id": "6877a6b660d6c84e9bd5cca4",
+            "name_vi": "Sữa bò tươi",
+            "name_en": "Milk cow, fresh (Fluid)",
+            "category_vi": "Sữa và sản phẩm chế biến",
+            "category_en": "Milk and processed products",
+            "reference_amount_g": "100",
+            "edible_basis": "True",
+            "state": "",
+            "energy_kcal": "74",
+            "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham",
+            "protein_g": "3.9",
+            "fat_g": "4.4",
+            "carbohydrate_g": "4.8",
+            "dietary_fiber_g": "",
+            "sodium_mg": "352.54"
+          },
+          "reference_amount_g": 100.0,
+          "basis": "100 g phần ăn được",
+          "source": {
+            "title": "Viện Dinh dưỡng — dữ liệu thực phẩm",
+            "year": 2026,
+            "url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+          },
+          "review_status": "verified",
+          "quality_flags": [],
+          "source_reference_amount_g": 100.0,
+          "basis_type": "per_100g_edible",
+          "alternatives": [
+            {
+              "id": "fct2007:10001",
+              "name": "SỮA BÒ TƯƠI",
+              "dataset": "fct2007"
+            }
+          ],
+          "requested_amount": 200.0,
+          "requested_unit": "ml",
+          "requested_name": "sữa bò tươi",
+          "assumptions": [],
+          "amount_g": null,
+          "calculation_available": false,
+          "basis_note": "100 g phần ăn được; chưa có khối lượng tương ứng với đơn vị ml, không quy đổi sang gram.",
+          "nutrients": [
+            {
+              "key": "energy",
+              "name": "Năng lượng",
+              "unit": "kcal",
+              "value": 74.0,
+              "raw_value": "74",
+              "source_key": "energy",
+              "amount_value": null
+            },
+            {
+              "key": "protein",
+              "name": "Chất đạm",
+              "name_en": "Protein",
+              "unit": "g",
+              "value": 3.9,
+              "raw_value": "3.9",
+              "source_key": "protein",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "0",
+                "nutrient_key": "protein",
+                "nutrient_name_vi": "Chất đạm",
+                "nutrient_name_en": "Protein",
+                "value": "3.9",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "fat",
+              "name": "Chất béo (Fat)",
+              "name_en": "Total lipid (Fat)",
+              "unit": "g",
+              "value": 4.4,
+              "raw_value": "4.4",
+              "source_key": "total-lipid-fat",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "1",
+                "nutrient_key": "total-lipid-fat",
+                "nutrient_name_vi": "Chất béo (Fat)",
+                "nutrient_name_en": "Total lipid (Fat)",
+                "value": "4.4",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "carbohydrate",
+              "name": "Chất bột đường",
+              "name_en": "Carbohydrate by difference",
+              "unit": "g",
+              "value": 4.8,
+              "raw_value": "4.8",
+              "source_key": "carbohydrate-by-difference",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "2",
+                "nutrient_key": "carbohydrate-by-difference",
+                "nutrient_name_vi": "Chất bột đường",
+                "nutrient_name_en": "Carbohydrate by difference",
+                "value": "4.8",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "retinol",
+              "name": "Retinol",
+              "name_en": "Retinol",
+              "unit": "mcg",
+              "value": 50.0,
+              "raw_value": "50",
+              "source_key": "retinol",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "3",
+                "nutrient_key": "retinol",
+                "nutrient_name_vi": "Retinol",
+                "nutrient_name_en": "Retinol",
+                "value": "50",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_a_rae",
+              "name": "Vit A-RAE",
+              "name_en": "Vit A-RAE",
+              "unit": "mcg",
+              "value": 51.83,
+              "raw_value": "51.83",
+              "source_key": "vit-a-rae",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "4",
+                "nutrient_key": "vit-a-rae",
+                "nutrient_name_vi": "Vit A-RAE",
+                "nutrient_name_en": "Vit A-RAE",
+                "value": "51.83",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "carotene",
+              "name": "ß-carotene",
+              "name_en": "ß-carotene",
+              "unit": "mcg",
+              "value": 22.0,
+              "raw_value": "22",
+              "source_key": "carotene",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "5",
+                "nutrient_key": "carotene",
+                "nutrient_name_vi": "ß-carotene",
+                "nutrient_name_en": "ß-carotene",
+                "value": "22",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_c",
+              "name": "Vit C",
+              "name_en": "Vit C",
+              "unit": "mg",
+              "value": 1.0,
+              "raw_value": "1",
+              "source_key": "vit-c",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "6",
+                "nutrient_key": "vit-c",
+                "nutrient_name_vi": "Vit C",
+                "nutrient_name_en": "Vit C",
+                "value": "1",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "calcium",
+              "name": "Canxi",
+              "name_en": "Ca",
+              "unit": "mg",
+              "value": 111.33,
+              "raw_value": "111.33",
+              "source_key": "ca",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "7",
+                "nutrient_key": "ca",
+                "nutrient_name_vi": "Canxi",
+                "nutrient_name_en": "Ca",
+                "value": "111.33",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "iron",
+              "name": "Sắt",
+              "name_en": "Fe",
+              "unit": "mg",
+              "value": 0.09,
+              "raw_value": "0.09",
+              "source_key": "fe",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "8",
+                "nutrient_key": "fe",
+                "nutrient_name_vi": "Sắt",
+                "nutrient_name_en": "Fe",
+                "value": "0.09",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "sodium",
+              "name": "Natri",
+              "name_en": "Na",
+              "unit": "mg",
+              "value": 352.54,
+              "raw_value": "352.54",
+              "source_key": "na",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "9",
+                "nutrient_key": "na",
+                "nutrient_name_vi": "Natri",
+                "nutrient_name_en": "Na",
+                "value": "352.54",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "potassium",
+              "name": "Kali",
+              "name_en": "K",
+              "unit": "mg",
+              "value": 132.67,
+              "raw_value": "132.67",
+              "source_key": "k",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "10",
+                "nutrient_key": "k",
+                "nutrient_name_vi": "Kali",
+                "nutrient_name_en": "K",
+                "value": "132.67",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "zinc",
+              "name": "Kẽm",
+              "name_en": "Zn",
+              "unit": "mg",
+              "value": 0.37,
+              "raw_value": "0.37",
+              "source_key": "zn",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "11",
+                "nutrient_key": "zn",
+                "nutrient_name_vi": "Kẽm",
+                "nutrient_name_en": "Zn",
+                "value": "0.37",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "water",
+              "name": "Nước",
+              "name_en": "Water",
+              "unit": "g",
+              "value": 86.2,
+              "raw_value": "86.2",
+              "source_key": "water",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "12",
+                "nutrient_key": "water",
+                "nutrient_name_vi": "Nước",
+                "nutrient_name_en": "Water",
+                "value": "86.2",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "tryptophan",
+              "name": "Tryptophan",
+              "name_en": "Tryptophan",
+              "unit": "mg",
+              "value": 50.0,
+              "raw_value": "50",
+              "source_key": "tryptophan",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "13",
+                "nutrient_key": "tryptophan",
+                "nutrient_name_vi": "Tryptophan",
+                "nutrient_name_en": "Tryptophan",
+                "value": "50",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "threonine",
+              "name": "Threonine",
+              "name_en": "Threonine",
+              "unit": "mg",
+              "value": 190.0,
+              "raw_value": "190",
+              "source_key": "threonine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "14",
+                "nutrient_key": "threonine",
+                "nutrient_name_vi": "Threonine",
+                "nutrient_name_en": "Threonine",
+                "value": "190",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "isoleucine",
+              "name": "Isoleucine",
+              "name_en": "Isoleucine",
+              "unit": "mg",
+              "value": 250.0,
+              "raw_value": "250",
+              "source_key": "isoleucine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "15",
+                "nutrient_key": "isoleucine",
+                "nutrient_name_vi": "Isoleucine",
+                "nutrient_name_en": "Isoleucine",
+                "value": "250",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "leucine",
+              "name": "Leucine",
+              "name_en": "Leucine",
+              "unit": "mg",
+              "value": 460.0,
+              "raw_value": "460",
+              "source_key": "leucine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "16",
+                "nutrient_key": "leucine",
+                "nutrient_name_vi": "Leucine",
+                "nutrient_name_en": "Leucine",
+                "value": "460",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "lysine",
+              "name": "Lysine",
+              "name_en": "Lysine",
+              "unit": "mg",
+              "value": 320.0,
+              "raw_value": "320",
+              "source_key": "lysine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "17",
+                "nutrient_key": "lysine",
+                "nutrient_name_vi": "Lysine",
+                "nutrient_name_en": "Lysine",
+                "value": "320",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "methionine",
+              "name": "Methionine",
+              "name_en": "Methionine",
+              "unit": "mg",
+              "value": 90.0,
+              "raw_value": "90",
+              "source_key": "methionine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "18",
+                "nutrient_key": "methionine",
+                "nutrient_name_vi": "Methionine",
+                "nutrient_name_en": "Methionine",
+                "value": "90",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "cystine",
+              "name": "Cystine",
+              "name_en": "Cystine",
+              "unit": "mg",
+              "value": 28.0,
+              "raw_value": "28",
+              "source_key": "cystine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "19",
+                "nutrient_key": "cystine",
+                "nutrient_name_vi": "Cystine",
+                "nutrient_name_en": "Cystine",
+                "value": "28",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "phenylalanine",
+              "name": "Phenylalanine",
+              "name_en": "Phenylalanine",
+              "unit": "mg",
+              "value": 180.0,
+              "raw_value": "180",
+              "source_key": "phenylalanine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "20",
+                "nutrient_key": "phenylalanine",
+                "nutrient_name_vi": "Phenylalanine",
+                "nutrient_name_en": "Phenylalanine",
+                "value": "180",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "tyrosine",
+              "name": "Tyrosine",
+              "name_en": "Tyrosine",
+              "unit": "mg",
+              "value": 137.0,
+              "raw_value": "137",
+              "source_key": "tyrosine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "21",
+                "nutrient_key": "tyrosine",
+                "nutrient_name_vi": "Tyrosine",
+                "nutrient_name_en": "Tyrosine",
+                "value": "137",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "valine",
+              "name": "Valine",
+              "name_en": "Valine",
+              "unit": "mg",
+              "value": 240.0,
+              "raw_value": "240",
+              "source_key": "valine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "22",
+                "nutrient_key": "valine",
+                "nutrient_name_vi": "Valine",
+                "nutrient_name_en": "Valine",
+                "value": "240",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "arginine",
+              "name": "Arginine",
+              "name_en": "Arginine",
+              "unit": "mg",
+              "value": 170.0,
+              "raw_value": "170",
+              "source_key": "arginine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "23",
+                "nutrient_key": "arginine",
+                "nutrient_name_vi": "Arginine",
+                "nutrient_name_en": "Arginine",
+                "value": "170",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "histidine",
+              "name": "Histidine",
+              "name_en": "Histidine",
+              "unit": "mg",
+              "value": 100.0,
+              "raw_value": "100",
+              "source_key": "histidine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "24",
+                "nutrient_key": "histidine",
+                "nutrient_name_vi": "Histidine",
+                "nutrient_name_en": "Histidine",
+                "value": "100",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "alanine",
+              "name": "Alanine",
+              "name_en": "Alanine",
+              "unit": "mg",
+              "value": 95.0,
+              "raw_value": "95",
+              "source_key": "alanine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "25",
+                "nutrient_key": "alanine",
+                "nutrient_name_vi": "Alanine",
+                "nutrient_name_en": "Alanine",
+                "value": "95",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "axit_aspartic",
+              "name": "Axit Aspartic",
+              "name_en": "Aspartic acid",
+              "unit": "mg",
+              "value": 221.0,
+              "raw_value": "221",
+              "source_key": "aspartic-acid",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "26",
+                "nutrient_key": "aspartic-acid",
+                "nutrient_name_vi": "Axit Aspartic",
+                "nutrient_name_en": "Aspartic acid",
+                "value": "221",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "axit_glutamic",
+              "name": "Axit Glutamic",
+              "name_en": "Glutamic acid",
+              "unit": "mg",
+              "value": 640.0,
+              "raw_value": "640",
+              "source_key": "glutamic-acid",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "27",
+                "nutrient_key": "glutamic-acid",
+                "nutrient_name_vi": "Axit Glutamic",
+                "nutrient_name_en": "Glutamic acid",
+                "value": "640",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "glycine",
+              "name": "Glycine",
+              "name_en": "Glycine",
+              "unit": "mg",
+              "value": 57.0,
+              "raw_value": "57",
+              "source_key": "glycine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "28",
+                "nutrient_key": "glycine",
+                "nutrient_name_vi": "Glycine",
+                "nutrient_name_en": "Glycine",
+                "value": "57",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "proline",
+              "name": "Proline",
+              "name_en": "Proline",
+              "unit": "mg",
+              "value": 297.0,
+              "raw_value": "297",
+              "source_key": "proline",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "29",
+                "nutrient_key": "proline",
+                "nutrient_name_vi": "Proline",
+                "nutrient_name_en": "Proline",
+                "value": "297",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "serine",
+              "name": "Serine",
+              "name_en": "Serine",
+              "unit": "mg",
+              "value": 167.0,
+              "raw_value": "167",
+              "source_key": "serine",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "30",
+                "nutrient_key": "serine",
+                "nutrient_name_vi": "Serine",
+                "nutrient_name_en": "Serine",
+                "value": "167",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "saturated_fatty_acids",
+              "name": "Axit béo bão hòa tổng số",
+              "name_en": "Fatty acids, total saturated",
+              "unit": "g",
+              "value": 1.87,
+              "raw_value": "1.87",
+              "source_key": "fatty-acids-total-saturated",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "31",
+                "nutrient_key": "fatty-acids-total-saturated",
+                "nutrient_name_vi": "Axit béo bão hòa tổng số",
+                "nutrient_name_en": "Fatty acids, total saturated",
+                "value": "1.87",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "c16_0",
+              "name": "C16:0",
+              "name_en": "C16:0",
+              "unit": "g",
+              "value": 0.83,
+              "raw_value": "0.83",
+              "source_key": "c16-0",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "32",
+                "nutrient_key": "c16-0",
+                "nutrient_name_vi": "C16:0",
+                "nutrient_name_en": "C16:0",
+                "value": "0.83",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "c18_0",
+              "name": "C18:0",
+              "name_en": "C18:0",
+              "unit": "g",
+              "value": 0.37,
+              "raw_value": "0.37",
+              "source_key": "c18-0",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "33",
+                "nutrient_key": "c18-0",
+                "nutrient_name_vi": "C18:0",
+                "nutrient_name_en": "C18:0",
+                "value": "0.37",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "monounsaturated_fatty_acids",
+              "name": "Axit béo không bão hòa đơn tổng số",
+              "name_en": "Fatty acids, total monounsaturated",
+              "unit": "g",
+              "value": 0.81,
+              "raw_value": "0.81",
+              "source_key": "fatty-acids-total-monounsaturated",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "34",
+                "nutrient_key": "fatty-acids-total-monounsaturated",
+                "nutrient_name_vi": "Axit béo không bão hòa đơn tổng số",
+                "nutrient_name_en": "Fatty acids, total monounsaturated",
+                "value": "0.81",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "c18_1_c",
+              "name": "C18:1 c",
+              "name_en": "C18:1 c",
+              "unit": "g",
+              "value": 0.81,
+              "raw_value": "0.81",
+              "source_key": "c18-1-c",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "35",
+                "nutrient_key": "c18-1-c",
+                "nutrient_name_vi": "C18:1 c",
+                "nutrient_name_en": "C18:1 c",
+                "value": "0.81",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "polyunsaturated_fatty_acids",
+              "name": "Axit béo không bão hòa đa tổng số",
+              "name_en": "Fatty acids, total polyunsaturated",
+              "unit": "g",
+              "value": 0.2,
+              "raw_value": "0.2",
+              "source_key": "fatty-acids-total-polyunsaturated",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "36",
+                "nutrient_key": "fatty-acids-total-polyunsaturated",
+                "nutrient_name_vi": "Axit béo không bão hòa đa tổng số",
+                "nutrient_name_en": "Fatty acids, total polyunsaturated",
+                "value": "0.2",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "c_18_2_cis_n_6_linoleic_acid",
+              "name": "C 18:2, cis, n-6 (Linoleic Acid)",
+              "name_en": "C 18:2, cis, n-6 (Linoleic Acid)",
+              "unit": "g",
+              "value": 0.12,
+              "raw_value": "0.12",
+              "source_key": "c-18-2-cis-n-6-linoleic-acid",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "37",
+                "nutrient_key": "c-18-2-cis-n-6-linoleic-acid",
+                "nutrient_name_vi": "C 18:2, cis, n-6 (Linoleic Acid)",
+                "nutrient_name_en": "C 18:2, cis, n-6 (Linoleic Acid)",
+                "value": "0.12",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "c_18_3_cis_n_3_alpha_linolenic_acid",
+              "name": "C 18:3, cis, n-3 (Alpha-Linolenic Acid)",
+              "name_en": "C 18:3, cis, n-3 (Alpha-Linolenic Acid)",
+              "unit": "g",
+              "value": 0.08,
+              "raw_value": "0.08",
+              "source_key": "c-18-3-cis-n-3-alpha-linolenic-acid",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "38",
+                "nutrient_key": "c-18-3-cis-n-3-alpha-linolenic-acid",
+                "nutrient_name_vi": "C 18:3, cis, n-3 (Alpha-Linolenic Acid)",
+                "nutrient_name_en": "C 18:3, cis, n-3 (Alpha-Linolenic Acid)",
+                "value": "0.08",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "sugar",
+              "name": "Sugars, total",
+              "name_en": "Sugars, total",
+              "unit": "g",
+              "value": 5.26,
+              "raw_value": "5.26",
+              "source_key": "sugars-total",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "39",
+                "nutrient_key": "sugars-total",
+                "nutrient_name_vi": "Sugars, total",
+                "nutrient_name_en": "Sugars, total",
+                "value": "5.26",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "ash",
+              "name": "Ash",
+              "name_en": "Ash",
+              "unit": "g",
+              "value": 0.7,
+              "raw_value": "0.7",
+              "source_key": "ash",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "40",
+                "nutrient_key": "ash",
+                "nutrient_name_vi": "Ash",
+                "nutrient_name_en": "Ash",
+                "value": "0.7",
+                "unit": "g",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "magnesium",
+              "name": "Magie",
+              "name_en": "Mg",
+              "unit": "mg",
+              "value": 14.84,
+              "raw_value": "14.84",
+              "source_key": "mg",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "41",
+                "nutrient_key": "mg",
+                "nutrient_name_vi": "Magie",
+                "nutrient_name_en": "Mg",
+                "value": "14.84",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "phosphorus",
+              "name": "Photpho",
+              "name_en": "P",
+              "unit": "mg",
+              "value": 88.14,
+              "raw_value": "88.14",
+              "source_key": "p",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "42",
+                "nutrient_key": "p",
+                "nutrient_name_vi": "Photpho",
+                "nutrient_name_en": "P",
+                "value": "88.14",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "copper",
+              "name": "Đồng",
+              "name_en": "Cu",
+              "unit": "mg",
+              "value": 0.02,
+              "raw_value": "0.02",
+              "source_key": "cu",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "43",
+                "nutrient_key": "cu",
+                "nutrient_name_vi": "Đồng",
+                "nutrient_name_en": "Cu",
+                "value": "0.02",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "manganese",
+              "name": "Mangan",
+              "name_en": "Mn",
+              "unit": "mg",
+              "value": 0.0,
+              "raw_value": "0",
+              "source_key": "mn",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "44",
+                "nutrient_key": "mn",
+                "nutrient_name_vi": "Mangan",
+                "nutrient_name_en": "Mn",
+                "value": "0",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "selenium",
+              "name": "Selen",
+              "name_en": "Se",
+              "unit": "mcg",
+              "value": 1.11,
+              "raw_value": "1.11",
+              "source_key": "se",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "45",
+                "nutrient_key": "se",
+                "nutrient_name_vi": "Selen",
+                "nutrient_name_en": "Se",
+                "value": "1.11",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_d",
+              "name": "Vit D (D2 +D3)",
+              "name_en": "Vit D (D2 +D3)",
+              "unit": "mcg",
+              "value": 1.0,
+              "raw_value": "1",
+              "source_key": "vit-d-d2-d3",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "46",
+                "nutrient_key": "vit-d-d2-d3",
+                "nutrient_name_vi": "Vit D (D2 +D3)",
+                "nutrient_name_en": "Vit D (D2 +D3)",
+                "value": "1",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_e",
+              "name": "Vit E",
+              "name_en": "Vit E",
+              "unit": "mg",
+              "value": 0.06,
+              "raw_value": "0.06",
+              "source_key": "vit-e",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "47",
+                "nutrient_key": "vit-e",
+                "nutrient_name_vi": "Vit E",
+                "nutrient_name_en": "Vit E",
+                "value": "0.06",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_b1",
+              "name": "Vitamin B1 (Thiamin)",
+              "name_en": "Thiamin",
+              "unit": "mg",
+              "value": 0.05,
+              "raw_value": "0.05",
+              "source_key": "thiamin",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "48",
+                "nutrient_key": "thiamin",
+                "nutrient_name_vi": "Vitamin B1 (Thiamin)",
+                "nutrient_name_en": "Thiamin",
+                "value": "0.05",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_b2",
+              "name": "Vitamin B2 (Riboflavin)",
+              "name_en": "Riboflavin",
+              "unit": "mg",
+              "value": 0.19,
+              "raw_value": "0.19",
+              "source_key": "riboflavin",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "49",
+                "nutrient_key": "riboflavin",
+                "nutrient_name_vi": "Vitamin B2 (Riboflavin)",
+                "nutrient_name_en": "Riboflavin",
+                "value": "0.19",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_b3",
+              "name": "Vitamin B3 (Niacin)",
+              "name_en": "Niacin",
+              "unit": "mg",
+              "value": 0.1,
+              "raw_value": "0.1",
+              "source_key": "niacin",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "50",
+                "nutrient_key": "niacin",
+                "nutrient_name_vi": "Vitamin B3 (Niacin)",
+                "nutrient_name_en": "Niacin",
+                "value": "0.1",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_b5",
+              "name": "Vitamin B5 (axit pantothenic)",
+              "name_en": "Pantothenic acid",
+              "unit": "mg",
+              "value": 0.36,
+              "raw_value": "0.36",
+              "source_key": "pantothenic-acid",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "51",
+                "nutrient_key": "pantothenic-acid",
+                "nutrient_name_vi": "Vitamin B5 (axit pantothenic)",
+                "nutrient_name_en": "Pantothenic acid",
+                "value": "0.36",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_b6",
+              "name": "Vit B6",
+              "name_en": "Vit B6",
+              "unit": "mg",
+              "value": 0.04,
+              "raw_value": "0.04",
+              "source_key": "vit-b6",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "52",
+                "nutrient_key": "vit-b6",
+                "nutrient_name_vi": "Vit B6",
+                "nutrient_name_en": "Vit B6",
+                "value": "0.04",
+                "unit": "mg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "folate",
+              "name": "Folate tổng số",
+              "name_en": "Folate, total",
+              "unit": "mcg",
+              "value": 5.0,
+              "raw_value": "5",
+              "source_key": "folate-total",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "53",
+                "nutrient_key": "folate-total",
+                "nutrient_name_vi": "Folate tổng số",
+                "nutrient_name_en": "Folate, total",
+                "value": "5",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "folate_food",
+              "name": "Folate, food",
+              "name_en": "Folate, food",
+              "unit": "mcg",
+              "value": 5.0,
+              "raw_value": "5",
+              "source_key": "folate-food",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "54",
+                "nutrient_key": "folate-food",
+                "nutrient_name_vi": "Folate, food",
+                "nutrient_name_en": "Folate, food",
+                "value": "5",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            },
+            {
+              "key": "vitamin_k",
+              "name": "Vit K (phylloquinone)",
+              "name_en": "Vit K (phylloquinone)",
+              "unit": "mcg",
+              "value": 0.2,
+              "raw_value": "0.2",
+              "source_key": "vit-k-phylloquinone",
+              "parent_key": "",
+              "source_row": {
+                "food_code": "10001",
+                "source_record_id": "6877a6b660d6c84e9bd5cca4",
+                "nutrient_index": "55",
+                "nutrient_key": "vit-k-phylloquinone",
+                "nutrient_name_vi": "Vit K (phylloquinone)",
+                "nutrient_name_en": "Vit K (phylloquinone)",
+                "value": "0.2",
+                "unit": "mcg",
+                "reference_amount_g": "100",
+                "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham"
+              },
+              "amount_value": null
+            }
+          ],
+          "display_nutrients": [
+            {
+              "key": "energy",
+              "name": "Năng lượng",
+              "unit": "kcal",
+              "value": 74.0,
+              "raw_value": "74",
+              "source_key": "energy",
+              "amount_value": null
+            }
+          ],
+          "record_url": "/api/foods/nin_foods:10001/preview"
+        }
+      ],
+      "unresolved": [],
+      "totals": [],
+      "notes": [],
+      "assumptions": [],
+      "catalog_counts": {
+        "nin_foods": 853,
+        "nin_dishes": 1250,
+        "fct2007": 526,
+        "usda": 3
+      },
+      "display_totals": [],
+      "request": {
+        "operation": "lookup",
+        "items": [
+          {
+            "name": "sữa bò tươi",
+            "amount": 200.0,
+            "unit": "ml"
+          }
+        ],
+        "nutrients": [
+          "calo"
+        ],
+        "dataset": "auto",
+        "clarification": ""
+      },
+      "display_suppressed": true
+    },
+    "reference_result": {
+      "domain": "label",
+      "items": [],
+      "unresolved": [
+        {
+          "query": "sữa bò tươi",
+          "reason": "Chọn đúng nhãn sữa để tính trực tiếp theo ml.",
+          "candidates": [
+            {
+              "id": "supp-mcm-product-01-label-p4",
+              "name": "Sữa tươi nguyên chất tiệt trùng Mộc Châu",
+              "source_id": "mcm-product-01"
+            },
+            {
+              "id": "supp-th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+              "name": "Sữa Tươi Tiệt Trùng Nguyên Chất 1 L · TH true MILK",
+              "source_id": "th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit"
+            },
+            {
+              "id": "supp-mcm-product-10-label-p6",
+              "name": "Sữa tươi tiệt trùng ít đường Mộc Châu",
+              "source_id": "mcm-product-10"
+            },
+            {
+              "id": "supp-th-product-sua-tuoi-tiet-trung-it-duong-1-lit",
+              "name": "Sữa Tươi Tiệt Trùng Ít Đường 1 L · TH true MILK",
+              "source_id": "th-product-sua-tuoi-tiet-trung-it-duong-1-lit"
+            },
+            {
+              "id": "supp-mcm-product-11-label-p6",
+              "name": "Sữa tươi tiệt trùng có đường Mộc Châu",
+              "source_id": "mcm-product-11"
+            },
+            {
+              "id": "supp-th-product-sua-tuoi-tiet-trung-co-duong-1-lit",
+              "name": "Sữa Tươi Tiệt Trùng Có Đường 1 L · TH true MILK",
+              "source_id": "th-product-sua-tuoi-tiet-trung-co-duong-1-lit"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "request": {
+        "operation": "lookup",
+        "items": [
+          {
+            "name": "sữa bò tươi",
+            "amount": 200.0,
+            "unit": "ml"
+          }
+        ],
+        "nutrients": [
+          "calo"
+        ],
+        "dataset": "auto",
+        "clarification": ""
+      }
+    },
+    "clarification_question": null,
+    "scope_restriction": null
+  },
+  {
+    "session_id": "8b6930f7-f82f-4460-a490-60c3aa4be945",
+    "message_id": "4e8892bb-d476-4a5b-bb46-9a869ec294d2",
+    "intent": "food_lookup",
+    "status": "answered",
+    "answer": "200.0 ml sữa Tươi Tiệt Trùng Nguyên Chất 1 L cung cấp 126.4 kcal, giá trị này trên cơ sở nhãn là 63.2 kcal mỗi 100.0 ml. [C1]",
+    "response_strategy": "structured_lookup",
+    "citations": [
+      {
+        "id": "C1",
+        "chunk_id": "supp-th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+        "source_id": "th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+        "title": "Sữa Tươi Tiệt Trùng Nguyên Chất 1 L",
+        "section": "Sữa Tươi Tiệt Trùng Nguyên Chất 1 L",
+        "pdf_pages": [],
+        "printed_pages": [],
+        "quote": "Bản ghi: Sữa Tươi Tiệt Trùng Nguyên Chất 1 L.\nNguồn: Sữa Tươi Tiệt Trùng Nguyên Chất 1 L; vị trí: block-0022.\nLượng người hỏi: 200.0 ml.\nGiới hạn: \nCơ sở nhãn: 100.0 ml.\nTính theo lượng hỏi được: True.\n- Năng lượng: trên cơ sở nhãn 63.2 kcal; theo lượng hỏi 126.4 kcal.",
+        "source_url": "https://thmilk.vn/products/sua-tuoi-tiet-trung-nguyen-chat-1-lit/",
+        "document_url": "/api/supplements/supp-th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit/preview",
+        "year": 2026,
+        "version": "Nguồn/bảng thu 08/10/2026; giữ năm nghiên cứu trong dữ liệu",
+        "document_format": "structured",
+        "locators": [
+          "block-0022"
+        ]
+      }
+    ],
+    "warnings": [
+      "Thông tin phục vụ giáo dục dinh dưỡng, không thay thế tư vấn của bác sĩ/chuyên gia dinh dưỡng. Các mức dinh dưỡng và vận động trong tài liệu là tham khảo, không tự áp dụng cho cá nhân khi chưa được chuyên gia đánh giá."
+    ],
+    "mode": "gemini",
+    "answer_origin": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "grounding_model": "gemini-3.5-flash-lite",
+    "provider_response_ids": [
+      "NevlascfuaO-vQ_dlJ_5Ag",
+      "NuvlauKDB4rmosUPq9bs8QI"
+    ],
+    "history_saved": false,
+    "latency_ms": 2296,
+    "timings_ms": {
+      "reference_lookup": 1,
+      "answer_and_review": 2290,
+      "api_wait_ms": 0,
+      "api_http_ms": 2277
+    },
+    "usage": {
+      "input_tokens": 1801,
+      "output_tokens": 159
+    },
+    "food_result": null,
+    "reference_result": {
+      "domain": "label",
+      "items": [
+        {
+          "id": "supp-th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+          "domain": "label",
+          "name": "Sữa Tươi Tiệt Trùng Nguyên Chất 1 L",
+          "aliases": [
+            "sua tuoi tiet trung nguyen chat 1 lit",
+            "TH true Sữa Tươi Tiệt Trùng Nguyên Chất 1 L"
+          ],
+          "payload": {
+            "usable": true,
+            "basis_amount": 100.0,
+            "basis_unit": "ml",
+            "nutrients": {
+              "energy_kcal": 63.2,
+              "protein_g": 3.1,
+              "carbohydrate_g": 4.6,
+              "fat_g": 3.6,
+              "sodium_mg": 36.0,
+              "total_sugars_g": null,
+              "added_sugars_g": null,
+              "fiber_g": null
+            },
+            "nutrition_source_locator": "block-0022"
+          },
+          "source_id": "th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+          "source_title": "Sữa Tươi Tiệt Trùng Nguyên Chất 1 L",
+          "source_url": "https://thmilk.vn/products/sua-tuoi-tiet-trung-nguyen-chat-1-lit/",
+          "source_sha256": "0e2c2b0977133e388f287737cc093e45daa6287cfd36bd469c1f25c1448ab11d",
+          "locator": "block-0022",
+          "limitations": "",
+          "calculation_enabled": true,
+          "requested_name": "supp-th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+          "requested_amount": 200.0,
+          "requested_unit": "ml",
+          "calculation_available": true,
+          "calculated_nutrients": {
+            "energy_kcal": 126.4,
+            "protein_g": 6.2,
+            "carbohydrate_g": 9.2,
+            "fat_g": 7.2,
+            "sodium_mg": 72.0,
+            "total_sugars_g": null,
+            "added_sugars_g": null,
+            "fiber_g": null
+          },
+          "display_nutrients": {
+            "energy_kcal": 63.2
+          }
+        }
+      ],
+      "unresolved": [],
+      "notes": [],
+      "request": {
+        "operation": "lookup",
+        "items": [
+          {
+            "name": "supp-th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit",
+            "amount": 200.0,
+            "unit": "ml"
+          }
+        ],
+        "nutrients": [
+          "calo"
+        ],
+        "dataset": "auto",
+        "clarification": ""
+      }
+    },
+    "clarification_question": null,
+    "scope_restriction": null
+  },
+  {
+    "session_id": "ae5179ce-2128-405d-97d4-9bf68b305f6e",
+    "message_id": "4b215c46-0e18-4fbe-b5cb-39bf2a50b58c",
+    "intent": "food_lookup",
+    "status": "answered",
+    "answer": "Ước tính: Tổng 150 g cơm chín và 100 g ức gà chín có 339.0 kcal năng lượng và 32.035 g chất đạm. [C3]\n\nChi tiết từng thành phần theo lượng hỏi: 150 g cơm trắng gạo hạt dài nấu chín cung cấp 195.0 kcal năng lượng và 4.035 g chất đạm (giá trị gốc trên 100 g là 130.0 kcal và 2.69 g); 100 g ức gà chín bỏ da, chưa xác định cách chế biến cung cấp 144.0 kcal năng lượng và 28.0 g chất đạm (giá trị gốc trên 100 g là 144 kcal và 28.0 g). [C1] [C2]\n\nGiả định tham khảo: Tạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín. Tạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA.",
+    "response_strategy": "structured_lookup",
+    "citations": [
+      {
+        "id": "C3",
+        "chunk_id": "lookup-context",
+        "source_id": "nutrition-tool",
+        "title": "Kết quả kiểm tra yêu cầu tra cứu",
+        "section": "Điều kiện tra cứu và phép tính",
+        "pdf_pages": [],
+        "printed_pages": [],
+        "quote": "Tổng chỉ áp dụng các thực phẩm/khối lượng đã tra, không bao gồm gia vị hoặc dầu chưa khai báo.\nTạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín.\nTạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA.\nTổng tính bằng code theo các lượng đã khai báo: [{\"key\": \"energy\", \"name\": \"Năng lượng\", \"unit\": \"kcal\", \"value\": 339.0}, {\"key\": \"protein\", \"name\": \"Chất đạm\", \"unit\": \"g\", \"value\": 32.035}]",
+        "source_url": "/api/foods",
+        "document_url": "/api/foods",
+        "year": 2026,
+        "version": "1",
+        "document_format": "structured",
+        "locators": []
+      },
+      {
+        "id": "C1",
+        "chunk_id": "usda:168878",
+        "source_id": "usda",
+        "title": "USDA FoodData Central — SR Legacy",
+        "section": "Cơm trắng gạo hạt dài nấu chín",
+        "pdf_pages": [],
+        "printed_pages": [],
+        "quote": "Thực phẩm: Cơm trắng gạo hạt dài nấu chín (Rice, white, long-grain, regular, enriched, cooked).\nNguồn: USDA FoodData Central — SR Legacy; mã 168878; cơ sở: 100 g phần ăn được đã nấu chín.\nKhối lượng người hỏi: 150.0 g. Có thể quy đổi: True.\n- Năng lượng: giá trị gốc 130.0 kcal; giá trị theo lượng hỏi 195.0 kcal. \n- Chất đạm: giá trị gốc 2.69 g; giá trị theo lượng hỏi 4.035 g. \nTạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín.\nSố liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi.",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168878/nutrients",
+        "document_url": "/api/foods/usda:168878/preview",
+        "year": 2019,
+        "version": "2019",
+        "document_format": "structured",
+        "locators": [
+          "usda:168878"
+        ]
+      },
+      {
+        "id": "C2",
+        "chunk_id": "usda:2705954",
+        "source_id": "usda",
+        "title": "USDA FoodData Central — Survey (FNDDS)",
+        "section": "Ức gà chín bỏ da, chưa xác định cách chế biến",
+        "pdf_pages": [],
+        "printed_pages": [],
+        "quote": "Thực phẩm: Ức gà chín bỏ da, chưa xác định cách chế biến (Chicken breast, NS as to cooking method, skin not eaten).\nNguồn: USDA FoodData Central — Survey (FNDDS); mã 2705954; cơ sở: 100 g phần ăn được đã nấu chín.\nKhối lượng người hỏi: 100.0 g. Có thể quy đổi: True.\n- Chất đạm: giá trị gốc 28.0 g; giá trị theo lượng hỏi 28.0 g. \n- Năng lượng: giá trị gốc 144 kcal; giá trị theo lượng hỏi 144.0 kcal. \nTạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA.\nSố liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi.",
+        "source_url": "https://fdc.nal.usda.gov/food-details/2705954/nutrients",
+        "document_url": "/api/foods/usda:2705954/preview",
+        "year": 2024,
+        "version": "2024",
+        "document_format": "structured",
+        "locators": [
+          "usda:2705954"
+        ]
+      }
+    ],
+    "warnings": [
+      "Thông tin phục vụ giáo dục dinh dưỡng, không thay thế tư vấn của bác sĩ/chuyên gia dinh dưỡng. Các mức dinh dưỡng và vận động trong tài liệu là tham khảo, không tự áp dụng cho cá nhân khi chưa được chuyên gia đánh giá."
+    ],
+    "mode": "gemini",
+    "answer_origin": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "grounding_model": "gemini-3.5-flash-lite",
+    "provider_response_ids": [
+      "N-vlasrUNpfd9tMPuoeGwQQ",
+      "OuvlatmnO6-q9tMPkprKwQQ"
+    ],
+    "history_saved": false,
+    "latency_ms": 5021,
+    "timings_ms": {
+      "food_plan": 369,
+      "answer_and_review": 4305,
+      "api_wait_ms": 1497,
+      "api_http_ms": 2802
+    },
+    "usage": {
+      "input_tokens": 3152,
+      "output_tokens": 518
+    },
+    "food_result": {
+      "operation": "sum",
+      "items": [
+        {
+          "id": "usda:168878",
+          "code": "168878",
+          "name": "Cơm trắng gạo hạt dài nấu chín",
+          "name_en": "Rice, white, long-grain, regular, enriched, cooked",
+          "dataset": "usda",
+          "page": null,
+          "reference_amount_g": 100,
+          "basis": "100 g phần ăn được đã nấu chín",
+          "aliases": [
+            "cơm trắng",
+            "cơm trắng chín",
+            "cơm gạo tẻ chín",
+            "cơm gạo tẻ nấu chín",
+            "cơm chín",
+            "cơm"
+          ],
+          "alias_assumptions": {
+            "cơm chín": "Tạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín.",
+            "cơm": "Tạm tính cơm theo cơm trắng gạo hạt dài nấu chín."
+          },
+          "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi.",
+          "source_metadata": {
+            "fdc_id": 168878,
+            "description": "Rice, white, long-grain, regular, enriched, cooked",
+            "name": "Cơm trắng gạo hạt dài nấu chín",
+            "aliases": [
+              "cơm trắng",
+              "cơm trắng chín",
+              "cơm gạo tẻ chín",
+              "cơm gạo tẻ nấu chín",
+              "cơm chín",
+              "cơm"
+            ],
+            "assumptions": {
+              "cơm chín": "Tạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín.",
+              "cơm": "Tạm tính cơm theo cơm trắng gạo hạt dài nấu chín."
+            },
+            "raw_file": "raw/168878.json",
+            "sha256": "58a9d7cfdb6b8ebac79121d0a67c0b2857b2eda06752ce41c0427b3b22ac3bac",
+            "source_url": "https://fdc.nal.usda.gov/food-details/168878/nutrients",
+            "basis": "100 g phần ăn được đã nấu chín",
+            "basis_amount_g": 100,
+            "collected_at": "2026-10-31",
+            "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+          },
+          "source": {
+            "title": "USDA FoodData Central — SR Legacy",
+            "url": "https://fdc.nal.usda.gov/food-details/168878/nutrients",
+            "year": 2019
+          },
+          "review_status": "verified",
+          "quality_flags": [],
+          "source_reference_amount_g": 100,
+          "basis_type": "per_100g_edible",
+          "alternatives": [],
+          "requested_amount": 150.0,
+          "requested_unit": "g",
+          "requested_name": "cơm chín",
+          "assumptions": [
+            "Tạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín."
+          ],
+          "amount_g": 150.0,
+          "calculation_available": true,
+          "basis_note": "100 g phần ăn được đã nấu chín",
+          "nutrients": [
+            {
+              "key": "energy",
+              "name": "Năng lượng",
+              "unit": "kcal",
+              "value": 130.0,
+              "raw_value": "130.0",
+              "source_key": "1008",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1008,
+                  "number": "208",
+                  "name": "Energy",
+                  "rank": 300,
+                  "unitName": "kcal"
+                },
+                "foodNutrientDerivation": {
+                  "id": 49,
+                  "code": "NC",
+                  "description": "Calculated",
+                  "foodNutrientSource": {
+                    "id": 2,
+                    "code": "4",
+                    "description": "Calculated or imputed"
+                  }
+                },
+                "id": 1395843,
+                "amount": 130.0,
+                "dataPoints": 0
+              },
+              "amount_value": 195.0
+            },
+            {
+              "key": "protein",
+              "name": "Chất đạm",
+              "unit": "g",
+              "value": 2.69,
+              "raw_value": "2.69",
+              "source_key": "1003",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1003,
+                  "number": "203",
+                  "name": "Protein",
+                  "rank": 600,
+                  "unitName": "g"
+                },
+                "id": 1395817,
+                "amount": 2.69,
+                "dataPoints": 20
+              },
+              "amount_value": 4.035
+            },
+            {
+              "key": "fat",
+              "name": "Chất béo",
+              "unit": "g",
+              "value": 0.28,
+              "raw_value": "0.28",
+              "source_key": "1004",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1004,
+                  "number": "204",
+                  "name": "Total lipid (fat)",
+                  "rank": 800,
+                  "unitName": "g"
+                },
+                "id": 1395841,
+                "amount": 0.28,
+                "dataPoints": 6
+              },
+              "amount_value": 0.42
+            },
+            {
+              "key": "carbohydrate",
+              "name": "Carbohydrate",
+              "unit": "g",
+              "value": 28.17,
+              "raw_value": "28.17",
+              "source_key": "1005",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1005,
+                  "number": "205",
+                  "name": "Carbohydrate, by difference",
+                  "rank": 1110,
+                  "unitName": "g"
+                },
+                "foodNutrientDerivation": {
+                  "id": 49,
+                  "code": "NC",
+                  "description": "Calculated",
+                  "foodNutrientSource": {
+                    "id": 2,
+                    "code": "4",
+                    "description": "Calculated or imputed"
+                  }
+                },
+                "id": 1395842,
+                "amount": 28.17,
+                "dataPoints": 0
+              },
+              "amount_value": 42.255
+            },
+            {
+              "key": "fiber",
+              "name": "Chất xơ",
+              "unit": "g",
+              "value": 0.4,
+              "raw_value": "0.4",
+              "source_key": "1079",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1079,
+                  "number": "291",
+                  "name": "Fiber, total dietary",
+                  "rank": 1200,
+                  "unitName": "g"
+                },
+                "id": 1395793,
+                "amount": 0.4,
+                "dataPoints": 0
+              },
+              "amount_value": 0.6
+            },
+            {
+              "key": "sodium",
+              "name": "Natri",
+              "unit": "mg",
+              "value": 1.0,
+              "raw_value": "1.0",
+              "source_key": "1093",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1093,
+                  "number": "307",
+                  "name": "Sodium, Na",
+                  "rank": 5800,
+                  "unitName": "mg"
+                },
+                "id": 1395797,
+                "amount": 1.0,
+                "dataPoints": 13
+              },
+              "amount_value": 1.5
+            }
+          ],
+          "display_nutrients": [
+            {
+              "key": "energy",
+              "name": "Năng lượng",
+              "unit": "kcal",
+              "value": 130.0,
+              "raw_value": "130.0",
+              "source_key": "1008",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1008,
+                  "number": "208",
+                  "name": "Energy",
+                  "rank": 300,
+                  "unitName": "kcal"
+                },
+                "foodNutrientDerivation": {
+                  "id": 49,
+                  "code": "NC",
+                  "description": "Calculated",
+                  "foodNutrientSource": {
+                    "id": 2,
+                    "code": "4",
+                    "description": "Calculated or imputed"
+                  }
+                },
+                "id": 1395843,
+                "amount": 130.0,
+                "dataPoints": 0
+              },
+              "amount_value": 195.0
+            },
+            {
+              "key": "protein",
+              "name": "Chất đạm",
+              "unit": "g",
+              "value": 2.69,
+              "raw_value": "2.69",
+              "source_key": "1003",
+              "source_row": {
+                "type": "FoodNutrient",
+                "nutrient": {
+                  "id": 1003,
+                  "number": "203",
+                  "name": "Protein",
+                  "rank": 600,
+                  "unitName": "g"
+                },
+                "id": 1395817,
+                "amount": 2.69,
+                "dataPoints": 20
+              },
+              "amount_value": 4.035
+            }
+          ],
+          "record_url": "/api/foods/usda:168878/preview"
+        },
+        {
+          "id": "usda:2705954",
+          "code": "2705954",
+          "name": "Ức gà chín bỏ da, chưa xác định cách chế biến",
+          "name_en": "Chicken breast, NS as to cooking method, skin not eaten",
+          "dataset": "usda",
+          "page": null,
+          "reference_amount_g": 100,
+          "basis": "100 g phần ăn được đã nấu chín",
+          "aliases": [
+            "ức gà chín",
+            "lườn gà chín",
+            "ức gà chín bỏ da",
+            "lườn gà chín bỏ da"
+          ],
+          "alias_assumptions": {
+            "ức gà chín": "Tạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA.",
+            "lườn gà chín": "Tạm tính lườn gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA."
+          },
+          "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi.",
+          "source_metadata": {
+            "fdc_id": 2705954,
+            "description": "Chicken breast, NS as to cooking method, skin not eaten",
+            "name": "Ức gà chín bỏ da, chưa xác định cách chế biến",
+            "aliases": [
+              "ức gà chín",
+              "lườn gà chín",
+              "ức gà chín bỏ da",
+              "lườn gà chín bỏ da"
+            ],
+            "assumptions": {
+              "ức gà chín": "Tạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA.",
+              "lườn gà chín": "Tạm tính lườn gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA."
+            },
+            "raw_file": "raw/2705954.json",
+            "sha256": "fe618f5680401e75875d80813266a1ac637e13602446f989370be6085f0408c4",
+            "source_url": "https://fdc.nal.usda.gov/food-details/2705954/nutrients",
+            "basis": "100 g phần ăn được đã nấu chín",
+            "basis_amount_g": 100,
+            "collected_at": "2026-10-31",
+            "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+          },
+          "source": {
+            "title": "USDA FoodData Central — Survey (FNDDS)",
+            "url": "https://fdc.nal.usda.gov/food-details/2705954/nutrients",
+            "year": 2024
+          },
+          "review_status": "verified",
+          "quality_flags": [],
+          "source_reference_amount_g": 100,
+          "basis_type": "per_100g_edible",
+          "alternatives": [],
+          "requested_amount": 100.0,
+          "requested_unit": "g",
+          "requested_name": "ức gà chín",
+          "assumptions": [
+            "Tạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA."
+          ],
+          "amount_g": 100.0,
+          "calculation_available": true,
+          "basis_note": "100 g phần ăn được đã nấu chín",
+          "nutrients": [
+            {
+              "key": "protein",
+              "name": "Chất đạm",
+              "unit": "g",
+              "value": 28.0,
+              "raw_value": "28.0",
+              "source_key": "1003",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173209,
+                "nutrient": {
+                  "id": 1003,
+                  "number": "203",
+                  "name": "Protein",
+                  "rank": 600,
+                  "unitName": "g"
+                },
+                "amount": 28.0
+              },
+              "amount_value": 28.0
+            },
+            {
+              "key": "fat",
+              "name": "Chất béo",
+              "unit": "g",
+              "value": 3.57,
+              "raw_value": "3.57",
+              "source_key": "1004",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173210,
+                "nutrient": {
+                  "id": 1004,
+                  "number": "204",
+                  "name": "Total lipid (fat)",
+                  "rank": 800,
+                  "unitName": "g"
+                },
+                "amount": 3.57
+              },
+              "amount_value": 3.57
+            },
+            {
+              "key": "carbohydrate",
+              "name": "Carbohydrate",
+              "unit": "g",
+              "value": 0.0,
+              "raw_value": "0.0",
+              "source_key": "1005",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173211,
+                "nutrient": {
+                  "id": 1005,
+                  "number": "205",
+                  "name": "Carbohydrate, by difference",
+                  "rank": 1110,
+                  "unitName": "g"
+                },
+                "amount": 0.0
+              },
+              "amount_value": 0.0
+            },
+            {
+              "key": "energy",
+              "name": "Năng lượng",
+              "unit": "kcal",
+              "value": 144,
+              "raw_value": "144",
+              "source_key": "1008",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173212,
+                "nutrient": {
+                  "id": 1008,
+                  "number": "208",
+                  "name": "Energy",
+                  "rank": 300,
+                  "unitName": "kcal"
+                },
+                "amount": 144
+              },
+              "amount_value": 144.0
+            },
+            {
+              "key": "fiber",
+              "name": "Chất xơ",
+              "unit": "g",
+              "value": 0.0,
+              "raw_value": "0.0",
+              "source_key": "1079",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173218,
+                "nutrient": {
+                  "id": 1079,
+                  "number": "291",
+                  "name": "Fiber, total dietary",
+                  "rank": 1200,
+                  "unitName": "g"
+                },
+                "amount": 0.0
+              },
+              "amount_value": 0.0
+            },
+            {
+              "key": "sodium",
+              "name": "Natri",
+              "unit": "mg",
+              "value": 328,
+              "raw_value": "328",
+              "source_key": "1093",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173224,
+                "nutrient": {
+                  "id": 1093,
+                  "number": "307",
+                  "name": "Sodium, Na",
+                  "rank": 5800,
+                  "unitName": "mg"
+                },
+                "amount": 328
+              },
+              "amount_value": 328.0
+            }
+          ],
+          "display_nutrients": [
+            {
+              "key": "protein",
+              "name": "Chất đạm",
+              "unit": "g",
+              "value": 28.0,
+              "raw_value": "28.0",
+              "source_key": "1003",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173209,
+                "nutrient": {
+                  "id": 1003,
+                  "number": "203",
+                  "name": "Protein",
+                  "rank": 600,
+                  "unitName": "g"
+                },
+                "amount": 28.0
+              },
+              "amount_value": 28.0
+            },
+            {
+              "key": "energy",
+              "name": "Năng lượng",
+              "unit": "kcal",
+              "value": 144,
+              "raw_value": "144",
+              "source_key": "1008",
+              "source_row": {
+                "type": "FoodNutrient",
+                "id": 34173212,
+                "nutrient": {
+                  "id": 1008,
+                  "number": "208",
+                  "name": "Energy",
+                  "rank": 300,
+                  "unitName": "kcal"
+                },
+                "amount": 144
+              },
+              "amount_value": 144.0
+            }
+          ],
+          "record_url": "/api/foods/usda:2705954/preview"
+        }
+      ],
+      "unresolved": [],
+      "totals": [
+        {
+          "key": "carbohydrate",
+          "name": "Carbohydrate",
+          "unit": "g",
+          "value": 42.255
+        },
+        {
+          "key": "energy",
+          "name": "Năng lượng",
+          "unit": "kcal",
+          "value": 339.0
+        },
+        {
+          "key": "fat",
+          "name": "Chất béo",
+          "unit": "g",
+          "value": 3.99
+        },
+        {
+          "key": "fiber",
+          "name": "Chất xơ",
+          "unit": "g",
+          "value": 0.6
+        },
+        {
+          "key": "protein",
+          "name": "Chất đạm",
+          "unit": "g",
+          "value": 32.035
+        },
+        {
+          "key": "sodium",
+          "name": "Natri",
+          "unit": "mg",
+          "value": 329.5
+        }
+      ],
+      "notes": [
+        "Tổng chỉ áp dụng các thực phẩm/khối lượng đã tra, không bao gồm gia vị hoặc dầu chưa khai báo."
+      ],
+      "assumptions": [
+        "Tạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín.",
+        "Tạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA."
+      ],
+      "catalog_counts": {
+        "nin_foods": 853,
+        "nin_dishes": 1250,
+        "fct2007": 526,
+        "usda": 3
+      },
+      "display_totals": [
+        {
+          "key": "energy",
+          "name": "Năng lượng",
+          "unit": "kcal",
+          "value": 339.0
+        },
+        {
+          "key": "protein",
+          "name": "Chất đạm",
+          "unit": "g",
+          "value": 32.035
+        }
+      ],
+      "request": {
+        "operation": "sum",
+        "items": [
+          {
+            "name": "cơm chín",
+            "amount": 150.0,
+            "unit": "g"
+          },
+          {
+            "name": "ức gà chín",
+            "amount": 100.0,
+            "unit": "g"
+          }
+        ],
+        "nutrients": [
+          "calo",
+          "đạm"
+        ],
+        "dataset": "auto",
+        "clarification": ""
+      }
+    },
+    "reference_result": null,
+    "clarification_question": null,
+    "scope_restriction": null
+  }
+]

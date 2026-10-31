@@ -39,10 +39,12 @@ function selectedFoodQuestion(result, originalName, selectedId) {
   return `${action} ${foods.join(" và ")}; chất cần xem: ${request.nutrients && request.nutrients.length ? request.nutrients.join(", ") : "thành phần dinh dưỡng"}`;
 }
 function renderNutrition(card, result) {
+  if (result.display_suppressed) return;
   const number = (value) => value === null || value === undefined ? "Chưa có dữ liệu" : new Intl.NumberFormat("vi-VN", {maximumFractionDigits: 6}).format(value);
   for (const item of result.items || []) {
     const section = node("section", undefined, "nutrition-card");
     section.append(node("h3", item.name), node("p", `${item.source.title} · ${item.code}`, "meta"), node("p", item.basis_note, "warning"));
+    for (const assumption of item.assumptions || []) section.append(node("p", assumption, "warning"));
     const wrap = node("div", undefined, "nutrition-scroll");
     const table = node("table", undefined, "nutrition");
     const head = node("tr");
@@ -80,7 +82,7 @@ function renderNutrition(card, result) {
   }
   if (result.totals && result.totals.length) {
     const details = node("details"); details.append(node("summary", "Tổng dinh dưỡng của các lượng đã khai báo"));
-    for (const total of result.totals) details.append(node("p", `${total.name}: ${number(total.value)} ${total.value === null ? "" : total.unit}`));
+    for (const total of result.display_totals || result.totals) details.append(node("p", `${total.name}: ${number(total.value)} ${total.value === null ? "" : total.unit}`));
     card.append(details);
   }
   for (const note of result.notes || []) card.append(node("p", note, "warning"));
@@ -97,7 +99,7 @@ function renderReferences(card, result) {
       for (const title of ["Thành phần", `Nhãn / ${item.payload.basis_amount} ${item.payload.basis_unit}`, `${item.requested_amount || "Chưa nêu lượng"} ${item.requested_amount ? item.requested_unit : ""}`]) header.append(node("th", title));
       const head = node("thead"); head.append(header); table.append(head);
       const body = node("tbody");
-      for (const [key, value] of Object.entries(item.payload.nutrients)) {
+      for (const [key, value] of Object.entries(item.display_nutrients || item.payload.nutrients)) {
         const row = node("tr");
         row.append(node("td", names[key] || key), node("td", number(value)), node("td", item.calculation_available ? number(item.calculated_nutrients[key]) : "Chưa quy đổi"));
         body.append(row);

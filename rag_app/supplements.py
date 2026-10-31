@@ -81,6 +81,47 @@ class SupplementCatalog:
             ),
         }
 
+    def milk_volume_choices(self, plan):
+        """Ask for an actual milk label instead of guessing ml-to-g density."""
+        if plan.dataset != 'auto' or plan.operation != 'lookup' or len(plan.items) != 1:
+            return None
+        requested = plan.items[0]
+        q = normalized(requested.name)
+        if (requested.unit.lower() != 'ml' or requested.amount is None
+                or not re.search(r'^sua (?:bo(?: tuoi)?|tuoi)(?:\b|$)', q)):
+            return None
+        qualifiers = [term for term in ('khong duong', 'it duong', 'co duong', 'tach beo', 'it beo', 'nguyen kem', 'khong lactose') if term in q]
+        candidates = []
+        seen = set()
+        for row in self.records.values():
+            payload = row['payload']
+            name = normalized(row['name'])
+            if (row['domain'] != 'label' or not row['calculation_enabled']
+                    or payload.get('basis_unit') != 'ml' or payload.get('basis_amount') != 100
+                    or not name.startswith('sua tuoi ')
+                    or re.search(r'\b(?:so co la|ngu coc|huong|dau|hat)\b', name)):
+                continue
+            if '5 sao' in name and '5 sao' not in q:
+                continue
+            terms = ' '.join([name, *[normalized(a) for a in row['aliases']]])
+            if qualifiers and not all(term in terms for term in qualifiers):
+                continue
+            brand = 'TH true MILK' if row['id'].startswith('supp-th-') else 'Mộc Châu'
+            key = (brand, json.dumps(payload.get('nutrients'), sort_keys=True))
+            if key in seen:
+                continue
+            seen.add(key)
+            candidates.append({'id': row['id'], 'name': row['name'] + (' · ' + brand if brand == 'TH true MILK' else ''),
+                               'source_id': row['source_id']})
+        if not candidates:
+            return None
+        # Include a small range of real products; never assign a brand to the user.
+        candidates.sort(key=lambda r: (2 if 'co duong' in normalized(r['name']) else
+                                      1 if 'it duong' in normalized(r['name']) else 0, r['id']))
+        return {'domain': 'label', 'items': [], 'unresolved': [{
+            'query': requested.name, 'reason': 'Chọn đúng nhãn sữa để tính trực tiếp theo ml.',
+            'candidates': candidates[:6]}], 'notes': [], 'request': plan.model_dump()}
+
     def detect(self, question):
         q = fold(question)
         if is_intake_advice(question):
@@ -238,6 +279,9 @@ class SupplementCatalog:
             )
             if domain == "label":
                 payload = item["payload"]
+                wanted = {canonical(n, '') for n in plan.nutrients}
+                item['display_nutrients'] = {k: v for k, v in payload.get('nutrients', {}).items()
+                    if not wanted or k in NUTRIENTS and NUTRIENTS[k][2] in wanted}
                 if payload["usable"]:
                     amount = requested.amount
                     unit = fold(requested.unit)
@@ -290,6 +334,11 @@ class SupplementCatalog:
             if question.strip() == candidate["id"]
             or question.strip().lower() == candidate["name"].lower()
         ]
+        if not matching and re.search(r'\b(?:th|moc chau)\b', normalized(question)):
+            words = set(normalized(question).split()) - {'loai', 'cua', 'minh', 'toi', 'dung', 'la'}
+            matching = [(pending, candidate) for pending in previous.get('unresolved', [])
+                        for candidate in pending.get('candidates', [])
+                        if words.issubset(set(normalized(candidate['name']).split()))]
         if len(matching) != 1:
             return None
         pending, candidate = matching[0]

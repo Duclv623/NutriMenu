@@ -300,26 +300,40 @@ class ChatService:
             result=self.foods.execute(plan)
             result['request']=plan.model_dump()
             response.food_result=result
+            milk_choices = self.supplements.milk_volume_choices(plan)
+            if milk_choices:
+                result['display_suppressed'] = True
+                response.reference_result = milk_choices
+                response.status = 'needs_clarification'
+                response.answer = (
+                    f"Mình có dữ liệu nhãn sữa theo 100 ml. Để tính cho {plan.items[0].amount:g} ml, "
+                    "hãy chọn đúng sản phẩm bạn đang uống trong các lựa chọn bên dưới. "
+                    "Nếu sản phẩm của bạn chưa có trong danh sách, hãy cho biết tên và thông tin năng lượng trên nhãn."
+                )
+                response.answer_origin = 'static'
+                return self.finish_response(response, request, owner, history, query, started)
             hits=food_hits(result)
             if result['unresolved'] and not result['items']:
-                names = ', '.join(pending['query'] for pending in result['unresolved'])
-                response.answer = (
-                    f"Mình chưa xác định được đúng loại thực phẩm cho {names}. "
-                    "Bạn hãy chọn loại/trạng thái trong các lựa chọn bên dưới hoặc nói rõ tên thực phẩm. "
-                    "Mình chưa thể đưa số liệu khi chưa chọn đúng bản ghi."
-                )
-                if any(item.unit not in {'g', 'kg'} for item in plan.items):
-                    response.answer += " Hãy cho biết thêm khối lượng bằng gram của phần ăn; kích thước bát/quả/hộp có thể khác nhau."
+                with_choices = [p['query'] for p in result['unresolved'] if p['candidates']]
+                missing = [p['query'] for p in result['unresolved'] if not p['candidates']]
+                messages = []
+                if with_choices:
+                    messages.append('Bạn hãy chọn loại phù hợp cho ' + ', '.join(with_choices) + ' trong các lựa chọn bên dưới.')
+                if missing:
+                    messages.append('Kho dữ liệu hiện chưa có bản ghi phù hợp cho ' + ', '.join(missing)
+                                    + '. Mình chưa thể tính đúng phần này; không thay bằng thực phẩm hoặc trạng thái khác.')
+                response.answer = ' '.join(messages)
                 response.answer_origin = 'static'
                 return self.finish_response(response, request, owner, history, query, started)
             if result['items'] and all(not item['calculation_available'] for item in result['items']):
                 if any(item.get('review_status') in {'unreviewed', 'quarantined'} for item in result['items']):
                     response.answer = 'Số liệu món ăn đang chờ xác minh cơ sở khối lượng hoặc đơn vị nguồn, nên mình chưa thể tính theo lượng bạn hỏi. Không nên dùng số liệu này để tính khẩu phần.'
                     return self.finish_response(response, request, owner, history, raw_query, started)
+                units = ', '.join(dict.fromkeys(i.unit for i in plan.items))
                 response.answer = (
-                    "Mình chưa thể tính theo lượng bạn hỏi vì chưa có khối lượng gram tương ứng "
-                    "với đơn vị bát, quả, hộp hoặc ml. Bạn có thể cho biết khối lượng thực phẩm "
-                    "bằng gram và trạng thái sống/chín không? Bảng bên dưới giữ riêng số liệu gốc theo nguồn."
+                    f"Nguồn hiện có ghi theo gram, chưa có quy đổi cho đơn vị {units} bạn đã dùng. "
+                    "Nếu bạn biết khối lượng bằng gram, mình có thể tính theo khối lượng đó. "
+                    "Bảng bên dưới là số liệu gốc, chưa phải giá trị cho lượng bạn hỏi."
                 )
                 response.answer_origin = 'static'
                 return self.finish_response(response, request, owner, history, query, started)
@@ -331,6 +345,8 @@ class ChatService:
             if validated:
                 response.status='answered'
                 response.answer,response.citations=validated
+                if result.get('assumptions'):
+                    response.answer = 'Ước tính: ' + response.answer + '\n\nGiả định tham khảo: ' + ' '.join(result['assumptions'])
                 if generated.uncertainty.strip():
                     response.warnings.append(generated.uncertainty)
             else:
