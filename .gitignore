@@ -17,6 +17,9 @@ tmp/
 *.log
 
 # Dữ liệu thô nặng (raw PDFs, DOCXs — không cần thiết để code)
+/DATA_GOC_NUTRIGUIDE_2026-10-19/
+/Dữ liệu thu thập NutriGuide/
+*.zip
 data/collected/
 data/exports/
 data/staging/
@@ -24,10 +27,14 @@ data/structured/nin_dishes_2026-10-06/raw/
 data/structured/nin_foods_2026-10-06/raw/
 
 # Tài liệu nhóm / báo cáo không liên quan đến code
+*.md
+*.doc
 *.docx
+*.pdf
 !data/bữa ăn lành mạnh của Viện Dinh Dưỡng.docx
 !data/chế độ ăn Bệnh viện Nội tiết Trung ương.docx
 !data/Healthy Living with Diabetes của NIDDK.docx
+!data/*.pdf
 PLAN.md
 Danh_muc_tai_lieu_TV3.md
 Khung_bao_cao_DATN_nhom_3.docx
@@ -42,10 +49,8 @@ idea.docx
 *.gif
 !web/favicon.svg
 
-# Docs nội bộ / báo cáo tự tạo (giữ lại README.md chính)
-docs/*
-!docs/release-2026-10-30/
-!docs/release-2026-10-31/
+# Docs nội bộ / báo cáo tự tạo
+docs/
 releases/
 
 # Snapshot / eval results
