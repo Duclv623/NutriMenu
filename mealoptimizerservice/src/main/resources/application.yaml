@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: meal-optimizer-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/diabetes_meal_optimizer_db
+    username: postgres
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: MealOptimizerHikariPool
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+          time_zone: Asia/Ho_Chi_Minh
+        order_inserts: true
+        order_updates: true
+  servlet:
+    encoding:
+      charset: UTF-8
+
+server:
+  port: 8082
+  tomcat:
+    threads:
+      max: 100
+      min-spare: 10
+  servlet:
+    encoding:
+      enabled: true
+      force: true
+
+app:
+  services:
+    food-catalog-url: ${FOOD_CATALOG_URL:http://localhost:8081}
+    patient-profile-url: ${PATIENT_PROFILE_URL:http://localhost:8083}
+  cpsat:
+    bulkhead:
+      core-pool-size: ${CPSAT_CORE_POOL:4}
+      max-pool-size: ${CPSAT_MAX_POOL:8}
+      queue-capacity: ${CPSAT_QUEUE_CAPACITY:30}
+    default-timeout-seconds: 1.5
+    default-workers: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,threaddump
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO
+    com.example.mealoptimizerservice: DEBUG
+    org.hibernate.SQL: INFO
