@@ -18,7 +18,7 @@ from rag_app.config import ROOT
 from rag_app.data_quality import review_record
 from rag_app.food_reference import load_food_references
 from rag_app.retrieval import fold
-from rag_app.safety import is_intake_advice
+from rag_app.safety import food_quantity_text, is_intake_advice
 
 DATA = ROOT/'data/structured'
 SOURCES = {
@@ -91,6 +91,8 @@ def number(raw):
 
 def normalized(value):
     value=fold(value)
+    # Equivalent explicit cooked states; never erase raw/preparation qualifiers.
+    value=re.sub(r'\b(?:da nau(?: chin)?|nau chin)\b', 'chin', value)
     for original,replacement in [('bap','ngo'),('dau hu','dau phu'),('heo','lon')]:
         value=re.sub(r'\b'+original+r'\b',replacement,value)
     if value.strip() == 'sua tuoi':
@@ -283,7 +285,7 @@ class FoodCatalog:
     def looks_like_lookup(self,query):
         if is_intake_advice(query):
             return False
-        q=fold(query)
+        q=food_quantity_text(query)
         return bool(re.search(r'\b(?:nin_foods|nin_dishes|fct2007|usda):[a-z0-9-]+\b',q)
             or re.search(r'\d+(?:[.,]\d+)?\s*(?:g|gram|kg|ml|lit)\b',q)
             or re.search(r'bao nhieu|ham luong|thanh phan|chua (?:chat|gi)|tra cuu|so sanh|nhieu (?:dam|protein|calo|canxi)|it (?:calo|duong)|tong (?:calo|dam|dinh duong)',q)

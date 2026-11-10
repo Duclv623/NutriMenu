@@ -107,7 +107,8 @@ def test_uncooked_grain_qualifier_offers_real_types_without_choosing_one():
         assert all(c['dataset'] != 'nin_dishes' and normalized(c['name']).startswith('gao te')
                    for c in result['unresolved'][0]['candidates'])
     cooked = run('cơm trắng đã nấu chín', 100)
-    assert not cooked['items']
+    assert not cooked['unresolved']
+    assert cooked['items'][0]['id'] == 'usda:168878'
 
 
 def test_selected_id_overrides_model_name_but_unknown_id_is_not_invented():

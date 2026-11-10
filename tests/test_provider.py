@@ -119,7 +119,7 @@ def test_partial_knowledge_is_reviewed_even_if_draft_says_unsupported(system):
     hits[0] = hits[0].model_copy(update={'chunk': hits[0].chunk.model_copy(update={
         'text': 'Ăn trái cây nguyên miếng.'})})
     draft = GeneratedAnswer(supported=False, blocks=[AnswerBlock(
-        text='Ăn trái cây nguyên miếng.', citation_ids=['C1'])], uncertainty='Chưa có thông tin riêng về mít.')
+        text='Chưa đủ căn cứ đánh giá riêng về mít; với trái cây, nguồn hướng dẫn ăn nguyên miếng.', citation_ids=['C1'])], uncertainty='Chưa có thông tin riêng về mít.')
     review = GroundingReview(accepted_blocks=[ReviewedBlock(
         block_index=0, evidence=[EvidenceSpan(citation_id='C1', line_ids=[0])])])
     endpoint = SequenceEndpoint([SimpleNamespace(id=f'partial_{i}', status='completed', output_parsed=value,

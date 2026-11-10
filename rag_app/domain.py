@@ -3,6 +3,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, field_validator
 
+from rag_app.meal_models import MealContext
+
 Intent = Literal[
     "knowledge",
     "food_lookup",
@@ -82,6 +84,8 @@ class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
     session_id: UUID | None = None
     save_history: bool = False
+    meal_context: MealContext | None = None
+    meal_action: Literal["show", "nutrition", "ingredients", "explain", "swap"] | None = None
     # Deprecated compatibility field. Chat always uses the configured real API;
     # the UI discloses this behavior and does not offer a cloud/offline switch.
     cloud_consent: bool | None = None
@@ -122,6 +126,8 @@ class ChatResponse(BaseModel):
     usage: dict[str, int] = Field(default_factory=dict)
     food_result: dict | None = None
     reference_result: dict | None = None
+    meal_result: dict | None = None
+    meal_edit_cancelled: bool = False
     clarification_question: str | None = None
     scope_restriction: Literal["special_population"] | None = None
 

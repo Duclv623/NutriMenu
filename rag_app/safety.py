@@ -83,17 +83,26 @@ def is_elliptical_intake_followup(message: str) -> bool:
     """A subject-free intake question refers to the previous user topic."""
     q = fold(message).strip(' ?!.,')
     return bool(re.fullmatch(
-        r'(?:(?:vay|the|toi|minh)\s+)*(?:(?:nen|can|phai)\s+)?'
+        r'(?:(?:vay|the|toi|minh|em)\s+)*(?:(?:moi|mot|hang)\s+)?(?:ngay\s+)?(?:(?:nen|can|phai)\s+)?'
         r'(?:(?:an|uong)\s+(?:nhu the nao|the nao|ra sao)|'
-        r'(?:(?:an|uong)\s+)?(?:bao nhieu|may\s+(?:to|bat|phan|ly|coc))'
-        r'(?:\s+(?:thi|la)\s+(?:on|vua|du|hop ly|phu hop|duoc|tot))?)', q,
+        r'(?:(?:an|uong)\s+)?(?:bao nhieu(?:\s+(?:to|bat|phan|ly|coc|lon|chai))?|may\s+(?:to|bat|phan|ly|coc|lon|chai))'
+        r'(?:\s+(?:(?:moi|mot|hang)\s+)?ngay)?'
+        r'(?:\s+(?:(?:thi|la)\s+)?(?:on|vua|du|hop ly|phu hop|duoc|tot))?)', q,
     ))
 
 
 def is_intake_quantity_request(message: str) -> bool:
     q = fold(message)
-    return bool(re.search(r'\b(?:an|uong)\b.*\b(?:bao nhieu|may\s+(?:to|bat|phan|ly|coc))\b', q)
+    return bool(re.search(r'\b(?:an|uong)\b.*\b(?:bao nhieu|may\s+(?:to|bat|phan|ly|coc|lon|chai))\b', q)
                 or is_elliptical_intake_followup(message) and re.search(r'\b(?:bao nhieu|may)\b', q))
+
+
+def food_quantity_text(message: str) -> str:
+    """Remove labelled personal measurements only for food-amount detection."""
+    q = fold(message)
+    q = re.sub(r'\b(?:can nang(?: cua (?:toi|minh|em))?|nang)\s*(?:la\s*)?\d+(?:[.,]\d+)?\s*kg\b', ' ', q)
+    q = re.sub(r'\bcao\s*\d+(?:[.,]\d+)?\s*cm\b|\b\d+\s*tuoi\b', ' ', q)
+    return ' '.join(q.split())
 
 
 def current_low_glucose(message: str) -> bool:
@@ -214,7 +223,7 @@ def classify(message: str) -> Intent:
             "dam",
         )
     ) and (
-        re.search(r"\b\d+\s*(g|gram|ml)\b", q)
+        re.search(r"\b\d+\s*(g|gram|ml)\b", food_quantity_text(message))
         or (
             food_context
             and any(term in q for term in ("bao nhieu", "tong", "ham luong", "tra cuu"))

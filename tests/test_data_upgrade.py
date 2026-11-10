@@ -94,6 +94,8 @@ def test_general_sugar_free_advice_cannot_assert_calories_in_every_zero_drink():
         {'block_index': 0, 'evidence': [{'citation_id': 'C1', 'line_ids': [0]}]}]})
     assert not apply_grounding_review(answer, review, excerpts, 'Nước ngọt zero sugar uống thoải mái được không?').supported
     answer.blocks[0].text = 'Các sản phẩm có chất thay thế đường cần dùng vừa phải.'
+    assert not apply_grounding_review(answer, review, excerpts, 'Nước ngọt zero sugar uống thoải mái được không?').supported
+    answer.blocks[0].text = 'Không nên uống thoải mái; các sản phẩm có chất thay thế đường cần dùng vừa phải.'
     assert apply_grounding_review(answer, review, excerpts, 'Nước ngọt zero sugar uống thoải mái được không?').supported
     answer.blocks[0].text = 'Không nên uống thoải mái vì không đường không đồng nghĩa không calo và có thể gây tăng cân.'
     assert not apply_grounding_review(answer, review, excerpts, 'Nước ngọt zero sugar uống thoải mái được không?').supported

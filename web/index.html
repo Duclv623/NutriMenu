@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NutriGuide — Trợ lý kiến thức dinh dưỡng</title>
   <link rel="icon" href="/static/favicon.svg">
-  <link rel="stylesheet" href="/static/styles.css?v=20261011"><script src="/static/app.js?v=20261011" defer></script>
+  <link rel="stylesheet" href="/static/styles.css?v=20261102"><script src="/static/app.js?v=20261108" defer></script>
 </head>
 <body>
 <div class="layout">
@@ -17,6 +17,13 @@
   <main>
     <header><div><span class="eyebrow">TRỢ LÝ GIÁO DỤC DINH DƯỠNG</span><h1>Hiểu rõ hơn, lựa chọn tốt hơn.</h1></div><span id="status" role="status">Đang kiểm tra…</span></header>
     <div class="scope">Dành cho người trưởng thành mắc đái tháo đường type 2. Không chẩn đoán, kê thuốc hay xử lý cấp cứu. Khi nguy cấp, gọi 115.</div>
+    <section id="meal-tools" class="meal-tools" hidden aria-label="Thực đơn">
+      <p id="meal-notice"></p>
+      <button type="button" id="open-meal">Xem thực đơn đang lưu</button>
+      <button type="button" id="meal-nutrition">Hỏi tổng dinh dưỡng</button>
+      <details><summary>Hồ sơ đang dùng</summary><p id="meal-profile"></p></details>
+      <section id="demo-profile-editor" hidden></section>
+    </section>
     <section id="intro"><h2>Bạn muốn tìm hiểu điều gì?</h2><p>Câu trả lời được đối chiếu với tài liệu đã duyệt. Mở nguồn để xem đoạn trích trong tài liệu gốc.</p>
       <div class="suggestions">
         <button data-question="Người đái tháo đường nên ăn trái cây nguyên miếng hay uống nước ép?">Trái cây & nước ép ↗</button>

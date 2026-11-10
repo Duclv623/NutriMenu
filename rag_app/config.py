@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     jwt_issuer: str = ""
     jwt_audience: str = ""
     food_api_base_url: str = ""
+    meal_service_mode: Literal["disabled", "mock", "http"] = "disabled"
+    meal_api_base_url: str = ""
+    meal_api_timeout: float = Field(default=8, ge=1, le=30)
 
     @model_validator(mode="before")
     @classmethod
@@ -77,6 +80,17 @@ class Settings(BaseSettings):
                 or url.password
             ):
                 raise ValueError("FOOD_API_BASE_URL không hợp lệ")
+        if self.meal_service_mode == "mock" and self.app_env != "development":
+            raise ValueError("Dữ liệu thực đơn mẫu chỉ dùng ở development")
+        if self.meal_service_mode == "http":
+            from urllib.parse import urlparse
+
+            url = urlparse(self.meal_api_base_url)
+            if (url.scheme not in {"http", "https"} or not url.netloc or url.username
+                    or url.password or url.query or url.fragment):
+                raise ValueError("MEAL_API_BASE_URL cần là địa chỉ backend cố định, không kèm query/token")
+            if self.app_env == "production" and url.scheme != "https":
+                raise ValueError("Kết nối hồ sơ/thực đơn production cần HTTPS")
         return self
 
     @property

@@ -1,0 +1,56 @@
+{
+  "notice": "Fictional software demo. A/B/C/D come from the mathematical example in recom.docx; not verified food composition. No CP-SAT is executed.",
+  "profile": {
+    "profileVersion": 1, "age": 45, "gender": "FEMALE", "height": 160, "weight": 60,
+    "activityLevel": "LIGHT", "goal": "MAINTAIN", "allergies": [], "restrictedIngredients": [],
+    "preferences": [], "scopeStatus": "eligible", "restrictionsResolved": true, "excludedIngredientIds": []
+  },
+  "target": {
+    "version": "mathematical-demo-v1", "sourceRefs": ["recom.docx: fictional mathematical example"],
+    "bounds": {"energy_kcal": {"minimum": 1750, "maximum": 1850}},
+    "energyPercent": {
+      "carbohydrate_g": {"minimum": 50, "maximum": 60},
+      "protein_g": {"minimum": 15, "maximum": 20},
+      "fat_g": {"minimum": 20, "maximum": 25}
+    }
+  },
+  "items": [
+    {
+      "id": "breakfast-1", "recipeId": "demo:A", "recipeVersion": "v1", "name": "Món A (mẫu toán học)",
+      "mealType": "BREAKFAST", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
+      "nutritionBasis": "unknown", "nutrients": {"energyKcal": 476, "carbohydrateG": 70, "proteinG": 22, "fatG": 12},
+      "ingredients": [{"id": "demo:ingredient-a", "name": "Nguyên liệu A (giả lập)"}],
+      "ingredientsComplete": true, "sourceRefs": ["recom.docx: illustrative dish A"]
+    },
+    {
+      "id": "lunch-1", "recipeId": "demo:B", "recipeVersion": "v1", "name": "Món B (mẫu toán học)",
+      "mealType": "LUNCH", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
+      "nutritionBasis": "unknown", "nutrients": {"energyKcal": 662, "carbohydrateG": 95, "proteinG": 30, "fatG": 18},
+      "ingredients": [{"id": "demo:ingredient-b", "name": "Nguyên liệu B (giả lập)"}],
+      "ingredientsComplete": true, "sourceRefs": ["recom.docx: illustrative dish B"]
+    },
+    {
+      "id": "dinner-1", "recipeId": "demo:C", "recipeVersion": "v1", "name": "Món C (mẫu toán học)",
+      "mealType": "DINNER", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
+      "nutritionBasis": "unknown", "nutrients": {"energyKcal": 629, "carbohydrateG": 88, "proteinG": 31, "fatG": 17},
+      "ingredients": [{"id": "demo:ingredient-c", "name": "Nguyên liệu C (giả lập)"}],
+      "ingredientsComplete": true, "sourceRefs": ["recom.docx: illustrative dish C"]
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "breakfast-1", "recipeId": "demo:A2", "recipeVersion": "v1", "name": "Món A2 (mẫu đổi món)",
+      "mealType": "BREAKFAST", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
+      "nutritionBasis": "unknown", "nutrients": {"energyKcal": 490, "carbohydrateG": 69, "proteinG": 23, "fatG": 13},
+      "ingredients": [{"id": "demo:ingredient-a2", "name": "Nguyên liệu A2 (giả lập)"}],
+      "ingredientsComplete": true, "sourceRefs": ["Synthetic fixture for swap flow; not food composition"]
+    },
+    {
+      "id": "breakfast-1", "recipeId": "demo:D", "recipeVersion": "v1", "name": "Món D (mẫu không đạt)",
+      "mealType": "BREAKFAST", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
+      "nutritionBasis": "unknown", "nutrients": {"energyKcal": 504, "carbohydrateG": 90, "proteinG": 18, "fatG": 8},
+      "ingredients": [{"id": "demo:ingredient-d", "name": "Nguyên liệu D (giả lập)"}],
+      "ingredientsComplete": true, "sourceRefs": ["recom.docx: illustrative dish D"]
+    }
+  ]
+}

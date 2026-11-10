@@ -14,6 +14,8 @@ from starlette.concurrency import run_in_threadpool
 from rag_app.config import ROOT, Settings
 from rag_app.domain import ChatRequest, ChatResponse, FeedbackRequest
 from rag_app.ingestion import load_manifest, original_source_path
+from rag_app.meal_gateway import MealServiceError
+from rag_app.meal_models import ApplySwap, Identifier, MealSnapshot, DemoProfileUpdate
 from rag_app.observability import configure_logging
 from rag_app.provider import ProviderFailure, create_provider
 from rag_app.security import RateLimiter, identity
@@ -35,12 +37,12 @@ async def purge_history_periodically(store, days, stop, interval):
                 logger.warning('history_purge_failed error_type=%s', type(error).__name__)
 
 
-def create_app(settings: Settings | None = None, provider=None):
+def create_app(settings: Settings | None = None, provider=None, meal_gateway=None):
     configure_logging()
     settings = settings or Settings()
     store = Store(settings.storage_dir / "rag.sqlite3")
     provider = provider or (create_provider(settings) if settings.has_key else None)
-    service = ChatService(settings, store, provider)
+    service = ChatService(settings, store, provider, meal_gateway)
     limiter = RateLimiter(settings.rate_limit_per_minute)
 
     @asynccontextmanager
@@ -59,6 +61,7 @@ def create_app(settings: Settings | None = None, provider=None):
             finally:
                 if provider and hasattr(provider, 'close'):
                     provider.close()
+                service.meals.close()
                 logger.info('application_stopped')
 
     app = FastAPI(
@@ -70,6 +73,11 @@ def create_app(settings: Settings | None = None, provider=None):
     )
     app.state.store = store
     app.state.service = service
+
+    @app.exception_handler(MealServiceError)
+    async def meal_service_error(request, error):
+        return JSONResponse(status_code=error.status_code,
+                            content={"detail": {"code": error.code, "message": error.message}})
 
     @app.middleware("http")
     async def security_headers(request: Request, call_next):
@@ -132,7 +140,8 @@ def create_app(settings: Settings | None = None, provider=None):
             "food_service_connected": service.foods.status()['ready'],
             "food_catalog": service.foods.status(),
             'supplement_catalog':service.supplements.status(),
-            "menu_service_connected": False,
+            "menu_service_connected": service.meals.status()['connected'],
+            "meal_service": service.meals.status(),
             "history_retention_days": settings.history_retention_days,
         }
 
@@ -142,7 +151,7 @@ def create_app(settings: Settings | None = None, provider=None):
         # Anonymous cookies can be reset: additionally limit by network address.
         limiter.check("ip:" + (request.client.host if request.client else "unknown"))
         try:
-            return service.chat(body, owner)
+            return service.chat(body, owner, request.headers.get("authorization"))
         except PermissionError as error:
             raise HTTPException(404, "Không tìm thấy cuộc trò chuyện") from error
         except ProviderFailure as error:
@@ -150,6 +159,36 @@ def create_app(settings: Settings | None = None, provider=None):
             raise HTTPException(503, str(error)) from error
         except ValueError as error:
             raise HTTPException(400, str(error)) from error
+
+    @app.get('/api/meal-context', response_model=MealSnapshot)
+    def meal_context(request: Request, plan_id: Identifier | None = None,
+                     owner: str = Depends(current_owner)):
+        limiter.check(owner)
+        return service.meals.snapshot(owner, request.headers.get('authorization'), plan_id)
+
+    def require_demo():
+        if settings.app_env != "development" or service.meals.mode != "mock":
+            raise HTTPException(404, "Không có chức năng giả lập")
+
+    @app.put('/api/demo/profile', response_model=MealSnapshot, dependencies=[Depends(require_demo)])
+    def demo_profile(body: DemoProfileUpdate, owner: str = Depends(current_owner)):
+        require_demo()
+        limiter.check(owner)
+        result = service.meals.update_profile(owner, body)
+        service.profile_changed(owner)
+        return result
+
+    @app.post('/api/demo/plan-refresh', response_model=MealSnapshot, dependencies=[Depends(require_demo)])
+    def demo_plan_refresh(owner: str = Depends(current_owner)):
+        require_demo()
+        limiter.check(owner)
+        return service.meals.refresh_demo_plan(owner)
+
+    @app.post('/api/meal-plans/apply-swap', response_model=MealSnapshot)
+    def apply_swap(body: ApplySwap, request: Request, owner: str = Depends(current_owner)):
+        limiter.check(owner)
+        limiter.check('ip:' + (request.client.host if request.client else 'unknown'))
+        return service.apply_meal_swap(owner, body, request.headers.get('authorization'))
 
     @app.get("/api/documents")
     def documents():

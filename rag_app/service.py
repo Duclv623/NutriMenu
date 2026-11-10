@@ -9,8 +9,12 @@ from rag_app.config import Settings
 from rag_app.conversation import is_contextual_followup, is_portion_description, topic_for_turn
 from rag_app.dialogue import context_response
 from rag_app.domain import ChatRequest, ChatResponse, Citation, GeneratedAnswer, Hit
+from rag_app.energy_reference import is_daily_energy_question, reference_reply
 from rag_app.food_data import food_hits, get_catalog
-from rag_app.provider import Provider, ProviderFailure, redact
+from rag_app.meal_chat import handle_meal_chat
+from rag_app.meal_gateway import MealServiceError, create_meal_gateway
+from rag_app.meal_models import MealContext
+from rag_app.provider import BackendProfileQuestion, Provider, ProviderFailure, redact
 from rag_app.retrieval import Retriever, fold
 from rag_app.routing import constrain_plan, direct_text_is_allowed
 from rag_app.safety import (
@@ -84,20 +88,30 @@ def validate_answer(generated: GeneratedAnswer, citations: list[Citation]):
             return None
         blocks.append(block.text.strip() + " " + " ".join(f"[{i}]" for i in ids))
         used.extend(ids)
+    # This is a system statement about the checked answer's limits, not an
+    # evidence block or a new medical conclusion. It intentionally has no citation.
+    if 'intake_suitability_decision' in (generated._grounding_review or {}).get('unresolved_goals', []):
+        blocks.insert(0, 'Mình chưa đủ căn cứ từ các đoạn trích đã kiểm tra để kết luận món này phù hợp riêng cho bạn.')
     return "\n\n".join(blocks), [available[i] for i in dict.fromkeys(used)]
 
 
 class ChatService:
-    def __init__(self, settings: Settings, store: Store, provider: Provider | None = None):
+    def __init__(self, settings: Settings, store: Store, provider: Provider | None = None, meal_gateway=None):
         self.settings = settings
         self.store = store
         self.provider = provider
+        self.meals = meal_gateway if meal_gateway is not None else create_meal_gateway(settings)
         self.foods = get_catalog()
         self.supplements = SupplementCatalog()
         self._retriever = None
         self._retriever_lock = threading.Lock()
+        self._profile_epochs = {}
+        self._session_profile_epochs = {}
         self._transient = {}
         self._session_lock = threading.Lock()
+        self._meal_edit_lock = threading.Lock()
+        self._revoked_meal_proposals = {}
+        self._meal_profile_blocks = {}
         # Only vectors are reused; knowledge answers use the real API.
         # Volatile bounded cache avoids persisting user questions without consent.
         self._query_vectors = OrderedDict()
@@ -148,6 +162,9 @@ class ChatService:
                                               'answer': redact(response.answer)[:3000],
                                               'response_strategy': response.response_strategy,
                                               'clarification_question': response.clarification_question,
+                                              'meal_context': response.meal_result.get('context') if response.meal_result else None,
+                                              'meal_view': response.meal_result.get('view') if response.meal_result else None,
+                                              'meal_pending': self.meal_pending(response.meal_result),
                                               'scope_restriction': response.scope_restriction}}
         trimmed = []
         for previous in history[-5:]:
@@ -157,6 +174,9 @@ class ChatService:
                 'answer': previous.get('response', {}).get('answer', '')[:3000],
                 'response_strategy': previous.get('response', {}).get('response_strategy'),
                 'clarification_question': previous.get('response', {}).get('clarification_question'),
+                'meal_context': previous.get('response', {}).get('meal_context') or (previous.get('response', {}).get('meal_result') or {}).get('context'),
+                'meal_view': previous.get('response', {}).get('meal_view') or (previous.get('response', {}).get('meal_result') or {}).get('view'),
+                'meal_pending': previous.get('response', {}).get('meal_pending') or self.meal_pending(previous.get('response', {}).get('meal_result')),
                 'reference_result':previous.get('response',{}).get('reference_result'),'food_result': None if old is None else {
                 'request': old.get('request'), 'unresolved': old.get('unresolved', []),
                 'items': [{'id': i['id'], 'name': i['name']} for i in old.get('items', [])],
@@ -180,7 +200,13 @@ class ChatService:
                 self._retriever = Retriever(self.store)
             return self._retriever
 
-    def chat(self, request: ChatRequest, owner: str) -> ChatResponse:
+    def profile_changed(self, owner):
+        with self._session_lock:
+            self._profile_epochs[owner] = self._profile_epochs.get(owner, 0) + 1
+        with self._meal_edit_lock:
+            self._meal_profile_blocks.pop(owner, None)
+
+    def chat(self, request: ChatRequest, owner: str, authorization: str | None = None) -> ChatResponse:
         started = time.perf_counter()
         session = request.session_id or uuid4()
         history = []
@@ -190,6 +216,20 @@ class ChatService:
                 raise PermissionError("Session không tồn tại hoặc không thuộc người dùng")
             if history is None:
                 history = self.store.history(owner, str(session), limit=6)
+        with self._session_lock:
+            epoch = self._profile_epochs.get(owner, 0)
+            key = (owner, str(session))
+            if self._session_profile_epochs.get(key, 0) != epoch:
+                history = []
+            self._session_profile_epochs[key] = epoch
+            if len(self._session_profile_epochs) > 1000:
+                self._session_profile_epochs.pop(next(iter(self._session_profile_epochs)))
+        authoritative = None
+        if self.meals.mode != 'disabled':
+            try:
+                authoritative = self.meals.snapshot(owner, authorization).profile
+            except MealServiceError:
+                pass
         provider_client = getattr(self.provider, 'client', None)
         if hasattr(provider_client, 'start_trace'):
             provider_client.start_trace()
@@ -213,6 +253,14 @@ class ChatService:
                 if len(previous_query.split()) >= 9 and not re.search(r"\b(?:con|do|nay|ay|vay)\b", fold(previous_query)):
                     break
         intent = classify(request.message)
+        # A question about comparing cooking states asks about the basis of
+        # data, rather than requesting two nutrient lookups for assumed foods.
+        conceptual_cooking = bool(
+            intent in {'knowledge', 'food_lookup'}
+            and re.search(r'\bsong\b', fold(query)) and re.search(r'\bchin\b', fold(query))
+            and re.search(r'\b(?:giong nhau|nhu nhau|bang nhau|khac nhau)\b', fold(query)))
+        if conceptual_cooking:
+            intent = 'knowledge'
         restricted = intent == 'special_population' or any(
             turn.get('response', {}).get('scope_restriction') == 'special_population'
             or classify(turn['question']) == 'special_population' for turn in history
@@ -223,7 +271,7 @@ class ChatService:
             intent = 'special_population'
         if context_intent in {"special_population", "medication", "emergency"} and intent in {"knowledge", "food_lookup"}:
             intent = context_intent
-        if intent=='knowledge' and not is_intake_advice(query) and (selected_plan is not None or self.foods.looks_like_lookup(query) or contextual and history[-1].get('response',{}).get('food_result')):
+        if intent=='knowledge' and not conceptual_cooking and not is_intake_advice(query) and (selected_plan is not None or self.foods.looks_like_lookup(query) or contextual and history[-1].get('response',{}).get('food_result')):
             intent='food_lookup'
         reference_domain=self.supplements.detect(query)
         reference_selection=self.supplements.resolve_selection(query,history)
@@ -231,7 +279,7 @@ class ChatService:
             reference_domain=reference_selection[0]
         elif not reference_domain and contextual and history[-1].get('response',{}).get('reference_result'):
             reference_domain=history[-1]['response']['reference_result']['domain']
-        if reference_domain and intent in {'knowledge','food_lookup'}:
+        if reference_domain and not conceptual_cooking and intent in {'knowledge','food_lookup'}:
             intent='food_lookup'
         response = ChatResponse(
             session_id=session,
@@ -243,6 +291,39 @@ class ChatService:
             warnings=[DISCLAIMER],
             scope_restriction='special_population' if restricted else None,
         )
+        if authoritative is not None:
+            object.__setattr__(response, '_backend_profile_version', authoritative.profile_version)
+            object.__setattr__(response, '_profile_epoch', epoch)
+            object.__setattr__(response, '_profile_authorization', authorization)
+        fact_query = fold(request.message)
+        if authoritative is not None and intent not in {'emergency', 'medication', 'special_population'} and (re.search(r'\b(?:toi|minh)\b.*\b(?:nang bao nhieu|bao nhieu (?:kg|tuoi)|cao bao nhieu)\b', fact_query) or re.search(r'\b(?:dang dung ho so|ho so (?:nao|cua toi|hien tai)|toi di ung gi|minh di ung gi)\b', fact_query)):
+            p = authoritative
+            labels = {'FEMALE': 'nữ', 'MALE': 'nam', 'OTHER': 'khác', 'SEDENTARY': 'ít vận động', 'LIGHT': 'vận động nhẹ', 'MODERATE': 'vận động vừa', 'ACTIVE': 'vận động nhiều', 'MAINTAIN': 'duy trì cân nặng', 'LOSE': 'giảm cân (khai báo)', 'GAIN': 'tăng cân (khai báo)'}
+            activity = labels.get(p.activity_level, p.activity_level) or 'chưa khai'
+            goal = labels.get(p.goal, p.goal) or 'chưa khai'
+            gender = labels.get(p.gender, p.gender) or 'chưa khai'
+            response.intent = 'knowledge'
+            response.status = 'answered'
+            response.response_strategy = 'structured_lookup'
+            response.answer = (f"Hồ sơ backend đang dùng: phiên bản {p.profile_version}; tuổi: {p.age if p.age is not None else 'chưa khai'}; "
+                               f"giới tính: {gender}; chiều cao: {p.height if p.height is not None else 'chưa khai'} cm; cân nặng: {p.weight if p.weight is not None else 'chưa khai'} kg; "
+                               f"vận động: {activity}; mục tiêu: {goal}; "
+                               f"dị ứng: {', '.join(p.allergies) if p.allergies else 'chưa khai' if p.allergies is None else 'đã khai không có'}; "
+                               f"ưu tiên: {', '.join(p.preferences) or 'chưa khai'}. "
+                               + ('Đây là dữ liệu giả lập, không phải hồ sơ tài khoản thật.' if self.meals.mode == 'mock' else 'Đây là dữ kiện hồ sơ, không phải bằng chứng y khoa.'))
+            if re.search(r'\b(?:nang bao nhieu|bao nhieu kg)\b', fact_query) and 'ho so' not in fact_query:
+                response.answer = (f"Hồ sơ backend phiên bản {p.profile_version} ghi cân nặng của bạn là {p.weight:g} kg." if p.weight is not None else f"Hồ sơ backend phiên bản {p.profile_version} chưa khai cân nặng.") + (' Đây là dữ liệu giả lập.' if self.meals.mode == 'mock' else '')
+            if re.search(r'\b(?:toi|minh) di ung gi\b', fact_query) and 'ho so' not in fact_query:
+                allergy_fact = 'chưa khai thông tin dị ứng' if p.allergies is None else ('đã khai không có dị ứng đã biết' if not p.allergies else 'ghi nhận dị ứng: ' + ', '.join(p.allergies))
+                response.answer = f"Hồ sơ {'giả lập ' if self.meals.mode == 'mock' else 'backend '}phiên bản {p.profile_version} {allergy_fact}."
+            return self.finish_response(response, request, owner, history, query, started)
+        personal_advice = bool(re.search(r'\b(?:toi|minh|cua toi|cho toi|cho minh)\b', fact_query)) or is_intake_advice(raw_query)
+        if contextual and history:
+            personal_advice = personal_advice or is_intake_advice(topic_for_turn(raw_query, history))
+        if authoritative is not None and personal_advice and (authoritative.scope_status == 'out_of_scope' or authoritative.age is not None and authoritative.age < 18):
+            intent = response.intent = 'special_population'
+            response.answer = static_answer(intent)
+            response.scope_restriction = 'special_population'
         if intent in {"medication", "emergency", "special_population"}:
             response.response_strategy = 'safety'
             response.status = "safety"
@@ -251,6 +332,41 @@ class ChatService:
             # Reviewed fixed boundaries must work without network/key/quota.
             # They are explicitly marked static, never presented as an AI answer.
             response.timings_ms['safety_routing'] = int((time.perf_counter() - started) * 1000)
+            return self.finish_response(response, request, owner, history, query, started)
+        if request.meal_action is None and is_daily_energy_question(request.message):
+            energy = reference_reply(self.settings, self.retriever().chunks, authoritative, mock=self.meals.mode == 'mock')
+            response.intent = 'knowledge'
+            response.answer = energy.answer
+            response.status = energy.status
+            response.response_strategy = 'safety' if energy.status == 'safety' else 'structured_lookup'
+            response.clarification_question = energy.question
+            response.citations = make_citations(energy.hits)
+            return self.finish_response(response, request, owner, history, query, started)
+        meal_context = request.meal_context
+        if meal_context is None and history:
+            last = history[-1].get('response', {})
+            previous_meal = last.get('meal_context') or (last.get('meal_result') or {}).get('context')
+            if previous_meal:
+                meal_context = MealContext.model_validate(previous_meal)
+        meal_reply = handle_meal_chat(self.meals, owner, request.message, meal_context,
+                                     request.meal_action, authorization, history=history,
+                                     blocked_profile_version=self._meal_profile_blocks.get(owner))
+        if meal_reply is not None:
+            response.intent = 'menu_request'
+            response.response_strategy = 'structured_lookup'
+            response.answer = meal_reply.answer
+            response.status = meal_reply.status
+            response.clarification_question = meal_reply.question
+            response.meal_result = meal_reply.payload
+            if meal_reply.cancel_pending:
+                self.cancel_meal_proposals(owner, history)
+                response.meal_edit_cancelled = True
+            if meal_reply.profile_recheck_version is not None:
+                with self._meal_edit_lock:
+                    self._meal_profile_blocks[owner] = meal_reply.profile_recheck_version
+            response.timings_ms['meal_service'] = int((time.perf_counter() - started) * 1000)
+            if meal_reply.status == 'safety':
+                response.response_strategy = 'safety'
             return self.finish_response(response, request, owner, history, query, started)
         boundary = context_response(raw_query, history)
         if boundary:
@@ -284,6 +400,9 @@ class ChatService:
                     response.status = 'answered'
                     response.response_strategy = 'structured_lookup'
             return self.finish_response(response, request, owner, history, raw_query, started)
+        def with_profile(text):
+            return BackendProfileQuestion(text, authoritative) if authoritative is not None and personal_advice else text
+        provider_query = with_profile(query)
         if self.provider is None:
             raise ProviderFailure("Chưa cấu hình key API ở backend. Câu trả lời kiến thức cần API thật.")
         requested_version = re.search(r'\bada\s+(?:standards\s+)?(20\d{2})\b', fold(query))
@@ -299,7 +418,7 @@ class ChatService:
             else:
                 reference_history=[{'question':turn['question'],'response':{
                     'food_result':turn.get('response',{}).get('reference_result') or turn.get('response',{}).get('food_result')}} for turn in history]
-                plan,meta,usage=self.provider.plan_food(query,reference_history)
+                plan,meta,usage=self.provider.plan_food(provider_query,reference_history)
                 self.record_generation(response,meta,usage)
             result=self.supplements.execute(reference_domain,plan,query)
             response.reference_result=result
@@ -311,7 +430,7 @@ class ChatService:
             hits=self.supplements.hits(result)
             response.timings_ms['reference_lookup']=int((time.perf_counter()-stage)*1000)
             stage=time.perf_counter()
-            generated,usage=self.provider.generate_food(query,hits,history)
+            generated,usage=self.provider.generate_food(provider_query,hits,history)
             self.record_generation(response,generated,usage)
             response.timings_ms['answer_and_review']=int((time.perf_counter()-stage)*1000)
             validated=validate_answer(generated,make_citations(hits))
@@ -334,7 +453,7 @@ class ChatService:
             elif (simple_plan := self.foods.simple_lookup(query)) is not None:
                 plan = simple_plan
             else:
-                plan, meta, usage = self.provider.plan_food(query,history)
+                plan, meta, usage = self.provider.plan_food(provider_query,history)
                 self.record_generation(response,meta,usage)
             response.timings_ms['food_plan'] = int((time.perf_counter()-stage)*1000)
             plan=self.foods.bind_explicit_ids(plan,query)
@@ -384,7 +503,7 @@ class ChatService:
                 response.answer_origin = 'static'
                 return self.finish_response(response, request, owner, history, query, started)
             stage = time.perf_counter()
-            generated,usage=self.provider.generate_food(query,hits,history)
+            generated,usage=self.provider.generate_food(provider_query,hits,history)
             response.timings_ms['answer_and_review'] = int((time.perf_counter()-stage)*1000)
             self.record_generation(response,generated,usage)
             validated=validate_answer(generated,make_citations(hits))
@@ -421,7 +540,8 @@ class ChatService:
             # question does not inherit the previous dish or medical claims.
             if contextual:
                 query = topic_for_turn(raw_query, history) + "\nCâu hỏi tiếp: " + raw_query
-            response_plan, metadata, usage = self.provider.plan_response(query, history if contextual else [])
+            provider_query = with_profile(query)
+            response_plan, metadata, usage = self.provider.plan_response(provider_query, history if contextual else [])
             response_plan = constrain_plan(response_plan, query)
             self.record_generation(response, metadata, usage)
             response.response_strategy = response_plan.strategy
@@ -438,7 +558,7 @@ class ChatService:
                 return self.finish_response(response, request, owner, history, raw_query, started)
             if response_plan.strategy == 'direct_llm':
                 stage = time.perf_counter()
-                generated, usage = self.provider.generate_direct(query, response_plan, history if contextual else [])
+                generated, usage = self.provider.generate_direct(provider_query, response_plan, history if contextual else [])
                 self.record_generation(response, generated, usage)
                 response.timings_ms['direct_answer_and_review'] = int((time.perf_counter() - stage) * 1000)
                 if direct_text_is_allowed(generated):
@@ -486,9 +606,9 @@ class ChatService:
                 citations = make_citations(hits)
                 stage = time.perf_counter()
                 if response.response_strategy == 'practical_rag':
-                    generated, usage = self.provider.generate_practical(query, hits, history if contextual else [], response_plan)
+                    generated, usage = self.provider.generate_practical(provider_query, hits, history if contextual else [], response_plan)
                 else:
-                    generated, usage = self.provider.generate(query, hits, history if contextual else [])
+                    generated, usage = self.provider.generate(provider_query, hits, history if contextual else [])
                 response.timings_ms['answer_and_review'] = int((time.perf_counter()-stage)*1000)
                 validated = validate_answer(generated, citations)
                 self.record_generation(response, generated, usage)
@@ -497,6 +617,10 @@ class ChatService:
                     response.answer, response.citations = validated
                     if generated.uncertainty.strip():
                         response.warnings.append(generated.uncertainty)
+                elif ((generated._grounding_review or {}).get('server_rejections')
+                      or (generated._grounding_review or {}).get('review', {}).get('needs_revision')):
+                    response.answer = ('Mình đã tìm được tài liệu liên quan nhưng chưa kiểm chứng được một câu trả lời phù hợp từ các đoạn trích này. '
+                                       'Mình chưa thể trả lời chắc chắn ở lượt này; đây không phải kết luận rằng kho không có tài liệu về chủ đề đó.')
                 if response.citations:
                     cited_chunks = {c.chunk_id for c in response.citations}
                     response.warnings.extend(
@@ -506,7 +630,7 @@ class ChatService:
             # Routing remains deterministic, but the visible response is generated
             # and checked by the real provider against the approved boundary.
             stage = time.perf_counter()
-            generated, usage = self.provider.generate_policy(query, response.answer, history)
+            generated, usage = self.provider.generate_policy(provider_query, response.answer, history)
             response.timings_ms['policy_and_review'] = int((time.perf_counter()-stage)*1000)
             if not generated.supported or not generated.blocks:
                 raise ProviderFailure("AI chưa tạo được phản hồi hợp lệ; hãy thử lại.")
@@ -517,10 +641,33 @@ class ChatService:
         return self.finish_response(response, request, owner, history, raw_query, started)
 
     def finish_response(self, response, request, owner, history, query, started):
+        expected = getattr(response, '_backend_profile_version', None)
+        if expected is not None:
+            try:
+                latest = self.meals.snapshot(owner, getattr(response, '_profile_authorization', None)).profile
+                changed = latest.profile_version != expected or self._profile_epochs.get(owner, 0) != getattr(response, '_profile_epoch', 0)
+            except MealServiceError:
+                changed = True
+            if changed:
+                response.answer = 'Hồ sơ đã thay đổi trong khi xử lý câu hỏi. Hãy hỏi lại để mình dùng hồ sơ mới nhất.'
+                response.status = 'needs_clarification'
+                response.response_strategy = 'policy'
+                response.citations = []
+                response.meal_result = None
+                response.food_result = None
+                response.reference_result = None
+                response.answer_origin = 'static'
+                response.model = None
+                response.grounding_model = None
+                response.clarification_question = None
+                response.scope_restriction = None
+                history = []
         # Asking about the observed portion is dialogue control, not a sourced
         # nutrition claim. Keep it separate from the model's reviewed answer.
         if (history and response.intent == 'knowledge' and is_elliptical_intake_followup(query)
                 and is_intake_quantity_request(query) and '?' not in response.answer
+                and not re.search(r'\bzero(?: sugar)?\b|\bnuoc ngot\b.*\bkhong duong\b',
+                                  fold(topic_for_turn(query, history)))
                 and not any(is_portion_description(t['question']) or re.search(
                     r'\d+\s*(?:g|gram|gam|ml)\b|\b(?:to|bat)\s+(?:nho|lon|vua)\b', fold(t['question']))
                     for t in history[-3:])):
@@ -545,6 +692,35 @@ class ChatService:
             )
         self.remember_turn(owner, response.session_id, history, query, response)
         return response
+
+    @staticmethod
+    def meal_pending(result):
+        proposal = (result or {}).get('proposal') or (result or {}).get('pending')
+        return None if not proposal else {key: proposal[key] for key in ('id', 'baseVersion', 'expiresAt') if key in proposal}
+
+    def cancel_meal_proposals(self, owner, history):
+        # Session-local cancellation supplements backend version/expiry checks.
+        # A production backend must also persist revocation across instances.
+        with self._meal_edit_lock:
+            now = time.time()
+            self._revoked_meal_proposals = {key: expiry for key, expiry in self._revoked_meal_proposals.items() if expiry > now}
+            for turn in history:
+                previous = turn.get('response', {})
+                pending = previous.get('meal_pending') or self.meal_pending(previous.get('meal_result'))
+                if pending and pending.get('id') and pending.get('expiresAt'):
+                    expiry = float(pending['expiresAt'])
+                    if expiry > now:
+                        self._revoked_meal_proposals[(owner, pending['id'])] = expiry
+
+    def apply_meal_swap(self, owner, body, authorization=None):
+        with self._meal_edit_lock:
+            if self._revoked_meal_proposals.get((owner, str(body.proposal_id)), 0) > time.time():
+                raise MealServiceError('PROPOSAL_CANCELLED')
+            if owner in self._meal_profile_blocks:
+                snapshot = self.meals.snapshot(owner, authorization, body.plan_id)
+                if snapshot.profile.profile_version <= self._meal_profile_blocks[owner]:
+                    raise MealServiceError('PROFILE_INCOMPLETE')
+            return self.meals.apply(owner, body, authorization)
 
     @staticmethod
     def record_generation(response, generated, usage):

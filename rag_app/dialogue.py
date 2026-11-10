@@ -2,6 +2,7 @@
 import re
 
 from rag_app.retrieval import fold
+from rag_app.safety import is_intake_quantity_request
 
 
 def unspecified_glucose_symptoms(message):
@@ -62,11 +63,12 @@ def context_response(message, history):
         return reply('Mình có thể tính khi biết lượng từng nguyên liệu và phần bạn ăn. Bạn đã nêu các thành phần rồi; bước còn thiếu là khối lượng.', 'Bạn dùng bao nhiêu gram từng nguyên liệu, bao nhiêu dầu và ăn bao nhiêu phần của món sau khi nấu?')
     if not history and re.search(r'\b(?:mon nay|thuc pham nay|cai do)\b', q):
         return reply('Mình chưa biết bạn đang nhắc đến thực phẩm nào.', 'Bạn cho mình tên món và chất muốn tra, chẳng hạn năng lượng hay chất xơ, được không?')
-    if not history and (re.search(r'\b(?:dua vao doan nao|ket luan nhu vay|giai thich de hieu)\b', q)
+    if not history and (re.search(r'\b(?:dua vao doan nao|ket luan nhu vay)\b', q)
+                        or re.fullmatch(r'(?:ban )?(?:hay )?giai thich (?:cho minh )?de hieu(?: hon)?(?: duoc khong)?[ .?!]*', q)
                         or 'nguon' in q and 'ket luan' in q):
         return reply('Được nhé, mình sẽ giải thích bằng lời dễ hiểu và chỉ rõ nguồn khi có.', 'Bạn muốn mình giải thích hoặc đối chiếu nội dung nào?')
     if history and re.fullmatch(r'(?:to|bat) nho.*(?:an het|thuong an het).*', q.strip(' .?!')):
         return reply('Cảm ơn bạn, mình hiểu là bạn thường ăn hết một tô nhỏ và sẽ giữ thông tin này trong cuộc trao đổi. Cỡ tô giúp mô tả phần ăn, nhưng chưa đủ để chốt lượng phù hợp riêng cho bạn. Nếu bạn đã có mục tiêu khẩu phần từ chuyên gia, mình có thể giúp đối chiếu phần ăn thực tế với mục tiêu đó.', status='answered')
-    if re.search(r'\b(?:tuoi|cm|kg)\b', q) and re.search(r'\b(?:van dong|ngoi van phong|an bao nhieu)\b', q):
+    if re.search(r'\b(?:tuoi|cm|kg)\b', q) and is_intake_quantity_request(message):
         return reply('Thông tin bạn đưa là một phần cần cân nhắc, nhưng chưa đủ để mình xác định lượng ăn riêng cho bạn. Mức hoạt động và phần ăn thực tế cũng cần được xem cùng kế hoạch đang áp dụng.', 'Bạn muốn xem món cụ thể và lượng bạn thường ăn, hay đối chiếu với mục tiêu đã được chuyên gia hướng dẫn?')
     return None

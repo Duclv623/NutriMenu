@@ -1,0 +1,8 @@
+{
+  "description": "Small live writing review; S003 was not used to collect teacher references. This is not an independent clinical evaluation.",
+  "cases": [
+    {"id": "S001", "session": "style-concept", "live": true, "question": "Carbohydrate là gì, bạn giải thích dễ hiểu được không?", "expect": "Phân biệt nhóm chất với thực phẩm chứa chất; giải thích dễ hiểu, không tự kê lượng cá nhân."},
+    {"id": "S002", "session": "style-principle", "live": true, "question": "Cho mình một nguyên tắc dễ nhớ khi chọn bữa ăn cho người tiểu đường nhé.", "expect": "Một nguyên tắc ngắn có nguồn, không tự kê khẩu phần và không mở rộng thành bài giảng."},
+    {"id": "S003", "session": "style-transfer-noodles", "live": true, "question": "Mình ăn bún ngoài quán thì nên dặn quán thế nào?", "expect": "Trả lời cách dặn quán bằng thao tác có bằng chứng; không kê gram, không bịa lợi ích hay bảo đảm an toàn cá nhân."}
+  ]
+}

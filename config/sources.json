@@ -854,7 +854,7 @@
       "version": "Bản chọn lọc thu 08/10/2026; năm 2026 là ngày thu nếu nguồn không nêu năm.",
       "enabled": true,
       "role": "knowledge",
-      "language": "vi",
+      "language": "en",
       "sha256": "bb0e772ae1f1f8ed030b3559559c092779b014a48f70e5cb19e2634506756155",
       "collection_release": "2026-10-08",
       "segments": [
@@ -879,7 +879,7 @@
       "version": "Bản chọn lọc thu 08/10/2026; năm 2026 là ngày thu nếu nguồn không nêu năm.",
       "enabled": true,
       "role": "knowledge",
-      "language": "vi",
+      "language": "en",
       "sha256": "f4be7974bd17ee9bb65e99d5df5ab141c310e79bdb3c07e32f410ff724154491",
       "collection_release": "2026-10-08",
       "segments": [

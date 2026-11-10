@@ -4,6 +4,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from rag_app.answer_style import ANSWER_STYLE_GUIDANCE
 from rag_app.retrieval import fold
 
 
@@ -13,6 +14,19 @@ class ResponsePlan(BaseModel):
     goal: Literal['explanation', 'practical_steps', 'schedule', 'decision', 'comparison', 'source_lookup']
     focus: str = Field(max_length=300)
     clarification_question: str = Field(default='', max_length=300)
+
+
+def nutrition_decision_requires_sources(question: str) -> bool:
+    """Eating restrictions, substitutions and health advice need evidence."""
+    q = fold(question)
+    return bool(re.search(
+        r'\b(?:kieng|bo (?:han|hoan toan)|han che|an chay|thay (?:the )?thit|di ung)\b'
+        r'|\b(?:an|uong)\b.*\b(?:duoc khong|dc ko|dc khong|co on|on khong|co can|bat buoc|thay|bo bua)\b'
+        r'|\b(?:co can|bat buoc|co the|nen)\b.*\b(?:an|uong|bo bua|bua phu|bua sang|bua toi)\b'
+        r'|\b(?:chien|ran|hap|nuong|luoc)\b.*\b(?:vi sao|tai sao|tot|loi|hai|tieu hoa|dinh duong)\b'
+        r'|\b(?:vi sao|tai sao|nen|doi|thay)\b.*\b(?:chien|ran|hap|nuong|luoc)\b'
+        r'|\b(?:van dong|tap luyen|ngoi lien tuc|ngoi lau)\b.*\b(?:nen|can|thay doi|tot|suc khoe|gio|khac|nhu cau|ngoi van phong)\b'
+        r'|\b(?:nen|can)\b.*\b(?:van dong|tap luyen)\b', q))
 
 
 def constrain_plan(plan: ResponsePlan, question: str) -> ResponsePlan:
@@ -29,7 +43,7 @@ def constrain_plan(plan: ResponsePlan, question: str) -> ResponsePlan:
         r'bien chung|benh than|thai ky|chua khoi|tieu duong|dai thao duong|polyol|khong them duong)\b', q)
     if exact:
         plan = plan.model_copy(update={'strategy': 'evidence_rag'})
-    elif clinical and plan.strategy == 'direct_llm':
+    elif (clinical or nutrition_decision_requires_sources(question)) and plan.strategy == 'direct_llm':
         plan = plan.model_copy(update={'strategy': 'practical_rag' if plan.goal in {
             'schedule', 'practical_steps', 'decision'} else 'evidence_rag'})
     elif plan.strategy == 'direct_llm' and (
@@ -73,7 +87,7 @@ Không hỏi thêm tuổi/cân nặng/thuốc cho một câu hỏi khái niệm 
 Lượt tiếp dùng RESOLVED_QUESTION và USER_CONTEXT để hiểu chủ thể. Không suy dữ kiện từ câu trả lời của chatbot.'''
 
 
-DIRECT_PROMPT = '''Bạn là NutriGuide, trợ lý giáo dục dinh dưỡng tiếng Việt. Đây là nhánh trả lời trực tiếp bằng kiến thức phổ thông, KHÔNG truy xuất tài liệu.
+DIRECT_PROMPT = ANSWER_STYLE_GUIDANCE + '''Bạn là NutriGuide, trợ lý giáo dục dinh dưỡng tiếng Việt. Đây là nhánh trả lời trực tiếp bằng kiến thức phổ thông, KHÔNG truy xuất tài liệu.
 Xưng mình/bạn, thân thiện và rõ ý; tránh giọng quảng cáo, lời bảo đảm tuyệt đối và câu văn hành chính. Không tự nhận có khả năng đọc ảnh, hồ sơ hay dữ liệu chưa kết nối.
 Nếu yêu cầu diễn đạt lại và có PREVIOUS_ASSISTANT_TEXT_FOR_REPHRASING_ONLY, dùng nội dung đó để giải thích ngắn/dễ hiểu hơn; đây không phải nguồn chứng minh y khoa và không được mở rộng thêm khuyến cáo. Giữ đúng nghĩa khi dùng ví dụ/ẩn dụ, tránh tuyệt đối hóa đặc điểm của cả nhóm chất.
 Trả đúng QUESTION và RESPONSE_GOAL: giải thích khái niệm dễ hiểu hoặc đưa 2–4 việc làm cụ thể cho thói quen/chuẩn bị đồ ăn. Ngắn gọn, tự nhiên, không lặp câu hỏi hoặc kết bằng chuyển chuyên gia cho việc thông thường.

@@ -1,0 +1,781 @@
+{
+  "$defs": {
+    "ApplySwap": {
+      "additionalProperties": false,
+      "properties": {
+        "planId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Planid",
+          "type": "string"
+        },
+        "proposalId": {
+          "format": "uuid",
+          "title": "Proposalid",
+          "type": "string"
+        },
+        "baseVersion": {
+          "minimum": 1,
+          "title": "Baseversion",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "planId",
+        "proposalId",
+        "baseVersion"
+      ],
+      "title": "ApplySwap",
+      "type": "object"
+    },
+    "Ingredient": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Ingredient",
+      "type": "object"
+    },
+    "MealPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "profileVersion": {
+          "minimum": 1,
+          "title": "Profileversion",
+          "type": "integer"
+        },
+        "catalogVersion": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Catalogversion",
+          "type": "string"
+        },
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "solverStatus": {
+          "enum": [
+            "OPTIMAL",
+            "FEASIBLE",
+            "INFEASIBLE",
+            "UNKNOWN",
+            "MODEL_INVALID",
+            "NOT_RUN"
+          ],
+          "title": "Solverstatus",
+          "type": "string"
+        },
+        "validationPassed": {
+          "title": "Validationpassed",
+          "type": "boolean"
+        },
+        "checkedConstraints": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Checkedconstraints",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "target": {
+          "$ref": "#/$defs/NutritionTarget"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PlanItem"
+          },
+          "maxItems": 40,
+          "minItems": 1,
+          "title": "Items",
+          "type": "array"
+        },
+        "totals": {
+          "$ref": "#/$defs/Nutrients"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "profileVersion",
+        "catalogVersion",
+        "date",
+        "solverStatus",
+        "validationPassed",
+        "target",
+        "items",
+        "totals"
+      ],
+      "title": "MealPlan",
+      "type": "object"
+    },
+    "MealSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "dataMode": {
+          "enum": [
+            "mock",
+            "http"
+          ],
+          "title": "Datamode",
+          "type": "string"
+        },
+        "profile": {
+          "$ref": "#/$defs/NutritionProfile"
+        },
+        "plan": {
+          "$ref": "#/$defs/MealPlan"
+        }
+      },
+      "required": [
+        "dataMode",
+        "profile",
+        "plan"
+      ],
+      "title": "MealSnapshot",
+      "type": "object"
+    },
+    "NumericRange": {
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        }
+      },
+      "title": "NumericRange",
+      "type": "object"
+    },
+    "Nutrients": {
+      "additionalProperties": false,
+      "properties": {
+        "energyKcal": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Energykcal"
+        },
+        "carbohydrateG": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Carbohydrateg"
+        },
+        "proteinG": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Proteing"
+        },
+        "fatG": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fatg"
+        },
+        "fiberG": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fiberg"
+        },
+        "sodiumMg": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sodiummg"
+        }
+      },
+      "title": "Nutrients",
+      "type": "object"
+    },
+    "NutritionProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "profileVersion": {
+          "minimum": 1,
+          "title": "Profileversion",
+          "type": "integer"
+        },
+        "age": {
+          "anyOf": [
+            {
+              "maximum": 120,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Age"
+        },
+        "gender": {
+          "anyOf": [
+            {
+              "maxLength": 50,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Gender"
+        },
+        "height": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 300,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Height"
+        },
+        "weight": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 600,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weight"
+        },
+        "activityLevel": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activitylevel"
+        },
+        "goal": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Goal"
+        },
+        "targetWeight": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 600,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Targetweight"
+        },
+        "allergies": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allergies"
+        },
+        "restrictedIngredients": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Restrictedingredients"
+        },
+        "preferences": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Preferences",
+          "type": "array"
+        },
+        "scopeStatus": {
+          "default": "unknown",
+          "enum": [
+            "eligible",
+            "out_of_scope",
+            "unknown"
+          ],
+          "title": "Scopestatus",
+          "type": "string"
+        },
+        "restrictionsResolved": {
+          "default": false,
+          "title": "Restrictionsresolved",
+          "type": "boolean"
+        },
+        "excludedIngredientIds": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[\\w:.-]+$",
+            "type": "string"
+          },
+          "maxItems": 200,
+          "title": "Excludedingredientids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "profileVersion"
+      ],
+      "title": "NutritionProfile",
+      "type": "object"
+    },
+    "NutritionTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Version",
+          "type": "string"
+        },
+        "sourceRefs": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Sourcerefs",
+          "type": "array"
+        },
+        "bounds": {
+          "additionalProperties": {
+            "$ref": "#/$defs/NumericRange"
+          },
+          "propertyNames": {
+            "enum": [
+              "energy_kcal",
+              "carbohydrate_g",
+              "protein_g",
+              "fat_g",
+              "fiber_g",
+              "sodium_mg"
+            ]
+          },
+          "title": "Bounds",
+          "type": "object"
+        },
+        "energyPercent": {
+          "additionalProperties": {
+            "$ref": "#/$defs/NumericRange"
+          },
+          "propertyNames": {
+            "enum": [
+              "carbohydrate_g",
+              "protein_g",
+              "fat_g"
+            ]
+          },
+          "title": "Energypercent",
+          "type": "object"
+        }
+      },
+      "required": [
+        "version",
+        "sourceRefs",
+        "bounds"
+      ],
+      "title": "NutritionTarget",
+      "type": "object"
+    },
+    "PlanItem": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "recipeId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Recipeid",
+          "type": "string"
+        },
+        "recipeVersion": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Recipeversion",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "mealType": {
+          "enum": [
+            "BREAKFAST",
+            "LUNCH",
+            "DINNER",
+            "SNACK"
+          ],
+          "title": "Mealtype",
+          "type": "string"
+        },
+        "portionId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Portionid",
+          "type": "string"
+        },
+        "amount": {
+          "exclusiveMinimum": 0,
+          "title": "Amount",
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "g",
+            "ml",
+            "serving"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "raw",
+            "cooked",
+            "ready_to_eat",
+            "unknown"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "nutritionBasis": {
+          "enum": [
+            "as_consumed",
+            "raw_ingredients_estimate",
+            "unknown"
+          ],
+          "title": "Nutritionbasis",
+          "type": "string"
+        },
+        "nutrients": {
+          "$ref": "#/$defs/Nutrients"
+        },
+        "ingredients": {
+          "items": {
+            "$ref": "#/$defs/Ingredient"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Ingredients",
+          "type": "array"
+        },
+        "ingredientsComplete": {
+          "default": false,
+          "title": "Ingredientscomplete",
+          "type": "boolean"
+        },
+        "sourceRefs": {
+          "items": {
+            "maxLength": 300,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Sourcerefs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "recipeId",
+        "recipeVersion",
+        "name",
+        "mealType",
+        "portionId",
+        "amount",
+        "unit",
+        "state",
+        "nutritionBasis",
+        "nutrients",
+        "ingredients",
+        "sourceRefs"
+      ],
+      "title": "PlanItem",
+      "type": "object"
+    },
+    "SwapProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "planId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Planid",
+          "type": "string"
+        },
+        "baseVersion": {
+          "minimum": 1,
+          "title": "Baseversion",
+          "type": "integer"
+        },
+        "profileVersion": {
+          "minimum": 1,
+          "title": "Profileversion",
+          "type": "integer"
+        },
+        "changedItemId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Changeditemid",
+          "type": "string"
+        },
+        "expiresAt": {
+          "exclusiveMinimum": 0,
+          "title": "Expiresat",
+          "type": "number"
+        },
+        "dataMode": {
+          "enum": [
+            "mock",
+            "http"
+          ],
+          "title": "Datamode",
+          "type": "string"
+        },
+        "plan": {
+          "$ref": "#/$defs/MealPlan"
+        }
+      },
+      "required": [
+        "id",
+        "planId",
+        "baseVersion",
+        "profileVersion",
+        "changedItemId",
+        "expiresAt",
+        "dataMode",
+        "plan"
+      ],
+      "title": "SwapProposal",
+      "type": "object"
+    },
+    "SwapRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "planId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Planid",
+          "type": "string"
+        },
+        "baseVersion": {
+          "minimum": 1,
+          "title": "Baseversion",
+          "type": "integer"
+        },
+        "itemId": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[\\w:.-]+$",
+          "title": "Itemid",
+          "type": "string"
+        },
+        "instruction": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Instruction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "planId",
+        "baseVersion",
+        "itemId",
+        "instruction"
+      ],
+      "title": "SwapRequest",
+      "type": "object"
+    }
+  },
+  "title": "Proposed TV1 TV2 meal integration contract",
+  "description": "Draft contract. Mock fixtures are fictional. Real backend endpoints and field mappings must be agreed by TV1 and TV2.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/MealSnapshot"
+    },
+    {
+      "$ref": "#/$defs/SwapRequest"
+    },
+    {
+      "$ref": "#/$defs/SwapProposal"
+    },
+    {
+      "$ref": "#/$defs/ApplySwap"
+    }
+  ]
+}

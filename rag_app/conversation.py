@@ -21,7 +21,7 @@ def is_contextual_followup(message, history=None):
 def is_portion_description(message):
     return bool(re.fullmatch(
         r'(?:(?:toi|minh|em)\s+)?(?:(?:thuong|hay)\s+)?(?:(?:an|uong)\s+)?'
-        r'(?:(?:mot|hai|nua|\d+(?:[.,]\d+)?)\s+)?(?:to|bat|coc|ly|hop)'
+        r'(?:(?:mot|hai|nua|\d+(?:[.,]\d+)?)\s+)?(?:to|bat|coc|ly|hop|lon|chai)'
         r'(?:\s+(?:nho|lon|vua))?(?:[, ]+(?:an\s+)?(?:het|mot nua|nua|chi mot phan))?',
         fold(message).strip(' ?!.,')))
 
