@@ -42,6 +42,7 @@ class Settings(BaseSettings):
     jwt_audience: str = ""
     food_api_base_url: str = ""
     meal_service_mode: Literal["disabled", "mock", "http"] = "disabled"
+    meal_demo_dataset: Literal["mathematical", "named"] = "mathematical"
     meal_api_base_url: str = ""
     meal_api_timeout: float = Field(default=8, ge=1, le=30)
 

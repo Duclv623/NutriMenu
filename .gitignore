@@ -28,6 +28,7 @@ data/structured/nin_foods_2026-10-06/raw/
 
 # Tài liệu nhóm / báo cáo không liên quan đến code
 *.md
+!README.md
 *.doc
 *.docx
 *.pdf

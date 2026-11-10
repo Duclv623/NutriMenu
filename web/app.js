@@ -151,6 +151,8 @@ function mealPrompt(message, action, context) {
 }
 function renderMealPlan(parent, plan, mode, interactive = true, itemIds = null) {
   const section = node("section", undefined, "meal-plan");
+  const namedDemo = plan.catalogVersion === "named-demo-v1";
+  if (namedDemo) section.classList.add("named-demo-plan");
   section.append(node("h3", `${mode === "mock" ? "Thực đơn mẫu" : "Thực đơn"} · ${plan.date} · bản ${plan.version}`));
   const stateNames = {cooked: "đã nấu chín", raw: "nguyên liệu sống", ready_to_eat: "ăn ngay", unknown: "chưa xác định sống/chín"};
   const units = {g: "g", ml: "ml", serving: "suất"};
@@ -160,7 +162,7 @@ function renderMealPlan(parent, plan, mode, interactive = true, itemIds = null) 
     const meal = node("section", undefined, "nutrition-card"); meal.append(node("h4", label));
     for (const item of items) {
       const entry = node("div", undefined, "meal-item");
-      entry.append(node("strong", item.name), node("p", `${mealNumber(item.amount)} ${units[item.unit]} · ${stateNames[item.state]}`));
+      entry.append(node("strong", item.name), node("p", `${mealNumber(item.amount)} ${units[item.unit]} · ${stateNames[item.state]}${namedDemo ? " · " + mealNumber(item.nutrients.energyKcal) + " kcal" : ""}`));
       const detail = node("details"); detail.append(node("summary", "Dinh dưỡng, thành phần và nguồn số liệu"));
       mealSummary(detail, item.nutrients);
       detail.append(node("p", item.ingredients.map(ingredient => ingredient.name).join(", ")));
@@ -170,7 +172,7 @@ function renderMealPlan(parent, plan, mode, interactive = true, itemIds = null) 
       entry.append(detail);
       if (interactive) {
         const controls = node("div", undefined, "meal-controls");
-        for (const [title, action] of [["Hỏi số liệu", "nutrition"], ["Thành phần", "ingredients"], ["Đề xuất đổi món", "swap"]]) {
+        for (const [title, action] of (namedDemo ? [["Hỏi số liệu", "nutrition"], ["Thành phần", "ingredients"]] : [["Hỏi số liệu", "nutrition"], ["Thành phần", "ingredients"], ["Đề xuất đổi món", "swap"]])) {
           const button = node("button", title); button.type = "button";
           button.addEventListener("click", () => mealPrompt(`${title}: ${item.name}, ${label.toLowerCase()}`, action, {plan_id: plan.id, plan_version: plan.version, item_id: item.id}));
           controls.append(button);
@@ -353,14 +355,22 @@ $("chat-form").addEventListener("submit", async (event) => {
 let demoSnapshot = null;
 function displayDemo(snapshot) {
   demoSnapshot = snapshot;
+  const namedDemo = snapshot.plan.catalogVersion === "named-demo-v1";
   const root = $("demo-profile-editor"); root.hidden = false; root.replaceChildren();
-  root.append(node("h3", "Hồ sơ giả lập · bản " + snapshot.profile.profileVersion));
-  root.append(node("p", "Chỉnh hồ sơ mẫu rồi hỏi ở khung chat bên dưới. Lưu hồ sơ sẽ mở chat mới. Dữ liệu lưu tạm trong tiến trình demo. Khi hỏi tư vấn, hồ sơ mẫu liên quan được gửi tới nhà cung cấp AI đang cấu hình cùng câu hỏi. Không nhập dữ liệu bệnh nhân thật. Lưu hồ sơ chỉ cập nhật backend demo, không tạo tài khoản hay tự tính nhu cầu năng lượng."));
+  root.append(node("h3", namedDemo ? "Thông tin người dùng mẫu" : "Hồ sơ giả lập · bản " + snapshot.profile.profileVersion));
+  if (namedDemo) {
+    const p = snapshot.profile;
+    const gender = {FEMALE:"Nữ", MALE:"Nam", OTHER:"Khác"}[p.gender] || "Chưa khai giới tính";
+    root.append(node("p", `${gender} · ${p.age ?? "—"} tuổi · ${p.height ?? "—"} cm · ${p.weight ?? "—"} kg`, "demo-profile-summary"));
+    root.append(node("p", "Bạn có thể chỉnh hồ sơ rồi hỏi ở khung chat bên dưới. Lưu sẽ mở chat mới. Khi hỏi tư vấn, thông tin mẫu liên quan được gửi cùng câu hỏi tới nhà cung cấp AI. Chỉ nhập dữ liệu giả lập."));
+  } else root.append(node("p", "Chỉnh hồ sơ mẫu rồi hỏi ở khung chat bên dưới. Lưu hồ sơ sẽ mở chat mới. Dữ liệu lưu tạm trong tiến trình demo. Khi hỏi tư vấn, hồ sơ mẫu liên quan được gửi tới nhà cung cấp AI đang cấu hình cùng câu hỏi. Không nhập dữ liệu bệnh nhân thật. Lưu hồ sơ chỉ cập nhật backend demo, không tạo tài khoản hay tự tính nhu cầu năng lượng."));
+  const editor = namedDemo ? node("details", undefined, "demo-profile-settings") : root;
+  if (namedDemo) { editor.append(node("summary", "Chỉnh thông tin / chọn người dùng mẫu")); root.append(editor); }
   const preset = node("select"); preset.setAttribute("aria-label", "Chọn hồ sơ mẫu");
   for (const [value, label] of [["", "Chọn mẫu để điền"], ["A", "Mẫu A · nữ 45 tuổi, 60 kg"], ["B", "Mẫu B · nam 32 tuổi, 82 kg"], ["C", "Mẫu C · 16 tuổi, ngoài phạm vi"]]) {
     const option = node("option", label); option.value = value; preset.append(option);
   }
-  root.append(preset);
+  editor.append(preset);
   const form = node("form"); form.className = "demo-profile-form";
   const fields = {};
   const definitions = [["age", "Tuổi", "number"], ["gender", "Giới tính", "text"], ["height", "Chiều cao (cm)", "number"], ["weight", "Cân nặng (kg)", "number"], ["activityLevel", "Mức vận động", "text"], ["goal", "Mục tiêu", "text"], ["targetWeight", "Cân nặng mục tiêu (kg)", "number"], ["allergies", "Dị ứng (phẩy ngăn cách; trống = chưa khai)", "text"], ["restrictedIngredients", "Cần tránh (phẩy ngăn cách; trống = chưa khai)", "text"], ["preferences", "Sở thích (phẩy ngăn cách)", "text"]];
@@ -408,8 +418,8 @@ function displayDemo(snapshot) {
     } catch(error) { showError(error); }
     finally { busy = false; save.disabled = false; }
   });
-  root.append(form);
-  root.append(node("p", snapshot.profile.profileVersion !== snapshot.plan.profileVersion ? "Hồ sơ đã thay đổi; thực đơn mẫu còn gắn với hồ sơ bản " + snapshot.plan.profileVersion + ". Chưa tính lại khẩu phần cá nhân; đổi món đang bị chặn." : "Thực đơn mẫu khớp phiên bản hồ sơ. Chỉ xác minh số học dữ liệu mẫu, không phải khuyến nghị khẩu phần.", "meal-demo-notice"));
+  editor.append(form);
+  root.append(node("p", namedDemo ? "Thực đơn dưới đây là ví dụ cố định để hỏi đáp, chưa được cá nhân hóa theo hồ sơ. Chỉnh hồ sơ không tự thay lượng ăn; chưa hỗ trợ đổi món trong mẫu này." : snapshot.profile.profileVersion !== snapshot.plan.profileVersion ? "Hồ sơ đã thay đổi; thực đơn mẫu còn gắn với hồ sơ bản " + snapshot.plan.profileVersion + ". Chưa tính lại khẩu phần cá nhân; đổi món đang bị chặn." : "Thực đơn mẫu khớp phiên bản hồ sơ. Chỉ xác minh số học dữ liệu mẫu, không phải khuyến nghị khẩu phần.", "meal-demo-notice"));
   if (!snapshot.profile.restrictionsResolved && snapshot.profile.allergies && snapshot.profile.allergies.length) {
     root.append(node("p", "Đã lưu thông tin dị ứng trong hồ sơ mẫu. Chưa đối chiếu được dị ứng với nguyên liệu mẫu nên chức năng xác minh/đổi món đang tạm khóa.", "meal-demo-notice"));
   }
@@ -419,8 +429,20 @@ function displayDemo(snapshot) {
     try { displayDemo(await api("/api/demo/plan-refresh", {method:"POST"})); }
     catch(error) { showError(error); }
     finally { busy = false; refresh.disabled = false; }
-  }); root.append(refresh);
-  const preview = node("details"); preview.append(node("summary", "Xem thực đơn giả lập cùng hồ sơ")); renderMealPlan(preview, snapshot.plan, "mock", false); root.append(preview);
+  }); if (!namedDemo) root.append(refresh);
+  const preview = node(namedDemo ? "section" : "details");
+  if (!namedDemo) preview.append(node("summary", "Xem thực đơn giả lập cùng hồ sơ"));
+  else preview.setAttribute("aria-label", "Thực đơn mẫu hôm nay");
+  renderMealPlan(preview, snapshot.plan, "mock", false); root.append(preview);
+  if (namedDemo) {
+    const prompts = node("div", undefined, "demo-questions");
+    for (const text of ["Bữa trưa của tôi có những món gì?", "Bữa trưa của tôi có bao nhiêu calo?", "Tổng dinh dưỡng cả ngày trong thực đơn của tôi"]) {
+      const button = node("button", text); button.type = "button";
+      button.addEventListener("click", () => mealPrompt(text, text.includes("món gì") ? "show" : "nutrition", {plan_id:snapshot.plan.id, plan_version:snapshot.plan.version}));
+      prompts.append(button);
+    }
+    root.append(prompts);
+  }
 }
 (async () => {
   try {
@@ -429,8 +451,11 @@ function displayDemo(snapshot) {
     $("retention").textContent = state.history_retention_days;
     if (state.meal_service && state.meal_service.configured) {
       $("meal-tools").hidden = false;
-      if (state.meal_service.mode === "mock") displayDemo(await api("/api/meal-context"));
-      $("meal-notice").textContent = state.meal_service.mode === "mock" ? "Bản thử thực đơn: số liệu toán học giả lập, không phải khẩu phần thực tế; chưa chạy CP-SAT. Chỉ có phương án đổi mẫu ở bữa sáng." : "Thực đơn được lấy từ tài khoản qua backend của nhóm.";
+      if (state.meal_service.mode === "mock") {
+        displayDemo(await api("/api/meal-context"));
+        $("meal-profile").parentElement.hidden = true;
+      }
+      $("meal-notice").textContent = state.meal_service.mode === "mock" ? demoSnapshot?.plan.catalogVersion === "named-demo-v1" ? "BẢN DEMO · Hồ sơ và thực đơn mẫu để hỏi đáp. Số dinh dưỡng theo dữ liệu nguồn, không phải khuyến nghị lượng ăn cá nhân." : "Bản thử thực đơn: số liệu toán học giả lập, không phải khẩu phần thực tế; chưa chạy CP-SAT. Chỉ có phương án đổi mẫu ở bữa sáng." : "Thực đơn được lấy từ tài khoản qua backend của nhóm.";
       $("open-meal").addEventListener("click", async () => {
         if (busy) return;
         try {

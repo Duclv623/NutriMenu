@@ -46,7 +46,7 @@ def meal_action(message, context=None, explicit=None):
         return None
     personal = re.search(r'\b(?:cua toi|hom nay|sang nay|trua nay|toi nay|dang xem)\b', text)
     operation = re.search(r'\b(?:doi|thay|tao|sinh|lap|them|bo|xem)\b', text)
-    stored_lookup = meals and re.search(r'\b(?:co bao nhieu|may gam)\b', text) and not re.search(r'\b(?:nen|can)\b', text)
+    stored_lookup = meals and re.search(r'\b(?:co bao nhieu|may gam|co gi|gom nhung mon|gom mon gi)\b', text) and not re.search(r'\b(?:nen|can)\b', text)
     if not (context or (menu or meals) and (personal or operation) or stored_lookup):
         return None
     for action, pattern in [
@@ -118,7 +118,9 @@ def handle_meal_chat(gateway, owner, message, context=None, action=None, authori
         if gateway.mode == 'disabled':
             detail = 'Tạo, thay đổi và lưu thực đơn hiện chưa được kết nối. Lưu lịch sử chat là một chức năng riêng, không phải lưu thực đơn.'
         elif gateway.mode == 'mock':
-            detail = 'Phần thực đơn đang dùng dữ liệu mẫu: bạn có thể xem số liệu, xem trước đổi món và áp dụng thay đổi trên bản mẫu. Tạo thực đơn mới chưa được kết nối; thay đổi bản mẫu không phải lưu thực đơn cá nhân thật.'
+            detail = ('Phần thực đơn đang dùng món mẫu có tên và lượng ăn cụ thể: bạn có thể xem các bữa, hỏi số dinh dưỡng và nguồn số liệu, hoặc cập nhật hồ sơ mẫu. Thực đơn này chưa cá nhân hóa và chưa hỗ trợ đổi món.'
+                      if getattr(gateway, 'named_demo', False) else
+                      'Phần thực đơn đang dùng dữ liệu mẫu: bạn có thể xem số liệu, xem trước đổi món và áp dụng thay đổi trên bản mẫu. Tạo thực đơn mới chưa được kết nối; thay đổi bản mẫu không phải lưu thực đơn cá nhân thật.')
         else:
             detail = 'Phần thực đơn được cấu hình dùng dịch vụ kết nối: bạn có thể yêu cầu xem thực đơn đã lưu, xem trước đổi món và áp dụng thay đổi. Tạo thực đơn mới chưa được kết nối; mình chỉ báo đã lưu sau khi dịch vụ xác nhận.'
         return MealReply(common + detail)
@@ -184,14 +186,14 @@ def handle_meal_chat(gateway, owner, message, context=None, action=None, authori
         return MealReply("Không nhé. Ô chưa có dữ liệu khác với số 0, nên mình sẽ ghi rõ là chưa biết và chưa kết luận đủ hay thiếu chất đó.", payload)
     if task == "summary" or task == "rephrase" and previous_view != "explain":
         count, energy = len({item.meal_type for item in plan.items}), plan.totals.energy_kcal
-        summary = f"Thực đơn mẫu này có {count} bữa" + (f", tổng {number(energy)} kcal." if energy is not None else ".") + " Bạn có thể xem từng món và thử đổi món; các số này chưa phải khẩu phần cá nhân đã được xác minh."
+        summary = f"Thực đơn mẫu này có {count} bữa" + (f", tổng {number(energy)} kcal." if energy is not None else ".") + (" Bạn có thể hỏi về từng món và số dinh dưỡng; lượng ăn chưa được cá nhân hóa theo hồ sơ." if plan.catalog_version == "named-demo-v1" else " Bạn có thể xem từng món và thử đổi món; các số này chưa phải khẩu phần cá nhân đã được xác minh.")
         return MealReply(summary if snapshot.data_mode == "mock" else f"Thực đơn đang lưu có {count} bữa. Bạn có thể xem từng món và đề xuất đổi trước khi áp dụng.", payload)
     if task in {"source", "basis", "portion"}:
         if len(items) != 1:
             return MealReply("Bạn chọn một món trong thực đơn để mình xem đúng thông tin nhé.", payload, status="needs_clarification")
         item = items[0]
         if task == "source":
-            answer = "Số của món này lấy từ ví dụ trong tài liệu recom.docx để thử ứng dụng, chưa phải số đo dinh dưỡng món ăn thật nhé." if snapshot.data_mode == "mock" else "Nguồn số liệu được lưu cùng món này: " + "; ".join(item.source_refs)
+            answer = "Số của món này lấy từ ví dụ trong tài liệu recom.docx để thử ứng dụng, chưa phải số đo dinh dưỡng món ăn thật nhé." if snapshot.data_mode == "mock" and plan.catalog_version != "named-demo-v1" else "Nguồn số liệu được lưu cùng món này: " + "; ".join(item.source_refs)
         elif task == "basis":
             states = {"cooked": "khối lượng đã nấu chín", "raw": "khối lượng nguyên liệu sống", "ready_to_eat": "lượng ăn ngay", "unknown": "chưa xác định là sống hay chín"}
             answer = f"Phần ăn này được ghi là {states[item.state]}. " + ("Vì vậy mình chưa thể dùng số của một suất để tính cho gram nguyên liệu trước nấu nhé." if item.state == "unknown" else "Khi cân thực phẩm, bạn cần dùng đúng trạng thái này để đối chiếu.")
@@ -213,6 +215,8 @@ def handle_meal_chat(gateway, owner, message, context=None, action=None, authori
         return MealReply("Mình đã có phương án để bạn xem trước. Thực đơn đang lưu chưa đổi nhé; bạn xem phần trước/sau rồi bấm Áp dụng nếu muốn lưu.", payload)
     if task == "ingredients":
         item = items[0]
+        if plan.catalog_version == "named-demo-v1":
+            return MealReply(f"Mình có bản ghi dinh dưỡng của {item.name}, nhưng chưa có danh sách nguyên liệu đầy đủ để xác nhận thành phần hoặc dị ứng. Bạn có thể xem nguồn số liệu trong chi tiết món.", payload)
         return MealReply(f"{item.name} gồm: " + ", ".join(i.name for i in item.ingredients) + (". Đây là nguyên liệu giả lập của bản thử nhé." if snapshot.data_mode == "mock" else ".") + (" Danh sách còn thiếu nên chưa đủ để kiểm tra dị ứng." if not item.ingredients_complete else ""), payload)
     if task in {"nutrition", "compare"}:
         requested = [key for key, (_, _, pattern) in NUTRIENTS.items() if re.search(r"\b(?:" + pattern + r")\b", text)]
@@ -254,6 +258,8 @@ def handle_meal_chat(gateway, owner, message, context=None, action=None, authori
             lines.append("Mình chưa có dữ liệu " + ", ".join(unknown) + ".")
         return MealReply("\n".join(lines) + "\nĐây là số theo phần ăn đang lưu nhé.", payload)
     if task == "targets":
+        if plan.catalog_version == "named-demo-v1":
+            return MealReply("Thực đơn minh họa này chưa có mục tiêu dinh dưỡng cá nhân. Tổng kcal chỉ là tổng các phần ăn mẫu đang hiển thị, không phải mức bạn được khuyến nghị ăn mỗi ngày.", payload)
         energy, bounds = plan.totals.energy_kcal, plan.target.bounds["energy_kcal"]
         if energy is None:
             return MealReply("Mình chưa có đủ tổng năng lượng để so với mục tiêu nhé.", payload, status="insufficient_evidence")
@@ -262,8 +268,12 @@ def handle_meal_chat(gateway, owner, message, context=None, action=None, authori
         span = f"{number(low)}–{number(high)} kcal" if low is not None and high is not None else f"từ {number(low)} kcal" if low is not None else f"không quá {number(high)} kcal"
         return MealReply(f"Cả ngày có {number(energy)} kcal, {'nằm trong' if within else 'chưa nằm trong'} khoảng mục tiêu {span}. " + ("Đây là mục tiêu ví dụ để thử ứng dụng, chưa phải mức đã xác định riêng cho sức khỏe của bạn." if snapshot.data_mode == "mock" else "Mục tiêu này do dịch vụ hồ sơ cung cấp, mình không tự thay đổi."), payload)
     if task == "rephrase":
+        if plan.catalog_version == "named-demo-v1":
+            return MealReply("Đây là các món và lượng ăn được chọn sẵn để demo. Mình cộng số dinh dưỡng từ dữ liệu nguồn; chưa kết luận lượng ăn này phù hợp riêng với bạn.", payload)
         return MealReply("Nói ngắn gọn nhé: bản thử chọn món để cộng lại vừa khoảng đã đặt cho cả ngày. Điều đó chưa đủ để nói món này hợp riêng với bạn.", payload)
     if task == "explain":
+        if plan.catalog_version == "named-demo-v1":
+            return MealReply("Các món được chọn sẵn để demo hỏi đáp, chưa được tối ưu theo hồ sơ, sở thích hoặc dị ứng của bạn. Thay đổi thông tin người dùng không tự đổi các lượng ăn mẫu này.", payload)
         return MealReply("Trong bản thử, món này được chọn để tổng cả ngày nằm trong khoảng đã đặt. Mình chưa biết nó có hợp riêng với sức khỏe và sở thích của bạn hay không." if snapshot.data_mode == "mock" else "Mình xem được thực đơn đang lưu, nhưng chưa có lý do chọn riêng từng món nên chưa thể giải thích vì sao món này được chọn cho bạn.", payload)
     detail = "; ".join(f"{LABELS[item.meal_type].lower()}: {item.name}, {number(item.amount)} " + {"g": "g", "ml": "ml", "serving": "suất"}[item.unit] for item in items or plan.items)
-    return MealReply(("Trong bản mẫu, " if snapshot.data_mode == "mock" else "Thực đơn đang lưu có ") + detail + ". Bạn có thể bấm vào món để xem số liệu hoặc đề xuất đổi nhé.", payload)
+    return MealReply(("Trong bản mẫu, " if snapshot.data_mode == "mock" else "Thực đơn đang lưu có ") + detail + (". Bạn có thể hỏi tiếp về số dinh dưỡng hoặc nguồn của từng món." if plan.catalog_version == "named-demo-v1" else ". Bạn có thể bấm vào món để xem số liệu hoặc đề xuất đổi nhé."), payload)

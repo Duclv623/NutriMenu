@@ -143,8 +143,13 @@ class MockMealGateway(DisabledMealGateway):
     """Per-owner volatile fixtures. This does NOT run CP-SAT or model cooking."""
     mode = "mock"
 
-    def __init__(self):
-        self.fixture = json.loads((ROOT / "data/fixtures/meal_demo.json").read_text(encoding="utf-8"))
+    def __init__(self, dataset="mathematical"):
+        self.named_demo = dataset == "named"
+        if self.named_demo:
+            from rag_app.demo_menu import named_demo_fixture
+            self.fixture = named_demo_fixture()
+        else:
+            self.fixture = json.loads((ROOT / "data/fixtures/meal_demo.json").read_text(encoding="utf-8"))
         self.states = {}
         self.proposals = {}
         self.lock = threading.RLock()
@@ -169,10 +174,10 @@ class MockMealGateway(DisabledMealGateway):
                 items = [PlanItem.model_validate(row) for row in self.fixture["items"]]
                 plan = MealPlan(
                     id=str(uuid4()), version=1, profile_version=profile.profile_version,
-                    catalog_version="fictional-v1", date=datetime.now(timezone(timedelta(hours=7))).date(),
-                    solver_status="NOT_RUN", validation_passed=True,
-                    checked_constraints=["Kiểm số học dữ liệu mẫu; không chạy CP-SAT"],
-                    limitations=[self.fixture["notice"], "Chưa có dữ liệu xơ, natri và cơ sở sống/chín thực tế."],
+                    catalog_version="named-demo-v1" if self.named_demo else "fictional-v1", date=datetime.now(timezone(timedelta(hours=7))).date(),
+                    solver_status="NOT_RUN", validation_passed=not self.named_demo,
+                    checked_constraints=["Cộng số dinh dưỡng của các phần ăn mẫu; chưa kiểm tra phù hợp cá nhân" if self.named_demo else "Kiểm số học dữ liệu mẫu; không chạy CP-SAT"],
+                    limitations=[self.fixture["notice"]] if self.named_demo else [self.fixture["notice"], "Chưa có dữ liệu xơ, natri và cơ sở sống/chín thực tế."],
                     target=self.fixture["target"], items=items, totals=sum_nutrients(items),
                 )
                 self.states[owner] = (time.time(), MealSnapshot(data_mode="mock", profile=profile, plan=plan))
@@ -194,6 +199,10 @@ class MockMealGateway(DisabledMealGateway):
                           excluded_ingredient_ids=[])
             profile = NutritionProfile.model_validate(values)
             value = snapshot.model_copy(update={"profile": profile})
+            if self.named_demo:
+                # This fixed illustrative menu is not recalculated or prescribed for the profile.
+                value = value.model_copy(update={"plan": snapshot.plan.model_copy(update={
+                    "profile_version": profile.profile_version, "version": snapshot.plan.version + 1})})
             self.states[owner] = (time.time(), value)
             self.proposals = {key: row for key, row in self.proposals.items() if row[0] != owner}
             return value.model_copy(deep=True)
@@ -337,7 +346,7 @@ class HttpMealGateway(DisabledMealGateway):
 
 def create_meal_gateway(settings: Settings):
     if settings.meal_service_mode == "mock":
-        return MockMealGateway()
+        return MockMealGateway(settings.meal_demo_dataset)
     if settings.meal_service_mode == "http":
         return HttpMealGateway(settings)
     return DisabledMealGateway()

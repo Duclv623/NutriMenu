@@ -11,6 +11,10 @@ STOPWORDS = set(
     "toi ban minh la va cua co cho thi voi duoc nen nhu nao gi nhung cac mot ve trong khi hay khong the nay ay lam sao bao nhieu nguoi benh tieu duong dai thao duong".split()
 )
 
+# Explicitly curated qualifications supplement, rather than displace, top-k hits.
+MAX_RELATED_CHUNKS = 2
+MAX_RELATED_TOKENS = 840
+
 
 def fold(text: str) -> str:
     text = text.lower().replace("đ", "d")
@@ -202,28 +206,22 @@ class Retriever:
         # Example: "no added sugar" needs the same handout's moderation caveat.
         # Never use arbitrary neighbouring chunks or cross-source assumptions.
         companions = []
+        seen_ids = {self.chunks[i].id for i in selected}
+        remaining_tokens = MAX_RELATED_TOKENS
         for i in selected:
             chunk = self.chunks[i]
-            for j in allowed:
+            for j in sorted(allowed):
                 other = self.chunks[j]
                 related = (other.source_id == chunk.source_id and other.section in chunk.related_sections
                            or f'{other.source_id}::{other.section}' in chunk.related_sections)
-                if (related
-                        and j not in selected and j not in companions):
+                if (related and other.id not in seen_ids
+                        and 0 < other.token_count <= remaining_tokens
+                        and len(companions) < MAX_RELATED_CHUNKS):
                     companions.append(j)
-        protected = {i for i in selected if self.chunks[i].related_sections}
-        if len(named) > 1:
-            protected.update(selected[:min(len(named), top_k)])
-        if ranks and ranks[0]:
-            protected.add(ranks[0][0])
-        for j in companions[:max(0, top_k - 1)]:
-            if len(selected) >= top_k:
-                removable = [i for i in reversed(selected) if i not in protected]
-                if not removable:
-                    break
-                selected.remove(removable[0])
-            selected.insert(1, j)
-            protected.add(j)
+                    seen_ids.add(other.id)
+                    remaining_tokens -= other.token_count
+        # Expand only the original primary hits: no recursive neighbour traversal.
+        selected.extend(companions)
         return [
             Hit(
                 chunk=self.chunks[i],
