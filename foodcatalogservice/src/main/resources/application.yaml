@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: food-catalog-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/diabetes_food_catalog_db
+    username: postgres
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: FoodCatalogHikariPool
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+          time_zone: Asia/Ho_Chi_Minh
+        order_inserts: true
+        order_updates: true
+  servlet:
+    encoding:
+      charset: UTF-8
+
+server:
+  port: 8081
+  servlet:
+    encoding:
+      enabled: true
+      force: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO
+    com.example.foodcatalogservice: DEBUG
+    org.hibernate.SQL: INFO
