@@ -1,0 +1,14 @@
+# Module rules live in chatbot/.gitignore
+.pytest_cache/
+.ruff_cache/
+tmp/
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
