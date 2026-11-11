@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     embedding_mode: Literal["gemini", "openai"] = "gemini"
     answer_mode: Literal["gemini", "openai"] = "gemini"
     storage_dir: Path = ROOT / "storage"
+    vector_backend: Literal["sqlite", "chroma"] = "sqlite"
     source_manifest: Path = ROOT / "config" / "sources.json"
     top_k: int = Field(default=5, ge=1, le=10)
     chunk_tokens: int = Field(default=420, ge=100, le=1000)

@@ -5,6 +5,7 @@ import time
 from collections import OrderedDict
 from uuid import uuid4
 
+from rag_app.chroma_index import ChromaIndexError
 from rag_app.config import Settings
 from rag_app.conversation import is_contextual_followup, is_portion_description, topic_for_turn
 from rag_app.dialogue import context_response
@@ -197,7 +198,11 @@ class ChatService:
         revision = self.store.index_revision()
         with self._retriever_lock:
             if self._retriever is None or self._retriever.metadata.get('revision') != revision:
-                self._retriever = Retriever(self.store)
+                chroma_path = self.settings.storage_dir / 'chroma' if self.settings.vector_backend == 'chroma' else None
+                try:
+                    self._retriever = Retriever(self.store, chroma_path=chroma_path)
+                except ChromaIndexError as error:
+                    raise ProviderFailure(str(error)) from error
             return self._retriever
 
     def profile_changed(self, owner):
@@ -583,6 +588,8 @@ class ChatService:
             response.timings_ms['index'] = int((time.perf_counter()-stage)*1000)
             stage = time.perf_counter()
             if retriever.metadata.get("mode") == "hybrid":
+                if retriever.chroma is None and retriever.vectors is None:
+                    raise ProviderFailure("Chỉ mục chưa có vector SQLite. Chạy ingest --mode hybrid để tạo lại.")
                 identity = retriever.metadata.get("embedding_identity", retriever.metadata.get("embedding_model"))
                 if identity != self.settings.embedding_identity:
                     raise ProviderFailure(
@@ -592,9 +599,10 @@ class ChatService:
                 response.timings_ms['embedding_cache_hit'] = int(cache_hit)
             response.timings_ms['embedding'] = int((time.perf_counter()-stage)*1000)
             stage = time.perf_counter()
-            hits = retriever.search(
-                query, self.settings.top_k, vector, self.settings.min_dense_score
-            )
+            try:
+                hits = retriever.search(query, self.settings.top_k, vector, self.settings.min_dense_score)
+            except ChromaIndexError as error:
+                raise ProviderFailure(str(error)) from error
             if is_intake_advice(raw_query) and re.search(r'\b(?:th|moc chau|mcc|topkid)\b', fold(raw_query)):
                 plan, meta, usage = self.provider.plan_food(raw_query, history)
                 self.record_generation(response, meta, usage)

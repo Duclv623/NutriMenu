@@ -332,9 +332,18 @@ function newChat() {
 }
 $("new-chat").addEventListener("click", newChat);
 document.querySelectorAll("[data-question]").forEach((button) => button.addEventListener("click", () => { $("question").value = button.dataset.question; $("question").focus(); }));
-$("question").addEventListener("keydown", (event) => { if (event.key === "Enter" && !event.shiftKey && !event.isComposing) { event.preventDefault(); $("chat-form").requestSubmit(); } });
+const measureResponse = new URLSearchParams(location.search).get("measure-response") === "1";
+let enterTime = null;
+$("question").addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+  event.preventDefault();
+  if (measureResponse) enterTime = event.timeStamp;
+  try { $("chat-form").requestSubmit(); }
+  finally { enterTime = null; }
+});
 $("chat-form").addEventListener("submit", async (event) => {
   event.preventDefault();
+  const startedAt = enterTime;
   const message = $("question").value.trim();
   if (!message || busy) return;
   busy = true; $("send").disabled = true; $("new-chat").disabled = true; $("error").hidden = true;
@@ -345,7 +354,23 @@ $("chat-form").addEventListener("submit", async (event) => {
     const action = pendingMealAction; pendingMealAction = null;
     const result = await api("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({message, session_id: sessionId, save_history: $("save-history").checked, meal_context: mealContext, meal_action: action})});
     if (requestEpoch !== uiEpoch) { pending.remove(); return; }
-    pending.remove(); addMessage("assistant", result.answer, result);
+    pending.remove();
+    const answer = addMessage("assistant", result.answer, result);
+    if (startedAt !== null) {
+      // The second frame follows the first opportunity to paint the answer.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        answer.dataset.responseMeasurement = JSON.stringify({
+          ui_ms: Math.round(performance.now() - startedAt),
+          backend_ms: result.latency_ms,
+          timings_ms: result.timings_ms,
+          status: result.status,
+          strategy: result.response_strategy,
+          model: result.model,
+          api_calls: result.provider_response_ids.length,
+          sources: result.citations.map(citation => citation.chunk_id),
+        });
+      }));
+    }
     mealContext = result.meal_result ? result.meal_result.context : null;
     sessionId = result.session_id; $("question").value = "";
     if (result.history_saved) await refreshSessions();

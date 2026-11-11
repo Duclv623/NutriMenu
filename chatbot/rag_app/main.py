@@ -121,10 +121,11 @@ def create_app(settings: Settings | None = None, provider=None, meal_gateway=Non
 
     @app.get("/api/status")
     def status():
-        chunks, _, metadata = store.load_index()
+        chunks, _, metadata = store.load_index(include_vectors=False)
         return {
             "index_ready": bool(chunks),
             "index_mode": metadata.get("mode", "missing"),
+            "vector_backend": settings.vector_backend,
             "chunk_count": len(chunks),
             "answer_mode": settings.answer_mode,
             "provider_configured": settings.has_key,
@@ -308,7 +309,7 @@ def create_app(settings: Settings | None = None, provider=None, meal_gateway=Non
     def document_preview(source_id: str, owner: str = Depends(current_owner)):
         sources = load_manifest(settings.source_manifest)["sources"]
         source = next((s for s in sources if s["id"] == source_id and s.get("enabled")), None)
-        chunks = [c for c in store.load_index()[0] if c.source_id == source_id]
+        chunks = [c for c in store.load_index(include_vectors=False)[0] if c.source_id == source_id]
         if source is None or not chunks:
             raise HTTPException(404, "Nguồn chưa được index hoặc không được duyệt")
         import re

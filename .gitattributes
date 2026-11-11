@@ -1,2 +1,3 @@
 # Source checksums are calculated from exact bytes; do not convert line endings.
 data/** -text
+chatbot/data/** -text

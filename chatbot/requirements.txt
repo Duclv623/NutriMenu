@@ -10,3 +10,4 @@ tiktoken==0.14.0
 httpx==0.28.1
 PyJWT==2.15.1
 cryptography==50.0.2
+chromadb==1.5.9

@@ -28,6 +28,27 @@ def search(engine, query='calo', top_k=1):
     return engine.search(query, top_k=top_k, query_vector=[1., 0.], min_dense=.9, mode='dense')
 
 
+def test_chroma_dense_search_respects_existing_source_filter(tmp_path):
+    from rag_app.chroma_index import write_chroma_index
+    from rag_app.store import Store
+
+    chunks = [chunk('a', 'Năng lượng'), chunk('b', 'Khẩu phần', source='other'),
+              chunk('c', 'Chất xơ')]
+    store = Store(tmp_path / 'rag.sqlite3')
+    vectors = [[.8, .6], [1., 0.], [.2, .98]]
+    store.replace_index(chunks, {'mode': 'hybrid', 'embedding_identity': 'test-vector'}, vectors)
+    indexed_chunks, indexed_vectors, metadata = store.load_index()
+    write_chroma_index(tmp_path / 'chroma', indexed_chunks, indexed_vectors, metadata)
+    question = 'Theo Bộ Y tế, năng lượng được trình bày ở đâu?'
+    before = Retriever(store).search(question, top_k=2, query_vector=[1., 0.], mode='hybrid')
+    engine = Retriever(store, chroma_path=tmp_path / 'chroma')
+    after = engine.search(question, top_k=2, query_vector=[1., 0.], mode='hybrid')
+    assert engine.vectors is None
+    assert [hit.chunk.id for hit in after] == [hit.chunk.id for hit in before]
+    assert 'a' in [hit.chunk.id for hit in after] and 'b' not in [hit.chunk.id for hit in after]
+    assert np.isclose(next(hit.dense_score for hit in after if hit.chunk.id == 'a'), .8)
+
+
 def test_companions_append_without_displacing_primary_citations():
     chunks = [chunk('a', 'A', related=['C']), chunk('b', 'B'), chunk('c', 'C')]
     engine = retriever(chunks, primary_count=2)

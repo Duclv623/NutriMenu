@@ -14,7 +14,8 @@ from rag_app.store import Store
 
 def evaluate(settings: Settings, mode: str = "lexical"):
     dataset = json.loads((ROOT / "evals" / "questions.json").read_text(encoding="utf-8"))
-    retriever = Retriever(Store(settings.storage_dir / "rag.sqlite3"))
+    chroma_path = settings.storage_dir / "chroma" if settings.vector_backend == "chroma" and mode != "lexical" else None
+    retriever = Retriever(Store(settings.storage_dir / "rag.sqlite3"), chroma_path=chroma_path)
     if not retriever.chunks:
         raise ValueError("Cần ingest trước khi đánh giá")
     knowledge = [c for c in dataset["cases"] if c.get("section_contains")]

@@ -41,14 +41,14 @@ class Store:
         finally:
             db.close()
 
-    def replace_index(self, chunks: list[Chunk], metadata: dict, vectors=None):
+    def replace_index(self, chunks: list[Chunk], metadata: dict, vectors=None, *, revision: str | None = None):
         if vectors is not None:
             vectors = np.asarray(vectors, dtype=np.float32)
             if vectors.ndim != 2 or len(vectors) != len(chunks) or not np.isfinite(vectors).all():
                 raise ValueError("Vector count/dimension/value không hợp lệ")
         metadata = {
             **metadata,
-            "revision": str(uuid4()),
+            "revision": revision or str(uuid4()),
             "chunk_count": len(chunks),
             "created_at": datetime.now(UTC).isoformat(),
         }
@@ -63,11 +63,14 @@ class Store:
             )
             db.execute("INSERT OR REPLACE INTO metadata VALUES('index',?)", (json.dumps(metadata),))
 
-    def load_index(self):
+    def load_index(self, *, include_vectors: bool = True):
         with self.connect() as db:
             db.execute("BEGIN")
             row = db.execute("SELECT value FROM metadata WHERE key='index'").fetchone()
-            rows = db.execute("SELECT body,vector FROM chunks ORDER BY id").fetchall()
+            rows = db.execute(
+                "SELECT body,vector FROM chunks ORDER BY id" if include_vectors else
+                "SELECT body,NULL AS vector FROM chunks ORDER BY id"
+            ).fetchall()
         metadata = json.loads(row[0]) if row else {}
         chunks = [Chunk.model_validate_json(r[0]) for r in rows]
         vectors = None

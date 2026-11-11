@@ -1,9 +1,11 @@
 import re
 import unicodedata
+from pathlib import Path
 
 import numpy as np
 from rank_bm25 import BM25Okapi
 
+from rag_app.chroma_index import ChromaIndexError, ChromaVectorIndex
 from rag_app.domain import Hit
 from rag_app.store import Store
 
@@ -74,8 +76,14 @@ def expand_query(query: str) -> str:
 
 
 class Retriever:
-    def __init__(self, store: Store):
-        self.chunks, self.vectors, self.metadata = store.load_index()
+    def __init__(self, store: Store, *, chroma_path: Path | None = None):
+        self.chunks, self.vectors, self.metadata = (
+            store.load_index() if chroma_path is None else store.load_index(include_vectors=False)
+        )
+        self.chroma = None
+        if chroma_path is not None and self.chunks and self.metadata.get('mode') == 'hybrid':
+            self.chroma = ChromaVectorIndex(chroma_path, self.metadata, len(self.chunks))
+            self.chunk_positions = {chunk.id: position for position, chunk in enumerate(self.chunks)}
         self.bm25 = (
             BM25Okapi([tokens(c.section + "\n" + c.text) for c in self.chunks])
             if self.chunks
@@ -163,7 +171,15 @@ class Retriever:
             if matching:
                 allowed = matching
         dense = None
-        if query_vector is not None and self.vectors is not None:
+        if query_vector is not None and self.chroma is not None and mode != 'lexical':
+            dense = np.full(len(self.chunks), np.nan)
+            ids = [self.chunks[i].id for i in sorted(allowed)]
+            for chunk_id, score in self.chroma.search(query_vector, ids, limit=30).items():
+                position = self.chunk_positions.get(chunk_id)
+                if position not in allowed or not np.isfinite(score):
+                    raise ChromaIndexError("Kết quả ChromaDB không khớp các đoạn nguồn đang tìm.")
+                dense[position] = score
+        elif query_vector is not None and self.vectors is not None:
             q = np.asarray(query_vector, dtype=np.float32)
             if q.ndim != 1 or len(q) != self.vectors.shape[1] or not np.isfinite(q).all():
                 raise ValueError("Embedding model/dimension mismatch; cần index lại")
@@ -227,7 +243,7 @@ class Retriever:
                 chunk=self.chunks[i],
                 score=scores.get(i, 0),
                 lexical_score=float(lexical[i]),
-                dense_score=None if dense is None else float(dense[i]),
+                dense_score=None if dense is None or not np.isfinite(dense[i]) else float(dense[i]),
             )
             for i in selected
         ]
