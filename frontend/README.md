@@ -50,13 +50,13 @@ Frontend không cài CP-SAT, không tạo quy tắc lâm sàng hoặc tự kê m
 
 ## Kết nối chatbot hiện có
 
-Mã chatbot nằm trong `chatbot/` trên nhánh `chatbot-service`. Nếu đang chạy riêng nhánh `frontend`, hãy mở một checkout riêng của `chatbot-service` và chạy backend tại cổng 8000. Trong workspace có cả hai thư mục, có thể chạy từ thư mục gốc:
+Chatbot nằm tại `../chatbot/`. Sau khi chuyển thư mục cần khởi động lại tiến trình chatbot cũ để tránh dùng đường dẫn storage cũ. Từ `C:\DATN`:
 
 ```powershell
 .\run-chatbot.ps1
 ```
 
-Xem [README của dịch vụ chatbot](https://github.com/Duclv623/NutriMenu/blob/chatbot-service/chatbot/README.md) để cài thư viện, chuẩn bị dữ liệu và chạy backend.
+Hoặc chạy lệnh trong `chatbot/README.md` sau khi `cd C:\DATN\chatbot`.
 
 Để bật RAG thật với các trang khác vẫn ở demo, tạo `.env.local`:
 

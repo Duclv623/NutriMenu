@@ -603,7 +603,7 @@ function WeightChart({ entries }: { entries: CheckIn[] }) {
               x2="100"
               y1={y}
               y2={y}
-              stroke="#c2cfc3"
+              stroke="var(--border-subtle)"
               strokeDasharray="4 4"
               vectorEffect="non-scaling-stroke"
             />
@@ -611,7 +611,7 @@ function WeightChart({ entries }: { entries: CheckIn[] }) {
           <polyline
             points={points.map((p) => `${p.x},${p.y}`).join(" ")}
             fill="none"
-            stroke="var(--green)"
+            stroke="var(--brand)"
             strokeWidth="3"
             strokeLinejoin="round"
             vectorEffect="non-scaling-stroke"

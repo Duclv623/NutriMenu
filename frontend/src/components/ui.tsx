@@ -323,7 +323,10 @@ export function Nutrition({
     >
       {(summary ? entries.slice(0, 3) : entries).map(
         ([label, amount, unit]) => (
-          <div key={label}>
+          <div
+            key={label}
+            className={unit === "kcal" ? "nutrition-energy" : undefined}
+          >
             <dt>{summary && label === "Carbohydrate" ? "Carb" : label}</dt>
             <dd>
               {number(amount, 1)} <small>{unit}</small>
