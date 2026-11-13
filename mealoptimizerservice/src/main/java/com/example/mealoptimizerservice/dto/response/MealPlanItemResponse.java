@@ -30,6 +30,8 @@ public class MealPlanItemResponse {
     private BigDecimal proteinG;
     private BigDecimal fatG;
     private BigDecimal glycemicLoad;
+    private BigDecimal sodiumMg;
+    private BigDecimal cholesterolMg;
     private MealItemStatus status;
     private Boolean isLocked;
 
@@ -51,6 +53,8 @@ public class MealPlanItemResponse {
                 .proteinG(item.getSnapshotProteinG())
                 .fatG(item.getSnapshotFatG())
                 .glycemicLoad(item.getSnapshotGl())
+                .sodiumMg(item.getSnapshotSodiumMg())
+                .cholesterolMg(item.getSnapshotCholesterolMg())
                 .status(item.getStatus())
                 .isLocked(item.getIsLocked())
                 .build();

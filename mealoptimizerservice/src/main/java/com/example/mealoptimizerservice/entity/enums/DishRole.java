@@ -1,6 +1,6 @@
 package com.example.mealoptimizerservice.entity.enums;
 
-
+import java.math.BigDecimal;
 
 public enum DishRole {
     MAIN_STARCH,     // Cơm gạo lứt, cơm trắng, bún tươi...
@@ -8,5 +8,5 @@ public enum DishRole {
     VEGGIE_DISH,     // Rau củ luộc, xào, nộm
     SOUP,            // Canh
     COMPOSITE_DISH,  // Món nước trọn gói (Phở, bún bò, miến gà, cháo)
-    SNACK            // Bữa phụ (Trái cây ít ngọt, sữa hạt, các loại hạt)
+    SNACK            // Bữa phụ (Trái cây ít ngọt 100-200g, sữa hạt, các loại hạt)
 }

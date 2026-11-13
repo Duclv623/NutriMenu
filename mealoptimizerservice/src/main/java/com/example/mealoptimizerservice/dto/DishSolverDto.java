@@ -27,6 +27,9 @@ public class DishSolverDto {
     private long proteinX10;
     private long fatX10;
     private long glX10;
+    private long sodiumX10;
+    private long cholesterolX10;
+    private BigDecimal standardServingCookedG;
     private int minServingX2;
     private int maxServingX2;
     private int stepServingX2;

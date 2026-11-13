@@ -1,8 +1,6 @@
 package com.example.mealoptimizerservice.controller;
 
 import com.example.mealoptimizerservice.dto.*;
-import com.example.mealoptimizerservice.dto.request.*;
-import com.example.mealoptimizerservice.dto.response.*;
 import com.example.mealoptimizerservice.entity.*;
 import com.example.mealoptimizerservice.service.MealOptimizerService;
 import jakarta.validation.Valid;
@@ -14,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import com.example.mealoptimizerservice.dto.request.*;
+import com.example.mealoptimizerservice.dto.response.*;
 
 // --- FILE: UserMealPlanController.java ---
 @RestController
@@ -95,6 +96,15 @@ public class UserMealPlanController {
             @RequestHeader(value = "X-User-Id", defaultValue = "1") Long userId,
             @RequestParam(defaultValue = "7") int days) {
         return ResponseEntity.ok(optimizerService.getNutritionalAnalytics(userId, days));
+    }
+
+    // [API MỚI] Lấy Hồ sơ Bệnh nhân -> Tính CNLT, TDEE, Glucid/Protein/Lipid, GL<=80 -> Gợi ý Thực đơn
+    @PostMapping("/generate-from-profile")
+    public ResponseEntity<Map<String, Object>> generateFromProfile(
+            @RequestHeader(value = "X-User-Id", defaultValue = "1") Long userId,
+            @RequestBody @Valid PatientProfileMealRequest profileReq) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(optimizerService.generateDailyFromPatientProfile(userId, profileReq));
     }
 
     @PostMapping("/generate-daily")

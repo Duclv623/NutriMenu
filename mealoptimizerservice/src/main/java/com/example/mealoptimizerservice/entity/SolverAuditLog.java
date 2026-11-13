@@ -27,7 +27,7 @@ public class SolverAuditLog {
     private Long userId;
 
     @Column(name = "operation_type", nullable = false, length = 50)
-    private String operationType; // DAILY_GEN, SWAP_DISH, REBALANCE, DRY_RUN
+    private String operationType; // DAILY_GEN, PROFILE_GEN, SWAP_DISH, REBALANCE, DRY_RUN
 
     @Enumerated(EnumType.STRING)
     @Column(name = "solver_status", nullable = false, length = 30)

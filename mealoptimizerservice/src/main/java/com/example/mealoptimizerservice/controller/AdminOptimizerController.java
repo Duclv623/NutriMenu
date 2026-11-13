@@ -1,8 +1,6 @@
 package com.example.mealoptimizerservice.controller;
 
 import com.example.mealoptimizerservice.dto.*;
-import com.example.mealoptimizerservice.dto.request.*;
-import com.example.mealoptimizerservice.dto.response.*;
 import com.example.mealoptimizerservice.entity.*;
 import com.example.mealoptimizerservice.service.MealOptimizerService;
 import jakarta.validation.Valid;
@@ -14,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import com.example.mealoptimizerservice.dto.request.*;
+import com.example.mealoptimizerservice.dto.response.*;
 
 // --- FILE: AdminOptimizerController.java ---
 @RestController

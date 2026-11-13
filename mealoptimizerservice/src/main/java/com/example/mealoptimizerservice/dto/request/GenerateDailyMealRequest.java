@@ -22,20 +22,32 @@ public class GenerateDailyMealRequest {
     @Builder.Default
     private BigDecimal targetCaloriesKcal = new BigDecimal("1600.0");
 
-    @NotNull @DecimalMin("80.0") @DecimalMax("300.0")
+    @NotNull @DecimalMin("80.0") @DecimalMax("350.0")
     @Builder.Default
-    private BigDecimal targetNetCarbG = new BigDecimal("175.0");
+    private BigDecimal targetNetCarbG = new BigDecimal("220.0"); // 55% của 1600 kcal
 
-    @NotNull @DecimalMin("40.0") @DecimalMax("200.0")
+    @NotNull @DecimalMin("35.0") @DecimalMax("200.0")
     @Builder.Default
-    private BigDecimal targetProteinG = new BigDecimal("85.0");
+    private BigDecimal targetProteinG = new BigDecimal("70.0"); // 17.5% của 1600 kcal
 
-    @NotNull @DecimalMin("25.0") @DecimalMax("120.0")
+    @NotNull @DecimalMin("20.0") @DecimalMax("120.0")
     @Builder.Default
-    private BigDecimal targetFatG = new BigDecimal("50.0");
+    private BigDecimal targetFatG = new BigDecimal("48.9");     // 27.5% của 1600 kcal
 
     @Builder.Default
-    private BigDecimal maxGiAllowed = new BigDecimal("69.9");
+    private BigDecimal maxGiAllowed = new BigDecimal("50.0");   // Chọn thực phẩm GI <= 50
+
+    @Builder.Default
+    private BigDecimal maxDailyGl = new BigDecimal("80.0");     // Ràng buộc GL <= 80/ngày
+
+    @Builder.Default
+    private BigDecimal maxDailySodiumMg = new BigDecimal("2400.0"); // Natri < 2400mg/ngày (6g muối)
+
+    @Builder.Default
+    private BigDecimal maxDailyCholesterolMg = new BigDecimal("300.0"); // < 300mg (hoặc < 200mg nếu mỡ máu)
+
+    @Builder.Default
+    private BigDecimal minDailyFiberG = new BigDecimal("20.0"); // Chất xơ 20-25g/ngày
 
     @Builder.Default
     private Set<MedicalTag> patientContraindications = new HashSet<>();

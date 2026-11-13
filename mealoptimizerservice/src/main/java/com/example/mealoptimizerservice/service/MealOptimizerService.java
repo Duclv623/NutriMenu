@@ -2,8 +2,7 @@ package com.example.mealoptimizerservice.service;
 
 import com.example.mealoptimizerservice.client.FoodCatalogIntegrationClient;
 import com.example.mealoptimizerservice.dto.*;
-import com.example.mealoptimizerservice.dto.request.*;
-import com.example.mealoptimizerservice.dto.response.*;
+import com.example.mealoptimizerservice.dto.request.PatientProfileMealRequest.ComputedClinicalTargetsDto;
 import com.example.mealoptimizerservice.entity.*;
 import com.example.mealoptimizerservice.entity.enums.*;
 import com.example.mealoptimizerservice.exception.OptimizerBusinessException;
@@ -17,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
@@ -25,7 +25,10 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import com.example.mealoptimizerservice.dto.request.*;
+import com.example.mealoptimizerservice.dto.response.*;
 
+// --- FILE: MealOptimizerService.java ---
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -38,6 +41,7 @@ public class MealOptimizerService {
     private final SolverAuditLogRepository auditLogRepo;
     private final FoodCatalogIntegrationClient catalogClient;
     private final CpSatMealOptimizationEngine cpSatEngine;
+    private final DiabeticClinicalTargetCalculator clinicalCalculator;
 
     @Qualifier("cpSatSolverBulkheadExecutor")
     private final ThreadPoolTaskExecutor solverExecutor;
@@ -184,7 +188,6 @@ public class MealOptimizerService {
         List<String> conflicts = new ArrayList<>();
         List<String> recommendations = new ArrayList<>();
 
-        // Kiểm tra số lượng ứng viên từng nhóm
         for (MealSlotTemplate slotTpl : slots) {
             MealSlot slot = slotTpl.getMealSlot();
             if (Boolean.TRUE.equals(slotTpl.getAllowCompositeDish())) {
@@ -198,12 +201,15 @@ public class MealOptimizerService {
             }
         }
 
-        // Chạy thử với chế độ chuẩn
         CpSatMealOptimizationEngine.SolverInputContext baseCtx = CpSatMealOptimizationEngine.SolverInputContext.builder()
                 .targetCaloriesKcal(req.getTargetCaloriesKcal())
                 .targetNetCarbG(req.getTargetNetCarbG())
                 .targetProteinG(req.getTargetProteinG())
                 .targetFatG(req.getTargetFatG())
+                .maxDailyGl(req.getMaxDailyGl())
+                .maxDailySodiumMg(req.getMaxDailySodiumMg())
+                .maxDailyCholesterolMg(req.getMaxDailyCholesterolMg())
+                .minDailyFiberG(req.getMinDailyFiberG())
                 .activeSlots(slots)
                 .candidates(candidates)
                 .weightProfile(wp)
@@ -218,7 +224,6 @@ public class MealOptimizerService {
                     .build();
         }
 
-        // Thử nới lỏng trần Carb/GL từng bữa
         baseCtx.setEnforcePerMealCarbAndGlCeiling(false);
         CpSatMealOptimizationEngine.SolverExecutionResult relaxCarbRes = cpSatEngine.solveOptimalMealPlan(baseCtx);
         if (relaxCarbRes.getStatus() != SolverRunStatus.INFEASIBLE) {
@@ -395,6 +400,20 @@ public class MealOptimizerService {
                 .build();
     }
 
+    // --- [CORE CP-SAT MỚI] TÍNH TARGET TỪ HỒ SƠ BỆNH NHÂN (CNLT, BMI, LAO ĐỘNG, BỆNH NỀN) & TẠO THỰC ĐƠN ---
+    @Transactional
+    public Map<String, Object> generateDailyFromPatientProfile(Long userId, PatientProfileMealRequest profileReq) {
+        ComputedClinicalTargetsDto targets = clinicalCalculator.calculateTargets(profileReq);
+        GenerateDailyMealRequest dailyReq = clinicalCalculator.toDailyMealRequest(profileReq, targets);
+
+        MealPlanResponse mealPlan = generateOptimalDailyMealPlan(userId, dailyReq);
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("computedClinicalTargets", targets);
+        response.put("optimalMealPlan", mealPlan);
+        return response;
+    }
+
     // --- [CORE CP-SAT] 1. SINH THỰC ĐƠN 1 NGÀY TỐI ƯU ---
     @Transactional
     public MealPlanResponse generateOptimalDailyMealPlan(Long userId, GenerateDailyMealRequest req) {
@@ -412,7 +431,6 @@ public class MealOptimizerService {
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy món cần đổi ID: " + req.getDroppedMealPlanItemId()));
 
-        // Khóa toàn bộ các món khác trong thực đơn, chỉ cấm món bị bỏ
         Map<MealSlot, Set<Long>> lockedMap = new EnumMap<>(MealSlot.class);
         Map<MealSlot, Set<Long>> forbiddenMap = new EnumMap<>(MealSlot.class);
 
@@ -430,7 +448,7 @@ public class MealOptimizerService {
 
         List<MealSlotTemplate> slots = getActiveTemplateOrThrow("STANDARD_4_MEALS");
         List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(
-                new BigDecimal("69.9"), Set.of(), Set.of());
+                new BigDecimal("50.0"), Set.of(), Set.of());
         SolverWeightProfile wp = getActiveWeightProfile(null);
 
         CpSatMealOptimizationEngine.SolverInputContext ctx = CpSatMealOptimizationEngine.SolverInputContext.builder()
@@ -452,7 +470,6 @@ public class MealOptimizerService {
                     "Không tìm được món thay thế khả thi thỏa mãn trần đường huyết của bữa " + droppedItem.getMealSlot());
         }
 
-        // Cập nhật lại danh sách món và khẩu phần mới sau khi tái cân bằng
         Map<Long, Boolean> previousLocks = new HashMap<>();
         plan.getItems().forEach(i -> previousLocks.put(i.getDishId(), i.getIsLocked()));
         plan.getItems().clear();
@@ -493,7 +510,7 @@ public class MealOptimizerService {
             throw new OptimizerBusinessException(HttpStatus.BAD_REQUEST, "Tất cả các bữa trong ngày đều đã được ăn!");
         }
 
-        List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(new BigDecimal("69.9"), Set.of(), Set.of());
+        List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(new BigDecimal("50.0"), Set.of(), Set.of());
         SolverWeightProfile wp = getActiveWeightProfile(null);
 
         CpSatMealOptimizationEngine.SolverInputContext ctx = CpSatMealOptimizationEngine.SolverInputContext.builder()
@@ -513,7 +530,6 @@ public class MealOptimizerService {
                     "Không thể tái cân bằng với ngân sách dinh dưỡng còn lại.");
         }
 
-        // Giữ nguyên các bữa đã ăn, thay thế các bữa chưa ăn bằng nghiệm CP-SAT mới
         plan.getItems().removeIf(i -> !req.getAlreadyEatenSlots().contains(i.getMealSlot()));
         for (CpSatMealOptimizationEngine.SelectedDishSolution sel : result.getSelectedDishes()) {
             MealPlanItem newItem = new MealPlanItem();
@@ -546,6 +562,10 @@ public class MealOptimizerService {
                     .targetProteinG(req.getDailyTargetTemplate().getTargetProteinG())
                     .targetFatG(req.getDailyTargetTemplate().getTargetFatG())
                     .maxGiAllowed(req.getDailyTargetTemplate().getMaxGiAllowed())
+                    .maxDailyGl(req.getDailyTargetTemplate().getMaxDailyGl())
+                    .maxDailySodiumMg(req.getDailyTargetTemplate().getMaxDailySodiumMg())
+                    .maxDailyCholesterolMg(req.getDailyTargetTemplate().getMaxDailyCholesterolMg())
+                    .minDailyFiberG(req.getDailyTargetTemplate().getMinDailyFiberG())
                     .patientContraindications(req.getDailyTargetTemplate().getPatientContraindications())
                     .templateCode(req.getDailyTargetTemplate().getTemplateCode())
                     .weightProfileId(req.getDailyTargetTemplate().getWeightProfileId())
@@ -559,7 +579,6 @@ public class MealOptimizerService {
                     userId, dayReq, excludedFromWindow, true, "WEEKLY_DAY_" + (dayOffset + 1));
             weeklyResults.add(dayPlan);
 
-            // Đưa các món मặn/canh/bữa sáng của ngày hôm nay vào cửa sổ cấm 2 ngày kế tiếp
             Set<Long> todaysMainDishes = new HashSet<>();
             dayPlan.getMealsBySlot().values().forEach(list -> list.forEach(item -> {
                 if (item.getDishRole() == DishRole.PROTEIN_DISH
@@ -608,6 +627,10 @@ public class MealOptimizerService {
                 .targetNetCarbG(req.getTargetNetCarbG())
                 .targetProteinG(req.getTargetProteinG())
                 .targetFatG(req.getTargetFatG())
+                .maxDailyGl(req.getMaxDailyGl())
+                .maxDailySodiumMg(req.getMaxDailySodiumMg())
+                .maxDailyCholesterolMg(req.getMaxDailyCholesterolMg())
+                .minDailyFiberG(req.getMinDailyFiberG())
                 .activeSlots(slots)
                 .candidates(candidates)
                 .weightProfile(wp)
@@ -677,6 +700,8 @@ public class MealOptimizerService {
         item.setSnapshotProteinG(unscaleX20(dish.getProteinX10() * servingScaledX2));
         item.setSnapshotFatG(unscaleX20(dish.getFatX10() * servingScaledX2));
         item.setSnapshotGl(unscaleX20(dish.getGlX10() * servingScaledX2));
+        item.setSnapshotSodiumMg(unscaleX20(dish.getSodiumX10() * servingScaledX2));
+        item.setSnapshotCholesterolMg(unscaleX20(dish.getCholesterolX10() * servingScaledX2));
     }
 
     private static BigDecimal unscaleX20(long valX20) {
@@ -694,11 +719,20 @@ public class MealOptimizerService {
         for (Map.Entry<MealSlot, BigDecimal> entry : glBySlot.entrySet()) {
             if (entry.getValue().compareTo(new BigDecimal("20.0")) > 0) {
                 warnings.add("CẢNH BÁO ĐƯỜNG HUYẾT: Bữa [" + entry.getKey() + "] có tổng GL = "
-                        + entry.getValue() + " (vượt ngưỡng an toàn 20.0).");
+                        + entry.getValue() + " (vượt ngưỡng 20.0).");
             }
         }
+        if (plan.getActualTotalGl().compareTo(new BigDecimal("80.0")) > 0) {
+            warnings.add("CẢNH BÁO TẢI ĐƯỜNG HUYẾT NGÀY: Tổng GL cả ngày = " + plan.getActualTotalGl() + " (vượt ngưỡng 80.0/ngày).");
+        }
+        if (plan.getActualSodiumMg().compareTo(new BigDecimal("2400.0")) > 0) {
+            warnings.add("CẢNH BÁO MUỐI (NATRI): Tổng Natri cả ngày = " + plan.getActualSodiumMg() + "mg (vượt ngưỡng 2400mg/ngày).");
+        }
         if (warnings.isEmpty()) {
-            warnings.add("Tất cả các bữa ăn đều đạt ngưỡng an toàn Tải lượng Đường huyết (GL <= 20/bữa).");
+            warnings.add(String.format(
+                    "Tổng GL = %s/ngày | Natri = %smg | Cholesterol = %smg | Chất xơ = %sg.",
+                    plan.getActualTotalGl(), plan.getActualSodiumMg(), plan.getActualCholesterolMg(), plan.getActualFiberG()
+            ));
         }
         return warnings;
     }

@@ -33,7 +33,7 @@ public class MealSlotTemplate {
     private MealSlot mealSlot;
 
     @Column(name = "calorie_ratio_pct", nullable = false, precision = 5, scale = 2)
-    private BigDecimal calorieRatioPct; // VD: 25%, 35%, 10%, 30%
+    private BigDecimal calorieRatioPct; // Mặc định: Sáng 30%, Trưa 30%, Phụ 10%, Tối 30%
 
     @Column(name = "min_net_carb_g", nullable = false, precision = 5, scale = 2)
     private BigDecimal minNetCarbG;

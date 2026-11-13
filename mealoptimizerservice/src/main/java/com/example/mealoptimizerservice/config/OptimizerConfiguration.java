@@ -70,23 +70,24 @@ public class OptimizerConfiguration {
             }
 
             if (templateRepo.count() == 0) {
+                // Phân bổ chuẩn theo phác đồ: Sáng 30%, Trưa 30%, Tối 30%, Phụ 10%
                 templateRepo.saveAll(List.of(
                         MealSlotTemplate.builder()
                                 .templateCode("STANDARD_4_MEALS")
                                 .mealSlot(MealSlot.BREAKFAST)
-                                .calorieRatioPct(new BigDecimal("25.0"))
-                                .minNetCarbG(new BigDecimal("25.0"))
-                                .maxNetCarbG(new BigDecimal("50.0"))
-                                .maxGl(new BigDecimal("19.0"))
+                                .calorieRatioPct(new BigDecimal("30.0"))
+                                .minNetCarbG(new BigDecimal("30.0"))
+                                .maxNetCarbG(new BigDecimal("68.0"))
+                                .maxGl(new BigDecimal("24.0"))
                                 .allowCompositeDish(true)
                                 .build(),
                         MealSlotTemplate.builder()
                                 .templateCode("STANDARD_4_MEALS")
                                 .mealSlot(MealSlot.LUNCH)
-                                .calorieRatioPct(new BigDecimal("35.0"))
-                                .minNetCarbG(new BigDecimal("35.0"))
-                                .maxNetCarbG(new BigDecimal("65.0"))
-                                .maxGl(new BigDecimal("20.0"))
+                                .calorieRatioPct(new BigDecimal("30.0"))
+                                .minNetCarbG(new BigDecimal("30.0"))
+                                .maxNetCarbG(new BigDecimal("68.0"))
+                                .maxGl(new BigDecimal("24.0"))
                                 .allowCompositeDish(false)
                                 .reqMainStarch(1).reqProteinDish(1).reqVeggieDish(1).reqSoup(1).reqSnack(0)
                                 .build(),
@@ -94,9 +95,9 @@ public class OptimizerConfiguration {
                                 .templateCode("STANDARD_4_MEALS")
                                 .mealSlot(MealSlot.AFTERNOON_SNACK)
                                 .calorieRatioPct(new BigDecimal("10.0"))
-                                .minNetCarbG(new BigDecimal("5.0"))
+                                .minNetCarbG(new BigDecimal("8.0"))
                                 .maxNetCarbG(new BigDecimal("25.0"))
-                                .maxGl(new BigDecimal("10.0"))
+                                .maxGl(new BigDecimal("8.0"))
                                 .allowCompositeDish(false)
                                 .reqMainStarch(0).reqProteinDish(0).reqVeggieDish(0).reqSoup(0).reqSnack(1)
                                 .build(),
@@ -105,8 +106,8 @@ public class OptimizerConfiguration {
                                 .mealSlot(MealSlot.DINNER)
                                 .calorieRatioPct(new BigDecimal("30.0"))
                                 .minNetCarbG(new BigDecimal("30.0"))
-                                .maxNetCarbG(new BigDecimal("55.0"))
-                                .maxGl(new BigDecimal("19.0"))
+                                .maxNetCarbG(new BigDecimal("68.0"))
+                                .maxGl(new BigDecimal("24.0"))
                                 .allowCompositeDish(false)
                                 .reqMainStarch(1).reqProteinDish(1).reqVeggieDish(1).reqSoup(1).reqSnack(0)
                                 .build()

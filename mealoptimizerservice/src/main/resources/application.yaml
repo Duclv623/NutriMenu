@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/diabetes_meal_optimizer_db
     username: postgres
-    password: ${DB_PASSWORD}
+    password: 123456
     driver-class-name: org.postgresql.Driver
     hikari:
       pool-name: MealOptimizerHikariPool

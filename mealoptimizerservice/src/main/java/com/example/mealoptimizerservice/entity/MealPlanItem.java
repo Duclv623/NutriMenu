@@ -78,6 +78,14 @@ public class MealPlanItem {
     private BigDecimal snapshotGl;
 
     @Builder.Default
+    @Column(name = "snapshot_sodium_mg", nullable = false, precision = 7, scale = 2)
+    private BigDecimal snapshotSodiumMg = BigDecimal.ZERO;
+
+    @Builder.Default
+    @Column(name = "snapshot_cholesterol_mg", nullable = false, precision = 7, scale = 2)
+    private BigDecimal snapshotCholesterolMg = BigDecimal.ZERO;
+
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private MealItemStatus status = MealItemStatus.PLANNED;

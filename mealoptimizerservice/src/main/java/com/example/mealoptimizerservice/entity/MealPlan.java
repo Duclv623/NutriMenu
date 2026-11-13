@@ -68,6 +68,14 @@ public class MealPlan {
     @Column(name = "actual_total_gl", nullable = false, precision = 6, scale = 2)
     private BigDecimal actualTotalGl = BigDecimal.ZERO;
 
+    @Builder.Default
+    @Column(name = "actual_sodium_mg", nullable = false, precision = 7, scale = 2)
+    private BigDecimal actualSodiumMg = BigDecimal.ZERO;
+
+    @Builder.Default
+    @Column(name = "actual_cholesterol_mg", nullable = false, precision = 7, scale = 2)
+    private BigDecimal actualCholesterolMg = BigDecimal.ZERO;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "solver_status", nullable = false, length = 30)
     private SolverRunStatus solverStatus;
@@ -96,6 +104,8 @@ public class MealPlan {
         BigDecimal prot = BigDecimal.ZERO;
         BigDecimal fat = BigDecimal.ZERO;
         BigDecimal gl = BigDecimal.ZERO;
+        BigDecimal sodium = BigDecimal.ZERO;
+        BigDecimal chol = BigDecimal.ZERO;
 
         for (MealPlanItem item : items) {
             if (item.getStatus() != MealItemStatus.SKIPPED) {
@@ -105,6 +115,8 @@ public class MealPlan {
                 prot = prot.add(item.getSnapshotProteinG());
                 fat = fat.add(item.getSnapshotFatG());
                 gl = gl.add(item.getSnapshotGl());
+                sodium = sodium.add(item.getSnapshotSodiumMg() != null ? item.getSnapshotSodiumMg() : BigDecimal.ZERO);
+                chol = chol.add(item.getSnapshotCholesterolMg() != null ? item.getSnapshotCholesterolMg() : BigDecimal.ZERO);
             }
         }
         this.actualCaloriesKcal = cal;
@@ -113,5 +125,7 @@ public class MealPlan {
         this.actualProteinG = prot;
         this.actualFatG = fat;
         this.actualTotalGl = gl;
+        this.actualSodiumMg = sodium;
+        this.actualCholesterolMg = chol;
     }
 }

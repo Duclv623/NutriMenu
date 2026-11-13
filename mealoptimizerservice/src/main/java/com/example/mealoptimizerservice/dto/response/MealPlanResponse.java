@@ -1,7 +1,5 @@
 package com.example.mealoptimizerservice.dto.response;
 
-import com.example.mealoptimizerservice.dto.MathematicalBreakdownDto;
-
 import com.example.mealoptimizerservice.entity.MealPlan;
 import com.example.mealoptimizerservice.entity.MealPlanItem;
 import com.example.mealoptimizerservice.entity.enums.*;
@@ -10,6 +8,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+import com.example.mealoptimizerservice.dto.MathematicalBreakdownDto;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +30,8 @@ public class MealPlanResponse {
     private BigDecimal targetFatG;
     private BigDecimal actualFatG;
     private BigDecimal actualTotalGl;
+    private BigDecimal actualSodiumMg;
+    private BigDecimal actualCholesterolMg;
     private Integer userRating;
     private String userFeedback;
     private Map<MealSlot, List<MealPlanItemResponse>> mealsBySlot;
@@ -59,6 +60,8 @@ public class MealPlanResponse {
                 .targetFatG(plan.getTargetFatG())
                 .actualFatG(plan.getActualFatG())
                 .actualTotalGl(plan.getActualTotalGl())
+                .actualSodiumMg(plan.getActualSodiumMg())
+                .actualCholesterolMg(plan.getActualCholesterolMg())
                 .userRating(plan.getUserRating())
                 .userFeedback(plan.getUserFeedback())
                 .mealsBySlot(grouped)

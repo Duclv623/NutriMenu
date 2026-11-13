@@ -32,6 +32,16 @@ public class CpSatMealOptimizationEngine {
         private BigDecimal targetNetCarbG;
         private BigDecimal targetProteinG;
         private BigDecimal targetFatG;
+
+        @Builder.Default
+        private BigDecimal maxDailyGl = new BigDecimal("80.0");
+        @Builder.Default
+        private BigDecimal maxDailySodiumMg = new BigDecimal("2400.0");
+        @Builder.Default
+        private BigDecimal maxDailyCholesterolMg = new BigDecimal("300.0");
+        @Builder.Default
+        private BigDecimal minDailyFiberG = new BigDecimal("20.0");
+
         private List<MealSlotTemplate> activeSlots;
         private List<DishSolverDto> candidates;
         private SolverWeightProfile weightProfile;
@@ -190,13 +200,15 @@ public class CpSatMealOptimizationEngine {
             }
         }
 
-        // 4. BIẾN BÙ (SLACK VARIABLES) CHO TỔNG DINH DƯỠNG CẢ NGÀY (TRÁNH LỖI INFEASIBLE)
+        // 4. BIẾN BÙ (SLACK VARIABLES) & TỔNG DINH DƯỠNG CẢ NGÀY
         LinearExprBuilder totalCalX20 = LinearExpr.newBuilder();
         LinearExprBuilder totalCarbX20 = LinearExpr.newBuilder();
         LinearExprBuilder totalProtX20 = LinearExpr.newBuilder();
         LinearExprBuilder totalFatX20 = LinearExpr.newBuilder();
         LinearExprBuilder totalFiberX20 = LinearExpr.newBuilder();
         LinearExprBuilder totalGlX20 = LinearExpr.newBuilder();
+        LinearExprBuilder totalSodiumX20 = LinearExpr.newBuilder();
+        LinearExprBuilder totalCholesterolX20 = LinearExpr.newBuilder();
         LinearExprBuilder totalPrefScore = LinearExpr.newBuilder();
 
         for (MealSlotTemplate slotTpl : slots) {
@@ -212,12 +224,29 @@ public class CpSatMealOptimizationEngine {
                 totalFatX20.addTerm(s, dish.getFatX10());
                 totalFiberX20.addTerm(s, dish.getFiberX10());
                 totalGlX20.addTerm(s, dish.getGlX10());
+                totalSodiumX20.addTerm(s, dish.getSodiumX10());
+                totalCholesterolX20.addTerm(s, dish.getCholesterolX10());
 
                 int perturbation = ctx.isEnableRandomPerturbation()
                         ? ThreadLocalRandom.current().nextInt(-18, 19) : 0;
                 totalPrefScore.addTerm(x, Math.max(10, dish.getBasePreferenceScore() + perturbation));
             }
         }
+
+        // 5. RÀNG BUỘC CỨNG TOÀN NGÀY: GL <= 80/day, NATRI < 2400mg/day, CHOLESTEROL < 200/300mg/day
+        long maxDailyGlX20 = scaleToX20(ctx.getMaxDailyGl() != null ? ctx.getMaxDailyGl() : new BigDecimal("80.0"));
+        model.addLessOrEqual(totalGlX20, maxDailyGlX20);
+
+        long maxDailySodiumX20 = scaleToX20(ctx.getMaxDailySodiumMg() != null ? ctx.getMaxDailySodiumMg() : new BigDecimal("2400.0"));
+        model.addLessOrEqual(totalSodiumX20, maxDailySodiumX20);
+
+        long maxDailyCholX20 = scaleToX20(ctx.getMaxDailyCholesterolMg() != null ? ctx.getMaxDailyCholesterolMg() : new BigDecimal("300.0"));
+        model.addLessOrEqual(totalCholesterolX20, maxDailyCholX20);
+
+        // Đảm bảo Chất xơ đạt tối thiểu 20g/ngày (biến bù fiberUnder để phạt nếu thiếu)
+        long minDailyFiberX20 = scaleToX20(ctx.getMinDailyFiberG() != null ? ctx.getMinDailyFiberG() : new BigDecimal("20.0"));
+        IntVar fiberUnder = model.newIntVar(0, 5_000, "fiber_under");
+        model.addGreaterOrEqual(LinearExpr.newBuilder().add(totalFiberX20).add(fiberUnder), minDailyFiberX20);
 
         long targetCalX20 = scaleToX20(ctx.getTargetCaloriesKcal());
         long targetCarbX20 = scaleToX20(ctx.getTargetNetCarbG());
@@ -240,7 +269,7 @@ public class CpSatMealOptimizationEngine {
         IntVar fatUnder = model.newIntVar(0, 20_000, "fat_under");
         model.addEquality(LinearExpr.newBuilder().add(totalFatX20).add(fatUnder).addTerm(fatOver, -1), targetFatX20);
 
-        // 5. THIẾT LẬP HÀM MỤC TIÊU ĐA TRỌNG SỐ (MINIMIZE Z)
+        // 6. THIẾT LẬP HÀM MỤC TIÊU ĐA TRỌNG SỐ (MINIMIZE Z)
         SolverWeightProfile wp = ctx.getWeightProfile();
         LinearExprBuilder objective = LinearExpr.newBuilder();
 
@@ -251,13 +280,14 @@ public class CpSatMealOptimizationEngine {
         // Phạt tổng tải lượng đường huyết GL
         objective.addTerm(totalGlX20.build(), wp.getWeightGlycemicLoad());
 
-        // Phạt lệch Calo, Đạm, Béo
+        // Phạt lệch Calo, Đạm, Béo và phạt thiếu Chất xơ dưới 20g/ngày
         objective.addTerm(calOver, wp.getWeightCalorieDeviation());
         objective.addTerm(calUnder, wp.getWeightCalorieDeviation());
         objective.addTerm(protOver, wp.getWeightProteinFatDeviation());
         objective.addTerm(protUnder, wp.getWeightProteinFatDeviation());
         objective.addTerm(fatOver, wp.getWeightProteinFatDeviation());
         objective.addTerm(fatUnder, wp.getWeightProteinFatDeviation());
+        objective.addTerm(fiberUnder, wp.getWeightFiberBonus() * 3);
 
         // Thưởng Chất xơ & Điểm yêu thích (Mang dấu âm trong hàm Minimize)
         objective.addTerm(totalFiberX20.build(), -wp.getWeightFiberBonus());
@@ -265,7 +295,7 @@ public class CpSatMealOptimizationEngine {
 
         model.minimize(objective);
 
-        // 6. KÍCH HOẠT CP-SAT SOLVER
+        // 7. KÍCH HOẠT CP-SAT SOLVER
         CpSolver solver = new CpSolver();
         solver.getParameters().setMaxTimeInSeconds(wp.getMaxTimeSeconds());
         solver.getParameters().setNumSearchWorkers(wp.getNumSearchWorkers());
@@ -307,6 +337,7 @@ public class CpSatMealOptimizationEngine {
                     .proteinUnderG(unscaleFromX20(solver.value(protUnder)))
                     .fatOverG(unscaleFromX20(solver.value(fatOver)))
                     .fatUnderG(unscaleFromX20(solver.value(fatUnder)))
+                    .fiberUnderG(unscaleFromX20(solver.value(fiberUnder)))
                     .build();
 
             return SolverExecutionResult.builder()
@@ -344,7 +375,6 @@ public class CpSatMealOptimizationEngine {
         if (!roleVars.isEmpty()) {
             model.addEquality(LinearExpr.sum(roleVars.toArray(new Literal[0])), requiredCount);
         } else if (requiredCount > 0) {
-            // Không có ứng viên nào cho Role bắt buộc -> Ép mô hình báo INFEASIBLE rõ ràng
             BoolVar impossible = model.newBoolVar("missing_role_" + role);
             model.addEquality(impossible, 1);
             model.addEquality(impossible, 0);

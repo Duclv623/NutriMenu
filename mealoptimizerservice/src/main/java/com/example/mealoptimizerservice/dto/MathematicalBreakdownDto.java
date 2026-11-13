@@ -28,4 +28,5 @@ public class MathematicalBreakdownDto {
     private BigDecimal proteinUnderG;
     private BigDecimal fatOverG;
     private BigDecimal fatUnderG;
+    private BigDecimal fiberUnderG;
 }
