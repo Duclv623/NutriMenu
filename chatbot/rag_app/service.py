@@ -7,17 +7,41 @@ from uuid import uuid4
 
 from rag_app.chroma_index import ChromaIndexError
 from rag_app.config import Settings
-from rag_app.conversation import is_contextual_followup, is_portion_description, topic_for_turn
+from rag_app.conversation import (
+    active_topic_history,
+    is_contextual_followup,
+    is_portion_description,
+    starts_new_topic,
+    topic_for_turn,
+)
+from rag_app.cooking_reference import (
+    COOKING_SOURCE_IDS,
+    GROUND_MEAT_TEMPERATURE,
+    USDA_GROUND_MEAT,
+    cooking_reference_reply,
+    direct_cooking_revision,
+    uses_ground_meat,
+)
 from rag_app.dialogue import context_response
 from rag_app.domain import ChatRequest, ChatResponse, Citation, GeneratedAnswer, Hit
 from rag_app.energy_reference import is_daily_energy_question, reference_reply
 from rag_app.food_data import food_hits, get_catalog
-from rag_app.meal_chat import handle_meal_chat
+from rag_app.meal_chat import handle_meal_chat, meal_action, saved_day_nutrition
 from rag_app.meal_gateway import MealServiceError, create_meal_gateway
 from rag_app.meal_models import MealContext
+from rag_app.nutrition_reference import (
+    label_sugar_calculation,
+    nutrition_reference_reply,
+    nutrition_reference_topic,
+)
 from rag_app.provider import BackendProfileQuestion, Provider, ProviderFailure, redact
 from rag_app.retrieval import Retriever, fold
-from rag_app.routing import constrain_plan, direct_text_is_allowed
+from rag_app.routing import (
+    constrain_plan,
+    culinary_request,
+    direct_text_is_allowed,
+    label_reading_request,
+)
 from rag_app.safety import (
     DISCLAIMER,
     classify,
@@ -110,7 +134,7 @@ class ChatService:
         self._session_profile_epochs = {}
         self._transient = {}
         self._session_lock = threading.Lock()
-        self._meal_edit_lock = threading.Lock()
+        self._meal_edit_lock = threading.RLock()
         self._revoked_meal_proposals = {}
         self._meal_profile_blocks = {}
         # Only vectors are reused; knowledge answers use the real API.
@@ -162,10 +186,17 @@ class ChatService:
         turn = {'question': query, 'topic': topic[:1000], 'response': {'food_result': context,'reference_result':ref_context,
                                               'answer': redact(response.answer)[:3000],
                                               'response_strategy': response.response_strategy,
+                                              'cooking_suggestion': response.status == 'answered' and (
+                                                  getattr(response, '_cooking_suggestion', False)
+                                                  or any(c.source_id in COOKING_SOURCE_IDS for c in response.citations)
+                                              ),
                                               'clarification_question': response.clarification_question,
                                               'meal_context': response.meal_result.get('context') if response.meal_result else None,
                                               'meal_view': response.meal_result.get('view') if response.meal_result else None,
                                               'meal_pending': self.meal_pending(response.meal_result),
+                                              'meal_choices': response.meal_result.get('choices') if response.meal_result else None,
+                                              'meal_choice_instruction': response.meal_result.get('choiceInstruction') if response.meal_result else None,
+                                              'meal_edit_cancelled': response.meal_edit_cancelled,
                                               'scope_restriction': response.scope_restriction}}
         trimmed = []
         for previous in history[-5:]:
@@ -174,10 +205,16 @@ class ChatService:
                 'scope_restriction': previous.get('response', {}).get('scope_restriction'),
                 'answer': previous.get('response', {}).get('answer', '')[:3000],
                 'response_strategy': previous.get('response', {}).get('response_strategy'),
+                'cooking_suggestion': previous.get('response', {}).get('cooking_suggestion') or any(
+                    c.get('source_id') in COOKING_SOURCE_IDS for c in previous.get('response', {}).get('citations', [])
+                ),
                 'clarification_question': previous.get('response', {}).get('clarification_question'),
                 'meal_context': previous.get('response', {}).get('meal_context') or (previous.get('response', {}).get('meal_result') or {}).get('context'),
                 'meal_view': previous.get('response', {}).get('meal_view') or (previous.get('response', {}).get('meal_result') or {}).get('view'),
                 'meal_pending': previous.get('response', {}).get('meal_pending') or self.meal_pending(previous.get('response', {}).get('meal_result')),
+                'meal_choices': previous.get('response', {}).get('meal_choices') or (previous.get('response', {}).get('meal_result') or {}).get('choices'),
+                'meal_choice_instruction': previous.get('response', {}).get('meal_choice_instruction') or (previous.get('response', {}).get('meal_result') or {}).get('choiceInstruction'),
+                'meal_edit_cancelled': previous.get('response', {}).get('meal_edit_cancelled', False),
                 'reference_result':previous.get('response',{}).get('reference_result'),'food_result': None if old is None else {
                 'request': old.get('request'), 'unresolved': old.get('unresolved', []),
                 'items': [{'id': i['id'], 'name': i['name']} for i in old.get('items', [])],
@@ -240,11 +277,13 @@ class ChatService:
             provider_client.start_trace()
         query = re.sub(r'\bko\b', 'không', redact(request.message), flags=re.IGNORECASE)
         raw_query = query
-        selected_plan = self.foods.resolve_selection(query, history)
+        topic_reset = starts_new_topic(query)
+        selected_plan = self.foods.resolve_selection(query, history) if not topic_reset else None
         contextual = bool(history) and is_contextual_followup(query, history)
+        context_history = active_topic_history(history) if contextual else []
         # A short new subject (e.g. brown rice after bread) is independent.
         # Short follow-ups within an explicit safety condition remain guarded.
-        safety_contextual = contextual or bool(history) and len(query.split()) < 9
+        safety_contextual = not topic_reset and (contextual or bool(history) and len(query.split()) < 9)
         # Carry a safety condition through a chain of elliptical follow-ups.
         # A standalone question ends that chain; only user questions count.
         context_intent = None
@@ -276,15 +315,16 @@ class ChatService:
             intent = 'special_population'
         if context_intent in {"special_population", "medication", "emergency"} and intent in {"knowledge", "food_lookup"}:
             intent = context_intent
-        if intent=='knowledge' and not conceptual_cooking and not is_intake_advice(query) and (selected_plan is not None or self.foods.looks_like_lookup(query) or contextual and history[-1].get('response',{}).get('food_result')):
+        qualitative_request = label_reading_request(query) or culinary_request(query)
+        if intent=='knowledge' and not conceptual_cooking and not qualitative_request and not is_intake_advice(query) and (selected_plan is not None or self.foods.looks_like_lookup(query) or contextual and history[-1].get('response',{}).get('food_result')):
             intent='food_lookup'
         reference_domain=self.supplements.detect(query)
-        reference_selection=self.supplements.resolve_selection(query,history)
+        reference_selection=self.supplements.resolve_selection(query,history) if not topic_reset else None
         if reference_selection:
             reference_domain=reference_selection[0]
         elif not reference_domain and contextual and history[-1].get('response',{}).get('reference_result'):
             reference_domain=history[-1]['response']['reference_result']['domain']
-        if reference_domain and not conceptual_cooking and intent in {'knowledge','food_lookup'}:
+        if reference_domain and not conceptual_cooking and not qualitative_request and intent in {'knowledge','food_lookup'}:
             intent='food_lookup'
         response = ChatResponse(
             session_id=session,
@@ -338,7 +378,8 @@ class ChatService:
             # They are explicitly marked static, never presented as an AI answer.
             response.timings_ms['safety_routing'] = int((time.perf_counter() - started) * 1000)
             return self.finish_response(response, request, owner, history, query, started)
-        if request.meal_action is None and is_daily_energy_question(request.message):
+        stored_day = self.meals.mode != 'disabled' and saved_day_nutrition(request.message)
+        if request.meal_action is None and not stored_day and is_daily_energy_question(request.message):
             energy = reference_reply(self.settings, self.retriever().chunks, authoritative, mock=self.meals.mode == 'mock')
             response.intent = 'knowledge'
             response.answer = energy.answer
@@ -347,15 +388,57 @@ class ChatService:
             response.clarification_question = energy.question
             response.citations = make_citations(energy.hits)
             return self.finish_response(response, request, owner, history, query, started)
+        if request.meal_action is None and intent in {"knowledge", "food_lookup"}:
+            if answer := label_sugar_calculation(raw_query, context_history):
+                response.answer = answer
+                response.intent = 'knowledge'
+                response.response_strategy = 'structured_lookup'
+                response.status = 'answered'
+                return self.finish_response(response, request, owner, history, raw_query, started)
+            cooking = cooking_reference_reply(raw_query, authoritative, followup=contextual)
+            if cooking:
+                response.answer, response.citations = cooking
+                object.__setattr__(response, '_cooking_suggestion', True)
+                response.intent = 'knowledge'
+                response.response_strategy = 'structured_lookup' if response.citations else 'policy'
+                response.status = 'answered'
+                return self.finish_response(response, request, owner, history, raw_query, started)
+            topic = nutrition_reference_topic(raw_query)
+            if topic:
+                answer, hits = nutrition_reference_reply(topic, self.settings.source_manifest, self.store, self.foods)
+                response.intent = 'knowledge'
+                response.response_strategy = 'structured_lookup'
+                response.status = 'answered' if hits else 'insufficient_evidence'
+                response.answer = answer
+                response.citations = make_citations(hits)
+                return self.finish_response(response, request, owner, history, raw_query, started)
+            if comparison := self.foods.simple_energy_comparison(raw_query):
+                response.answer, response.food_result = comparison
+                response.citations = make_citations(food_hits(response.food_result))
+                response.intent = 'food_lookup'
+                response.response_strategy = 'structured_lookup'
+                response.status = 'answered'
+                return self.finish_response(response, request, owner, history, raw_query, started)
         meal_context = request.meal_context
-        if meal_context is None and history:
+        if meal_context is None and history and not topic_reset:
             last = history[-1].get('response', {})
             previous_meal = last.get('meal_context') or (last.get('meal_result') or {}).get('context')
+            if previous_meal is None and meal_action(request.message, MealContext()) in {'keep', 'accept', 'change_status'}:
+                for turn in reversed(history[:-1]):
+                    previous = turn.get('response', {})
+                    previous_meal = previous.get('meal_context') or (previous.get('meal_result') or {}).get('context')
+                    if previous_meal:
+                        break
             if previous_meal:
                 meal_context = MealContext.model_validate(previous_meal)
-        meal_reply = handle_meal_chat(self.meals, owner, request.message, meal_context,
-                                     request.meal_action, authorization, history=history,
-                                     blocked_profile_version=self._meal_profile_blocks.get(owner))
+        with self._meal_edit_lock:
+            meal_reply = handle_meal_chat(self.meals, owner, request.message, meal_context,
+                                         request.meal_action, authorization, history=history,
+                                         blocked_profile_version=self._meal_profile_blocks.get(owner))
+            if meal_reply and meal_reply.cancel_pending:
+                self.cancel_meal_proposals(owner, history)
+            if meal_reply and meal_reply.profile_recheck_version is not None:
+                self._meal_profile_blocks[owner] = meal_reply.profile_recheck_version
         if meal_reply is not None:
             response.intent = 'menu_request'
             response.response_strategy = 'structured_lookup'
@@ -364,11 +447,7 @@ class ChatService:
             response.clarification_question = meal_reply.question
             response.meal_result = meal_reply.payload
             if meal_reply.cancel_pending:
-                self.cancel_meal_proposals(owner, history)
                 response.meal_edit_cancelled = True
-            if meal_reply.profile_recheck_version is not None:
-                with self._meal_edit_lock:
-                    self._meal_profile_blocks[owner] = meal_reply.profile_recheck_version
             response.timings_ms['meal_service'] = int((time.perf_counter() - started) * 1000)
             if meal_reply.status == 'safety':
                 response.response_strategy = 'safety'
@@ -406,7 +485,10 @@ class ChatService:
                     response.response_strategy = 'structured_lookup'
             return self.finish_response(response, request, owner, history, raw_query, started)
         def with_profile(text):
-            return BackendProfileQuestion(text, authoritative) if authoritative is not None and personal_advice else text
+            if authoritative is None or not personal_advice:
+                return text
+            dietary_only = culinary_request(text) and not is_intake_advice(text)
+            return BackendProfileQuestion(text, authoritative, dietary_only=dietary_only)
         provider_query = with_profile(query)
         if self.provider is None:
             raise ProviderFailure("Chưa cấu hình key API ở backend. Câu trả lời kiến thức cần API thật.")
@@ -546,7 +628,7 @@ class ChatService:
             if contextual:
                 query = topic_for_turn(raw_query, history) + "\nCâu hỏi tiếp: " + raw_query
             provider_query = with_profile(query)
-            response_plan, metadata, usage = self.provider.plan_response(provider_query, history if contextual else [])
+            response_plan, metadata, usage = self.provider.plan_response(provider_query, context_history)
             response_plan = constrain_plan(response_plan, query)
             self.record_generation(response, metadata, usage)
             response.response_strategy = response_plan.strategy
@@ -563,12 +645,18 @@ class ChatService:
                 return self.finish_response(response, request, owner, history, raw_query, started)
             if response_plan.strategy == 'direct_llm':
                 stage = time.perf_counter()
-                generated, usage = self.provider.generate_direct(provider_query, response_plan, history if contextual else [])
+                generated, usage = self.provider.generate_direct(provider_query, response_plan, context_history)
                 self.record_generation(response, generated, usage)
                 response.timings_ms['direct_answer_and_review'] = int((time.perf_counter() - stage) * 1000)
-                if direct_text_is_allowed(generated):
+                direct_answer = '\n\n'.join(b.text.strip() for b in generated.blocks)
+                if direct_text_is_allowed(generated) and not direct_cooking_revision(
+                    direct_answer, raw_query, context_history
+                ):
                     response.status = 'answered'
-                    response.answer = '\n\n'.join(b.text.strip() for b in generated.blocks)
+                    response.answer = direct_answer
+                    if uses_ground_meat(direct_answer):
+                        response.answer += '\n\n' + GROUND_MEAT_TEMPERATURE
+                        response.citations = [USDA_GROUND_MEAT]
                     if generated.uncertainty.strip():
                         response.warnings.append(generated.uncertainty)
                     if hasattr(provider_client, 'trace'):
@@ -614,9 +702,9 @@ class ChatService:
                 citations = make_citations(hits)
                 stage = time.perf_counter()
                 if response.response_strategy == 'practical_rag':
-                    generated, usage = self.provider.generate_practical(provider_query, hits, history if contextual else [], response_plan)
+                    generated, usage = self.provider.generate_practical(provider_query, hits, context_history, response_plan)
                 else:
-                    generated, usage = self.provider.generate(provider_query, hits, history if contextual else [])
+                    generated, usage = self.provider.generate(provider_query, hits, context_history)
                 response.timings_ms['answer_and_review'] = int((time.perf_counter()-stage)*1000)
                 validated = validate_answer(generated, citations)
                 self.record_generation(response, generated, usage)
@@ -696,7 +784,8 @@ class ChatService:
                 str(response.session_id),
                 str(response.message_id),
                 redact(request.message),
-                {**response.model_dump(mode="json"), 'context_topic': topic_for_turn(query, history)},
+                {**response.model_dump(mode="json"), 'context_topic': topic_for_turn(query, history),
+                 'cooking_suggestion': response.status == 'answered' and getattr(response, '_cooking_suggestion', False)},
             )
         self.remember_turn(owner, response.session_id, history, query, response)
         return response
@@ -704,7 +793,7 @@ class ChatService:
     @staticmethod
     def meal_pending(result):
         proposal = (result or {}).get('proposal') or (result or {}).get('pending')
-        return None if not proposal else {key: proposal[key] for key in ('id', 'baseVersion', 'expiresAt') if key in proposal}
+        return None if not proposal else {key: proposal[key] for key in ('id', 'planId', 'baseVersion', 'expiresAt') if key in proposal}
 
     def cancel_meal_proposals(self, owner, history):
         # Session-local cancellation supplements backend version/expiry checks.

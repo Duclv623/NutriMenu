@@ -85,7 +85,7 @@ class ChatRequest(BaseModel):
     session_id: UUID | None = None
     save_history: bool = False
     meal_context: MealContext | None = None
-    meal_action: Literal["show", "nutrition", "ingredients", "explain", "swap"] | None = None
+    meal_action: Literal["show", "nutrition", "ingredients", "explain", "swap", "source", "basis", "portion"] | None = None
     # Deprecated compatibility field. Chat always uses the configured real API;
     # the UI discloses this behavior and does not offer a cloud/offline switch.
     cloud_consent: bool | None = None

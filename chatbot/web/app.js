@@ -128,7 +128,7 @@ function renderReferences(card, result) {
   for (const note of result.notes || []) card.append(node("p", note, "warning"));
 }
 const mealLabels = {BREAKFAST: "Bữa sáng", LUNCH: "Bữa trưa", DINNER: "Bữa tối", SNACK: "Bữa phụ"};
-const mealNutrients = {energyKcal: ["Năng lượng", "kcal"], carbohydrateG: ["Carbohydrate", "g"], proteinG: ["Protein", "g"], fatG: ["Lipid", "g"], fiberG: ["Chất xơ", "g"], sodiumMg: ["Natri", "mg"]};
+const mealNutrients = {energyKcal: ["Năng lượng", "kcal"], carbohydrateG: ["Carbohydrate", "g"], proteinG: ["Chất đạm", "g"], fatG: ["Chất béo", "g"], fiberG: ["Chất xơ", "g"], sodiumMg: ["Natri", "mg"]};
 function mealNumber(value) {
   return value === null || value === undefined ? "Chưa có dữ liệu" : new Intl.NumberFormat("vi-VN", {maximumFractionDigits: 2}).format(value);
 }
@@ -183,43 +183,49 @@ function renderMealPlan(parent, plan, mode, interactive = true, itemIds = null) 
     }
     section.append(meal);
   }
-  const totals = node("details"); totals.append(node("summary", "Tổng dinh dưỡng cả ngày")); mealSummary(totals, plan.totals);
-  for (const limit of plan.limitations) totals.append(node("p", limit, "warning"));
-  section.append(totals); parent.append(section);
-}
-function renderMeals(card, result) {
-  card.append(node("p", result.notice, result.dataMode === "mock" ? "meal-demo-notice" : "meta"));
-  if (result.view === "keep") {
-    document.querySelectorAll("[data-meal-proposal]").forEach(button => {button.disabled = true; button.textContent = "Giữ thực đơn đang lưu";});
+  if (!itemIds) {
+    const totals = node("details"); totals.append(node("summary", "Tổng dinh dưỡng cả ngày")); mealSummary(totals, plan.totals);
+    for (const limit of plan.limitations) totals.append(node("p", limit, "warning"));
+    section.append(totals);
   }
-  const selected = result.selectedItemIds && result.selectedItemIds.length ? result.selectedItemIds : null;
-  const textOnly = ["summary", "rephrase", "capabilities", "explain", "missing_value", "source", "basis", "portion", "targets", "change_status", "keep", "profile"].includes(result.view);
-  if (textOnly) return;
-  if (result.view === "nutrition" && !selected) mealSummary(card, result.plan.totals);
-  else renderMealPlan(card, result.plan, result.dataMode, !result.proposal, selected);
+  parent.append(section);
+}
+function renderMeals(card, result, question) {
+  if (result.view === "show" || result.proposal) {
+    card.append(node("p", result.notice, result.dataMode === "mock" ? "meal-demo-notice" : "meta"));
+    const selected = result.selectedItemIds?.length ? result.selectedItemIds : null;
+    renderMealPlan(card, result.plan, result.dataMode, !result.proposal, selected);
+  }
   for (const choice of result.choices || []) {
     const button = node("button", choice.label, "food-choice"); button.type = "button";
-    button.addEventListener("click", () => mealPrompt(`${choice.action === "swap" ? "Đổi" : "Xem thành phần"}: ${choice.label}`, choice.action, {...result.context, item_id: choice.itemId}));
+    button.addEventListener("click", () => mealPrompt(result.choiceInstruction || question, choice.action, {...result.context, item_id: choice.itemId}));
     card.append(button);
   }
   if (result.proposal) {
     const preview = node("section", undefined, "meal-preview");
     preview.append(node("h3", "Phương án xem trước · chưa lưu"));
     renderMealPlan(preview, result.proposal.plan, result.dataMode, false, [result.proposal.changedItemId]);
-    const changes = node("p");
-    changes.textContent = Object.entries(mealNutrients).map(([key, [label, unit]]) => {
+    const changes = Object.entries(mealNutrients).flatMap(([key, [label, unit]]) => {
       const before = result.plan.totals[key], after = result.proposal.plan.totals[key];
-      return before === null || after === null ? `${label}: chưa đủ dữ liệu` : `${label}: ${mealNumber(before)} → ${mealNumber(after)} ${unit}`;
-    }).join(" · ");
-    preview.append(changes);
+      return before == null || after == null || before === after ? [] : [`${label} ${mealNumber(before)} → ${mealNumber(after)} ${unit}`];
+    });
+    if (changes.length) preview.append(node("p", `Tổng cả ngày · ${changes.join(" · ")}`));
     const apply = node("button", "Áp dụng phương án này", "meal-apply"); apply.type = "button";
     apply.dataset.mealProposal = result.proposal.id;
+    apply.dataset.planId = result.plan.id;
+    apply.dataset.baseVersion = result.proposal.baseVersion;
     apply.addEventListener("click", async () => {
       if (busy) return;
-      busy = true; apply.disabled = true; $("send").disabled = true;
+      busy = true; apply.disabled = true; $("send").disabled = true; $("error").hidden = true;
       try {
         const updated = await api("/api/meal-plans/apply-swap", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({planId: result.plan.id, proposalId: result.proposal.id, baseVersion: result.proposal.baseVersion})});
         mealContext = {plan_id: updated.plan.id, plan_version: updated.plan.version};
+        document.querySelectorAll("[data-meal-proposal]").forEach(button => {
+          if (button.dataset.planId === updated.plan.id && Number(button.dataset.baseVersion) < updated.plan.version) {
+            button.disabled = true;
+            button.textContent = "Đã có phiên bản mới";
+          }
+        });
         preview.replaceChildren(node("p", "Đã áp dụng. Dưới đây là phiên bản đang lưu."));
         renderMealPlan(preview, updated.plan, updated.dataMode);
       } catch (error) { apply.textContent = "Tải lại thực đơn trước khi thử tiếp"; showError(error); }
@@ -228,7 +234,7 @@ function renderMeals(card, result) {
     preview.append(apply); card.append(preview);
   }
 }
-function addMessage(role, text, data) {
+function addMessage(role, text, data, question) {
   const card = node("article", undefined, `message ${role}`);
   const answerLabel = data && data.citations.length ? "NUTRIGUIDE · CÓ NGUỒN"
     : data && data.response_strategy === "direct_llm" ? "NUTRIGUIDE · HƯỚNG DẪN CHUNG" : "NUTRIGUIDE";
@@ -240,7 +246,7 @@ function addMessage(role, text, data) {
     if (data.clarification_question) card.append(node("p", data.clarification_question, "body"));
     if (data.food_result) renderNutrition(card, data.food_result);
     if (data.reference_result) renderReferences(card, data.reference_result);
-    if (data.meal_result) renderMeals(card, data.meal_result);
+    if (data.meal_result) renderMeals(card, data.meal_result, question);
     if (data.citations.length) {
       const sources = node("div", undefined, "sources");
       for (const citation of data.citations) {
@@ -308,8 +314,8 @@ async function refreshSessions() {
         const messages = await api(`/api/sessions/${session.id}`);
         if (requestEpoch !== uiEpoch) return;
         $("messages").replaceChildren(); sessionId = session.id; $("save-history").checked = true; pendingMealAction = null;
-        mealContext = messages.length && messages[messages.length - 1].response.meal_result ? messages[messages.length - 1].response.meal_result.context : null;
-        for (const message of messages) { addMessage("user", message.question); addMessage("assistant", message.response.answer, message.response); }
+        mealContext = messages.findLast(message => message.response.meal_result?.context)?.response.meal_result.context ?? null;
+        for (const message of messages) { addMessage("user", message.question); addMessage("assistant", message.response.answer, message.response, message.question); }
       } catch (error) { showError(error); }
     });
     const remove = node("button", "Xóa");
@@ -355,7 +361,7 @@ $("chat-form").addEventListener("submit", async (event) => {
     const result = await api("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({message, session_id: sessionId, save_history: $("save-history").checked, meal_context: mealContext, meal_action: action})});
     if (requestEpoch !== uiEpoch) { pending.remove(); return; }
     pending.remove();
-    const answer = addMessage("assistant", result.answer, result);
+    const answer = addMessage("assistant", result.answer, result, message);
     if (startedAt !== null) {
       // The second frame follows the first opportunity to paint the answer.
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -371,7 +377,7 @@ $("chat-form").addEventListener("submit", async (event) => {
         });
       }));
     }
-    mealContext = result.meal_result ? result.meal_result.context : null;
+    mealContext = result.meal_result?.context ?? mealContext;
     sessionId = result.session_id; $("question").value = "";
     if (result.history_saved) await refreshSessions();
   } catch (error) { pending.remove(); showError(error); }

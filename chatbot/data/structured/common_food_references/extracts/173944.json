@@ -1,0 +1,23 @@
+{
+  "fdcId": 173944,
+  "description": "Bananas, raw",
+  "dataType": "SR Legacy",
+  "publicationDate": "4/1/2019",
+  "transcription": {
+    "source_url": "https://www.growables.org/information/TropicalFruit/documents/BananaNutrient.pdf",
+    "locator": "USDA Standard Reference Release 28, Basic Report 09040, edible portion",
+    "collected_at": "2026-11-17"
+  },
+  "commonPortions": {
+    "small": {"amount_g": 101, "energy_kcal": 90},
+    "medium": {"amount_g": 118, "energy_kcal": 105},
+    "large": {"amount_g": 136, "energy_kcal": 121}
+  },
+  "foodNutrients": [
+    {"nutrient": {"id": 1008, "unitName": "kcal"}, "amount": 89},
+    {"nutrient": {"id": 1003, "unitName": "g"}, "amount": 1.09},
+    {"nutrient": {"id": 1004, "unitName": "g"}, "amount": 0.33},
+    {"nutrient": {"id": 1005, "unitName": "g"}, "amount": 22.84},
+    {"nutrient": {"id": 1079, "unitName": "g"}, "amount": 2.6}
+  ]
+}

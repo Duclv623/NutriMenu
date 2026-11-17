@@ -31,6 +31,16 @@ SOURCES = {
     'usda': {'title': 'USDA FoodData Central — thực phẩm tham khảo', 'year': 2026,
              'url': 'https://fdc.nal.usda.gov/'},
 }
+FOOD_ALIASES = {
+    'nin_foods:7089': ('ức gà sống', 'lườn gà sống', 'ức gà công nghiệp sống'),
+    'nin_foods:4010': ('bắp cải', 'cải bắp', 'bắp cải tươi', 'cải bắp tươi', 'bắp cải sống', 'cải bắp sống'),
+    'nin_foods:4007': ('cà rốt', 'cà rốt tươi', 'cà rốt sống'),
+    'nin_foods:4010002': ('bắp cải luộc',),
+    'nin_foods:4007002': ('cà rốt luộc',),
+}
+ENERGY_TERM = r'(?:calo|kcal|năng lượng|nang luong)'
+COMPARED_WITH = r'\s+(?:so với|so voi|với|voi|hay|và|va|vs\.?)\s+'
+FOOD_PREPARATION = r'\b(?:song|tuoi|chin|luoc|hap|xao|chien|ran|nuong|kho|say)\b'
 
 
 class FoodItem(BaseModel):
@@ -211,8 +221,9 @@ class FoodCatalog:
             self.records[record['id']] = record
         for record in self.records.values():
             record['source']=record.get('source', SOURCES[record['dataset']])
-            if record['id'] == 'nin_foods:7089' and 'raw' in record['name'].lower():
-                record['aliases'] = ['ức gà sống', 'lườn gà sống', 'ức gà công nghiệp sống']
+            aliases = FOOD_ALIASES.get(record['id'])
+            if aliases and (record['id'] != 'nin_foods:7089' or 'raw' in record['name'].lower()):
+                record['aliases'] = list(aliases)
             seen=Counter((n.get('source_key',n['key']),n['unit'],n.get('parent_key','')) for n in record['nutrients'])
             for nutrient in record['nutrients']:
                 key=(nutrient.get('source_key',nutrient['key']),nutrient['unit'],nutrient.get('parent_key',''))
@@ -375,6 +386,69 @@ class FoodCatalog:
         except ValueError:
             return None
 
+    def simple_energy_comparison(self, question):
+        """Answer a comparison directly only when both foods and amounts are grounded."""
+        question = unicodedata.normalize('NFC', question).strip(' \t\r\n?!.')
+        pair = rf'(.+?){COMPARED_WITH}(.+?)'
+        match = re.fullmatch(
+            rf'(?:(?:vậy|vay|thế|the|còn|con)[,\s]+)?{pair},?\s+'
+            r'(?:(?:(?:cái|cai|loại|loai|món|mon)\s+)?(?:nào|nao)\s+)?'
+            rf'(?P<direction>nhiều|nhieu|cao|ít|it|thấp|thap)\s+{ENERGY_TERM}\s+(?:hơn|hon)'
+            r'(?:\s+(?:vậy|vay|nhỉ|nhi))?',
+            question, re.I,
+        ) or re.fullmatch(rf'(?:so sánh|so sanh)\s+{ENERGY_TERM}\s+(?:(?:của|cua)\s+)?{pair}', question, re.I)
+        if not match or is_intake_advice(question):
+            return None
+
+        items = []
+        for operand in (match[1], match[2]):
+            portion = re.fullmatch(r'(\d+(?:[.,]\d+)?)\s*(g|gram|gam|kg)\s+(.+)', operand, re.I)
+            name = portion[3] if portion else operand
+            candidates = self.search(name, limit=1)
+            if not candidates or candidates[0]['match_score'] < 100:
+                return None
+            try:
+                items.append(FoodItem(name=name, amount=float(portion[1].replace(',', '.')) if portion else None,
+                                      unit=portion[2].lower() if portion else 'g'))
+            except ValueError:
+                return None
+        first, second = items
+        if (first.amount is None) != (second.amount is None):
+            return None
+        if bool(re.search(FOOD_PREPARATION, fold(first.name))) != bool(re.search(FOOD_PREPARATION, fold(second.name))):
+            return None  # A single preparation word may qualify both foods.
+
+        plan = FoodPlan(operation='compare', items=items, nutrients=['calo'])
+        result = self.execute(plan)
+        if result['unresolved'] or len(result['items']) != 2:
+            return None
+        details = []
+        for item in result['items']:
+            energy = [n['amount_value'] for n in item['display_nutrients']
+                      if n['key'] == 'energy' and n['unit'].lower() == 'kcal']
+            if item['review_status'] != 'verified' or item['reference_amount_g'] != 100 or len(energy) != 1 or energy[0] is None:
+                return None
+            name = re.sub(r', (?=(?:tươi|luộc)$)', ' ', item['name'])
+            name = name.capitalize() if name.isupper() else name
+            name = name[0].lower() + name[1:]
+            if item['amount_g'] is not None:
+                grams = f"{item['amount_g']:g}".replace('.', ',')
+                name = f'{grams} g {name}'
+            details.append((name, energy[0]))
+        (portion_a, energy_a), (portion_b, energy_b) = details
+        if energy_a == energy_b:
+            conclusion = 'Hai phần có cùng lượng calo.'
+        else:
+            looking_for_less = fold(match.groupdict().get('direction', '') or '') in {'it', 'thap'}
+            chosen = portion_a if (energy_a < energy_b) == looking_for_less else portion_b
+            direction = 'ít' if looking_for_less else 'nhiều'
+            conclusion = f'{chosen[0].upper() + chosen[1:]} {direction} calo hơn.'
+        basis = 'Tính trên 100 g phần ăn được, ' if first.amount is None else 'Theo lượng bạn nêu, '
+        numbers = [f'{value:.6f}'.rstrip('0').rstrip('.').replace('.', ',') for _, value in details]
+        result['request'] = plan.model_dump()
+        return (f'{conclusion} {basis}{portion_a} có {numbers[0]} kcal [C1], '
+                f'còn {portion_b} có {numbers[1]} kcal [C2].'), result
+
     def execute(self,plan):
         output={'operation':plan.operation,'items':[],'unresolved':[],'totals':[],'notes':[], 'assumptions': [],
                 'catalog_counts':self.status()['datasets']}
@@ -499,6 +573,9 @@ def food_hits(result):
             lines.append(f"- {n['name']}: giá trị gốc {n['value'] if n['value'] is not None else 'chưa có dữ liệu'} {n['unit']}; "
                 f"giá trị theo lượng hỏi {n['amount_value'] if n['amount_value'] is not None else 'chưa tính được'} {n['unit']}. "
                 +n.get('quality_note',''))
+        if portion := item.get('source_portion'):
+            lines.append(f"Cỡ {portion['label']} theo nguồn: {portion['amount_g']} g phần ăn được, "
+                         f"{portion['energy_kcal']} kcal.")
         lines.extend(item.get('assumptions', []))
         if item.get('limitations'):
             lines.append(item['limitations'])

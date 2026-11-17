@@ -2,6 +2,34 @@
   "schema_version": 1,
   "records": [
     {
+      "fdc_id": 173944,
+      "description": "Bananas, raw",
+      "name": "Chuối tươi theo mẫu USDA",
+      "aliases": ["chuối tươi theo USDA", "chuối sống theo USDA"],
+      "assumptions": {},
+      "raw_file": "extracts/173944.json",
+      "sha256": "cf7163a32ea7ce9978bea649da3322ff1ff88a7e9d87d81bab9f0daec7ea199e",
+      "source_url": "https://www.growables.org/information/TropicalFruit/documents/BananaNutrient.pdf",
+      "basis": "100 g phần ăn được, đã bỏ vỏ",
+      "basis_amount_g": 100,
+      "collected_at": "2026-11-17",
+      "limitations": "Số liệu của mẫu chuối tươi USDA SR28, NDB 09040. Các cỡ quả theo USDA là mốc tham khảo, không mặc định cho mọi giống chuối."
+    },
+    {
+      "fdc_id": 169999,
+      "description": "Corn, sweet, yellow, cooked, boiled, drained, without salt",
+      "name": "Ngô ngọt vàng luộc không muối",
+      "aliases": ["ngô ngọt vàng luộc không muối", "bắp ngọt vàng luộc không muối"],
+      "assumptions": {},
+      "raw_file": "extracts/169999.json",
+      "sha256": "81f909ed4594e5f8a700ee067bed38e1d1c66fb2235a351939f695d1954df2ea",
+      "source_url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg11.pdf",
+      "basis": "100 g hạt ngô đã luộc và để ráo, không tính lõi",
+      "basis_amount_g": 100,
+      "collected_at": "2026-11-17",
+      "limitations": "Số liệu của mẫu ngô ngọt vàng USDA SR28, NDB 11168. Không mặc định các cỡ bắp trong bản ghi cho ngô nếp hoặc giống khác."
+    },
+    {
       "fdc_id": 169704,
       "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
       "name": "Cơm gạo lứt hạt dài nấu chín",
@@ -63,6 +91,20 @@
       "basis_amount_g": 100,
       "collected_at": "2026-10-31",
       "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
+      "fdc_id": 168877,
+      "description": "Rice, white, long-grain, regular, raw, enriched",
+      "name": "Gạo trắng hạt dài sống",
+      "aliases": ["gạo trắng hạt dài sống", "gạo trắng hạt dài chưa nấu"],
+      "assumptions": {},
+      "raw_file": "extracts/168877.json",
+      "sha256": "6426ce0539826965b3ef750ab7479f14964c9eb4cc6f3520ec01b6da0409b8b6",
+      "source_url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg20.pdf",
+      "basis": "100 g gạo trắng hạt dài sống, phần ăn được",
+      "basis_amount_g": 100,
+      "collected_at": "2026-11-16",
+      "limitations": "Trích các ô đã đối chiếu từ bảng USDA SR28, mã NDB 20044. Giá trị chỉ áp dụng cho loại gạo ghi trong bản ghi."
     },
     {
       "fdc_id": 2705954,

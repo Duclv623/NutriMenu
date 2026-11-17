@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 from rag_app.config import Settings
+from rag_app.domain import ChatRequest
 from rag_app.main import create_app
 from rag_app.meal_chat import handle_meal_chat, meal_action
 from rag_app.meal_gateway import (
@@ -23,6 +24,8 @@ from rag_app.meal_models import (
     NutritionProfile,
     SwapRequest,
 )
+from rag_app.service import ChatService
+from rag_app.store import Store
 
 
 @pytest.fixture
@@ -327,3 +330,78 @@ def test_http_configuration_rejects_tokens_and_userinfo():
     for url in ["https://backend.example/api?token=secret", "https://user:secret@backend.example/api", "file:///tmp/data"]:
         with pytest.raises(ValidationError):
             Settings(_env_file=None, meal_service_mode="http", meal_api_base_url=url)
+
+
+def test_requested_nutrient_direction_and_portion_match_the_proposal(meals):
+    before = meals.snapshot("a")
+    context = MealContext(plan_id=before.plan.id, plan_version=1, item_id="breakfast-1")
+    lower = handle_meal_chat(meals, "a", "Đổi sang món ít calo hơn giúp mình.", context)
+    assert "462 kcal" in lower.answer and "1753 kcal" in lower.answer
+    assert lower.payload["proposal"]["plan"]["items"][0]["recipeId"] == "demo:A3"
+    higher = handle_meal_chat(meals, "a", "Tăng kcal bữa sáng lên một chút nhé.", context)
+    assert higher.payload["proposal"]["plan"]["items"][0]["nutrients"]["energyKcal"] == 490
+    smaller = handle_meal_chat(meals, "a", "Giảm lượng món này xuống 0,98 suất để bớt kcal.", context)
+    changed = smaller.payload["proposal"]["plan"]["items"][0]
+    assert changed["recipeId"] == "demo:A" and changed["amount"] == .98
+    assert changed["nutrients"]["energyKcal"] == 466.48
+    unsuitable = handle_meal_chat(meals, "a", "Đổi món sáng sang món ít dầu hơn.", context)
+    assert not unsuitable.payload["proposal"]
+    assert meals.snapshot("a").plan == before.plan
+
+
+def test_returned_preview_must_satisfy_requested_direction(meals):
+    before = meals.snapshot("a")
+    generic = meals.preview("a", swap_request(before))
+    assert generic.plan.totals.energy_kcal > before.plan.totals.energy_kcal
+    request = swap_request(before, "Đổi món sáng ít calo hơn")
+    with pytest.raises(MealServiceError, match="Phương án chưa đáp ứng đúng yêu cầu"):
+        validate_proposal(before, request, generic)
+
+
+def test_mixed_plan_scopes_and_unrelated_catalog_lookup(meals, tmp_path):
+    before = meals.snapshot("a")
+    context = MealContext(plan_id=before.plan.id, plan_version=1, item_id="breakfast-1")
+    settings = Settings(_env_file=None, storage_dir=tmp_path, gemini_api_key="", openai_api_key="")
+    service = ChatService(settings, Store(tmp_path / "rag.sqlite3"), meal_gateway=meals)
+    result = service.chat(ChatRequest(
+        message="Cả ngày có bao nhiêu kcal, bữa tối có bao nhiêu chất đạm?",
+        meal_context=context,
+    ), "a")
+    assert "1767 kcal" in result.answer and "31 g" in result.answer
+    assert "83 g" not in result.answer
+    assert handle_meal_chat(meals, "a", "100 g chuối có bao nhiêu kali?", context) is None
+
+
+def test_named_demo_can_compare_amounts_from_the_same_catalog_record():
+    gateway = MockMealGateway("named")
+    before = gateway.snapshot("a")
+    context = MealContext(plan_id=before.plan.id, plan_version=1)
+    reply = handle_meal_chat(gateway, "a", "Nếu phần cơm trắng đang là 150 g thì giảm xuống 100 g còn bao nhiêu kcal?", context)
+    assert "130 kcal" in reply.answer and "195 kcal" in reply.answer
+    assert reply.payload["proposal"] is None
+    assert gateway.snapshot("a").plan == before.plan
+
+
+def test_choice_and_refinement_keep_intent_and_revoke_old_preview(meals, tmp_path):
+    settings = Settings(_env_file=None, storage_dir=tmp_path, gemini_api_key="", openai_api_key="")
+    service = ChatService(settings, Store(tmp_path / "rag.sqlite3"), meal_gateway=meals)
+    before = meals.snapshot("a")
+    ctx = MealContext(plan_id=before.plan.id, plan_version=1)
+    choice = service.chat(ChatRequest(message="Đổi sang món ít calo hơn giúp mình.", meal_context=ctx), "a")
+    assert len(choice.meal_result["choices"]) == 3
+    invalid = service.chat(ChatRequest(message="Món số 9", session_id=choice.session_id), "a")
+    assert len(invalid.meal_result["choices"]) == 3
+    low = service.chat(ChatRequest(message="Bữa sáng nhé", session_id=choice.session_id), "a")
+    proposal = low.meal_result["proposal"]
+    assert proposal["plan"]["items"][0]["nutrients"]["energyKcal"] == 462
+    service.chat(ChatRequest(message="Bữa trưa bao nhiêu đạm?", session_id=choice.session_id), "a")
+    status = service.chat(ChatRequest(message="Bạn đã lưu chưa?", session_id=choice.session_id), "a")
+    assert status.meal_result["pending"]["id"] == proposal["id"]
+    high = service.chat(ChatRequest(
+        message="Đổi bữa sáng sang phương án nhiều kcal hơn.",
+        session_id=choice.session_id,
+    ), "a")
+    assert high.meal_edit_cancelled and high.meal_result["proposal"]["plan"]["items"][0]["nutrients"]["energyKcal"] == 490
+    with pytest.raises(MealServiceError, match="Phương án này đã dừng"):
+        service.apply_meal_swap("a", ApplySwap(plan_id=before.plan.id, proposal_id=proposal["id"], base_version=1))
+    assert meals.snapshot("a").plan == before.plan

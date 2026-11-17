@@ -6,10 +6,13 @@ from fastapi.testclient import TestClient
 
 from rag_app.config import ROOT, Settings
 from rag_app.dialogue import context_response
+from rag_app.domain import ChatRequest
 from rag_app.main import create_app
 from rag_app.meal_chat import handle_meal_chat, meal_action
 from rag_app.meal_gateway import MockMealGateway
 from rag_app.meal_models import ApplySwap, MealContext, SwapRequest
+from rag_app.service import ChatService
+from rag_app.store import Store
 
 CASES = json.loads((ROOT / "evals/meal_questions_50.json").read_text(encoding="utf-8"))["cases"]
 
@@ -38,8 +41,13 @@ def test_meal_questions_stay_on_structured_data(case):
     assert reply is not None, "Meal screen context must not fall through to generic AI"
     assert reply.answer and len(reply.answer.split()) <= 125
     assert "validator" not in reply.answer.lower() and "constraint" not in reply.answer.lower()
-    if case["id"] in {"M030", "M031", "M032", "M023", "M026", "M042"}:
+    if case["id"] in {"M030", "M031", "M032", "M023", "M026"}:
         assert not (reply.payload or {}).get("proposal")
+    if case["id"] == "M042":
+        replacement = reply.payload["proposal"]["plan"]["items"][0]
+        assert replacement["recipeId"] == "demo:A"
+        assert replacement["amount"] < 1 and replacement["nutrients"]["energyKcal"] < 476
+        assert reply.payload["plan"]["version"] == 1
     if case["id"] == "M038":
         assert reply.payload is None
     if case["id"] == "M022":
@@ -61,11 +69,34 @@ def test_clear_concept_question_does_not_ask_for_subject_again():
     assert meal_action("Người tiểu đường có cần bữa phụ không?") is None
 
 
-def test_cooking_state_comparison_uses_knowledge_sources(system):
-    result = system.client.post('/api/chat', json={'message': '100 g gạo sống và 100 g cơm chín có dinh dưỡng giống nhau không?'}).json()
-    assert result['intent'] == 'knowledge'
-    assert result['food_result'] is None
-    assert system.provider.plan_calls
+@pytest.mark.parametrize(('case_id', 'source_ids', 'expected'), [
+    ('M043', ['cdc-carb-counting'], ('đường', 'tinh bột', 'chất xơ')),
+    ('M044', ['cdc-meal-planning'], ('½ rau ít tinh bột', '¼ đạm nạc', '¼ thực phẩm chứa carb')),
+    ('M045', ['usda', 'usda'], ('365 kcal', '130 kcal', '79,95 g', '28,17 g', 'hút nước')),
+])
+def test_reviewed_nutrition_answers_without_provider(tmp_path, corpus, case_id, source_ids, expected):
+    settings = Settings(_env_file=None, storage_dir=tmp_path, meal_service_mode='mock')
+    store = Store(tmp_path / 'rag.sqlite3')
+    store.replace_index(corpus, {'mode': 'lexical'})
+    service = ChatService(settings, store, provider=None)
+    message = next(case['question'] for case in CASES if case['id'] == case_id)
+    response = service.chat(ChatRequest(message=message), 'owner')
+    assert response.intent == 'knowledge' and response.status == 'answered'
+    assert response.answer_origin == 'static' and not response.provider_response_ids
+    assert response.food_result is None and response.meal_result is None
+    assert [citation.source_id for citation in response.citations] == source_ids
+    assert all(token in response.answer for token in expected)
+    if case_id == 'M045':
+        assert [citation.chunk_id for citation in response.citations] == ['usda:168877', 'usda:168878']
+
+
+def test_reviewed_nutrition_requires_approved_source_and_preserves_safety(tmp_path):
+    settings = Settings(_env_file=None, storage_dir=tmp_path, meal_service_mode='disabled')
+    service = ChatService(settings, Store(tmp_path / 'rag.sqlite3'), provider=None)
+    response = service.chat(ChatRequest(message='Carb là gì?'), 'owner')
+    assert response.status == 'insufficient_evidence' and not response.citations
+    response = service.chat(ChatRequest(message='Carb là gì? Tôi cần tăng liều insulin bao nhiêu?'), 'owner')
+    assert response.status == 'safety' and not response.citations
 
 
 def test_new_allergy_and_keep_do_not_call_swap(monkeypatch):

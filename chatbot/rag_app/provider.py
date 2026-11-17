@@ -7,6 +7,8 @@ from openai import OpenAI
 from pydantic import BaseModel, ConfigDict, Field
 
 from rag_app.config import Settings
+from rag_app.conversation import is_rephrase_request
+from rag_app.cooking_reference import COOKING_SOURCE_IDS, direct_cooking_revision
 from rag_app.domain import GeneratedAnswer, Hit
 from rag_app.prompts import GROUNDING_PROMPT, SYSTEM_PROMPT
 from rag_app.retrieval import fold
@@ -344,9 +346,12 @@ def apply_grounding_review(answer: GeneratedAnswer, review: GroundingReview, exc
 
 class BackendProfileQuestion(str):
     """Per-request carrier: profile data never becomes question or retrieval text."""
-    def __new__(cls, text, profile):
+    def __new__(cls, text, profile, *, dietary_only=False):
         value = super().__new__(cls, text)
-        value.backend_profile = profile.model_dump(by_alias=True)
+        dietary_fields = {'allergies', 'restricted_ingredients', 'preferences'}
+        value.backend_profile = profile.model_dump(
+            by_alias=True, include=dietary_fields if dietary_only else None,
+        )
         return value
 
 
@@ -453,26 +458,47 @@ class OpenAIProvider:
             raise safe_provider_failure(error, 'Chưa phân loại được câu hỏi; hãy thử lại.') from error
 
     def generate_direct(self, question: str, plan: ResponsePlan, history: list[dict]):
-        payload = {'USER_PROFILE': backend_profile_payload(question), 'QUESTION': redact(question), 'RESPONSE_GOAL': plan.model_dump(),
+        current = question.rsplit('\nCâu hỏi tiếp: ', 1)[-1]
+        payload = {'USER_PROFILE': backend_profile_payload(question), 'QUESTION': redact(current),
+                   'RESOLVED_QUESTION': redact(question), 'RESPONSE_GOAL': plan.model_dump(),
                    'USER_CONTEXT': [redact(t['question']) for t in history[-3:]]}
-        if history and history[-1].get('response', {}).get('response_strategy') == 'direct_llm':
-            payload['PREVIOUS_ASSISTANT_TEXT_FOR_REPHRASING_ONLY'] = redact(
-                history[-1]['response'].get('answer', ''))[:3000]
+        previous_suggestions = []
+        for turn in history[-3:]:
+            prior = turn.get('response', {})
+            if prior.get('answer') and (prior.get('response_strategy') == 'direct_llm'
+                                       or prior.get('cooking_suggestion') or any(
+                c.get('source_id') in COOKING_SOURCE_IDS for c in prior.get('citations', [])
+            )):
+                previous_suggestions.append(re.sub(r'\s*\[C\d+\]', '', redact(prior['answer']))[:1000])
+        if previous_suggestions:
+            payload['PREVIOUS_ASSISTANT_SUGGESTIONS'] = previous_suggestions
+        recap = bool(previous_suggestions) and is_rephrase_request(current)
         try:
-            draft_call = self.client.responses.parse(
-                model=self.settings.openai_model,
-                input=[{'role': 'system', 'content': DIRECT_PROMPT},
-                       {'role': 'user', 'content': json.dumps(payload, ensure_ascii=False)}],
-                text_format=DirectDraft, max_output_tokens=900, store=False)
-            if draft_call.status != 'completed' or draft_call.output_parsed is None:
-                raise ProviderFailure('AI chưa hoàn thành câu trả lời trực tiếp; hãy thử lại.')
-            draft = draft_call.output_parsed
-            answer = GeneratedAnswer(supported=bool(draft.text.strip()), blocks=[
-                # Direct generation has no retrieved source IDs.
-                {'text': draft.text, 'citation_ids': []}] if draft.text.strip() else [],
-                uncertainty=draft.uncertainty)
-            calls = [draft_call]
-            if direct_text_is_allowed(answer):
+            calls = []
+            revision = ''
+            for _ in range(2):
+                draft_payload = {**payload, 'REQUIRED_CORRECTION': revision} if revision else payload
+                draft_call = self.client.responses.parse(
+                    model=self.settings.openai_model,
+                    input=[{'role': 'system', 'content': DIRECT_PROMPT},
+                           {'role': 'user', 'content': json.dumps(draft_payload, ensure_ascii=False)}],
+                    text_format=DirectDraft, max_output_tokens=900, store=False)
+                calls.append(draft_call)
+                if draft_call.status != 'completed' or draft_call.output_parsed is None:
+                    raise ProviderFailure('AI chưa hoàn thành câu trả lời trực tiếp; hãy thử lại.')
+                draft = draft_call.output_parsed
+                answer = GeneratedAnswer(supported=bool(draft.text.strip()), blocks=[
+                    {'text': draft.text, 'citation_ids': []}] if draft.text.strip() else [],
+                    uncertainty=draft.uncertainty)
+                if not direct_text_is_allowed(answer):
+                    answer.supported = False
+                    answer._grounding_review = {'direct_guard_rejected': True, 'draft': draft.model_dump()}
+                    break
+                revision = direct_cooking_revision(draft.text, current, history)
+                if revision:
+                    answer.supported = False
+                    answer._grounding_review = {'direct_guard_rejected': True, 'reason': revision}
+                    continue
                 review_call = self.client.responses.parse(
                     model=self.settings.grounding_model or self.settings.openai_model,
                     input=[{'role': 'system', 'content': DIRECT_REVIEW_PROMPT},
@@ -484,9 +510,11 @@ class OpenAIProvider:
                 review = review_call.output_parsed
                 answer._grounding_review = {'direct_review': review.model_dump()}
                 answer.supported = review.safe and review.answers_question and not review.requires_evidence
-            else:
-                answer.supported = False
-                answer._grounding_review = {'direct_guard_rejected': True, 'draft': draft.model_dump()}
+                if answer.supported or not recap:
+                    break
+                revision = ("Sắp lại các bước đã trao đổi thành bản tóm tắt ngắn. Giữ những nguyên liệu, "
+                            "điều kiện và lựa chọn mới nhất của người dùng. Giữ điều kiện bảo quản và "
+                            "nấu chín cần thiết, dùng lời đơn giản và không thêm số liệu hay khuyến cáo mới.")
             if not answer.supported:
                 answer.blocks = []
             return self.response_metadata(answer, calls)

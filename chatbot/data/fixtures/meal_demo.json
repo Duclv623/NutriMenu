@@ -46,6 +46,13 @@
       "ingredientsComplete": true, "sourceRefs": ["Synthetic fixture for swap flow; not food composition"]
     },
     {
+      "id": "breakfast-1", "recipeId": "demo:A3", "recipeVersion": "v1", "name": "Món A3 (mẫu ít calo hơn)",
+      "mealType": "BREAKFAST", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
+      "nutritionBasis": "unknown", "nutrients": {"energyKcal": 462, "carbohydrateG": 67, "proteinG": 25, "fatG": 11},
+      "ingredients": [{"id": "demo:ingredient-a3", "name": "Nguyên liệu A3 (giả lập)"}],
+      "ingredientsComplete": true, "sourceRefs": ["Synthetic fixture for lower-energy swap flow; not food composition"]
+    },
+    {
       "id": "breakfast-1", "recipeId": "demo:D", "recipeVersion": "v1", "name": "Món D (mẫu không đạt)",
       "mealType": "BREAKFAST", "portionId": "STANDARD", "amount": 1, "unit": "serving", "state": "unknown",
       "nutritionBasis": "unknown", "nutrients": {"energyKcal": 504, "carbohydrateG": 90, "proteinG": 18, "fatG": 8},

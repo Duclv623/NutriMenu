@@ -54,6 +54,7 @@ def load_food_references(root):
                         'page': None, 'reference_amount_g': 100, 'basis': entry['basis'],
                         'aliases': entry['aliases'], 'alias_assumptions': entry['assumptions'],
                         'limitations': entry['limitations'], 'source_metadata': entry,
+                        'common_portions': raw.get('commonPortions', {}),
                         'nutrients': nutrients,
                         'source': {'title': 'USDA FoodData Central — ' + raw['dataType'],
                                    'url': entry['source_url'], 'year': int(re.search(r'\b(?:19|20)\d{2}\b', raw['publicationDate'])[0])}})

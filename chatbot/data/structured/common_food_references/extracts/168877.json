@@ -1,0 +1,18 @@
+{
+  "fdcId": 168877,
+  "description": "Rice, white, long-grain, regular, raw, enriched",
+  "dataType": "SR Legacy",
+  "publicationDate": "4/1/2019",
+  "transcription": {
+    "source_url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg20.pdf",
+    "locator": "USDA Standard Reference Release 28, NDB 20044, amount in 100 grams of edible portion",
+    "collected_at": "2026-11-16"
+  },
+  "foodNutrients": [
+    {"nutrient": {"id": 1008, "unitName": "kcal"}, "amount": 365},
+    {"nutrient": {"id": 1003, "unitName": "g"}, "amount": 7.13},
+    {"nutrient": {"id": 1004, "unitName": "g"}, "amount": 0.66},
+    {"nutrient": {"id": 1005, "unitName": "g"}, "amount": 79.95},
+    {"nutrient": {"id": 1079, "unitName": "g"}, "amount": 1.3}
+  ]
+}

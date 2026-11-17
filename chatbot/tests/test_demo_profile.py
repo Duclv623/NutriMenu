@@ -80,8 +80,10 @@ def test_latest_profile_context_is_not_embedding_or_shared_state(system):
     assert str(question) == 'Tôi nên chọn trái cây thế nào?'
     service.chat(ChatRequest(message='Tôi nên chọn trái cây thế nào?',save_history=False), 'b')
     assert system.provider.plan_calls[-1][0].backend_profile['weight'] == 60
-    service.chat(ChatRequest(message='Carbohydrate là gì?',save_history=False), 'a')
-    assert 'BACKEND_PROFILE_DATA' not in system.provider.plan_calls[-1][0]
+    before = len(system.provider.plan_calls)
+    response = service.chat(ChatRequest(message='Carbohydrate là gì?',save_history=False), 'a')
+    assert response.answer_origin == 'static' and response.citations[0].source_id == 'cdc-carb-counting'
+    assert len(system.provider.plan_calls) == before
     assert not system.provider.embed_calls
 
 

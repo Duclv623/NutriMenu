@@ -14,12 +14,14 @@ from rag_app.config import ROOT, Settings
 from rag_app.meal_models import (
     MealPlan,
     MealSnapshot,
+    Nutrients,
     NutritionProfile,
     PlanItem,
     SwapProposal,
     SwapRequest,
     sum_nutrients,
 )
+from rag_app.meal_requests import decimal, parse_meal_change
 
 ERRORS = {
     "INTEGRATION_REQUIRED": (503, "Dịch vụ hồ sơ/thực đơn chưa được kết nối."),
@@ -30,6 +32,7 @@ ERRORS = {
     "OUT_OF_SCOPE": (422, "Hồ sơ nằm ngoài phạm vi sinh/đổi thực đơn của hệ thống."),
     "DATA_INCOMPLETE": (422, "Chưa đủ dữ liệu hoặc kết quả kiểm tra để chấp nhận phương án này."),
     "NO_FEASIBLE_PLAN": (422, "Chưa có phương án đổi món đáp ứng các điều kiện hiện tại. Thực đơn cũ được giữ nguyên."),
+    "REQUEST_MISMATCH": (422, "Phương án chưa đáp ứng đúng yêu cầu đổi món."),
     "SOLVER_UNRESOLVED": (503, "Bộ giải chưa xác định được phương án; chưa thể kết luận không có nghiệm."),
     "MODEL_INVALID": (503, "Dịch vụ tối ưu báo mô hình chưa hợp lệ."),
     "PROPOSAL_EXPIRED": (409, "Đề xuất đã hết hạn hoặc đã áp dụng. Hãy tạo đề xuất mới."),
@@ -116,6 +119,9 @@ def validate_proposal(snapshot, request, proposal):
     if old[request.item_id].meal_type != new[request.item_id].meal_type or any(
             old[key] != new[key] for key in old if key != request.item_id):
         raise MealServiceError("DATA_INCOMPLETE")
+    original, replacement = old[request.item_id], new[request.item_id]
+    if original == replacement or not parse_meal_change(request.instruction).matches(original, replacement, before, after):
+        raise MealServiceError("REQUEST_MISMATCH")
     if check_plan(after, snapshot.profile, mock=snapshot.data_mode == "mock"):
         raise MealServiceError("DATA_INCOMPLETE")
 
@@ -231,19 +237,38 @@ class MockMealGateway(DisabledMealGateway):
             original = next((item for item in snapshot.plan.items if item.id == request.item_id), None)
             if original is None:
                 raise MealServiceError("NOT_FOUND")
+            change = parse_meal_change(request.instruction)
             alternatives = [PlanItem.model_validate(row) for row in self.fixture["alternatives"]]
-            # Explicit demo IDs can request the infeasible example D. No free-form
-            # ingredient changes are claimed: the UI labels fixed demo candidates.
-            desired = next((item.recipe_id for item in alternatives if item.recipe_id.lower() in request.instruction.lower()), None)
-            for replacement in alternatives:
-                if replacement.meal_type != original.meal_type or replacement.recipe_id == original.recipe_id or desired and desired != replacement.recipe_id:
+            amount = change.requested_amount(original)
+            current_amount = decimal(original.amount)
+            requested_amounts = [amount] if amount is not None else []
+            if not requested_amounts and change.amount is None and change.amount_direction:
+                # Try small changes to the fictional serving when the user asked
+                # for a direction without specifying a quantity.
+                requested_amounts = [current_amount * (1 + decimal(percent * change.amount_direction) / 100) for percent in (2, 1)]
+            portion_options = []
+            for amount in requested_amounts if change.keep_recipe and not self.named_demo else []:
+                if not 0 < amount != current_amount:
+                    continue
+                # The mathematical fixture defines an additive, fictional portion.
+                # Scaling it does not assert a real-food portion conversion.
+                ratio = amount / current_amount
+                nutrients = Nutrients(**{
+                    key: None if value is None else float(decimal(value) * ratio)
+                    for key, value in original.nutrients.model_dump(by_alias=False).items()
+                })
+                portion_options.append(original.model_copy(update={"amount": float(amount), "nutrients": nutrients}))
+            for replacement in portion_options + alternatives:
+                if replacement.meal_type != original.meal_type:
                     continue
                 replacement = replacement.model_copy(update={"id": original.id})
+                if replacement == original:
+                    continue
                 items = [replacement if item.id == original.id else item for item in snapshot.plan.items]
                 values = snapshot.plan.model_dump(by_alias=False)
                 values.update(version=snapshot.plan.version + 1, items=items, totals=sum_nutrients(items))
                 plan = MealPlan.model_validate(values)
-                if check_plan(plan, snapshot.profile, mock=True):
+                if not change.matches(original, replacement, snapshot.plan, plan) or check_plan(plan, snapshot.profile, mock=True):
                     continue
                 proposal = SwapProposal(
                     id=uuid4(), plan_id=plan.id, base_version=request.base_version,

@@ -11,9 +11,17 @@ def run(name,amount=None,unit='g',dataset='auto',nutrients=None):
         dataset=dataset,nutrients=nutrients or []))
 
 
+def usda_reference_ids():
+    manifest = ROOT / 'data/structured/common_food_references/manifest.json'
+    entries = json.loads(manifest.read_text(encoding='utf-8'))['records']
+    return {f"usda:{entry['fdc_id']}" for entry in entries}
+
+
 def test_all_sources_and_pdf_pages_accounted_for():
     catalog=get_catalog()
-    assert catalog.status()['datasets']=={'nin_foods':853,'nin_dishes':1250,'fct2007':526,'usda':5}
+    expected_usda = usda_reference_ids()
+    assert catalog.status()['datasets']=={'nin_foods':853,'nin_dishes':1250,'fct2007':526,'usda':len(expected_usda)}
+    assert {r['id'] for r in catalog.records.values() if r['dataset'] == 'usda'} == expected_usda
     assert catalog.status()['unknown_portion_records']==1250
     assert all(r['reference_amount_g']==100 for r in catalog.records.values() if r['dataset']!='nin_dishes')
     report=json.loads((ROOT/'data/structured/fct2007/quality_report.json').read_text(encoding='utf-8'))
@@ -66,6 +74,19 @@ def test_ambiguous_names_request_selection_and_unknown_stays_unknown():
     choices=run('thịt bò',100)['unresolved'][0]['candidates']
     assert any('tươi' in c['name'].lower() or 'sống' in c['name'].lower() for c in choices)
     assert run('thực phẩm xyzkhôngcó123',100)['unresolved']
+
+
+def test_energy_comparison_uses_the_specified_gram_amounts_and_preparation():
+    answer, result = get_catalog().simple_energy_comparison(
+        '80 g cà rốt luộc hay 100 g bắp cải luộc, loại nào ít kcal hơn?'
+    )
+    assert answer.startswith('80 g cà rốt (củ đỏ, vàng) luộc ít calo hơn.')
+    assert '80 g' in answer and '37,6 kcal [C1]' in answer and '41 kcal [C2]' in answer
+    assert [i['id'] for i in result['items']] == ['nin_foods:4007002', 'nin_foods:4010002']
+    answer, _ = get_catalog().simple_energy_comparison('cà rốt sống hay cải bắp sống nhiều năng lượng hơn?')
+    assert answer.startswith('Củ cà rốt tươi nhiều calo hơn.')
+    assert get_catalog().simple_energy_comparison('bắp cải với cà rốt luộc loại nào nhiều calo hơn?') is None
+    assert get_catalog().simple_energy_comparison('bắp cải với rau lạ xyz loại nào nhiều calo hơn?') is None
 
 
 def test_rice_spelling_never_resolves_to_green_rice_flakes():
@@ -171,7 +192,8 @@ def test_nutrition_api_citations_and_ui_are_connected(system):
     assert system.client.get('/api/foods/not-real').status_code==404
     assert system.client.get('/api/documents/vtn-fct-2007/pdf').status_code==200
     last=system.client.get('/api/foods?offset=2620&limit=20').json()
-    assert last['total']==2634 and len(last['results'])==14
+    expected_usda = usda_reference_ids()
+    assert last['total']==2629+len(expected_usda) and len(last['results'])==9+len(expected_usda)
     assert [r['dataset'] for r in last['results']].count('fct2007') == 9
-    assert [r['dataset'] for r in last['results']].count('usda') == 5
+    assert {r['id'] for r in last['results'] if r['dataset'] == 'usda'} == expected_usda
     assert system.client.get('/api/foods?dataset=nin_dishes&offset=1250').json()['results']==[]

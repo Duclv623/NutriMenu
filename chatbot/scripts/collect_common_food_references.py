@@ -31,7 +31,10 @@ FOODS = [
 def main():
     folder = ROOT / 'data/structured/common_food_references'
     (folder / 'raw').mkdir(parents=True, exist_ok=True)
-    records = []
+    manifest_path = folder / 'manifest.json'
+    existing = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else {'records': []}
+    collected_ids = {entry[0] for entry in FOODS}
+    records = [record for record in existing['records'] if record['fdc_id'] not in collected_ids]
     with httpx.Client(timeout=45) as client:
         for fdc_id, expected, name, aliases, assumptions in FOODS:
             response = client.get(f'https://api.nal.usda.gov/fdc/v1/food/{fdc_id}',
@@ -52,8 +55,8 @@ def main():
                             'basis_amount_g': 100, 'collected_at': '2026-10-31',
                             'limitations': 'Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi.'})
             print(fdc_id, raw['description'], flush=True)
-    (folder / 'manifest.json').write_text(json.dumps({'schema_version': 1, 'records': records},
-                                                     ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    manifest_path.write_text(json.dumps({'schema_version': 1, 'records': records},
+                                        ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
 if __name__ == '__main__':

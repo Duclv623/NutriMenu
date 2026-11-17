@@ -167,6 +167,53 @@ def test_review_rejects_vague_direct_answer(system):
     assert not answer.supported and not answer.blocks
 
 
+def test_review_checks_repaired_ground_meat_recipe(system):
+    provider, endpoint = provider_with(system, [
+        DirectDraft(text='Xào sơ thịt băm rồi thêm nước và rau. Khi rau chín thì ăn ngay.', uncertainty=''),
+        DirectDraft(text='Nấu chín kỹ thịt băm trước khi cho rau vào. Đợi rau chín rồi tắt bếp.', uncertainty=''),
+        DirectReview(safe=True, answers_question=True, requires_evidence=False, reason='Nấu chín thịt trước khi ăn.'),
+    ])
+    answer, _ = provider.generate_direct('Nấu canh gì với cải và thịt băm?', plan(), [])
+    payloads = [json.loads(c['input'][1]['content']) for c in endpoint.calls]
+    assert answer.supported and answer._provider_response_ids == ['api-1', 'api-2', 'api-3']
+    assert 'nấu chín kỹ thịt' in payloads[1]['REQUIRED_CORRECTION']
+    assert payloads[2]['DRAFT']['text'] == answer.blocks[0].text
+
+
+def test_direct_followup_passes_prior_options_as_suggestions_only(system):
+    provider, endpoint = provider_with(system, [
+        DirectDraft(text='Dùng cải bó xôi trước, rồi đến cà rốt và bắp cải.', uncertainty=''),
+        DirectReview(safe=True, answers_question=True, requires_evidence=False, reason='Đúng điều kiện mới.'),
+    ])
+    history = [
+        {'question': 'Nhà còn cà rốt và bắp cải, mua thêm một loại rau thôi.',
+         'response': {'response_strategy': 'direct_llm', 'answer': 'Mua cải bó xôi.'}},
+        {'question': 'Mình nên cất hai loại đang có ở đâu?',
+         'response': {'response_strategy': 'direct_llm', 'answer': 'Cất phần đã cắt trong tủ lạnh.'}},
+    ]
+    provider.generate_direct('Gợi ý vài loại rau để mua.\nCâu hỏi tiếp: Chốt giúp mình thứ tự.', plan(), history)
+    payload = json.loads(endpoint.calls[0]['input'][1]['content'])
+    assert payload['PREVIOUS_ASSISTANT_SUGGESTIONS'] == ['Mua cải bó xôi.', 'Cất phần đã cắt trong tủ lạnh.']
+    assert payload['USER_CONTEXT'] == [turn['question'] for turn in history]
+    assert 'SOURCE_EXCERPTS' not in payload
+
+
+def test_direct_recap_retries_once_after_an_incomplete_draft(system):
+    provider, endpoint = provider_with(system, [
+        DirectDraft(text='Xào cơm với cà chua.', uncertainty=''),
+        DirectReview(safe=True, answers_question=False, requires_evidence=False, reason='Thiếu bước thêm đậu hũ.'),
+        DirectDraft(text='Xào cơm với cà chua rồi cho đậu hũ vào sau cùng, đảo nhẹ.', uncertainty=''),
+        DirectReview(safe=True, answers_question=True, requires_evidence=False, reason='Đủ bước.'),
+    ])
+    history = [{'question': 'Có thêm đậu hũ, cho lúc nào?', 'response': {
+        'response_strategy': 'direct_llm', 'answer': 'Cho đậu hũ sau cùng và đảo nhẹ.',
+    }}]
+    answer, _ = provider.generate_direct('Nấu cơm cà chua.\nCâu hỏi tiếp: Tóm lại giúp mình thứ tự.', plan(), history)
+    payload = json.loads(endpoint.calls[2]['input'][1]['content'])
+    assert answer.supported and len(endpoint.calls) == 4
+    assert 'điều kiện' in payload['REQUIRED_CORRECTION'] and 'đậu hũ' in answer.blocks[0].text
+
+
 @pytest.mark.parametrize('text', [
     'Ăn 200g cơm mỗi bữa.', 'Theo tài liệu, hãy ăn đúng giờ. [C1]',
     'Bạn nên tự tăng liều insulin.', 'Đồ ăn này giúp giảm đường huyết.',
