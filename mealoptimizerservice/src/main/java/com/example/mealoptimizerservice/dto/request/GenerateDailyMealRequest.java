@@ -35,6 +35,7 @@ public class GenerateDailyMealRequest {
     private BigDecimal targetFatG = new BigDecimal("48.9");     // 27.5% của 1600 kcal
 
     @Builder.Default
+    @DecimalMin("0.0") @DecimalMax("100.0")
     private BigDecimal maxGiAllowed = new BigDecimal("50.0");   // Chọn thực phẩm GI <= 50
 
     @Builder.Default

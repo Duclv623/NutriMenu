@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import com.example.mealoptimizerservice.dto.request.*;
 import com.example.mealoptimizerservice.dto.response.*;
 
@@ -182,7 +183,7 @@ public class MealOptimizerService {
     public InfeasibilityDiagnosisResponse explainInfeasibility(GenerateDailyMealRequest req) {
         List<MealSlotTemplate> slots = getActiveTemplateOrThrow(req.getTemplateCode());
         List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(
-                req.getMaxGiAllowed(), req.getPatientContraindications(), Set.of());
+                null, req.getMaxGiAllowed(), req.getPatientContraindications(), Set.of(), mealSlotsOf(slots));
         SolverWeightProfile wp = getActiveWeightProfile(req.getWeightProfileId());
 
         List<String> conflicts = new ArrayList<>();
@@ -294,33 +295,35 @@ public class MealOptimizerService {
     public ShoppingListResponse generateSmartShoppingList(Long userId, LocalDate fromDate, LocalDate toDate) {
         List<MealPlan> plans = mealPlanRepo.findByUserIdAndPlanDateBetweenOrderByPlanDateAsc(userId, fromDate, toDate);
         Map<Long, ShoppingListResponse.ShoppingItemDto> aggregated = new LinkedHashMap<>();
+        Map<Long, Optional<DishSolverDto>> dishesById = new HashMap<>();
         int totalMeals = 0;
 
         for (MealPlan plan : plans) {
             for (MealPlanItem item : plan.getItems()) {
                 if (item.getStatus() == MealItemStatus.SKIPPED) continue;
                 totalMeals++;
-                catalogClient.findDishById(item.getDishId()).ifPresent(dto -> {
-                    if (dto.getRawIngredientsPerServing() != null) {
-                        for (DishSolverDto.RawIngredientNeedDto rawNeed : dto.getRawIngredientsPerServing().values()) {
-                            BigDecimal neededG = rawNeed.getRawWeightG()
-                                    .multiply(item.getServingMultiplier())
-                                    .setScale(1, RoundingMode.HALF_UP);
-                            aggregated.compute(rawNeed.getIngredientId(), (k, existing) -> {
-                                if (existing == null) {
-                                    return ShoppingListResponse.ShoppingItemDto.builder()
-                                            .ingredientId(rawNeed.getIngredientId())
-                                            .ingredientNameVi(rawNeed.getIngredientNameVi())
-                                            .group(rawNeed.getGroup())
-                                            .totalRawWeightG(neededG)
-                                            .build();
-                                }
-                                existing.setTotalRawWeightG(existing.getTotalRawWeightG().add(neededG));
-                                return existing;
-                            });
+                if (!Boolean.TRUE.equals(item.getCatalogDish())) continue;
+                Map<Long, DishSolverDto.RawIngredientNeedDto> recipe = dishesById
+                        .computeIfAbsent(item.getDishId(), id -> catalogClient.findDishById(id, userId, false))
+                        .map(DishSolverDto::getRawIngredientsPerServing)
+                        .orElseGet(Map::of);
+                for (DishSolverDto.RawIngredientNeedDto rawNeed : recipe.values()) {
+                    BigDecimal neededG = rawNeed.getRawWeightG()
+                            .multiply(item.getServingMultiplier())
+                            .setScale(1, RoundingMode.HALF_UP);
+                    aggregated.compute(rawNeed.getIngredientId(), (id, existing) -> {
+                        if (existing == null) {
+                            return ShoppingListResponse.ShoppingItemDto.builder()
+                                    .ingredientId(id)
+                                    .ingredientNameVi(rawNeed.getIngredientNameVi())
+                                    .group(rawNeed.getGroup())
+                                    .totalRawWeightG(neededG)
+                                    .build();
                         }
-                    }
-                });
+                        existing.setTotalRawWeightG(existing.getTotalRawWeightG().add(neededG));
+                        return existing;
+                    });
+                }
             }
         }
 
@@ -340,7 +343,7 @@ public class MealOptimizerService {
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy mục thực đơn ID: " + itemId));
 
-        DishSolverDto newDish = catalogClient.findDishById(req.getNewDishId())
+        DishSolverDto newDish = catalogClient.findDishById(req.getNewDishId(), userId, true)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy món ăn thay thế ID: " + req.getNewDishId()));
 
         populateItemSnapshotFromSolverDto(item, newDish, req.getNewServingScaledX2());
@@ -417,8 +420,6 @@ public class MealOptimizerService {
     // --- [CORE CP-SAT] 1. SINH THỰC ĐƠN 1 NGÀY TỐI ƯU ---
     @Transactional
     public MealPlanResponse generateOptimalDailyMealPlan(Long userId, GenerateDailyMealRequest req) {
-        mealPlanRepo.findByUserIdAndPlanDate(userId, req.getPlanDate())
-                .ifPresent(mealPlanRepo::delete);
         return runOptimizationPipeline(userId, req, true, "DAILY_GEN");
     }
 
@@ -439,7 +440,9 @@ public class MealOptimizerService {
                 lockedMap.computeIfAbsent(item.getMealSlot(), k -> new HashSet<>()).add(item.getDishId());
             } else {
                 Set<Long> forbidden = forbiddenMap.computeIfAbsent(item.getMealSlot(), k -> new HashSet<>());
-                forbidden.add(item.getDishId());
+                if (Boolean.TRUE.equals(item.getCatalogDish())) {
+                    forbidden.add(item.getDishId());
+                }
                 if (req.getAdditionalExcludedDishIds() != null) {
                     forbidden.addAll(req.getAdditionalExcludedDishIds());
                 }
@@ -448,7 +451,16 @@ public class MealOptimizerService {
 
         List<MealSlotTemplate> slots = getActiveTemplateOrThrow("STANDARD_4_MEALS");
         List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(
-                new BigDecimal("50.0"), Set.of(), Set.of());
+                userId, new BigDecimal("50.0"), Set.of(), Set.of(), mealSlotsOf(slots));
+        for (MealPlanItem item : plan.getItems()) {
+            if (Objects.equals(item.getId(), droppedItem.getId())) continue;
+            boolean available = Boolean.TRUE.equals(item.getCatalogDish()) && candidates.stream().anyMatch(dish ->
+                    Objects.equals(dish.getDishId(), item.getDishId()) && dish.getValidMealSlots().contains(item.getMealSlot()));
+            if (!available) {
+                throw new OptimizerBusinessException(HttpStatus.UNPROCESSABLE_ENTITY,
+                        "Không thể giữ món " + item.getDishNameVi() + " vì món không còn trong danh sách ứng viên của bữa.");
+            }
+        }
         SolverWeightProfile wp = getActiveWeightProfile(null);
 
         CpSatMealOptimizationEngine.SolverInputContext ctx = CpSatMealOptimizationEngine.SolverInputContext.builder()
@@ -471,7 +483,9 @@ public class MealOptimizerService {
         }
 
         Map<Long, Boolean> previousLocks = new HashMap<>();
-        plan.getItems().forEach(i -> previousLocks.put(i.getDishId(), i.getIsLocked()));
+        plan.getItems().stream()
+                .filter(item -> Boolean.TRUE.equals(item.getCatalogDish()))
+                .forEach(item -> previousLocks.put(item.getDishId(), item.getIsLocked()));
         plan.getItems().clear();
 
         for (CpSatMealOptimizationEngine.SelectedDishSolution sel : result.getSelectedDishes()) {
@@ -510,7 +524,8 @@ public class MealOptimizerService {
             throw new OptimizerBusinessException(HttpStatus.BAD_REQUEST, "Tất cả các bữa trong ngày đều đã được ăn!");
         }
 
-        List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(new BigDecimal("50.0"), Set.of(), Set.of());
+        List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(
+                userId, new BigDecimal("50.0"), Set.of(), Set.of(), mealSlotsOf(remainingSlots));
         SolverWeightProfile wp = getActiveWeightProfile(null);
 
         CpSatMealOptimizationEngine.SolverInputContext ctx = CpSatMealOptimizationEngine.SolverInputContext.builder()
@@ -553,7 +568,6 @@ public class MealOptimizerService {
 
         for (int dayOffset = 0; dayOffset < 7; dayOffset++) {
             LocalDate currentDate = req.getStartDate().plusDays(dayOffset);
-            mealPlanRepo.findByUserIdAndPlanDate(userId, currentDate).ifPresent(mealPlanRepo::delete);
 
             GenerateDailyMealRequest dayReq = GenerateDailyMealRequest.builder()
                     .planDate(currentDate)
@@ -588,7 +602,7 @@ public class MealOptimizerService {
                 }
             }));
             slidingWindow2Days.addLast(todaysMainDishes);
-            if (slidingWindow2Days.size() > 1) {
+            if (slidingWindow2Days.size() > 2) {
                 slidingWindow2Days.removeFirst();
             }
         }
@@ -600,16 +614,21 @@ public class MealOptimizerService {
     // -------------------------------------------------------------------------
     @Transactional(readOnly = true)
     public Set<Long> getRecentEatenDishIds(Long userId, int days) {
-        return mealPlanRepo.findRecentDishIdsByUserId(userId, LocalDate.now().minusDays(days));
+        LocalDate today = LocalDate.now();
+        return mealPlanRepo.findRecentDishIdsByUserId(userId, today.minusDays(days), today.plusDays(1));
     }
 
     // -------------------------------------------------------------------------
     // PRIVATE HELPERS & BULKHEAD EXECUTION
     // -------------------------------------------------------------------------
+    private Set<MealSlot> mealSlotsOf(List<MealSlotTemplate> templates) {
+        return templates.stream().map(MealSlotTemplate::getMealSlot).collect(Collectors.toSet());
+    }
+
     private MealPlanResponse runOptimizationPipeline(
             Long userId, GenerateDailyMealRequest req, boolean persistToDb, String operationType) {
         Set<Long> recentDishes = (userId != null)
-                ? mealPlanRepo.findRecentDishIdsByUserId(userId, req.getPlanDate().minusDays(2))
+                ? mealPlanRepo.findRecentDishIdsByUserId(userId, req.getPlanDate().minusDays(2), req.getPlanDate())
                 : Collections.emptySet();
         return runOptimizationPipelineWithExtraExclusions(userId, req, recentDishes, persistToDb, operationType);
     }
@@ -619,7 +638,7 @@ public class MealOptimizerService {
 
         List<MealSlotTemplate> slots = getActiveTemplateOrThrow(req.getTemplateCode());
         List<DishSolverDto> candidates = catalogClient.fetchCandidatesForSolver(
-                req.getMaxGiAllowed(), req.getPatientContraindications(), excludedDishIds);
+                userId, req.getMaxGiAllowed(), req.getPatientContraindications(), excludedDishIds, mealSlotsOf(slots));
         SolverWeightProfile wp = getActiveWeightProfile(req.getWeightProfileId());
 
         CpSatMealOptimizationEngine.SolverInputContext ctx = CpSatMealOptimizationEngine.SolverInputContext.builder()
@@ -662,6 +681,7 @@ public class MealOptimizerService {
 
         plan.recalculateTotalsFromItems();
         if (persistToDb && result.getStatus() != SolverRunStatus.INFEASIBLE) {
+            mealPlanRepo.findByUserIdAndPlanDate(userId, req.getPlanDate()).ifPresent(mealPlanRepo::delete);
             plan = mealPlanRepo.save(plan);
         }
 
@@ -685,6 +705,7 @@ public class MealOptimizerService {
                 .divide(new BigDecimal("2.0"), 2, RoundingMode.HALF_UP);
 
         item.setDishId(dish.getDishId());
+        item.setCatalogDish(true);
         item.setDishCode(dish.getCode());
         item.setDishNameVi(dish.getNameVi());
         item.setDishRole(dish.getRole());

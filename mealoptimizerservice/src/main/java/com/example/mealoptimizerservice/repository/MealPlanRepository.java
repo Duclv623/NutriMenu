@@ -23,7 +23,11 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Long> {
         JOIN mp.items mpi
         WHERE mp.userId = :userId
           AND mp.planDate >= :sinceDate
+          AND mp.planDate < :beforeDate
+          AND mpi.catalogDish = true
           AND mpi.status <> 'SKIPPED'
     """)
-    Set<Long> findRecentDishIdsByUserId(@Param("userId") Long userId, @Param("sinceDate") LocalDate sinceDate);
+    Set<Long> findRecentDishIdsByUserId(@Param("userId") Long userId,
+                                       @Param("sinceDate") LocalDate sinceDate,
+                                       @Param("beforeDate") LocalDate beforeDate);
 }

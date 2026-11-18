@@ -34,6 +34,10 @@ public class MealPlanItem {
     @Column(name = "dish_id", nullable = false)
     private Long dishId;
 
+    // Existing plans can contain IDs from the former embedded catalog.
+    @Column(name = "catalog_dish")
+    private Boolean catalogDish;
+
     @Column(name = "dish_code", nullable = false, length = 50)
     private String dishCode;
 
