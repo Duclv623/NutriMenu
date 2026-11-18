@@ -13,9 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 @Repository
 public interface DishRepository extends JpaRepository<Dish, Long> {
+    Optional<Dish> findByCode(String code);
 
     @Query("""
         SELECT DISTINCT d FROM Dish d

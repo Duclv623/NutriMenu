@@ -16,7 +16,7 @@ public class CandidateFilterRequest {
     private Long userId;
     @Builder.Default
     @DecimalMax("100.0")
-    private BigDecimal maxGiAllowed = new BigDecimal("69.9");
+    private BigDecimal maxGiAllowed = new BigDecimal("50.0");
     @Builder.Default
     private Set<MedicalTag> excludedMedicalTags = Set.of(MedicalTag.HIGH_GI);
     @Builder.Default

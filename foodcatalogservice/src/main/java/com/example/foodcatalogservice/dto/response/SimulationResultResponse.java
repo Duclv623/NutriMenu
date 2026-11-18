@@ -22,6 +22,7 @@ public class SimulationResultResponse {
     private BigDecimal proteinG;
     private BigDecimal fatG;
     private BigDecimal saturatedFatG;
+    private BigDecimal cholesterolMg;
     private BigDecimal sodiumMg;
     private BigDecimal potassiumMg;
     private BigDecimal purineMg;

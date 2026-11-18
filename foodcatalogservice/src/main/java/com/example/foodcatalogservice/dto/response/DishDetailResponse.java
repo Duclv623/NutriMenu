@@ -31,6 +31,7 @@ public class DishDetailResponse {
     private BigDecimal proteinG;
     private BigDecimal fatG;
     private BigDecimal saturatedFatG;
+    private BigDecimal cholesterolMg;
     private BigDecimal sodiumMg;
     private BigDecimal potassiumMg;
     private BigDecimal purineMg;
@@ -73,6 +74,7 @@ public class DishDetailResponse {
                 .proteinG(d.getProteinG())
                 .fatG(d.getFatG())
                 .saturatedFatG(d.getSaturatedFatG())
+                .cholesterolMg(d.getCholesterolMg())
                 .sodiumMg(d.getSodiumMg())
                 .potassiumMg(d.getPotassiumMg())
                 .purineMg(d.getPurineMg())

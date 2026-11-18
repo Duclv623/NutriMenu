@@ -192,7 +192,7 @@ public class FoodCatalogService {
             recommendations.add("Lượng Natri (" + tempDish.getSodiumMg() + "mg) vượt ngưỡng 600mg/khẩu phần, rủi ro cho bệnh nhân kèm Tăng huyết áp.");
         }
         if (tempDish.getMedicalTags().contains(MedicalTag.HIGH_SATURATED_FAT)) {
-            recommendations.add("Chất béo bão hòa cao. Khuyến nghị đổi sang phương pháp STEAMED (Hấp) hoặc BOILED (Luộc).");
+            recommendations.add("Chất béo bão hòa hoặc Cholesterol cao. Khuyến nghị đổi sang phương pháp STEAMED (Hấp) hoặc BOILED (Luộc).");
         }
         if (recommendations.isEmpty()) {
             recommendations.add("Công thức đạt chuẩn an toàn y khoa cho bệnh nhân Đái tháo đường típ 2.");
@@ -208,6 +208,7 @@ public class FoodCatalogService {
                 .proteinG(tempDish.getProteinG())
                 .fatG(tempDish.getFatG())
                 .saturatedFatG(tempDish.getSaturatedFatG())
+                .cholesterolMg(tempDish.getCholesterolMg())
                 .sodiumMg(tempDish.getSodiumMg())
                 .potassiumMg(tempDish.getPotassiumMg())
                 .purineMg(tempDish.getPurineMg())
@@ -260,7 +261,7 @@ public class FoodCatalogService {
 
     @Transactional(readOnly = true)
     public SolverCoverageDiagnosticResponse analyzeSolverCoverage(SolverCoverageDiagnosticRequest req) {
-        BigDecimal maxGi = req.getMaxGiAllowed() != null ? req.getMaxGiAllowed() : new BigDecimal("69.9");
+        BigDecimal maxGi = req.getMaxGiAllowed() != null ? req.getMaxGiAllowed() : new BigDecimal("50.0");
         Set<MedicalTag> excludedTags = (req.getExcludedMedicalTags() == null || req.getExcludedMedicalTags().isEmpty())
                 ? Set.of(MedicalTag.HIGH_GI) : req.getExcludedMedicalTags();
         boolean hasExIds = req.getExcludedRecentDishIds() != null && !req.getExcludedRecentDishIds().isEmpty();
@@ -365,6 +366,7 @@ public class FoodCatalogService {
         BigDecimal adjProtein = d.getProteinG().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
         BigDecimal adjFat = d.getFatG().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
         BigDecimal adjSodium = d.getSodiumMg().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
+        BigDecimal adjChol = d.getCholesterolMg().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
         BigDecimal adjGl = d.getGlycemicLoad().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
 
         TrafficLightBadge badge = TrafficLightBadge.evaluate(d.getEstimatedGi(), adjGl);
@@ -395,6 +397,7 @@ public class FoodCatalogService {
                 .proteinG(adjProtein)
                 .fatG(adjFat)
                 .sodiumMg(adjSodium)
+                .cholesterolMg(adjChol)
                 .estimatedGi(d.getEstimatedGi())
                 .adjustedGlycemicLoad(adjGl)
                 .adjustedBadge(badge)
@@ -427,7 +430,7 @@ public class FoodCatalogService {
             tips.add("Giảm 50% lượng muối/nước mắm khi chế biến và hạn chế chan nước kho.");
         }
         if (conflicts.contains(MedicalTag.HIGH_SATURATED_FAT)) {
-            warnings.add("Giàu chất béo bão hòa (" + d.getSaturatedFatG() + "g), cần hạn chế với Rối loạn mỡ máu.");
+            warnings.add("Giàu chất béo bão hòa (" + d.getSaturatedFatG() + "g) hoặc Cholesterol (" + d.getCholesterolMg() + "mg), cần hạn chế với Rối loạn mỡ máu.");
             tips.add("Bỏ da/mỡ động vật và ưu tiên luộc hoặc hấp.");
         }
 
@@ -490,6 +493,7 @@ public class FoodCatalogService {
     // -------------------------------------------------------------------------
     @Transactional(readOnly = true)
     public List<DishSolverDto> getCandidateDishesForSolver(CandidateFilterRequest req) {
+        BigDecimal maxGi = req.getMaxGiAllowed() != null ? req.getMaxGiAllowed() : new BigDecimal("50.0");
         Set<Long> mergedExcludedIds = new HashSet<>(req.getExcludedRecentDishIds() != null ? req.getExcludedRecentDishIds() : Set.of());
         Set<Long> mergedLikedIds = new HashSet<>(req.getLikedDishIds() != null ? req.getLikedDishIds() : Set.of());
 
@@ -513,7 +517,7 @@ public class FoodCatalogService {
                 ? 25 : req.getMaxCandidatesPerRole();
 
         List<Dish> rawCandidates = dishRepository.findCandidatesForSolver(
-                req.getUserId(), req.getMaxGiAllowed(), slots, hasExcludedIds, safeExcludedIds, safeExcludedTags
+                req.getUserId(), maxGi, slots, hasExcludedIds, safeExcludedIds, safeExcludedTags
         );
 
         Map<DishRole, List<Dish>> groupedByRole = rawCandidates.stream()
@@ -530,8 +534,13 @@ public class FoodCatalogService {
     }
 
     @Transactional(readOnly = true)
-    public DishSolverDto getSingleSolverDto(Long dishId) {
-        return toSolverDto(getDishOrThrow(dishId), false);
+    public DishSolverDto getSingleSolverDto(Long dishId, Long userId, boolean activeOnly) {
+        Dish dish = getDishOrThrow(dishId);
+        boolean visibleToUser = dish.getCreatedByUserId() == null || Objects.equals(dish.getCreatedByUserId(), userId);
+        if (!visibleToUser || (activeOnly && !Boolean.TRUE.equals(dish.getIsActive()))) {
+            throw new ResourceNotFoundException("Không tìm thấy món ăn ID: " + dishId);
+        }
+        return toSolverDto(dish, false);
     }
 
     @Transactional(readOnly = true)
@@ -560,6 +569,7 @@ public class FoodCatalogService {
         ing.setProteinG(req.getProteinG());
         ing.setFatG(req.getFatG());
         ing.setSaturatedFatG(req.getSaturatedFatG() != null ? req.getSaturatedFatG() : BigDecimal.ZERO);
+        ing.setCholesterolMg(req.getCholesterolMg() != null ? req.getCholesterolMg() : BigDecimal.ZERO);
         ing.setSodiumMg(req.getSodiumMg() != null ? req.getSodiumMg() : BigDecimal.ZERO);
         ing.setPotassiumMg(req.getPotassiumMg() != null ? req.getPotassiumMg() : BigDecimal.ZERO);
         ing.setPurineMg(req.getPurineMg() != null ? req.getPurineMg() : BigDecimal.ZERO);
@@ -610,6 +620,16 @@ public class FoodCatalogService {
 
     private DishSolverDto toSolverDto(Dish d, boolean isUserFavorite) {
         int finalScore = d.getPopularityScore() + (isUserFavorite ? 150 : 0);
+        Map<Long, DishSolverDto.RawIngredientNeedDto> rawIngredients = new LinkedHashMap<>();
+        for (DishIngredient item : d.getIngredients()) {
+            Ingredient ingredient = item.getIngredient();
+            rawIngredients.put(ingredient.getId(), DishSolverDto.RawIngredientNeedDto.builder()
+                    .ingredientId(ingredient.getId())
+                    .ingredientNameVi(ingredient.getNameVi())
+                    .group(ingredient.getIngredientGroup())
+                    .rawWeightG(item.getRawWeightG())
+                    .build());
+        }
         return DishSolverDto.builder()
                 .dishId(d.getId())
                 .code(d.getCode())
@@ -623,10 +643,15 @@ public class FoodCatalogService {
                 .proteinX10(d.getProteinScaledX10())
                 .fatX10(d.getFatScaledX10())
                 .glX10(d.getGlScaledX10())
+                .sodiumX10(d.getSodiumScaledX10())
+                .cholesterolX10(d.getCholesterolScaledX10())
+                .standardServingCookedG(d.getStandardServingCookedG())
                 .minServingX2(d.getMinServingScaledX2())
                 .maxServingX2(d.getMaxServingScaledX2())
                 .stepServingX2(d.getStepServingScaledX2())
                 .basePreferenceScore(finalScore)
+                .householdUnitLabel(d.getHouseholdUnitLabel())
+                .rawIngredientsPerServing(rawIngredients)
                 .build();
     }
 }

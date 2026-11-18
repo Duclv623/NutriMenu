@@ -81,6 +81,10 @@ public class Ingredient {
     private BigDecimal purineMg = BigDecimal.ZERO;
 
     @Builder.Default
+    @Column(name = "cholesterol_mg", precision = 7, scale = 2)
+    private BigDecimal cholesterolMg = BigDecimal.ZERO;
+
+    @Builder.Default
     @Column(name = "gi_value", precision = 5, scale = 2)
     private BigDecimal giValue = BigDecimal.ZERO;
 

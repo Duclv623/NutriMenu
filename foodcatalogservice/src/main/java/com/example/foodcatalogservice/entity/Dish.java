@@ -104,6 +104,10 @@ public class Dish {
     private BigDecimal purineMg = BigDecimal.ZERO;
 
     @Builder.Default
+    @Column(name = "cholesterol_mg", nullable = false, precision = 7, scale = 2)
+    private BigDecimal cholesterolMg = BigDecimal.ZERO;
+
+    @Builder.Default
     @Column(name = "estimated_gi", nullable = false, precision = 5, scale = 2)
     private BigDecimal estimatedGi = BigDecimal.ZERO;
 
@@ -140,6 +144,14 @@ public class Dish {
     @Builder.Default
     @Column(name = "gl_scaled_x10", nullable = false)
     private Long glScaledX10 = 0L;
+
+    @Builder.Default
+    @Column(name = "sodium_scaled_x10", nullable = false)
+    private Long sodiumScaledX10 = 0L;
+
+    @Builder.Default
+    @Column(name = "cholesterol_scaled_x10", nullable = false)
+    private Long cholesterolScaledX10 = 0L;
 
     // Quy tắc bội số khẩu phần cho CP-SAT (x2: 1=0.5, 2=1.0, 3=1.5)
     @Builder.Default
@@ -201,6 +213,8 @@ public class Dish {
         this.proteinScaledX10 = scaleX10(this.proteinG);
         this.fatScaledX10 = scaleX10(this.fatG);
         this.glScaledX10 = scaleX10(this.glycemicLoad);
+        this.sodiumScaledX10 = scaleX10(this.sodiumMg);
+        this.cholesterolScaledX10 = scaleX10(this.cholesterolMg);
         this.updatedAt = LocalDateTime.now();
     }
 

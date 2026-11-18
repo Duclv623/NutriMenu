@@ -24,6 +24,7 @@ public class UpsertIngredientRequest {
     @NotNull @DecimalMin("0.0") private BigDecimal proteinG;
     @NotNull @DecimalMin("0.0") private BigDecimal fatG;
     private BigDecimal saturatedFatG;
+    private BigDecimal cholesterolMg;
     private BigDecimal sodiumMg;
     private BigDecimal potassiumMg;
     private BigDecimal purineMg;

@@ -26,8 +26,11 @@ public class InternalSolverCatalogController {
     }
 
     @GetMapping("/{id}/solver-dto")
-    public ResponseEntity<DishSolverDto> getSingleSolverDto(@PathVariable Long id) {
-        return ResponseEntity.ok(catalogService.getSingleSolverDto(id));
+    public ResponseEntity<DishSolverDto> getSingleSolverDto(
+            @PathVariable Long id,
+            @RequestParam(required = false) Long userId,
+            @RequestParam(defaultValue = "false") boolean activeOnly) {
+        return ResponseEntity.ok(catalogService.getSingleSolverDto(id, userId, activeOnly));
     }
 
     @PostMapping("/batch")

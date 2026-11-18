@@ -1,0 +1,5714 @@
+{
+  "metadata": {
+    "datasetId": "food-catalog-vi-qa-v1",
+    "schemaVersion": 1,
+    "sources": [
+      {
+        "key": "FDC",
+        "description": "USDA FoodData Central, SR Legacy 04/2018. Thành phần dinh dưỡng trên 100 g phần ăn được.",
+        "url": "https://fdc.nal.usda.gov/download-datasets/"
+      },
+      {
+        "key": "GI_DB",
+        "description": "Đại học Sydney. Các giá trị GI là đại diện từ thực phẩm/cách nấu liên quan, được gắn vào dữ liệu QA.",
+        "url": "https://glycemicindex.com/gi-search/"
+      },
+      {
+        "key": "GI_2021",
+        "description": "Atkinson và cộng sự, bảng GI quốc tế năm 2021. Dùng giá trị trung bình nhóm gạo.",
+        "url": "https://doi.org/10.1093/ajcn/nqab233"
+      },
+      {
+        "key": "PURINE",
+        "description": "Kaneko và cộng sự, hàm lượng purine ở ức gà và gan gà, mg/100 g.",
+        "url": "https://doi.org/10.1248/bpb.b13-00967"
+      },
+      {
+        "key": "YIELD",
+        "description": "USDA Cooking Yields for Meat and Poultry, nguồn tham chiếu cho hướng và phạm vi hao hụt. Các hệ số trong bộ dữ liệu là ước số QA.",
+        "url": "https://www.ars.usda.gov/ARSUserFiles/80400525/Data/retn/USDA_CookingYields_MeatPoultry02.pdf"
+      }
+    ]
+  },
+  "ingredients": [
+    {
+      "vfcCode": "FDC_169705",
+      "nameVi": "Yến mạch nguyên hạt khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 389.0,
+      "totalCarbG": 66.27,
+      "fiberG": 10.6,
+      "proteinG": 16.89,
+      "fatG": 6.9,
+      "saturatedFatG": 1.22,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 429.0,
+      "giValue": 48,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170284",
+      "nameVi": "Đại mạch ngọc trai khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 352.0,
+      "totalCarbG": 77.72,
+      "fiberG": 15.6,
+      "proteinG": 9.91,
+      "fatG": 1.16,
+      "saturatedFatG": 0.24,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 9.0,
+      "potassiumMg": 280.0,
+      "giValue": 30,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169703",
+      "nameVi": "Gạo lứt hạt dài khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 367.0,
+      "totalCarbG": 76.25,
+      "fiberG": 3.6,
+      "proteinG": 7.54,
+      "fatG": 3.2,
+      "saturatedFatG": 0.59,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 250.0,
+      "giValue": 65,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169756",
+      "nameVi": "Gạo trắng hạt dài khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 365.0,
+      "totalCarbG": 79.95,
+      "fiberG": 1.3,
+      "proteinG": 7.13,
+      "fatG": 0.66,
+      "saturatedFatG": 0.18,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 115.0,
+      "giValue": 73,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170685",
+      "nameVi": "Kiều mạch rang khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 346.0,
+      "totalCarbG": 74.95,
+      "fiberG": 10.3,
+      "proteinG": 11.73,
+      "fatG": 2.71,
+      "saturatedFatG": 0.59,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 11.0,
+      "potassiumMg": 320.0,
+      "giValue": 49,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168874",
+      "nameVi": "Hạt quinoa khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 368.0,
+      "totalCarbG": 64.16,
+      "fiberG": 7.0,
+      "proteinG": 14.12,
+      "fatG": 6.07,
+      "saturatedFatG": 0.71,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 563.0,
+      "giValue": 53,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170688",
+      "nameVi": "Lúa mì bulgur khô",
+      "ingredientGroup": "RICE_GRAIN",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 342.0,
+      "totalCarbG": 75.87,
+      "fiberG": 12.5,
+      "proteinG": 12.29,
+      "fatG": 1.33,
+      "saturatedFatG": 0.23,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 17.0,
+      "potassiumMg": 410.0,
+      "giValue": 46,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169742",
+      "nameVi": "Bún gạo khô",
+      "ingredientGroup": "NOODLE_TUBER",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 364.0,
+      "totalCarbG": 80.18,
+      "fiberG": 1.6,
+      "proteinG": 5.95,
+      "fatG": 0.56,
+      "saturatedFatG": 0.15,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 182.0,
+      "potassiumMg": 30.0,
+      "giValue": 41,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168906",
+      "nameVi": "Mì soba khô",
+      "ingredientGroup": "NOODLE_TUBER",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 336.0,
+      "totalCarbG": 74.62,
+      "fiberG": 0.0,
+      "proteinG": 14.38,
+      "fatG": 0.71,
+      "saturatedFatG": 0.14,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 792.0,
+      "potassiumMg": 252.0,
+      "giValue": 46,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_174258",
+      "nameVi": "Miến đậu xanh khô",
+      "ingredientGroup": "NOODLE_TUBER",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 351.0,
+      "totalCarbG": 86.09,
+      "fiberG": 0.5,
+      "proteinG": 0.16,
+      "fatG": 0.06,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 10.0,
+      "potassiumMg": 10.0,
+      "giValue": 39,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_174256",
+      "nameVi": "Đậu xanh nguyên hạt khô",
+      "ingredientGroup": "SOY_TOFU",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 347.0,
+      "totalCarbG": 62.62,
+      "fiberG": 16.3,
+      "proteinG": 23.86,
+      "fatG": 1.15,
+      "saturatedFatG": 0.35,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 15.0,
+      "potassiumMg": 1246.0,
+      "giValue": 42,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_172420",
+      "nameVi": "Đậu lăng khô",
+      "ingredientGroup": "SOY_TOFU",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 352.0,
+      "totalCarbG": 63.35,
+      "fiberG": 10.7,
+      "proteinG": 24.63,
+      "fatG": 1.06,
+      "saturatedFatG": 0.15,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 677.0,
+      "giValue": 32,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_173734",
+      "nameVi": "Đậu đen khô",
+      "ingredientGroup": "SOY_TOFU",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 341.0,
+      "totalCarbG": 62.36,
+      "fiberG": 15.5,
+      "proteinG": 21.6,
+      "fatG": 1.42,
+      "saturatedFatG": 0.37,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 1483.0,
+      "giValue": 30,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_173756",
+      "nameVi": "Đậu gà khô",
+      "ingredientGroup": "SOY_TOFU",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 378.0,
+      "totalCarbG": 62.95,
+      "fiberG": 12.2,
+      "proteinG": 20.47,
+      "fatG": 6.04,
+      "saturatedFatG": 0.6,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 24.0,
+      "potassiumMg": 718.0,
+      "giValue": 28,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169998",
+      "nameVi": "Ngô ngọt vàng tươi",
+      "ingredientGroup": "NOODLE_TUBER",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 86.0,
+      "totalCarbG": 18.7,
+      "fiberG": 2.0,
+      "proteinG": 3.27,
+      "fatG": 1.35,
+      "saturatedFatG": 0.33,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 15.0,
+      "potassiumMg": 270.0,
+      "giValue": 52,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168482",
+      "nameVi": "Khoai lang tươi",
+      "ingredientGroup": "NOODLE_TUBER",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 86.0,
+      "totalCarbG": 20.12,
+      "fiberG": 3.0,
+      "proteinG": 1.57,
+      "fatG": 0.05,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 55.0,
+      "potassiumMg": 337.0,
+      "giValue": 48,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170026",
+      "nameVi": "Khoai tây tươi",
+      "ingredientGroup": "NOODLE_TUBER",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 77.0,
+      "totalCarbG": 17.49,
+      "fiberG": 2.1,
+      "proteinG": 2.05,
+      "fatG": 0.09,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 425.0,
+      "giValue": 78,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_171077",
+      "nameVi": "Ức gà bỏ da và xương",
+      "ingredientGroup": "POULTRY",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 120.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 22.5,
+      "fatG": 2.62,
+      "saturatedFatG": 0.56,
+      "cholesterolMg": 73.0,
+      "sodiumMg": 45.0,
+      "potassiumMg": 334.0,
+      "giValue": 0,
+      "purineMg": 141.2,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_173627",
+      "nameVi": "Thịt đùi gà bỏ da",
+      "ingredientGroup": "POULTRY",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 121.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 19.66,
+      "fatG": 4.12,
+      "saturatedFatG": 1.1,
+      "cholesterolMg": 94.0,
+      "sodiumMg": 95.0,
+      "potassiumMg": 242.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_171060",
+      "nameVi": "Gan gà tươi",
+      "ingredientGroup": "POULTRY",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 119.0,
+      "totalCarbG": 0.73,
+      "fiberG": 0.0,
+      "proteinG": 16.92,
+      "fatG": 4.83,
+      "saturatedFatG": 1.56,
+      "cholesterolMg": 345.0,
+      "sodiumMg": 71.0,
+      "potassiumMg": 230.0,
+      "giValue": 0,
+      "purineMg": 312.2,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168249",
+      "nameVi": "Thịt thăn heo nạc",
+      "ingredientGroup": "PORK",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 109.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 20.95,
+      "fatG": 2.17,
+      "saturatedFatG": 0.7,
+      "cholesterolMg": 65.0,
+      "sodiumMg": 53.0,
+      "potassiumMg": 399.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_167812",
+      "nameVi": "Thịt ba chỉ heo",
+      "ingredientGroup": "PORK",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 518.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 9.34,
+      "fatG": 53.01,
+      "saturatedFatG": 19.33,
+      "cholesterolMg": 72.0,
+      "sodiumMg": 32.0,
+      "potassiumMg": 185.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_171804",
+      "nameVi": "Thăn bò nạc",
+      "ingredientGroup": "BEEF",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 127.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 22.27,
+      "fatG": 3.54,
+      "saturatedFatG": 1.31,
+      "cholesterolMg": 59.0,
+      "sodiumMg": 56.0,
+      "potassiumMg": 357.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_175176",
+      "nameVi": "Phi lê cá rô phi",
+      "ingredientGroup": "FISH_SEAFOOD",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 96.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 20.08,
+      "fatG": 1.7,
+      "saturatedFatG": 0.59,
+      "cholesterolMg": 50.0,
+      "sodiumMg": 52.0,
+      "potassiumMg": 302.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SEAFOOD"
+      ]
+    },
+    {
+      "vfcCode": "FDC_175167",
+      "nameVi": "Phi lê cá hồi Đại Tây Dương",
+      "ingredientGroup": "FISH_SEAFOOD",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 208.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 20.42,
+      "fatG": 13.42,
+      "saturatedFatG": 3.05,
+      "cholesterolMg": 55.0,
+      "sodiumMg": 59.0,
+      "potassiumMg": 363.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SEAFOOD"
+      ]
+    },
+    {
+      "vfcCode": "FDC_175119",
+      "nameVi": "Phi lê cá thu Đại Tây Dương",
+      "ingredientGroup": "FISH_SEAFOOD",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 205.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 18.6,
+      "fatG": 13.89,
+      "saturatedFatG": 3.26,
+      "cholesterolMg": 70.0,
+      "sodiumMg": 90.0,
+      "potassiumMg": 314.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SEAFOOD"
+      ]
+    },
+    {
+      "vfcCode": "FDC_175179",
+      "nameVi": "Tôm tươi bóc vỏ",
+      "ingredientGroup": "FISH_SEAFOOD",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 85.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 20.1,
+      "fatG": 0.51,
+      "saturatedFatG": 0.1,
+      "cholesterolMg": 161.0,
+      "sodiumMg": 119.0,
+      "potassiumMg": 264.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SEAFOOD"
+      ]
+    },
+    {
+      "vfcCode": "FDC_175159",
+      "nameVi": "Cá ngừ vây vàng",
+      "ingredientGroup": "FISH_SEAFOOD",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 109.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 24.4,
+      "fatG": 0.49,
+      "saturatedFatG": 0.17,
+      "cholesterolMg": 39.0,
+      "sodiumMg": 45.0,
+      "potassiumMg": 441.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SEAFOOD"
+      ]
+    },
+    {
+      "vfcCode": "FDC_171287",
+      "nameVi": "Trứng gà bỏ vỏ",
+      "ingredientGroup": "EGG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 143.0,
+      "totalCarbG": 0.72,
+      "fiberG": 0.0,
+      "proteinG": 12.56,
+      "fatG": 9.51,
+      "saturatedFatG": 3.13,
+      "cholesterolMg": 372.0,
+      "sodiumMg": 142.0,
+      "potassiumMg": 138.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_EGG"
+      ]
+    },
+    {
+      "vfcCode": "FDC_172475",
+      "nameVi": "Đậu phụ trắng loại chắc",
+      "ingredientGroup": "SOY_TOFU",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 144.0,
+      "totalCarbG": 2.78,
+      "fiberG": 2.3,
+      "proteinG": 17.27,
+      "fatG": 8.72,
+      "saturatedFatG": 1.26,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 14.0,
+      "potassiumMg": 237.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SOY"
+      ]
+    },
+    {
+      "vfcCode": "FDC_170379",
+      "nameVi": "Bông cải xanh",
+      "ingredientGroup": "LEAFY_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 34.0,
+      "totalCarbG": 6.64,
+      "fiberG": 2.6,
+      "proteinG": 2.82,
+      "fatG": 0.37,
+      "saturatedFatG": 0.11,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 33.0,
+      "potassiumMg": 316.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170393",
+      "nameVi": "Cà rốt",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 41.0,
+      "totalCarbG": 9.58,
+      "fiberG": 2.8,
+      "proteinG": 0.93,
+      "fatG": 0.24,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 69.0,
+      "potassiumMg": 320.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168462",
+      "nameVi": "Cải bó xôi",
+      "ingredientGroup": "LEAFY_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 23.0,
+      "totalCarbG": 3.63,
+      "fiberG": 2.2,
+      "proteinG": 2.86,
+      "fatG": 0.39,
+      "saturatedFatG": 0.06,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 79.0,
+      "potassiumMg": 558.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169301",
+      "nameVi": "Rau muống",
+      "ingredientGroup": "LEAFY_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 19.0,
+      "totalCarbG": 3.13,
+      "fiberG": 2.1,
+      "proteinG": 2.6,
+      "fatG": 0.2,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 113.0,
+      "potassiumMg": 312.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169975",
+      "nameVi": "Bắp cải",
+      "ingredientGroup": "LEAFY_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 25.0,
+      "totalCarbG": 5.8,
+      "fiberG": 2.5,
+      "proteinG": 1.28,
+      "fatG": 0.1,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 18.0,
+      "potassiumMg": 170.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170390",
+      "nameVi": "Cải thìa",
+      "ingredientGroup": "LEAFY_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 13.0,
+      "totalCarbG": 2.18,
+      "fiberG": 1.0,
+      "proteinG": 1.5,
+      "fatG": 0.2,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 65.0,
+      "potassiumMg": 252.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169291",
+      "nameVi": "Bí ngòi",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 17.0,
+      "totalCarbG": 3.11,
+      "fiberG": 1.0,
+      "proteinG": 1.21,
+      "fatG": 0.32,
+      "saturatedFatG": 0.08,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 8.0,
+      "potassiumMg": 261.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170069",
+      "nameVi": "Bí đao",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 13.0,
+      "totalCarbG": 3.0,
+      "fiberG": 2.9,
+      "proteinG": 0.4,
+      "fatG": 0.2,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 111.0,
+      "potassiumMg": 6.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168393",
+      "nameVi": "Khổ qua",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 17.0,
+      "totalCarbG": 3.7,
+      "fiberG": 2.8,
+      "proteinG": 1.0,
+      "fatG": 0.17,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 296.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168448",
+      "nameVi": "Bí đỏ",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 26.0,
+      "totalCarbG": 6.5,
+      "fiberG": 0.5,
+      "proteinG": 1.0,
+      "fatG": 0.1,
+      "saturatedFatG": 0.05,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 340.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169260",
+      "nameVi": "Đậu bắp",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 33.0,
+      "totalCarbG": 7.45,
+      "fiberG": 3.2,
+      "proteinG": 1.93,
+      "fatG": 0.19,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 7.0,
+      "potassiumMg": 299.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170457",
+      "nameVi": "Cà chua đỏ",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 18.0,
+      "totalCarbG": 3.89,
+      "fiberG": 1.2,
+      "proteinG": 0.88,
+      "fatG": 0.2,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 237.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168409",
+      "nameVi": "Dưa leo cả vỏ",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 15.0,
+      "totalCarbG": 3.63,
+      "fiberG": 0.5,
+      "proteinG": 0.65,
+      "fatG": 0.11,
+      "saturatedFatG": 0.04,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 147.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169961",
+      "nameVi": "Đậu que",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 31.0,
+      "totalCarbG": 6.97,
+      "fiberG": 2.7,
+      "proteinG": 1.83,
+      "fatG": 0.22,
+      "saturatedFatG": 0.05,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 211.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169242",
+      "nameVi": "Nấm hương tươi",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 34.0,
+      "totalCarbG": 6.79,
+      "fiberG": 2.5,
+      "proteinG": 2.24,
+      "fatG": 0.49,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 9.0,
+      "potassiumMg": 304.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170000",
+      "nameVi": "Hành tây",
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 40.0,
+      "totalCarbG": 9.34,
+      "fiberG": 1.7,
+      "proteinG": 1.1,
+      "fatG": 0.1,
+      "saturatedFatG": 0.04,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 4.0,
+      "potassiumMg": 146.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170005",
+      "nameVi": "Hành lá",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 32.0,
+      "totalCarbG": 7.34,
+      "fiberG": 2.6,
+      "proteinG": 1.83,
+      "fatG": 0.19,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 16.0,
+      "potassiumMg": 276.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169231",
+      "nameVi": "Gừng tươi",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 80.0,
+      "totalCarbG": 17.77,
+      "fiberG": 2.0,
+      "proteinG": 1.82,
+      "fatG": 0.75,
+      "saturatedFatG": 0.2,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 13.0,
+      "potassiumMg": 415.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169230",
+      "nameVi": "Tỏi tươi",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 149.0,
+      "totalCarbG": 33.06,
+      "fiberG": 2.1,
+      "proteinG": 6.36,
+      "fatG": 0.5,
+      "saturatedFatG": 0.09,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 17.0,
+      "potassiumMg": 401.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169997",
+      "nameVi": "Rau mùi",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 23.0,
+      "totalCarbG": 3.67,
+      "fiberG": 2.8,
+      "proteinG": 2.13,
+      "fatG": 0.52,
+      "saturatedFatG": 0.01,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 46.0,
+      "potassiumMg": 521.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168155",
+      "nameVi": "Chanh xanh",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 30.0,
+      "totalCarbG": 10.54,
+      "fiberG": 2.8,
+      "proteinG": 0.7,
+      "fatG": 0.2,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 102.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168573",
+      "nameVi": "Sả tươi",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 99.0,
+      "totalCarbG": 25.31,
+      "fiberG": 0.0,
+      "proteinG": 1.82,
+      "fatG": 0.49,
+      "saturatedFatG": 0.12,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 723.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_173044",
+      "nameVi": "Ổi tươi",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 68.0,
+      "totalCarbG": 14.32,
+      "fiberG": 5.4,
+      "proteinG": 2.55,
+      "fatG": 0.95,
+      "saturatedFatG": 0.27,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 417.0,
+      "giValue": 31,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_171688",
+      "nameVi": "Táo tươi ăn cả vỏ",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 52.0,
+      "totalCarbG": 13.81,
+      "fiberG": 2.4,
+      "proteinG": 0.26,
+      "fatG": 0.17,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 107.0,
+      "giValue": 36,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169118",
+      "nameVi": "Lê tươi",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 57.0,
+      "totalCarbG": 15.23,
+      "fiberG": 3.1,
+      "proteinG": 0.36,
+      "fatG": 0.14,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 116.0,
+      "giValue": 38,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_167762",
+      "nameVi": "Dâu tây tươi",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 32.0,
+      "totalCarbG": 7.68,
+      "fiberG": 2.0,
+      "proteinG": 0.67,
+      "fatG": 0.3,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 153.0,
+      "giValue": 40,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169097",
+      "nameVi": "Cam tươi tách múi",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 47.0,
+      "totalCarbG": 11.75,
+      "fiberG": 2.4,
+      "proteinG": 0.94,
+      "fatG": 0.12,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 0.0,
+      "potassiumMg": 181.0,
+      "giValue": 43,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169926",
+      "nameVi": "Đu đủ chín",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 43.0,
+      "totalCarbG": 10.82,
+      "fiberG": 1.7,
+      "proteinG": 0.47,
+      "fatG": 0.26,
+      "saturatedFatG": 0.08,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 8.0,
+      "potassiumMg": 182.0,
+      "giValue": 56,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_168153",
+      "nameVi": "Kiwi xanh",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 61.0,
+      "totalCarbG": 14.66,
+      "fiberG": 3.0,
+      "proteinG": 1.14,
+      "fatG": 0.52,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 3.0,
+      "potassiumMg": 312.0,
+      "giValue": 50,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_174673",
+      "nameVi": "Bưởi chùm ruột hồng",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 42.0,
+      "totalCarbG": 10.66,
+      "fiberG": 1.6,
+      "proteinG": 0.77,
+      "fatG": 0.14,
+      "saturatedFatG": 0.02,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 0.0,
+      "potassiumMg": 135.0,
+      "giValue": 25,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_171705",
+      "nameVi": "Bơ tươi",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 160.0,
+      "totalCarbG": 8.53,
+      "fiberG": 6.7,
+      "proteinG": 2.0,
+      "fatG": 14.66,
+      "saturatedFatG": 2.13,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 7.0,
+      "potassiumMg": 485.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_173944",
+      "nameVi": "Chuối chín",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 89.0,
+      "totalCarbG": 22.84,
+      "fiberG": 2.6,
+      "proteinG": 1.09,
+      "fatG": 0.33,
+      "saturatedFatG": 0.11,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 358.0,
+      "giValue": 51,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_171711",
+      "nameVi": "Việt quất tươi",
+      "ingredientGroup": "FRUIT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 57.0,
+      "totalCarbG": 14.49,
+      "fiberG": 2.4,
+      "proteinG": 0.74,
+      "fatG": 0.33,
+      "saturatedFatG": 0.03,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 77.0,
+      "giValue": 53,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170894",
+      "nameVi": "Sữa chua Hy Lạp không béo, nguyên vị",
+      "ingredientGroup": "MILK_DAIRY",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 59.0,
+      "totalCarbG": 3.6,
+      "fiberG": 0.0,
+      "proteinG": 10.19,
+      "fatG": 0.39,
+      "saturatedFatG": 0.12,
+      "cholesterolMg": 5.0,
+      "sodiumMg": 36.0,
+      "potassiumMg": 141.0,
+      "giValue": 35,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_DAIRY"
+      ]
+    },
+    {
+      "vfcCode": "FDC_171284",
+      "nameVi": "Sữa chua nguyên vị từ sữa nguyên kem",
+      "ingredientGroup": "MILK_DAIRY",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 61.0,
+      "totalCarbG": 4.66,
+      "fiberG": 0.0,
+      "proteinG": 3.47,
+      "fatG": 3.25,
+      "saturatedFatG": 2.1,
+      "cholesterolMg": 13.0,
+      "sodiumMg": 46.0,
+      "potassiumMg": 155.0,
+      "giValue": 35,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_DAIRY"
+      ]
+    },
+    {
+      "vfcCode": "FDC_171267",
+      "nameVi": "Sữa bò 2% chất béo",
+      "ingredientGroup": "MILK_DAIRY",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 50.0,
+      "totalCarbG": 4.8,
+      "fiberG": 0.0,
+      "proteinG": 3.3,
+      "fatG": 1.98,
+      "saturatedFatG": 1.26,
+      "cholesterolMg": 8.0,
+      "sodiumMg": 47.0,
+      "potassiumMg": 140.0,
+      "giValue": 30,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_DAIRY"
+      ]
+    },
+    {
+      "vfcCode": "FDC_175215",
+      "nameVi": "Sữa đậu nành không đường",
+      "ingredientGroup": "SOY_TOFU",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 33.0,
+      "totalCarbG": 1.74,
+      "fiberG": 0.5,
+      "proteinG": 2.86,
+      "fatG": 1.61,
+      "saturatedFatG": 0.21,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 37.0,
+      "potassiumMg": 120.0,
+      "giValue": 34,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SOY"
+      ]
+    },
+    {
+      "vfcCode": "FDC_173806",
+      "nameVi": "Đậu phộng rang không muối",
+      "ingredientGroup": "NUT_SEED",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 587.0,
+      "totalCarbG": 21.26,
+      "fiberG": 8.4,
+      "proteinG": 24.35,
+      "fatG": 49.66,
+      "saturatedFatG": 7.72,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 634.0,
+      "giValue": 14,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_PEANUT"
+      ]
+    },
+    {
+      "vfcCode": "FDC_170567",
+      "nameVi": "Hạnh nhân",
+      "ingredientGroup": "NUT_SEED",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 579.0,
+      "totalCarbG": 21.55,
+      "fiberG": 12.5,
+      "proteinG": 21.15,
+      "fatG": 49.93,
+      "saturatedFatG": 3.8,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 733.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170150",
+      "nameVi": "Mè nguyên hạt khô",
+      "ingredientGroup": "NUT_SEED",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 573.0,
+      "totalCarbG": 23.45,
+      "fiberG": 11.8,
+      "proteinG": 17.73,
+      "fatG": 49.67,
+      "saturatedFatG": 6.96,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 11.0,
+      "potassiumMg": 468.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_172336",
+      "nameVi": "Dầu cải",
+      "ingredientGroup": "OIL_FAT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 884.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 0.0,
+      "fatG": 100.0,
+      "saturatedFatG": 7.37,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 0.0,
+      "potassiumMg": 0.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_173468",
+      "nameVi": "Muối ăn",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 0.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 0.0,
+      "fatG": 0.0,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 38758.0,
+      "potassiumMg": 8.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_174531",
+      "nameVi": "Nước mắm",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 35.0,
+      "totalCarbG": 3.64,
+      "fiberG": 0.0,
+      "proteinG": 5.06,
+      "fatG": 0.01,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 7851.0,
+      "potassiumMg": 288.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SEAFOOD"
+      ]
+    },
+    {
+      "vfcCode": "FDC_174277",
+      "nameVi": "Nước tương lên men",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 53.0,
+      "totalCarbG": 4.93,
+      "fiberG": 0.8,
+      "proteinG": 8.14,
+      "fatG": 0.57,
+      "saturatedFatG": 0.07,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5493.0,
+      "potassiumMg": 435.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": [
+        "ALLERGEN_SOY"
+      ]
+    },
+    {
+      "vfcCode": "FDC_173647",
+      "nameVi": "Nước dùng để nấu",
+      "ingredientGroup": "MIXED",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 0.0,
+      "totalCarbG": 0.0,
+      "fiberG": 0.0,
+      "proteinG": 0.0,
+      "fatG": 0.0,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 4.0,
+      "potassiumMg": 0.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_169655",
+      "nameVi": "Đường cát",
+      "ingredientGroup": "CONDIMENT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 387.0,
+      "totalCarbG": 99.98,
+      "fiberG": 0.0,
+      "proteinG": 0.0,
+      "fatG": 0.0,
+      "saturatedFatG": 0.0,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 2.0,
+      "giValue": 65,
+      "purineMg": null,
+      "allergenTags": []
+    },
+    {
+      "vfcCode": "FDC_170173",
+      "nameVi": "Nước cốt dừa đóng lon",
+      "ingredientGroup": "OIL_FAT",
+      "ediblePortionPct": 100,
+      "caloriesPer100g": 197.0,
+      "totalCarbG": 2.81,
+      "fiberG": 0.0,
+      "proteinG": 2.02,
+      "fatG": 21.33,
+      "saturatedFatG": 18.92,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 13.0,
+      "potassiumMg": 220.0,
+      "giValue": 0,
+      "purineMg": null,
+      "allergenTags": []
+    }
+  ],
+  "yieldRetentionFactors": [
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "BEEF",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 0.74,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "BEEF",
+      "cookingMethod": "GRILLED",
+      "yieldFactor": 0.75,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "BEEF",
+      "cookingMethod": "STIR_FRIED",
+      "yieldFactor": 0.76,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "GRILLED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "PAN_FRIED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "CONDIMENT",
+      "cookingMethod": "STIR_FRIED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "EGG",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "EGG",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.98,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "FISH_SEAFOOD",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 0.84,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "FISH_SEAFOOD",
+      "cookingMethod": "GRILLED",
+      "yieldFactor": 0.81,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "FISH_SEAFOOD",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.84,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "FISH_SEAFOOD",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.83,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "FRUIT",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "LEAFY_VEG",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 0.9,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "LEAFY_VEG",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "LEAFY_VEG",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.9,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "LEAFY_VEG",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.92,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "LEAFY_VEG",
+      "cookingMethod": "STIR_FRIED",
+      "yieldFactor": 0.82,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "MILK_DAIRY",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "MIXED",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "MIXED",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "MIXED",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "NOODLE_TUBER",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 0.98,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "NOODLE_TUBER",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "NOODLE_TUBER",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.96,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "NUT_SEED",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "NUT_SEED",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "NUT_SEED",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "OIL_FAT",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "OIL_FAT",
+      "cookingMethod": "GRILLED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "OIL_FAT",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "OIL_FAT",
+      "cookingMethod": "STIR_FRIED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "PORK",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 0.74,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "PORK",
+      "cookingMethod": "GRILLED",
+      "yieldFactor": 0.76,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "PORK",
+      "cookingMethod": "PAN_FRIED",
+      "yieldFactor": 0.7,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "PORK",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.8,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "PORK",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.8,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "POULTRY",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 0.76,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "POULTRY",
+      "cookingMethod": "GRILLED",
+      "yieldFactor": 0.77,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "POULTRY",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.8,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "POULTRY",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.79,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "RICE_GRAIN",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 2.55,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "RICE_GRAIN",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "RICE_GRAIN",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 0.97,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 0.88,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.96,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.94,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "ROOT_FRUIT_VEG",
+      "cookingMethod": "STIR_FRIED",
+      "yieldFactor": 0.88,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 2.3,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 0.98,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "RAW",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.99,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": null,
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 0.98,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_174258",
+      "ingredientGroup": "NOODLE_TUBER",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 2.8,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_169742",
+      "ingredientGroup": "NOODLE_TUBER",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 2.7,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_168906",
+      "ingredientGroup": "NOODLE_TUBER",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 2.45,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_172475",
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "BOILED",
+      "yieldFactor": 1,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_173734",
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "STEAMED",
+      "yieldFactor": 2.35,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_173756",
+      "ingredientGroup": "SOY_TOFU",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 2.2,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_173647",
+      "ingredientGroup": "MIXED",
+      "cookingMethod": "BRAISED",
+      "yieldFactor": 0.55,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_173647",
+      "ingredientGroup": "MIXED",
+      "cookingMethod": "SOUP_SIMMERED",
+      "yieldFactor": 0.93,
+      "oilAbsorptionPct": 0
+    },
+    {
+      "ingredientCode": "FDC_167812",
+      "ingredientGroup": "PORK",
+      "cookingMethod": "PAN_FRIED",
+      "yieldFactor": 0.69,
+      "oilAbsorptionPct": 1.5
+    }
+  ],
+  "dishes": [
+    {
+      "code": "QA_BF_CHAO_YEN_MACH_GA",
+      "nameVi": "Cháo yến mạch ức gà và gừng",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 100,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169705",
+          "rawWeightG": 65.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 85.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 210.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_CHAO_YEN_MACH_NAM",
+      "nameVi": "Cháo yến mạch nấm hương và đậu phụ",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 99,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169705",
+          "rawWeightG": 60.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_172475",
+          "rawWeightG": 85.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 55.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 220.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_YEN_MACH_TAO",
+      "nameVi": "Yến mạch ngâm sữa chua, táo và hạnh nhân",
+      "cookingMethod": "RAW",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 98,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169705",
+          "rawWeightG": 45.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170894",
+          "rawWeightG": 115.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_171688",
+          "rawWeightG": 100.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170567",
+          "rawWeightG": 14.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_YEN_MACH_LE",
+      "nameVi": "Yến mạch ngâm sữa đậu nành, lê và mè",
+      "cookingMethod": "RAW",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 97,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169705",
+          "rawWeightG": 52.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_175215",
+          "rawWeightG": 150.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169118",
+          "rawWeightG": 100.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 9.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_MIEN_GA",
+      "nameVi": "Miến đậu xanh gà xé và cải thìa",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 96,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174258",
+          "rawWeightG": 44.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 100.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 70.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169997",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 210.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_MIEN_THIT",
+      "nameVi": "Miến đậu xanh thịt nạc và nấm hương",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 95,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174258",
+          "rawWeightG": 42.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 100.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 225.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_MIEN_TOM",
+      "nameVi": "Miến đậu xanh tôm và bí ngòi",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 94,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174258",
+          "rawWeightG": 45.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_175179",
+          "rawWeightG": 95.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169291",
+          "rawWeightG": 75.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169997",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 220.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_MIEN_DAU_PHU",
+      "nameVi": "Miến đậu xanh đậu phụ và nấm hương",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 93,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174258",
+          "rawWeightG": 44.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_172475",
+          "rawWeightG": 110.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 60.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 55.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 210.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_SOBA_BO",
+      "nameVi": "Mì soba bò và cải thìa",
+      "cookingMethod": "BOILED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 92,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168906",
+          "rawWeightG": 65.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171804",
+          "rawWeightG": 85.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 65.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 20.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_174277",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_BUN_CA",
+      "nameVi": "Bún cá rô phi cà chua và rau mùi",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 91,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169742",
+          "rawWeightG": 48.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_175176",
+          "rawWeightG": 95.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 75.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169997",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 215.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_YEN_MACH_TRUNG",
+      "nameVi": "Cháo yến mạch trứng và bí đỏ",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 90,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169705",
+          "rawWeightG": 64.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171287",
+          "rawWeightG": 55.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168448",
+          "rawWeightG": 75.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 210.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_CHAO_DAI_MACH",
+      "nameVi": "Cháo đại mạch thịt nạc và cà rốt",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 89,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170284",
+          "rawWeightG": 65.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 85.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170393",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 230.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_CHAO_LUT_DAU_DEN",
+      "nameVi": "Cháo gạo lứt đậu đen và nấm",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 88,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169703",
+          "rawWeightG": 23.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173734",
+          "rawWeightG": 58.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 52.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 245.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_DAI_MACH",
+      "nameVi": "Đại mạch luộc",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 100,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170284",
+          "rawWeightG": 60.0,
+          "mainIngredient": true
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_DAI_MACH_BI_DO",
+      "nameVi": "Đại mạch trộn bí đỏ",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 99,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170284",
+          "rawWeightG": 54.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168448",
+          "rawWeightG": 60.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_LUT_DAU_LANG",
+      "nameVi": "Cơm gạo lứt trộn đậu lăng",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 98,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169703",
+          "rawWeightG": 24.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_172420",
+          "rawWeightG": 48.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_LUT_DAU_DEN",
+      "nameVi": "Cơm gạo lứt trộn đậu đen",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 97,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169703",
+          "rawWeightG": 23.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173734",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_BULGUR_DAU_GA",
+      "nameVi": "Bulgur trộn đậu gà",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 96,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170688",
+          "rawWeightG": 38.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173756",
+          "rawWeightG": 28.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_QUINOA_DAU_LANG",
+      "nameVi": "Quinoa trộn đậu lăng",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 95,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168874",
+          "rawWeightG": 43.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_172420",
+          "rawWeightG": 27.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_KIEU_MACH_DAU_XANH",
+      "nameVi": "Kiều mạch trộn đậu xanh",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 94,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170685",
+          "rawWeightG": 44.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_174256",
+          "rawWeightG": 24.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_MIEN_ME",
+      "nameVi": "Miến đậu xanh trộn mè",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 93,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174258",
+          "rawWeightG": 43.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_BUN_GAO_CHANH",
+      "nameVi": "Bún gạo trộn chanh và rau mùi",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 92,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169742",
+          "rawWeightG": 45.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169997",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_SOBA_DUA_LEO",
+      "nameVi": "Soba trộn dưa leo",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 91,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168906",
+          "rawWeightG": 55.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168409",
+          "rawWeightG": 60.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_KHOAI_LANG",
+      "nameVi": "Khoai lang luộc",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 90,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168482",
+          "rawWeightG": 205.0,
+          "mainIngredient": true
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_KHOAI_DAU_DEN",
+      "nameVi": "Khoai lang và đậu đen hấp",
+      "cookingMethod": "STEAMED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 89,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168482",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173734",
+          "rawWeightG": 29.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_NGO_DAU_LANG",
+      "nameVi": "Ngô ngọt và đậu lăng",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 88,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169998",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_172420",
+          "rawWeightG": 33.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_LUT_DAI_MACH",
+      "nameVi": "Cơm gạo lứt trộn đại mạch",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 87,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169703",
+          "rawWeightG": 22.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170284",
+          "rawWeightG": 41.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_GA_KHO_GUNG",
+      "nameVi": "Ức gà kho gừng",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 100,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_174531",
+          "rawWeightG": 3.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_GA_HAP_SA",
+      "nameVi": "Ức gà hấp sả và chanh",
+      "cookingMethod": "STEAMED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 99,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 128.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168573",
+          "rawWeightG": 9.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_GA_NUONG_TOI",
+      "nameVi": "Ức gà nướng tỏi",
+      "cookingMethod": "GRILLED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 98,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_DUI_GA_KHO_NAM",
+      "nameVi": "Đùi gà kho nấm hương",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 97,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_173627",
+          "rawWeightG": 130.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 22.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_THIT_HEO_HAP_HANH",
+      "nameVi": "Thăn heo hấp hành lá",
+      "cookingMethod": "STEAMED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 96,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 12.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_THIT_HEO_KHO_NAM",
+      "nameVi": "Thăn heo kho nấm",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 95,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 115.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_174277",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_THIT_HEO_NUONG_SA",
+      "nameVi": "Thăn heo nướng sả",
+      "cookingMethod": "GRILLED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 94,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168573",
+          "rawWeightG": 10.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_BO_XAO_HANH",
+      "nameVi": "Bò xào hành tây",
+      "cookingMethod": "STIR_FRIED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 93,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171804",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_BO_NUONG_GUNG",
+      "nameVi": "Thăn bò nướng gừng",
+      "cookingMethod": "GRILLED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 92,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171804",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_CA_HOI_HAP",
+      "nameVi": "Cá hồi hấp gừng",
+      "cookingMethod": "STEAMED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 91,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175167",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_CA_RO_PHI_SOT_CA",
+      "nameVi": "Cá rô phi om cà chua",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 90,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175176",
+          "rawWeightG": 135.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 90.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 20.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_CA_THU_NUONG",
+      "nameVi": "Cá thu nướng sả",
+      "cookingMethod": "GRILLED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 89,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175119",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168573",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_TOM_HAP_SA",
+      "nameVi": "Tôm hấp sả",
+      "cookingMethod": "STEAMED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 88,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175179",
+          "rawWeightG": 115.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168573",
+          "rawWeightG": 10.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.3,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_CA_NGU_KHO",
+      "nameVi": "Cá ngừ kho gừng",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 87,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175159",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_174531",
+          "rawWeightG": 3.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_DAU_PHU_SOT_CA",
+      "nameVi": "Đậu phụ om cà chua",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 86,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_172475",
+          "rawWeightG": 150.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 95.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 20.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_DAU_PHU_NAM",
+      "nameVi": "Đậu phụ hấp nấm hương",
+      "cookingMethod": "STEAMED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 85,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_172475",
+          "rawWeightG": 150.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 60.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_174277",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_DAU_GA_HAM_BI",
+      "nameVi": "Đậu gà hầm bí đỏ",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 84,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_173756",
+          "rawWeightG": 55.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168448",
+          "rawWeightG": 85.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 22.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 100.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_TRUNG_HAP_NAM",
+      "nameVi": "Trứng hấp nấm hương",
+      "cookingMethod": "STEAMED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 83,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171287",
+          "rawWeightG": 95.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 10.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 40.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_RAU_MUONG_TOI",
+      "nameVi": "Rau muống xào tỏi",
+      "cookingMethod": "STIR_FRIED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 100,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169301",
+          "rawWeightG": 160.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.35,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_CAI_THIA_HAP",
+      "nameVi": "Cải thìa hấp gừng",
+      "cookingMethod": "STEAMED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 99,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 160.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BONG_CAI_CA_ROT",
+      "nameVi": "Bông cải xanh và cà rốt hấp",
+      "cookingMethod": "STEAMED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 98,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170379",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170393",
+          "rawWeightG": 65.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BAP_CAI_LUOC",
+      "nameVi": "Bắp cải luộc",
+      "cookingMethod": "BOILED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 97,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169975",
+          "rawWeightG": 170.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_CAI_BO_XOI_TOI",
+      "nameVi": "Cải bó xôi xào tỏi",
+      "cookingMethod": "STIR_FRIED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 96,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168462",
+          "rawWeightG": 150.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BI_NGOI_NAM",
+      "nameVi": "Bí ngòi xào nấm hương",
+      "cookingMethod": "STIR_FRIED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 95,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169291",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 55.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_DAU_QUE_ME",
+      "nameVi": "Đậu que luộc trộn mè",
+      "cookingMethod": "BOILED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 94,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169961",
+          "rawWeightG": 155.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_DAU_BAP_CHANH",
+      "nameVi": "Đậu bắp luộc trộn chanh",
+      "cookingMethod": "BOILED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 93,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169260",
+          "rawWeightG": 150.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 10.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 3.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.3,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_KHO_QUA_HANH",
+      "nameVi": "Khổ qua xào hành tây",
+      "cookingMethod": "STIR_FRIED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 92,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168393",
+          "rawWeightG": 150.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 30.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.4,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_DUA_LEO_CA_CHUA",
+      "nameVi": "Dưa leo trộn cà chua, chanh và rau mùi",
+      "cookingMethod": "RAW",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 91,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168409",
+          "rawWeightG": 100.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 85.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 12.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169997",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BI_DO_HAP_ME",
+      "nameVi": "Bí đỏ hấp mè",
+      "cookingMethod": "STEAMED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 90,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168448",
+          "rawWeightG": 150.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_CA_ROT_DAU_QUE",
+      "nameVi": "Cà rốt và đậu que luộc",
+      "cookingMethod": "BOILED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 89,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170393",
+          "rawWeightG": 90.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169961",
+          "rawWeightG": 90.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BONG_CAI_NAM",
+      "nameVi": "Bông cải xanh xào nấm hương",
+      "cookingMethod": "STIR_FRIED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 88,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170379",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 65.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_172336",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.3,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BAP_CAI_DAU_PHONG",
+      "nameVi": "Bắp cải trộn chanh và đậu phộng",
+      "cookingMethod": "RAW",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 87,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169975",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173806",
+          "rawWeightG": 14.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 12.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170393",
+          "rawWeightG": 28.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_BI_DAO_GUNG",
+      "nameVi": "Canh bí đao nấu gừng",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 100,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170069",
+          "rawWeightG": 160.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 140.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_BI_DAO_HEO",
+      "nameVi": "Canh bí đao thịt nạc băm",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 99,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170069",
+          "rawWeightG": 135.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 145.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_CAI_THIA_NAM",
+      "nameVi": "Canh cải thìa nấm hương",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 98,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 115.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 60.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_RAUMUONG_CHANH",
+      "nameVi": "Canh rau muống chua nhẹ",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 97,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169301",
+          "rawWeightG": 145.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 10.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 155.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_BI_DO_DAU_LANG",
+      "nameVi": "Canh bí đỏ đậu lăng",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 96,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168448",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_172420",
+          "rawWeightG": 22.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 20.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_BAP_CAI_CA_ROT",
+      "nameVi": "Canh bắp cải cà rốt",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 95,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169975",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170393",
+          "rawWeightG": 55.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_CHUA_CA_RO",
+      "nameVi": "Canh chua cá rô phi và đậu bắp",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 94,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175176",
+          "rawWeightG": 82.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 75.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169260",
+          "rawWeightG": 70.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 10.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 155.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_NAM_DAU_PHU",
+      "nameVi": "Canh nấm hương đậu phụ",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 93,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_172475",
+          "rawWeightG": 110.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 65.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_KHO_QUA_NAC",
+      "nameVi": "Canh khổ qua thịt nạc",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 92,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168393",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_168249",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 15.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_CA_CHUA_TRUNG",
+      "nameVi": "Canh cà chua trứng",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 91,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170457",
+          "rawWeightG": 120.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171287",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 145.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_CAI_BO_XOI_TOM",
+      "nameVi": "Canh cải bó xôi nấu tôm",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 90,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168462",
+          "rawWeightG": 105.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_175179",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_BI_NGOI_GA",
+      "nameVi": "Canh bí ngòi thịt gà",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 89,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169291",
+          "rawWeightG": 135.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 18.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 160.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_NGO_NAM",
+      "nameVi": "Canh ngô ngọt nấm hương",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 88,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169998",
+          "rawWeightG": 67.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169242",
+          "rawWeightG": 55.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170393",
+          "rawWeightG": 32.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 155.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.45,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SO_CANH_CAI_THIA_DAU_GA",
+      "nameVi": "Canh cải thìa đậu gà",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SOUP",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát canh",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 87,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 112.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173756",
+          "rawWeightG": 25.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170000",
+          "rawWeightG": 18.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 155.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_OI_HANH_NHAN",
+      "nameVi": "Ổi tươi và hạnh nhân",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 100,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_173044",
+          "rawWeightG": 135.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170567",
+          "rawWeightG": 15.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_TAO_DAU_PHONG",
+      "nameVi": "Táo tươi và đậu phộng rang",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 99,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171688",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173806",
+          "rawWeightG": 15.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_LE_ME",
+      "nameVi": "Lê tươi và mè",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 98,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169118",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_DAU_TAY_SUA_CHUA",
+      "nameVi": "Dâu tây và sữa chua Hy Lạp",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 97,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_167762",
+          "rawWeightG": 145.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170894",
+          "rawWeightG": 120.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_CAM_HANH_NHAN",
+      "nameVi": "Cam tươi và hạnh nhân",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 96,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169097",
+          "rawWeightG": 130.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170567",
+          "rawWeightG": 14.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_KIWI_SUA_CHUA",
+      "nameVi": "Kiwi xanh và sữa chua nguyên vị",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 95,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168153",
+          "rawWeightG": 115.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171284",
+          "rawWeightG": 90.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_BUOI_CHUM_HANH_NHAN",
+      "nameVi": "Bưởi chùm và hạnh nhân",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 94,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174673",
+          "rawWeightG": 140.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170567",
+          "rawWeightG": 12.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_SUA_DAU_NANH_OI",
+      "nameVi": "Sữa đậu nành và ổi tươi",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 93,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_175215",
+          "rawWeightG": 185.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_173044",
+          "rawWeightG": 105.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_BO_SUA_CHUA_LE",
+      "nameVi": "Bơ, lê và sữa chua Hy Lạp",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 92,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169118",
+          "rawWeightG": 90.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171705",
+          "rawWeightG": 50.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170894",
+          "rawWeightG": 100.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_TAO_SUA_BO",
+      "nameVi": "Táo và sữa bò 2%",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 91,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171267",
+          "rawWeightG": 170.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171688",
+          "rawWeightG": 92.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_KHOAI_LANG_ME",
+      "nameVi": "Khoai lang luộc và mè",
+      "cookingMethod": "BOILED",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 90,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168482",
+          "rawWeightG": 90.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_DU_DU_DAU_TAY",
+      "nameVi": "Đu đủ và dâu tây",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 89,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169926",
+          "rawWeightG": 80.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_167762",
+          "rawWeightG": 125.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_VIET_QUAT_SUA_CHUA",
+      "nameVi": "Việt quất và sữa chua Hy Lạp",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 88,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171711",
+          "rawWeightG": 85.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170894",
+          "rawWeightG": 120.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_CHUOI_SUA_DAU_NANH",
+      "nameVi": "Chuối và sữa đậu nành",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 87,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_173944",
+          "rawWeightG": 72.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_175215",
+          "rawWeightG": 140.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_COM_TRANG",
+      "nameVi": "Cơm trắng phần lớn",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169756",
+          "rawWeightG": 80.0,
+          "mainIngredient": true
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_KHOAI_TAY",
+      "nameVi": "Khoai tây luộc phần lớn",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170026",
+          "rawWeightG": 240.0,
+          "mainIngredient": true
+        }
+      ]
+    },
+    {
+      "code": "QA_ST_DAI_MACH_LON",
+      "nameVi": "Đại mạch luộc phần lớn",
+      "cookingMethod": "BOILED",
+      "dishRole": "MAIN_STARCH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 bát nhỏ",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_170284",
+          "rawWeightG": 115.0,
+          "mainIngredient": true
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_GA_KHO_MAN",
+      "nameVi": "Ức gà kho nước mắm đậm",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 130.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_174531",
+          "rawWeightG": 18.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170005",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_HEO_AP_CHAO",
+      "nameVi": "Ba chỉ áp chảo",
+      "cookingMethod": "PAN_FRIED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_167812",
+          "rawWeightG": 105.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 5.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.6,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_PR_GAN_GA_GUNG",
+      "nameVi": "Gan gà kho gừng",
+      "cookingMethod": "BRAISED",
+      "dishRole": "PROTEIN_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171060",
+          "rawWeightG": 85.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169231",
+          "rawWeightG": 6.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_BO_XOI_LON",
+      "nameVi": "Cải bó xôi luộc phần lớn",
+      "cookingMethod": "BOILED",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168462",
+          "rawWeightG": 190.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_169230",
+          "rawWeightG": 4.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_CHE_DAU_XANH",
+      "nameVi": "Chè đậu xanh nước cốt dừa",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 65,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174256",
+          "rawWeightG": 35.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170173",
+          "rawWeightG": 45.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_169655",
+          "rawWeightG": 26.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 125.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_TAM_NGUNG",
+      "nameVi": "Táo cắt lát đã tạm ngừng",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": false,
+      "createdByUserId": null,
+      "popularityScore": 60,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_171688",
+          "rawWeightG": 125.0,
+          "mainIngredient": true
+        }
+      ]
+    },
+    {
+      "code": "QA_BF_RIENG_A",
+      "nameVi": "Miến gà cải thìa của người dùng A",
+      "cookingMethod": "SOUP_SIMMERED",
+      "dishRole": "COMPOSITE_DISH",
+      "mealSlots": [
+        "BREAKFAST"
+      ],
+      "householdUnitLabel": "1 tô",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 2,
+      "stepServingScaledX2": 2,
+      "isActive": true,
+      "createdByUserId": 90101,
+      "popularityScore": 68,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_174258",
+          "rawWeightG": 44.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_171077",
+          "rawWeightG": 90.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_170390",
+          "rawWeightG": 65.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173647",
+          "rawWeightG": 215.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_173468",
+          "rawWeightG": 0.5,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_SN_RIENG_B",
+      "nameVi": "Lê và sữa chua của người dùng B",
+      "cookingMethod": "RAW",
+      "dishRole": "SNACK",
+      "mealSlots": [
+        "MORNING_SNACK",
+        "AFTERNOON_SNACK"
+      ],
+      "householdUnitLabel": "1 phần ăn phụ",
+      "minServingScaledX2": 2,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": 90102,
+      "popularityScore": 68,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_169118",
+          "rawWeightG": 105.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170894",
+          "rawWeightG": 110.0,
+          "mainIngredient": false
+        }
+      ]
+    },
+    {
+      "code": "QA_VG_GAN_THE_TAY",
+      "nameVi": "Dưa leo trộn mè, mẫu gắn thẻ tay",
+      "cookingMethod": "RAW",
+      "dishRole": "VEGGIE_DISH",
+      "mealSlots": [
+        "LUNCH",
+        "DINNER"
+      ],
+      "householdUnitLabel": "1 đĩa rau",
+      "minServingScaledX2": 1,
+      "maxServingScaledX2": 3,
+      "stepServingScaledX2": 1,
+      "isActive": true,
+      "createdByUserId": null,
+      "popularityScore": 58,
+      "recipeItems": [
+        {
+          "ingredientCode": "FDC_168409",
+          "rawWeightG": 145.0,
+          "mainIngredient": true
+        },
+        {
+          "ingredientCode": "FDC_170150",
+          "rawWeightG": 7.0,
+          "mainIngredient": false
+        },
+        {
+          "ingredientCode": "FDC_168155",
+          "rawWeightG": 8.0,
+          "mainIngredient": false
+        }
+      ],
+      "manualMedicalTags": [
+        "VEGETARIAN"
+      ],
+      "lockManualTags": true
+    }
+  ],
+  "userFoodPreferences": [
+    {
+      "userId": 90101,
+      "dishCode": "QA_BF_MIEN_GA",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90101,
+      "dishCode": "QA_BF_MIEN_TOM",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90101,
+      "dishCode": "QA_PR_GA_HAP_SA",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90101,
+      "dishCode": "QA_SO_CANH_CHUA_CA_RO",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90101,
+      "dishCode": "QA_SN_OI_HANH_NHAN",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90101,
+      "dishCode": "QA_BF_RIENG_A",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90102,
+      "dishCode": "QA_BF_MIEN_GA",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90102,
+      "dishCode": "QA_BF_SOBA_BO",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90102,
+      "dishCode": "QA_VG_RAU_MUONG_TOI",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90102,
+      "dishCode": "QA_SN_RIENG_B",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90103,
+      "dishCode": "QA_PR_DAU_PHU_SOT_CA",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90103,
+      "dishCode": "QA_PR_HEO_AP_CHAO",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90103,
+      "dishCode": "QA_SN_TAO_DAU_PHONG",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90103,
+      "dishCode": "QA_SO_CANH_BI_DO_DAU_LANG",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90104,
+      "dishCode": "QA_ST_LUT_DAU_LANG",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90104,
+      "dishCode": "QA_SN_LE_ME",
+      "preferenceType": "DISLIKE"
+    },
+    {
+      "userId": 90104,
+      "dishCode": "QA_SO_CANH_NAM_DAU_PHU",
+      "preferenceType": "FAVORITE"
+    },
+    {
+      "userId": 90104,
+      "dishCode": "QA_PR_CA_THU_NUONG",
+      "preferenceType": "DISLIKE"
+    }
+  ]
+}

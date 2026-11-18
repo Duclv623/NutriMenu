@@ -36,6 +36,7 @@ public class NutritionCalculationEngine {
         BigDecimal totalProtein = BigDecimal.ZERO;
         BigDecimal totalFat = BigDecimal.ZERO;
         BigDecimal totalSatFat = BigDecimal.ZERO;
+        BigDecimal totalCholesterol = BigDecimal.ZERO;
         BigDecimal totalSodium = BigDecimal.ZERO;
         BigDecimal totalPotassium = BigDecimal.ZERO;
         BigDecimal totalPurine = BigDecimal.ZERO;
@@ -89,12 +90,15 @@ public class NutritionCalculationEngine {
                 ingCal = ingCal.add(absorbedOilG.multiply(new BigDecimal("9.0")));
             }
 
+            BigDecimal ingChol = ing.getCholesterolMg() != null ? ing.getCholesterolMg() : BigDecimal.ZERO;
+
             totalCalories = totalCalories.add(ingCal);
             totalCarb = totalCarb.add(ing.getTotalCarbG().multiply(ratio100));
             totalFiber = totalFiber.add(ing.getFiberG().multiply(ratio100));
             totalProtein = totalProtein.add(ing.getProteinG().multiply(ratio100));
             totalFat = totalFat.add(ingFat);
             totalSatFat = totalSatFat.add(ing.getSaturatedFatG().multiply(ratio100));
+            totalCholesterol = totalCholesterol.add(ingChol.multiply(ratio100));
             totalSodium = totalSodium.add(ing.getSodiumMg().multiply(ratio100));
             totalPotassium = totalPotassium.add(ing.getPotassiumMg().multiply(ratio100));
             totalPurine = totalPurine.add(ing.getPurineMg().multiply(ratio100));
@@ -128,6 +132,7 @@ public class NutritionCalculationEngine {
         dish.setProteinG(totalProtein.setScale(2, RoundingMode.HALF_UP));
         dish.setFatG(totalFat.setScale(2, RoundingMode.HALF_UP));
         dish.setSaturatedFatG(totalSatFat.setScale(2, RoundingMode.HALF_UP));
+        dish.setCholesterolMg(totalCholesterol.setScale(2, RoundingMode.HALF_UP));
         dish.setSodiumMg(totalSodium.setScale(2, RoundingMode.HALF_UP));
         dish.setPotassiumMg(totalPotassium.setScale(2, RoundingMode.HALF_UP));
         dish.setPurineMg(totalPurine.setScale(2, RoundingMode.HALF_UP));
@@ -139,7 +144,9 @@ public class NutritionCalculationEngine {
             if (estimatedGi.compareTo(new BigDecimal("70.0")) >= 0) autoTags.add(MedicalTag.HIGH_GI);
             if (glycemicLoad.compareTo(new BigDecimal("20.0")) >= 0) autoTags.add(MedicalTag.HIGH_GL);
             if (totalSodium.compareTo(new BigDecimal("600.0")) > 0) autoTags.add(MedicalTag.HIGH_SODIUM);
-            if (totalSatFat.compareTo(new BigDecimal("5.0")) > 0 || dish.getCookingMethod() == CookingMethod.PAN_FRIED) {
+            if (totalSatFat.compareTo(new BigDecimal("5.0")) > 0
+                    || totalCholesterol.compareTo(new BigDecimal("100.0")) > 0
+                    || dish.getCookingMethod() == CookingMethod.PAN_FRIED) {
                 autoTags.add(MedicalTag.HIGH_SATURATED_FAT);
             }
             if (totalPurine.compareTo(new BigDecimal("150.0")) > 0) autoTags.add(MedicalTag.HIGH_PURINE);

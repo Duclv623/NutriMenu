@@ -22,6 +22,7 @@ public class DynamicServingResponse {
     private BigDecimal proteinG;
     private BigDecimal fatG;
     private BigDecimal sodiumMg;
+    private BigDecimal cholesterolMg;
     private BigDecimal estimatedGi;
     private BigDecimal adjustedGlycemicLoad;
     private TrafficLightBadge adjustedBadge;

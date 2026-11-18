@@ -4,6 +4,8 @@ import com.example.foodcatalogservice.entity.enums.IngredientGroup;
 import com.example.foodcatalogservice.entity.enums.MealSlot;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Set;
 @Data
 @NoArgsConstructor
@@ -26,4 +28,20 @@ public class DishSolverDto {
     private int maxServingX2;
     private int stepServingX2;
     private int basePreferenceScore;
+    private long sodiumX10;
+    private long cholesterolX10;
+    private BigDecimal standardServingCookedG;
+    private String householdUnitLabel;
+    private Map<Long, RawIngredientNeedDto> rawIngredientsPerServing;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RawIngredientNeedDto {
+        private Long ingredientId;
+        private String ingredientNameVi;
+        private IngredientGroup group;
+        private BigDecimal rawWeightG;
+    }
 }
