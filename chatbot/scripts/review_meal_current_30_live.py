@@ -11,13 +11,12 @@ from fastapi.testclient import TestClient
 
 from rag_app.config import ROOT, Settings
 from rag_app.domain import ChatRequest
-from rag_app.domain import ChatRequest
 from rag_app.main import create_app
 from rag_app.meal_gateway import MockMealGateway
 from rag_app.meal_models import ApplySwap, SwapRequest
 from rag_app.provider import create_provider
-from rag_app.store import Store
 from rag_app.service import ChatService
+from rag_app.store import Store
 
 
 def save(path, value):
@@ -129,7 +128,7 @@ def run_case(case, cfg, provider, ledger):
 def run_case_direct(case, cfg, provider, ledger):
     """Run the same ChatService route without TestClient's Windows socketpair."""
     gateway = MockMealGateway(case.get("dataset", "mathematical"))
-    store = Store(cfg.storage_dir / "rag.sqlite3")
+    store = Store(cfg.storage_dir)
     service = ChatService(cfg, store, provider, gateway)
     owner = "eval:" + case["id"] + ":" + str(uuid4())
     initial = gateway.snapshot(owner).model_dump(mode="json")
@@ -241,13 +240,12 @@ def main():
         "fixture_note": "Mock mathematical/named fixture; no CP-SAT or real patient plan.",
         "response_origin_note": "answer_origin and gemini_calls identify actual model responses; static app output is preserved as returned.",
         "transport": args.transport, "dataset_name": args.dataset}
-    index_chunks, vectors, index_meta = Store(cfg.storage_dir / "rag.sqlite3").load_index()
+    index_chunks, vectors, index_meta = Store(cfg.storage_dir).load_index()
     if not index_chunks:
         raise ValueError("Approved local retrieval index is required")
     isolated = out / "runtime"
-    Store(isolated / "rag.sqlite3").replace_index(index_chunks, index_meta, vectors)
-    cfg = cfg.model_copy(update={"storage_dir": isolated, "vector_backend": "sqlite",
-        "meal_service_mode": "mock", "rate_limit_per_minute": 300})
+    Store(isolated).replace_index(index_chunks, index_meta, vectors)
+    cfg = cfg.model_copy(update={"storage_dir": isolated, "meal_service_mode": "mock", "rate_limit_per_minute": 300})
     from scripts.live_pacer_audit import install_pacer
     for case in cases:
         if selected and case["id"] not in selected or any(r["id"] == case["id"] for r in rows):

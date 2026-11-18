@@ -362,7 +362,7 @@ def test_mixed_plan_scopes_and_unrelated_catalog_lookup(meals, tmp_path):
     before = meals.snapshot("a")
     context = MealContext(plan_id=before.plan.id, plan_version=1, item_id="breakfast-1")
     settings = Settings(_env_file=None, storage_dir=tmp_path, gemini_api_key="", openai_api_key="")
-    service = ChatService(settings, Store(tmp_path / "rag.sqlite3"), meal_gateway=meals)
+    service = ChatService(settings, Store(tmp_path), meal_gateway=meals)
     result = service.chat(ChatRequest(
         message="Cả ngày có bao nhiêu kcal, bữa tối có bao nhiêu chất đạm?",
         meal_context=context,
@@ -384,7 +384,7 @@ def test_named_demo_can_compare_amounts_from_the_same_catalog_record():
 
 def test_choice_and_refinement_keep_intent_and_revoke_old_preview(meals, tmp_path):
     settings = Settings(_env_file=None, storage_dir=tmp_path, gemini_api_key="", openai_api_key="")
-    service = ChatService(settings, Store(tmp_path / "rag.sqlite3"), meal_gateway=meals)
+    service = ChatService(settings, Store(tmp_path), meal_gateway=meals)
     before = meals.snapshot("a")
     ctx = MealContext(plan_id=before.plan.id, plan_version=1)
     choice = service.chat(ChatRequest(message="Đổi sang món ít calo hơn giúp mình.", meal_context=ctx), "a")

@@ -82,7 +82,7 @@ class Retriever:
         )
         self.chroma = None
         if chroma_path is not None and self.chunks and self.metadata.get('mode') == 'hybrid':
-            self.chroma = ChromaVectorIndex(chroma_path, self.metadata, len(self.chunks))
+            self.chroma = ChromaVectorIndex(chroma_path, self.metadata, len(self.chunks), client=store.client)
             self.chunk_positions = {chunk.id: position for position, chunk in enumerate(self.chunks)}
         self.bm25 = (
             BM25Okapi([tokens(c.section + "\n" + c.text) for c in self.chunks])

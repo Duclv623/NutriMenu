@@ -1,12 +1,12 @@
 """Bounded real-provider checks: <=12 cases, <=20 chat turns, no AI judge."""
 import argparse
 import json
-import sqlite3
 
 from fastapi.testclient import TestClient
 
 from rag_app.config import ROOT, Settings
 from rag_app.main import create_app
+from rag_app.store import Store
 
 
 def main():
@@ -19,8 +19,7 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     isolated = ROOT/'tmp/release-2026-10-30/live'
     isolated.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(cfg.storage_dir/'rag.sqlite3') as src, sqlite3.connect(isolated/'rag.sqlite3') as dst:
-        src.backup(dst)
+    Store(cfg.storage_dir).copy_index_to(isolated)
     cfg = cfg.model_copy(update={'storage_dir':isolated,'rate_limit_per_minute':100})
     cases = json.loads((ROOT/'docs/audit-2026-10-30/representative-cases.json').read_text(encoding='utf-8'))['cases']
     if args.ids:

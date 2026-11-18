@@ -36,7 +36,7 @@ def main():
     parser.add_argument('--output',default='live-results.json')
     args=parser.parse_args()
     cfg=Settings()
-    snapshot=Store(cfg.storage_dir/'rag.sqlite3').load_index()
+    snapshot=Store(cfg.storage_dir).load_index()
     out=ROOT/'docs/food-integration'
     out.mkdir(exist_ok=True)
     report={'started_at':datetime.now(UTC).isoformat(),'model':cfg.active_model,'cases':[]}
@@ -50,7 +50,8 @@ def main():
     OpenAIProvider.generate_food=capture
     with TemporaryDirectory(dir=ROOT/'tmp',prefix='food-live-') as folder:
         isolated=cfg.model_copy(update={'storage_dir':Path(folder),'rate_limit_per_minute':300})
-        Store(Path(folder)/'rag.sqlite3').replace_index(*snapshot[:1],metadata=snapshot[2],vectors=snapshot[1])
+        with Store(Path(folder)) as store:
+            store.replace_index(*snapshot[:1], metadata=snapshot[2], vectors=snapshot[1])
         with TestClient(create_app(isolated)) as client:
             for cid,question,expected in CASES:
                 if args.ids and cid not in args.ids.split(','):

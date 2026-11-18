@@ -91,7 +91,7 @@ def main():
     cfg = Settings()
     if not cfg.gemini_api_key.get_secret_value().strip():
         parser.error("A backend GEMINI_API_KEY is required; do not put the key in command arguments")
-    retriever = Retriever(Store(cfg.storage_dir / "rag.sqlite3"))
+    retriever = Retriever(Store(cfg.storage_dir))
     if not retriever.chunks:
         parser.error("An existing approved index is required")
     client = GeminiClient(cfg)

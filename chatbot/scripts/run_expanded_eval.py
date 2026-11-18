@@ -89,8 +89,8 @@ def evaluate_case(case, cfg, snapshot, judge_model):
     with TemporaryDirectory(prefix="eval-", dir=ROOT / "tmp") as folder:
         isolated = cfg.model_copy(update={"storage_dir": Path(folder), "rate_limit_per_minute": 300,
                                           "openai_timeout": 90, "gemini_timeout":90, "openai_max_retries": 2})
-        store = Store(Path(folder) / "rag.sqlite3")
-        store.replace_index(chunks, metadata, vectors)
+        with Store(Path(folder)) as store:
+            store.replace_index(chunks, metadata, vectors)
         provider = AuditedProvider(isolated)
         try:
             with TestClient(create_app(isolated, provider)) as client:
@@ -237,7 +237,7 @@ def main():
     if not cfg.has_key:
         raise ValueError("Real API key required")
     args.judge_model = args.judge_model or (cfg.gemini_grounding_model if cfg.answer_mode == "gemini" else "gpt-4.1")
-    snapshot = Store(cfg.storage_dir / "rag.sqlite3").load_index()
+    snapshot = Store(cfg.storage_dir).load_index()
     if snapshot[2].get("mode") != "hybrid":
         raise ValueError("Hybrid index required")
     cases = json.loads(data_path.read_text(encoding="utf-8"))["cases"]

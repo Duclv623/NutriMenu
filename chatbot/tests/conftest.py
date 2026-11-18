@@ -1,10 +1,14 @@
+from os import environ
 from types import SimpleNamespace
+from uuid import uuid4
 
 import pytest
 from fastapi.testclient import TestClient
+from psycopg import sql
 
 from rag_app.config import Settings
 from rag_app.domain import AnswerBlock, GeneratedAnswer
+from rag_app.history_store import PostgresHistory
 from rag_app.ingestion import build_chunks
 from rag_app.main import create_app
 from rag_app.store import Store
@@ -80,12 +84,48 @@ def corpus():
     return build_chunks(Settings(_env_file=None))[0]
 
 
+@pytest.fixture(autouse=True)
+def isolate_postgres(monkeypatch):
+    dsn = environ.get('NUTRIGUIDE_TEST_POSTGRES_DSN')
+    if not dsn:
+        monkeypatch.setenv('POSTGRES_DSN', '')
+        yield
+        return
+    schema = 'test_nutriguide_' + uuid4().hex
+    monkeypatch.setenv('POSTGRES_DSN', dsn)
+    monkeypatch.setenv('POSTGRES_SCHEMA', schema)
+    history = PostgresHistory(dsn, schema)
+    history.initialize()
+    try:
+        yield
+    finally:
+        with history.connect() as db:
+            db.execute(sql.SQL('DROP SCHEMA {} CASCADE').format(sql.Identifier(schema)))
+
+
 @pytest.fixture
-def system(tmp_path, corpus):
+def system(tmp_path, shared_corpus):
     cfg = Settings(storage_dir=tmp_path, _env_file=None, openai_api_key="", answer_mode="openai", embedding_mode="openai")
-    store = Store(tmp_path / "rag.sqlite3")
-    store.replace_index(corpus, {"mode": "lexical"})
+    store = Store.from_settings(cfg)
+    private_path = store.path
+    store.path = shared_corpus.path
+    replace = store.replace_index
+
+    def replace_private(chunks, metadata, vectors=None, **kwargs):
+        if store.path != private_path:
+            store.close()
+            store.path = private_path
+        return replace(chunks, metadata, vectors, **kwargs)
+
+    store.replace_index = replace_private
     provider = FakeProvider()
-    app = create_app(cfg, provider)
+    app = create_app(cfg, provider, store=store)
     with TestClient(app) as client:
         yield SimpleNamespace(cfg=cfg, store=store, provider=provider, app=app, client=client)
+
+
+@pytest.fixture(scope='session')
+def shared_corpus(tmp_path_factory, corpus):
+    store = Store(tmp_path_factory.mktemp('chroma_test_corpus'))
+    store.replace_index(corpus, {'mode': 'lexical'})
+    return store

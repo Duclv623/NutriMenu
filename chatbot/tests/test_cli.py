@@ -22,7 +22,7 @@ def test_cli_lexical_inspect_purge(tmp_path, monkeypatch, capsys):
 
 def test_failed_hybrid_preserves_previous_index(tmp_path, monkeypatch, corpus):
     cfg = Settings(storage_dir=tmp_path, openai_api_key="", _env_file=None)
-    store = Store(tmp_path / "rag.sqlite3")
+    store = Store(tmp_path)
     store.replace_index(corpus, {"mode": "lexical"})
     revision = store.load_index()[2]["revision"]
     monkeypatch.setattr(cli, "Settings", lambda: cfg)

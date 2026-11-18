@@ -21,7 +21,7 @@ def test_real_openai_hybrid_and_grounded_answer(tmp_path):
     cfg = Settings(storage_dir=tmp_path, answer_mode="openai")
     assert cfg.has_key, "Set a NEW key in .env; never paste it in chat"
     chunks, _ = build_chunks(cfg)
-    store = Store(tmp_path / "rag.sqlite3")
+    store = Store(tmp_path)
     provider = OpenAIProvider(cfg)
     try:
         vectors = embed_chunks(provider, store, chunks, cfg.embedding_model)

@@ -39,12 +39,12 @@ class AuditedOpenAIProvider(OpenAIProvider):
 def test_live_api_quality_and_abstention(tmp_path):
     original = Settings()
     assert original.has_key, "Configure the key in .env"
-    chunks, vectors, metadata = Store(original.storage_dir / "rag.sqlite3").load_index()
+    chunks, vectors, metadata = Store(original.storage_dir).load_index()
     assert chunks and vectors is not None and metadata.get("mode") == "hybrid"
     cfg = original.model_copy(update={
         "storage_dir": tmp_path, "answer_mode": "openai", "rate_limit_per_minute": 300,
     })
-    Store(tmp_path / "rag.sqlite3").replace_index(chunks, metadata, vectors)
+    Store(tmp_path).replace_index(chunks, metadata, vectors)
     provider = AuditedOpenAIProvider(cfg)
     dataset = json.loads((ROOT / "evals/questions.json").read_text(encoding="utf-8"))
     extra = [

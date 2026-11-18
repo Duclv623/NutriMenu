@@ -1,20 +1,19 @@
 """Real-provider evaluation on an isolated copy of the current source index."""
 import json
-import sqlite3
 
 from fastapi.testclient import TestClient
 
 from rag_app.config import ROOT, Settings
 from rag_app.main import create_app
 from rag_app.provider import create_provider
+from rag_app.store import Store
 
 
 def main():
     cfg = Settings()
     folder = ROOT / 'tmp/adaptive-routing-live'
     folder.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(cfg.storage_dir / 'rag.sqlite3') as source, sqlite3.connect(folder / 'rag.sqlite3') as target:
-        source.backup(target)
+    Store(cfg.storage_dir).copy_index_to(folder)
     cfg = cfg.model_copy(update={'storage_dir': folder, 'rate_limit_per_minute': 100})
     cases = [
         ('habit', 'Tôi hay quên chuẩn bị đồ ăn mang đi làm. Có cách nào giúp tôi duy trì việc này không?', 'direct_llm'),

@@ -118,7 +118,7 @@ def test_ingestion_fail_closed(tmp_path, change):
 
 
 def test_store_atomic_index_and_cache(tmp_path, corpus):
-    store = Store(tmp_path / "test.sqlite3")
+    store = Store(tmp_path)
     vectors = [[1.0, 0.5] for _ in corpus]
     store.replace_index(corpus, {"mode": "hybrid"}, vectors)
     chunks, matrix, metadata = store.load_index()
@@ -145,7 +145,7 @@ def test_embedding_cache_reuse(system, corpus):
 
 
 def test_hybrid_dimension_and_rrf(tmp_path, corpus):
-    store = Store(tmp_path / "hybrid.sqlite3")
+    store = Store(tmp_path)
     store.replace_index(corpus, {"mode": "hybrid"}, [[1.0, 0.0] for _ in corpus])
     retriever = Retriever(store)
     hits = retriever.search("trái cây nước ép", query_vector=[1.0, 0], top_k=5)

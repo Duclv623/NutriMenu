@@ -43,14 +43,12 @@ def main():
     cfg = Settings()
     if cfg.answer_mode != "gemini" or not cfg.has_key:
         raise ValueError("A configured Gemini key is required")
-    if not cfg.storage_dir.joinpath("rag.sqlite3").is_file():
-        raise ValueError("Approved local retrieval index is required")
-    chunks, vectors, metadata = Store(cfg.storage_dir / "rag.sqlite3").load_index()
+    chunks, vectors, metadata = Store(cfg.storage_dir).load_index()
     if not chunks:
         raise ValueError("Approved local retrieval index is empty")
     runtime = output / "runtime"
     runtime.mkdir(parents=True, exist_ok=True)
-    store = Store(runtime / "rag.sqlite3")
+    store = Store(runtime)
     store.replace_index(chunks, metadata, vectors)
 
     result_path = output / "responses.json"
@@ -106,8 +104,7 @@ def main():
 
     provider.client.post = recorded_post
     gateway = create_meal_gateway(cfg)
-    service = ChatService(cfg.model_copy(update={"storage_dir": runtime, "vector_backend": "sqlite",
-        "rate_limit_per_minute": 300}), store, provider, gateway)
+    service = ChatService(cfg.model_copy(update={"storage_dir": runtime, "rate_limit_per_minute": 300}), store, provider, gateway)
     try:
         done = {row["id"] for row in results}
         for case in rows:

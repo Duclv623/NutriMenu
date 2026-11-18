@@ -4,7 +4,6 @@ import argparse
 import hashlib
 import json
 import logging
-import sqlite3
 import threading
 import time
 from datetime import UTC, datetime
@@ -157,10 +156,10 @@ def main():
     isolated = directory / "runtime"
     isolated.mkdir(exist_ok=True)
     if args.phase == "collect":
-        chunks, vectors, metadata = Store(cfg.storage_dir / "rag.sqlite3").load_index()
+        chunks, vectors, metadata = Store(cfg.storage_dir).load_index()
         if not chunks:
             raise ValueError("Existing approved index required")
-        Store(isolated / "rag.sqlite3").replace_index(chunks, metadata, vectors)
+        Store(isolated).replace_index(chunks, metadata, vectors)
         meta["index_metadata"] = metadata
     cfg = cfg.model_copy(update={"storage_dir": isolated, "meal_service_mode": "mock",
                                  "rate_limit_per_minute": 300})

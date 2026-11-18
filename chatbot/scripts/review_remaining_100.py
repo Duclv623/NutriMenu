@@ -1,7 +1,6 @@
 """Run Q026–Q100 sequentially with real Gemini and checkpoint every result."""
 import json
 import re
-import sqlite3
 import time
 from datetime import datetime
 
@@ -11,6 +10,7 @@ from pydantic import BaseModel, ConfigDict
 from rag_app.config import ROOT, Settings
 from rag_app.main import create_app
 from rag_app.provider import create_provider
+from rag_app.store import Store
 
 
 class Verdict(BaseModel):
@@ -58,8 +58,7 @@ def main():
     directory.mkdir(parents=True, exist_ok=True)
     isolated = ROOT / 'tmp/review-q026-q100'
     isolated.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(cfg.storage_dir / 'rag.sqlite3') as source_db, sqlite3.connect(isolated / 'rag.sqlite3') as target:
-        source_db.backup(target)
+    Store(cfg.storage_dir).copy_index_to(isolated)
     cfg = cfg.model_copy(update={'storage_dir': isolated, 'gemini_request_interval': 15.0,
                                  'gemini_burst_requests': 1, 'rate_limit_per_minute': 300})
     provider = create_provider(cfg)

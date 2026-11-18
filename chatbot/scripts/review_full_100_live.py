@@ -40,13 +40,16 @@ def main():
     cases = [c for c in bank['cases'] if c['id'] in chosen] if chosen else [c for c in bank['cases'] if c['live']]
     cfg = Settings()
     assert cfg.has_key, 'Configured real provider required'
-    chunks, vectors, metadata = Store(cfg.storage_dir / 'rag.sqlite3').load_index()
+    chunks, vectors, metadata = Store(cfg.storage_dir).load_index()
     assert chunks, 'Existing approved index required'
     index_hash = hashlib.sha256(b''.join(c.model_dump_json().encode('utf8') for c in chunks) + (vectors.tobytes() if vectors is not None else b'')).hexdigest()
     isolated_dir = target_dir / '.runtime' / str(uuid4())
     isolated_dir.mkdir(parents=True)
-    isolated = cfg.model_copy(update={'storage_dir': isolated_dir, 'rate_limit_per_minute': 300})
-    Store(isolated_dir / 'rag.sqlite3').replace_index(chunks, metadata, vectors)
+    isolated = cfg.model_copy(update={'storage_dir': isolated_dir, 'rate_limit_per_minute': 300,
+                                      'postgres_schema': 'eval_' + uuid4().hex})
+    store = Store.from_settings(isolated)
+    store.history_db.initialize()
+    store.replace_index(chunks, metadata, vectors)
     provider = create_provider(isolated)
     captures = []
     ledger = []
@@ -83,7 +86,7 @@ def main():
             if prior['http_status'] != 200:
                 continue
             body = prior['response']
-            Store(isolated_dir / 'rag.sqlite3').save_message(
+            store.save_message(
                 'dev:' + owner_uuid, body['session_id'], body['message_id'], prior['question'], body)
             sessions[prior['session']] = body['session_id']
             report['seeded_cases'].append(prior['id'])

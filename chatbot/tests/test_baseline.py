@@ -30,7 +30,7 @@ def test_corpus_is_nutrition_only(tmp_path):
 def test_fruit_retrieval(tmp_path):
     cfg = Settings(storage_dir=tmp_path, _env_file=None)
     chunks, _ = build_chunks(cfg)
-    store = Store(cfg.storage_dir / "rag.sqlite3")
+    store = Store(cfg.storage_dir)
     store.replace_index(chunks, {"mode": "lexical"})
     retriever = Retriever(store)
     hits = retriever.search("Trái cây nên ăn nguyên miếng hay uống nước ép?", top_k=3)

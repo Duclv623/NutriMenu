@@ -307,3 +307,16 @@ def test_shopping_followup_compares_calories_using_the_food_catalog(system):
     assert '100 g phần ăn được' in reply['answer']
     assert '36 kcal [C1]' in reply['answer'] and '44 kcal [C2]' in reply['answer']
     assert [c['chunk_id'] for c in reply['citations']] == ['nin_foods:4010', 'nin_foods:4007']
+
+
+def test_broad_meat_comparison_uses_lean_cuts_as_an_example(system):
+    reply = system.client.post('/api/chat', json={
+        'message': 'thịt bò với thịt lợn loại nào nhiều calo hơn',
+    }).json()
+
+    assert reply['status'] == 'answered' and reply['answer_origin'] == 'static'
+    assert reply['answer'].startswith('Còn tùy phần thịt và lượng mỡ.')
+    assert '100 g phần ăn được khi còn sống' in reply['answer']
+    assert 'thịt bò lưng nạc tươi có 121 kcal [C1]' in reply['answer']
+    assert 'thịt lợn nạc tươi có 139 kcal [C2]' in reply['answer']
+    assert [c['chunk_id'] for c in reply['citations']] == ['nin_foods:7005', 'nin_foods:7017']

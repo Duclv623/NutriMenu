@@ -1,19 +1,18 @@
 """Two representative real-provider turns, using an isolated copy of the index."""
 import json
-import sqlite3
 
 from fastapi.testclient import TestClient
 
 from rag_app.config import ROOT, Settings
 from rag_app.main import create_app
+from rag_app.store import Store
 
 
 def main():
     cfg = Settings()
     isolated = ROOT/'tmp/portion-dialogue-check'
     isolated.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(cfg.storage_dir/'rag.sqlite3') as src, sqlite3.connect(isolated/'rag.sqlite3') as dst:
-        src.backup(dst)
+    Store(cfg.storage_dir).copy_index_to(isolated)
     cfg = cfg.model_copy(update={'storage_dir':isolated})
     output = ROOT/'docs/release-2026-10-30/portion-dialogue.json'
     results = []

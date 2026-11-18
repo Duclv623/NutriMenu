@@ -28,7 +28,7 @@ def main():
     parser.add_argument('--no-save', action='store_true')
     args = parser.parse_args()
     cfg = Settings()
-    chunks, vectors, metadata = Store(cfg.storage_dir/'rag.sqlite3').load_index()
+    chunks, vectors, metadata = Store(cfg.storage_dir).load_index()
     report = {'started_at': datetime.now(UTC).isoformat(), 'model': cfg.active_model, 'cases': []}
     target = ROOT/'docs/chat-quality'/args.output
     target.parent.mkdir(exist_ok=True)
@@ -43,7 +43,8 @@ def main():
     OpenAIProvider.generate = capture
     with TemporaryDirectory(dir=ROOT/'tmp', prefix='focus-live-') as folder:
         isolated = cfg.model_copy(update={'storage_dir': Path(folder), 'rate_limit_per_minute': 300})
-        Store(Path(folder)/'rag.sqlite3').replace_index(chunks, metadata, vectors)
+        with Store(Path(folder)) as store:
+            store.replace_index(chunks, metadata, vectors)
         with TestClient(create_app(isolated)) as client:
             session = None
             for index in map(int, args.indices.split(',')):

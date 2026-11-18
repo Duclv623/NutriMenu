@@ -1,19 +1,18 @@
 """Exercise the two reported food questions against the real configured model."""
 import json
-import sqlite3
 
 from fastapi.testclient import TestClient
 
 from rag_app.config import ROOT, Settings
 from rag_app.main import create_app
+from rag_app.store import Store
 
 
 def main():
     cfg = Settings()
     folder = ROOT / 'tmp/common-food-live'
     folder.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(cfg.storage_dir / 'rag.sqlite3') as source, sqlite3.connect(folder / 'rag.sqlite3') as target:
-        source.backup(target)
+    Store(cfg.storage_dir).copy_index_to(folder)
     cfg = cfg.model_copy(update={'storage_dir': folder})
     output = ROOT / 'docs/release-2026-10-31/common-food-live.json'
     results = []

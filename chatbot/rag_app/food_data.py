@@ -41,6 +41,7 @@ FOOD_ALIASES = {
 ENERGY_TERM = r'(?:calo|kcal|năng lượng|nang luong)'
 COMPARED_WITH = r'\s+(?:so với|so voi|với|voi|hay|và|va|vs\.?)\s+'
 FOOD_PREPARATION = r'\b(?:song|tuoi|chin|luoc|hap|xao|chien|ran|nuong|kho|say)\b'
+LEAN_MEAT_EXAMPLES = {'thit bo': 'nin_foods:7005', 'thit lon': 'nin_foods:7017'}
 
 
 class FoodItem(BaseModel):
@@ -404,50 +405,36 @@ class FoodCatalog:
         for operand in (match[1], match[2]):
             portion = re.fullmatch(r'(\d+(?:[.,]\d+)?)\s*(g|gram|gam|kg)\s+(.+)', operand, re.I)
             name = portion[3] if portion else operand
-            candidates = self.search(name, limit=1)
-            if not candidates or candidates[0]['match_score'] < 100:
-                return None
             try:
                 items.append(FoodItem(name=name, amount=float(portion[1].replace(',', '.')) if portion else None,
                                       unit=portion[2].lower() if portion else 'g'))
             except ValueError:
                 return None
         first, second = items
+        meats = [re.sub(r' (?:song|tuoi)$', '', normalized(item.name)) for item in items]
+        # Keep broad species names ambiguous in ordinary lookups. A pair of
+        # verified lean cuts can still illustrate an everyday comparison.
+        example = all(item.amount is None for item in items) and set(meats) == LEAN_MEAT_EXAMPLES.keys()
+        if example:
+            items = [FoodItem(name=LEAN_MEAT_EXAMPLES[meat]) for meat in meats]
+            if any(item.name not in self.records or not compatible_spelling(operand.name, self.records[item.name]['name'])
+                   for item, operand in zip(items, (first, second), strict=True)):
+                return None
+        else:
+            for item in items:
+                candidates = self.search(item.name, limit=1)
+                if not candidates or candidates[0]['match_score'] < 100:
+                    return None
         if (first.amount is None) != (second.amount is None):
             return None
-        if bool(re.search(FOOD_PREPARATION, fold(first.name))) != bool(re.search(FOOD_PREPARATION, fold(second.name))):
+        if not example and bool(re.search(FOOD_PREPARATION, fold(first.name))) != bool(re.search(FOOD_PREPARATION, fold(second.name))):
             return None  # A single preparation word may qualify both foods.
 
         plan = FoodPlan(operation='compare', items=items, nutrients=['calo'])
         result = self.execute(plan)
-        if result['unresolved'] or len(result['items']) != 2:
-            return None
-        details = []
-        for item in result['items']:
-            energy = [n['amount_value'] for n in item['display_nutrients']
-                      if n['key'] == 'energy' and n['unit'].lower() == 'kcal']
-            if item['review_status'] != 'verified' or item['reference_amount_g'] != 100 or len(energy) != 1 or energy[0] is None:
-                return None
-            name = re.sub(r', (?=(?:tươi|luộc)$)', ' ', item['name'])
-            name = name.capitalize() if name.isupper() else name
-            name = name[0].lower() + name[1:]
-            if item['amount_g'] is not None:
-                grams = f"{item['amount_g']:g}".replace('.', ',')
-                name = f'{grams} g {name}'
-            details.append((name, energy[0]))
-        (portion_a, energy_a), (portion_b, energy_b) = details
-        if energy_a == energy_b:
-            conclusion = 'Hai phần có cùng lượng calo.'
-        else:
-            looking_for_less = fold(match.groupdict().get('direction', '') or '') in {'it', 'thap'}
-            chosen = portion_a if (energy_a < energy_b) == looking_for_less else portion_b
-            direction = 'ít' if looking_for_less else 'nhiều'
-            conclusion = f'{chosen[0].upper() + chosen[1:]} {direction} calo hơn.'
-        basis = 'Tính trên 100 g phần ăn được, ' if first.amount is None else 'Theo lượng bạn nêu, '
-        numbers = [f'{value:.6f}'.rstrip('0').rstrip('.').replace('.', ',') for _, value in details]
         result['request'] = plan.model_dump()
-        return (f'{conclusion} {basis}{portion_a} có {numbers[0]} kcal [C1], '
-                f'còn {portion_b} có {numbers[1]} kcal [C2].'), result
+        answer = format_energy_comparison(result, question, example=example)
+        return (answer, result) if answer else None
 
     def execute(self,plan):
         output={'operation':plan.operation,'items':[],'unresolved':[],'totals':[],'notes':[], 'assumptions': [],
@@ -559,6 +546,43 @@ class FoodCatalog:
 @lru_cache(maxsize=1)
 def get_catalog():
     return FoodCatalog()
+
+
+def format_energy_comparison(result, question, *, example=False):
+    items = result['items']
+    if (result['operation'] != 'compare' or result['unresolved'] or len(items) != 2
+            or {canonical(n, '') for n in result['request']['nutrients']} != {'energy'}):
+        return None
+    if (items[0]['requested_amount'] is None) != (items[1]['requested_amount'] is None):
+        return None
+    details = []
+    for item in items:
+        energy = [n['amount_value'] for n in item['display_nutrients']
+                  if n['key'] == 'energy' and n['unit'].lower() == 'kcal']
+        if item['review_status'] != 'verified' or item['reference_amount_g'] != 100 or len(energy) != 1 or energy[0] is None:
+            return None
+        name = item['name'].replace(', ', ' ') if example else re.sub(r', (?=(?:tươi|luộc)$)', ' ', item['name'])
+        name = name.capitalize() if name.isupper() else name
+        name = name[0].lower() + name[1:]
+        if item['amount_g'] is not None:
+            grams = f"{item['amount_g']:g}".replace('.', ',')
+            name = f'{grams} g {name}'
+        details.append((name, energy[0]))
+    (portion_a, energy_a), (portion_b, energy_b) = details
+    basis = 'Tính trên 100 g phần ăn được, ' if items[0]['requested_amount'] is None else 'Theo lượng bạn nêu, '
+    if example:
+        conclusion = 'Còn tùy phần thịt và lượng mỡ.'
+        basis = 'Ví dụ, trên cùng 100 g phần ăn được khi còn sống, '
+    elif energy_a == energy_b:
+        conclusion = 'Hai phần có cùng lượng calo.'
+    else:
+        less = bool(re.search(r'\b(?:it|thap)\s+(?:calo|kcal|nang luong)\s+hon\b', fold(question)))
+        chosen = portion_a if (energy_a < energy_b) == less else portion_b
+        direction = 'ít' if less else 'nhiều'
+        conclusion = f'{chosen[0].upper() + chosen[1:]} {direction} calo hơn.'
+    numbers = [f'{value:.6f}'.rstrip('0').rstrip('.').replace('.', ',') for _, value in details]
+    return (f'{conclusion} {basis}{portion_a} có {numbers[0]} kcal [C1], '
+            f'còn {portion_b} có {numbers[1]} kcal [C2].')
 
 
 def food_hits(result):

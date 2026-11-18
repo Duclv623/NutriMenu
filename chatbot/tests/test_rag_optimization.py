@@ -29,16 +29,13 @@ def search(engine, query='calo', top_k=1):
 
 
 def test_chroma_dense_search_respects_existing_source_filter(tmp_path):
-    from rag_app.chroma_index import write_chroma_index
     from rag_app.store import Store
 
     chunks = [chunk('a', 'Năng lượng'), chunk('b', 'Khẩu phần', source='other'),
               chunk('c', 'Chất xơ')]
-    store = Store(tmp_path / 'rag.sqlite3')
+    store = Store(tmp_path)
     vectors = [[.8, .6], [1., 0.], [.2, .98]]
     store.replace_index(chunks, {'mode': 'hybrid', 'embedding_identity': 'test-vector'}, vectors)
-    indexed_chunks, indexed_vectors, metadata = store.load_index()
-    write_chroma_index(tmp_path / 'chroma', indexed_chunks, indexed_vectors, metadata)
     question = 'Theo Bộ Y tế, năng lượng được trình bày ở đâu?'
     before = Retriever(store).search(question, top_k=2, query_vector=[1., 0.], mode='hybrid')
     engine = Retriever(store, chroma_path=tmp_path / 'chroma')

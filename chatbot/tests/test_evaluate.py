@@ -4,8 +4,9 @@ from rag_app.config import Settings
 from rag_app.evaluate import evaluate
 
 
-def test_lexical_evaluation_metrics_are_bounded(system):
-    report = evaluate(system.cfg)
+def test_lexical_evaluation_metrics_are_bounded(shared_corpus):
+    cfg = Settings(storage_dir=shared_corpus.directory, _env_file=None)
+    report = evaluate(cfg)
     assert report["knowledge_cases"] == 20 and len(report["routing"]) == 40
     for key in ("hit_at_1", "hit_at_3", "hit_at_5", "mrr_at_5", "router_accuracy"):
         assert 0 <= report[key] <= 1
@@ -13,8 +14,8 @@ def test_lexical_evaluation_metrics_are_bounded(system):
     assert not report["unanswerable_generation_evaluated"]
 
 
-def test_evaluation_no_index_or_unbuilt_dense(tmp_path, system):
+def test_evaluation_no_index_or_unbuilt_dense(tmp_path, shared_corpus):
     with pytest.raises(ValueError):
         evaluate(Settings(storage_dir=tmp_path / "empty", _env_file=None))
     with pytest.raises(ValueError):
-        evaluate(system.cfg, "dense")
+        evaluate(Settings(storage_dir=shared_corpus.directory, _env_file=None), "dense")

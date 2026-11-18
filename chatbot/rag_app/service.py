@@ -25,7 +25,7 @@ from rag_app.cooking_reference import (
 from rag_app.dialogue import context_response
 from rag_app.domain import ChatRequest, ChatResponse, Citation, GeneratedAnswer, Hit
 from rag_app.energy_reference import is_daily_energy_question, reference_reply
-from rag_app.food_data import food_hits, get_catalog
+from rag_app.food_data import food_hits, format_energy_comparison, get_catalog
 from rag_app.meal_chat import handle_meal_chat, meal_action, saved_day_nutrition
 from rag_app.meal_gateway import MealServiceError, create_meal_gateway
 from rag_app.meal_models import MealContext
@@ -176,6 +176,7 @@ class ChatService:
         result = response.food_result
         context = None if result is None else {
             'request': result.get('request'), 'unresolved': result.get('unresolved', []),
+            'comparison_question': result.get('comparison_question'),
             'items': [{'id': i['id'], 'name': i['name']} for i in result.get('items', [])],
         }
         reference=response.reference_result
@@ -217,6 +218,7 @@ class ChatService:
                 'meal_edit_cancelled': previous.get('response', {}).get('meal_edit_cancelled', False),
                 'reference_result':previous.get('response',{}).get('reference_result'),'food_result': None if old is None else {
                 'request': old.get('request'), 'unresolved': old.get('unresolved', []),
+                'comparison_question': old.get('comparison_question'),
                 'items': [{'id': i['id'], 'name': i['name']} for i in old.get('items', [])],
             }}})
         with self._session_lock:
@@ -235,7 +237,7 @@ class ChatService:
         revision = self.store.index_revision()
         with self._retriever_lock:
             if self._retriever is None or self._retriever.metadata.get('revision') != revision:
-                chroma_path = self.settings.storage_dir / 'chroma' if self.settings.vector_backend == 'chroma' else None
+                chroma_path = self.store.path
                 try:
                     self._retriever = Retriever(self.store, chroma_path=chroma_path)
                 except ChromaIndexError as error:
@@ -546,6 +548,13 @@ class ChatService:
             plan=self.foods.bind_explicit_ids(plan,query)
             result=self.foods.execute(plan)
             result['request']=plan.model_dump()
+            if plan.operation == 'compare':
+                result['comparison_question'] = raw_query
+                if selected_plan is not None:
+                    previous = history[-1]
+                    result['comparison_question'] = (
+                        previous['response']['food_result'].get('comparison_question') or previous['question']
+                    )
             response.food_result=result
             if not plan.items:
                 response.status = 'needs_clarification'
@@ -565,18 +574,26 @@ class ChatService:
                 response.answer_origin = 'static'
                 return self.finish_response(response, request, owner, history, query, started)
             hits=food_hits(result)
-            if result['unresolved'] and not result['items']:
+            if result['unresolved'] and (not result['items'] or plan.operation == 'compare'):
                 with_choices = [p['query'] for p in result['unresolved'] if p['candidates']]
                 missing = [p['query'] for p in result['unresolved'] if not p['candidates']]
                 messages = []
                 if with_choices:
                     messages.append('Bạn hãy chọn loại phù hợp cho ' + ', '.join(with_choices) + ' trong các lựa chọn bên dưới.')
+                    response.status = 'needs_clarification'
                 if missing:
                     messages.append('Kho dữ liệu hiện chưa có bản ghi phù hợp cho ' + ', '.join(missing)
                                     + '. Mình chưa thể tính đúng phần này; không thay bằng thực phẩm hoặc trạng thái khác.')
                 response.answer = ' '.join(messages)
                 response.answer_origin = 'static'
                 return self.finish_response(response, request, owner, history, query, started)
+            if selected_plan is not None and plan.operation == 'compare':
+                answer = format_energy_comparison(result, result['comparison_question'])
+                if answer:
+                    response.status = 'answered'
+                    response.answer = answer
+                    response.citations = make_citations(hits[:2])
+                    return self.finish_response(response, request, owner, history, raw_query, started)
             if result['items'] and all(not item['calculation_available'] for item in result['items']):
                 if any(item.get('review_status') in {'unreviewed', 'quarantined'} for item in result['items']):
                     response.answer = 'Số liệu món ăn đang chờ xác minh cơ sở khối lượng hoặc đơn vị nguồn, nên mình chưa thể tính theo lượng bạn hỏi. Không nên dùng số liệu này để tính khẩu phần.'
@@ -677,7 +694,7 @@ class ChatService:
             stage = time.perf_counter()
             if retriever.metadata.get("mode") == "hybrid":
                 if retriever.chroma is None and retriever.vectors is None:
-                    raise ProviderFailure("Chỉ mục chưa có vector SQLite. Chạy ingest --mode hybrid để tạo lại.")
+                    raise ProviderFailure("Chỉ mục ChromaDB thiếu vector. Chạy ingest --mode hybrid để tạo lại.")
                 identity = retriever.metadata.get("embedding_identity", retriever.metadata.get("embedding_model"))
                 if identity != self.settings.embedding_identity:
                     raise ProviderFailure(

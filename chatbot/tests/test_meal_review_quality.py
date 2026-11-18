@@ -76,7 +76,7 @@ def test_clear_concept_question_does_not_ask_for_subject_again():
 ])
 def test_reviewed_nutrition_answers_without_provider(tmp_path, corpus, case_id, source_ids, expected):
     settings = Settings(_env_file=None, storage_dir=tmp_path, meal_service_mode='mock')
-    store = Store(tmp_path / 'rag.sqlite3')
+    store = Store(tmp_path)
     store.replace_index(corpus, {'mode': 'lexical'})
     service = ChatService(settings, store, provider=None)
     message = next(case['question'] for case in CASES if case['id'] == case_id)
@@ -92,7 +92,7 @@ def test_reviewed_nutrition_answers_without_provider(tmp_path, corpus, case_id, 
 
 def test_reviewed_nutrition_requires_approved_source_and_preserves_safety(tmp_path):
     settings = Settings(_env_file=None, storage_dir=tmp_path, meal_service_mode='disabled')
-    service = ChatService(settings, Store(tmp_path / 'rag.sqlite3'), provider=None)
+    service = ChatService(settings, Store(tmp_path), provider=None)
     response = service.chat(ChatRequest(message='Carb là gì?'), 'owner')
     assert response.status == 'insufficient_evidence' and not response.citations
     response = service.chat(ChatRequest(message='Carb là gì? Tôi cần tăng liều insulin bao nhiêu?'), 'owner')

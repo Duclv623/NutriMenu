@@ -1,10 +1,10 @@
 import asyncio
 import logging
-import sqlite3
 
 from fastapi.testclient import TestClient
 
 from rag_app.domain import AnswerBlock, GeneratedAnswer
+from rag_app.history_store import HistoryStoreError
 from rag_app.main import create_app, purge_history_periodically
 from rag_app.provider import ProviderFailure
 from rag_app.retrieval import Retriever
@@ -38,7 +38,7 @@ def test_periodic_purge_recovers_and_stops(caplog):
             assert days == 7
             self.calls += 1
             if self.calls == 1:
-                raise sqlite3.OperationalError('secret database detail')
+                raise HistoryStoreError('secret database detail')
 
     async def exercise():
         store = Store()

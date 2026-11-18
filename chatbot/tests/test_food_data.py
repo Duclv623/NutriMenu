@@ -89,6 +89,28 @@ def test_energy_comparison_uses_the_specified_gram_amounts_and_preparation():
     assert get_catalog().simple_energy_comparison('bắp cải với rau lạ xyz loại nào nhiều calo hơn?') is None
 
 
+def test_comparison_preserves_both_choices_and_the_original_question(system):
+    system.provider.food_plan = FoodPlan(operation='compare', nutrients=['calo'], items=[
+        FoodItem(name='thịt bò', amount=100), FoodItem(name='thịt lợn', amount=100),
+    ])
+    first = system.client.post('/api/chat', json={
+        'message': '100 g thịt bò với 100 g thịt lợn loại nào ít calo hơn?',
+    }).json()
+    assert first['status'] == 'needs_clarification'
+    assert len(first['food_result']['unresolved']) == 2
+
+    session = first['session_id']
+    second = system.client.post('/api/chat', json={'message': 'nin_foods:7005', 'session_id': session}).json()
+    assert second['status'] == 'needs_clarification'
+    assert [food['query'] for food in second['food_result']['unresolved']] == ['thịt lợn']
+
+    last = system.client.post('/api/chat', json={'message': 'nin_foods:7017', 'session_id': session}).json()
+    assert last['session_id'] == session and last['answer_origin'] == 'static'
+    assert last['status'] == 'answered' and 'ít calo hơn' in last['answer']
+    assert '121 kcal [C1]' in last['answer'] and '139 kcal [C2]' in last['answer']
+    assert [source['chunk_id'] for source in last['citations']] == ['nin_foods:7005', 'nin_foods:7017']
+
+
 def test_rice_spelling_never_resolves_to_green_rice_flakes():
     catalog = get_catalog()
     assert all('cốm' not in r['name'].lower() for r in catalog.search('cơm'))

@@ -10,6 +10,7 @@ Chatbot giáo dục dinh dưỡng tiếng Việt cho người trưởng thành m
 
 - Git và Python **3.12** (phiên bản đã dùng để kiểm tra dự án).
 - Gemini API key còn quyền sử dụng các model cấu hình trong `.env`.
+- PostgreSQL truy cập được từ backend chatbot, với schema lịch sử riêng.
 - Internet khi cài thư viện, tải tokenizer lần đầu, tạo embedding và hỏi kiến thức qua Gemini.
 
 Các lệnh bên dưới dành cho **PowerShell trên Windows**, chạy tại thư mục dự án.
@@ -18,7 +19,7 @@ Các lệnh bên dưới dành cho **PowerShell trên Windows**, chạy tại th
 
 ```powershell
 git clone --branch chatbot-service --single-branch https://github.com/Duclv623/NutriMenu.git
-cd NutriMenu\chatbot
+cd NutriMenu
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 Copy-Item .env.example .env
@@ -50,6 +51,8 @@ APP_ENV=development
 ANSWER_MODE=gemini
 EMBEDDING_MODE=gemini
 VECTOR_BACKEND=chroma
+POSTGRES_DSN=postgresql://CHATBOT_USER:CHATBOT_PASSWORD@POSTGRES_HOST:5432/DATABASE
+POSTGRES_SCHEMA=chatbot
 GEMINI_API_KEY=YOUR_GEMINI_API_KEY
 GEMINI_MODEL=gemini-3.1-flash-lite
 GEMINI_GROUNDING_MODEL=gemini-3.1-flash-lite
@@ -63,7 +66,17 @@ Thay chuỗi `YOUR_GEMINI_API_KEY` bằng key thật tại máy của bạn. Ch�
 
 `.env` được Git bỏ qua. Không đưa key vào frontend hoặc commit. Câu hỏi kiến thức, trích đoạn nguồn và thông tin hồ sơ liên quan có thể được gửi tới nhà cung cấp AI; dùng dữ liệu giả lập khi demo.
 
-## 4. Tạo chỉ mục lần đầu
+## 4. Chuẩn bị PostgreSQL và ChromaDB
+
+Sau khi cấu hình PostgreSQL, người có quyền tạo bảng chạy lệnh sau một lần:
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -m rag_app.cli init-postgres
+```
+
+Thống nhất với người phụ trách backend về host, cổng, tên database, schema và tài khoản dành cho chatbot. Schema mặc định `chatbot` gồm `sessions`, `messages` và `feedback`. Tài khoản chạy ứng dụng cần quyền `USAGE` trên schema và `SELECT`, `INSERT`, `UPDATE`, `DELETE` trên các bảng này. Nếu người khởi tạo schema dùng tài khoản khác, họ cần cấp các quyền đó trước khi khởi động chatbot. Đặt DSN ở backend, trong `.env` hoặc biến môi trường của tiến trình. API hồ sơ/thực đơn vẫn qua `MEAL_API_BASE_URL` khi chạy `MEAL_SERVICE_MODE=http`.
+
+### Tạo chỉ mục từ nguồn
 
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 -m rag_app.cli ingest --mode hybrid
@@ -71,21 +84,23 @@ Thay chuỗi `YOUR_GEMINI_API_KEY` bằng key thật tại máy của bạn. Ch�
 
 Bước này đọc nguồn được duyệt trong `config/sources.json`, chia tài liệu và gọi API tạo embedding. Thực hiện sau khi clone nếu chưa có chỉ mục. Có sử dụng hạn mức API; thời gian phụ thuộc mạng và nhà cung cấp.
 
-Với `VECTOR_BACKEND=chroma`, vector dùng để tìm kiếm được lưu tại `storage/chroma/`. SQLite tiếp tục lưu nội dung và thông tin đoạn nguồn, cache embedding và lịch sử chat được chọn lưu. Các tệp `storage/chunks.jsonl` và `storage/ingestion_report.json` giúp kiểm tra nội dung chỉ mục. Mỗi máy tạo chỉ mục từ bộ nguồn đã duyệt hoặc nhập vector có sẵn. Thư mục `storage/` được Git bỏ qua.
+ChromaDB tại `storage/chroma/` lưu nội dung, thông tin dẫn nguồn, phiên bản chỉ mục, vector và cache embedding. BM25 đọc nội dung từ cùng collection với tìm kiếm vector. PostgreSQL lưu lịch sử được người dùng chọn lưu. Các tệp `storage/chunks.jsonl` và `storage/ingestion_report.json` là bản xuất để kiểm tra. Thư mục `storage/` được Git bỏ qua.
 
 Không cần tạo lại chỉ mục mỗi lần chạy server. Cache giúp tái sử dụng embedding khi nội dung và cấu hình tương thích. Khi thêm/sửa nguồn được duyệt hoặc đổi cấu hình embedding, chạy lại lệnh trên.
 
-### Chuyển chỉ mục SQLite có sẵn sang ChromaDB
+### Chuyển dữ liệu từ bản cũ
 
-Cài lại `requirements.txt` để có ChromaDB, sau đó chạy lệnh sau tại thư mục `chatbot`.
+Dừng tiến trình chatbot phiên bản cũ. Cập nhật thư viện và cấu hình PostgreSQL, sau đó chạy lệnh sau từ thư mục `chatbot`:
 
 ```powershell
-.\.venv\Scripts\python.exe -X utf8 -m rag_app.cli import-chroma
+.\.venv\Scripts\python.exe -X utf8 -m rag_app.cli migrate-sqlite
 ```
 
-Lệnh dùng các vector hybrid hiện có và tạo collection cosine theo phiên bản chỉ mục, không gọi Gemini để sinh lại vector. Đặt `VECTOR_BACKEND=chroma` trong `.env` rồi khởi động lại dịch vụ. Xem `vector_backend` tại `/api/status`. Khi chạy `ingest --mode hybrid` với cấu hình này, bản chỉ mục mới sẽ được ghi thẳng vào Chroma.
+Lệnh chỉ đọc `storage/rag.sqlite3`, sao chép lịch sử sang PostgreSQL và nhập corpus cùng vector cũ vào ChromaDB. Có thể đưa bản nguồn khác bằng `--source`. Nếu bản cũ để vector ngoài SQLite, đặt thư mục `chroma/` cũ cạnh file nguồn để nhập. Chạy `rag_app.cli inspect` để kiểm tra số đoạn, rồi hỏi một câu có trích dẫn và thử lưu hội thoại. Sau đó lưu `rag.sqlite3` ở vị trí sao lưu riêng. Bản chạy mới dùng PostgreSQL và ChromaDB. File `storage/chroma/chroma.sqlite3` thuộc ChromaDB cục bộ.
 
-NutriGuide tiếp tục tạo vector câu hỏi bằng model embedding hiện tại, tìm từ khóa bằng BM25 và gộp thứ hạng. Có thể chọn `VECTOR_BACKEND=sqlite` để dùng lại bản chỉ mục đã nhập nếu nó còn vector SQLite. Sau khi tạo lại chỉ mục bằng Chroma, cần ingest ở chế độ SQLite để tạo lại phần vector SQLite từ cache.
+### Chạy kiểm thử
+
+Đặt `NUTRIGUIDE_TEST_POSTGRES_DSN` trỏ đến một database kiểm thử. Tài khoản kiểm thử cần quyền tạo schema tạm. Mỗi bài dùng schema riêng và dọn sau khi chạy. Chạy `python -m pytest -m 'not live'`.
 
 ## 5. Chạy ứng dụng
 
@@ -140,7 +155,7 @@ Mẫu `named` dùng lượng ăn cố định để minh họa, số dinh dưỡ
 
 Hợp đồng dữ liệu thực đơn nằm trong [`contracts/meal-service.schema.json`](contracts/meal-service.schema.json). Adapter HTTP nằm trong [`rag_app/meal_gateway.py`](rag_app/meal_gateway.py); nhóm cần thống nhất các endpoint và xác thực tương ứng. Không có cơ chế tự chuyển từ lỗi backend thật sang dữ liệu giả lập.
 
-Tài khoản, hồ sơ và thực đơn thật thuộc backend nhóm. Dịch vụ chatbot dùng ChromaDB cho tìm kiếm vector khi bật `VECTOR_BACKEND=chroma`. SQLite vẫn lưu dữ liệu đoạn nguồn, cache và lịch sử chat của chatbot. Cấu hình `http` kết nối API thực đơn, còn lựa chọn kho vector được cấu hình độc lập.
+Tài khoản, hồ sơ và thực đơn thật thuộc backend nhóm. ChromaDB lưu kho tài liệu của chatbot và PostgreSQL lưu lịch sử hội thoại. Cấu hình `http` kết nối API thực đơn, độc lập với cấu hình lưu lịch sử.
 
 Khi dùng `APP_ENV=production`, cần `JWT_PUBLIC_KEY_PATH`, `JWT_ISSUER`, `JWT_AUDIENCE`; chế độ `mock` bị chặn. Backend hiện xác thực JWT RS256. Lịch sử chat mặc định không lưu lâu dài; khi bật lưu, có ràng buộc người dùng và thời hạn theo `HISTORY_RETENTION_DAYS`.
 

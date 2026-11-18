@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import sqlite3
 import time
 from contextlib import asynccontextmanager
 from html import escape
@@ -11,11 +10,13 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
 
+from rag_app.chroma_index import ChromaIndexError
 from rag_app.config import ROOT, Settings
 from rag_app.domain import ChatRequest, ChatResponse, FeedbackRequest
+from rag_app.history_store import HistoryStoreError
 from rag_app.ingestion import load_manifest, original_source_path
 from rag_app.meal_gateway import MealServiceError
-from rag_app.meal_models import ApplySwap, Identifier, MealSnapshot, DemoProfileUpdate
+from rag_app.meal_models import ApplySwap, DemoProfileUpdate, Identifier, MealSnapshot
 from rag_app.observability import configure_logging
 from rag_app.provider import ProviderFailure, create_provider
 from rag_app.security import RateLimiter, identity
@@ -33,14 +34,14 @@ async def purge_history_periodically(store, days, stop, interval):
         except TimeoutError:
             try:
                 await run_in_threadpool(store.purge_history, days)
-            except sqlite3.Error as error:
+            except HistoryStoreError as error:
                 logger.warning('history_purge_failed error_type=%s', type(error).__name__)
 
 
-def create_app(settings: Settings | None = None, provider=None, meal_gateway=None):
+def create_app(settings: Settings | None = None, provider=None, meal_gateway=None, *, store=None):
     configure_logging()
     settings = settings or Settings()
-    store = Store(settings.storage_dir / "rag.sqlite3")
+    store = store if store is not None else Store.from_settings(settings)
     provider = provider or (create_provider(settings) if settings.has_key else None)
     service = ChatService(settings, store, provider, meal_gateway)
     limiter = RateLimiter(settings.rate_limit_per_minute)
@@ -62,6 +63,7 @@ def create_app(settings: Settings | None = None, provider=None, meal_gateway=Non
                 if provider and hasattr(provider, 'close'):
                     provider.close()
                 service.meals.close()
+                store.close()
                 logger.info('application_stopped')
 
     app = FastAPI(
@@ -78,6 +80,14 @@ def create_app(settings: Settings | None = None, provider=None, meal_gateway=Non
     async def meal_service_error(request, error):
         return JSONResponse(status_code=error.status_code,
                             content={"detail": {"code": error.code, "message": error.message}})
+
+    @app.exception_handler(HistoryStoreError)
+    async def history_store_error(request, error):
+        return JSONResponse(status_code=503, content={"detail": str(error)})
+
+    @app.exception_handler(ChromaIndexError)
+    async def chroma_index_error(request, error):
+        return JSONResponse(status_code=503, content={"detail": str(error)})
 
     @app.middleware("http")
     async def security_headers(request: Request, call_next):
@@ -126,6 +136,7 @@ def create_app(settings: Settings | None = None, provider=None, meal_gateway=Non
             "index_ready": bool(chunks),
             "index_mode": metadata.get("mode", "missing"),
             "vector_backend": settings.vector_backend,
+            "history_backend": "postgresql",
             "chunk_count": len(chunks),
             "answer_mode": settings.answer_mode,
             "provider_configured": settings.has_key,

@@ -4,7 +4,6 @@ import argparse
 import hashlib
 import json
 import logging
-import sqlite3
 import threading
 import time
 from datetime import UTC, datetime
@@ -18,6 +17,7 @@ from rag_app.main import create_app
 from rag_app.meal_gateway import MockMealGateway
 from rag_app.meal_models import ApplySwap, SwapRequest
 from rag_app.provider import ProviderFailure, create_provider
+from rag_app.store import Store
 
 
 class CaseReview(BaseModel):
@@ -158,8 +158,7 @@ def main():
     isolated = directory / "runtime"
     isolated.mkdir(exist_ok=True)
     if args.phase == "collect":
-        with sqlite3.connect(cfg.storage_dir / "rag.sqlite3") as source, sqlite3.connect(isolated / "rag.sqlite3") as target:
-            source.backup(target)
+        Store(cfg.storage_dir).copy_index_to(isolated)
     cfg = cfg.model_copy(update={"storage_dir": isolated, "meal_service_mode": "mock", "gemini_burst_requests": 1,
                                  "gemini_request_interval": 15.0, "rate_limit_per_minute": 300})
     provider = create_provider(cfg)
