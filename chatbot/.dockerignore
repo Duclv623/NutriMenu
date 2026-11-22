@@ -1,0 +1,12 @@
+.env
+.env.*
+.venv
+storage
+tmp
+__pycache__
+.git
+*.docx
+!data/*.docx
+!data/**/*.docx
+*.jpg
+maubaocao.pdf

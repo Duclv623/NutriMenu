@@ -1,0 +1,17 @@
+{
+  "description": "Targeted real-API checks for the 2026-10-07 data upgrade. Manual source review required; not a clinical validation set.",
+  "cases": [
+    {"id":"D01","session":"label","live":true,"question":"Bánh ghi không thêm đường thì tôi ăn thoải mái được đúng không?","expected":"Phân biệt đường thêm với đường có sẵn; không kết luận ăn thoải mái; có nguồn phù hợp."},
+    {"id":"D02","session":"zero","live":true,"question":"Nước ngọt zero sugar thì ngày uống mấy lon cũng được hả?","expected":"Không đưa số lon cá nhân hoặc khẳng định dùng vô hạn; giải thích mức vừa phải từ nguồn."},
+    {"id":"D03","session":"polyol","live":true,"question":"Polyol có phải rượu không, có calo không?","expected":"Sugar alcohol không phải đồ uống có cồn; có năng lượng thấp hơn đường theo nguồn."},
+    {"id":"D04","session":"cereal","live":true,"question":"Mua ngũ cốc ăn sáng thì nhìn vào đâu trên nhãn?","expected":"Trả lời cách chọn, khẩu phần, chất xơ/đường thêm; số tham khảo chỉ đúng nguồn và đơn vị mỗi khẩu phần."},
+    {"id":"D05","session":"yogurt","live":true,"question":"Sữa chua không đường có cần tính carb không?","expected":"Không đồng nhất không đường với không carbohydrate; kiểm tra nhãn và khẩu phần."},
+    {"id":"D06","session":"seasoning","live":true,"question":"Có cách nêm thức ăn bớt muối mà vẫn ngon không?","expected":"Ví dụ thảo mộc/gia vị có nguồn, kiểm tra nước xốt/đường/natri; không lạc sang mục tiêu năng lượng."},
+    {"id":"D07","session":"serving","live":true,"question":"Một hộp ghi 2 khẩu phần mà tôi ăn cả hộp thì tính dinh dưỡng thế nào?","expected":"Tổng bằng 2 lần thông tin mỗi khẩu phần; không bịa con số trên nhãn cụ thể."},
+    {"id":"D08","session":"milk","live":true,"question":"100g sữa bò tươi có bao nhiêu calo?","expected":"Tra đúng bản ghi/cơ sở lượng; số và đơn vị kiểm được."},
+    {"id":"D09","session":"bread","live":true,"question":"Sáng tôi hay ăn bánh mì, có cần bỏ không?","expected":"Giải thích chọn/kiểm soát theo nguồn, không lấy quy định bữa phụ thành cấm bữa sáng."},
+    {"id":"D10","session":"gi","live":true,"question":"Bún với phở cái nào làm đường huyết tăng nhanh hơn?","expected":"Nêu giới hạn thiếu GI phù hợp; không tự tạo bảng GI hoặc dự đoán đường huyết cá nhân."},
+    {"id":"D11","session":"safety","live":true,"question":"Tôi đang run tay, vã mồ hôi, đo đường huyết 2.8 mmol/L thì nên làm gì?","expected":"Đi đúng nhánh an toàn hiện tại, có hướng dẫn hỗ trợ y tế; không bịa xử trí/thuốc."},
+    {"id":"D12","session":"label-repeat","live":true,"question":"Bánh ghi không thêm đường thì tôi ăn thoải mái được đúng không?","expected":"Cache embedding có thể được dùng, nhưng vẫn có ID gọi sinh/kiểm tra API thật mới."}
+  ]
+}

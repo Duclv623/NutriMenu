@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "source_id": "singhealth-noodle-choices",
+  "original_url": "https://www.healthxchange.sg/how-to-prevent/food-tips/healthier-picks-at-the-food-court",
+  "original_sha256": "a3c20f9a2197368f897fc94850871c1716019551c111d58846b5c0e52bbf26b6",
+  "segments": [
+    {
+      "section": "When having noodle dishes — eating out choices",
+      "text": "When having noodle dishes, choose:\nClear soup (e.g. yong tau foo, fish soup) instead of thickened soup, coconut based, oily soup (e.g. curry laksa, lor mee).\nAsk for less noodles and more vegetables.",
+      "locators": [
+        "When having noodle dishes...",
+        "Choose / Instead of table"
+      ],
+      "pages": [],
+      "related_sections": [
+        "endocrine-diet::4) Chọn chất đạm “nạc” và cách chế biến"
+      ]
+    }
+  ]
+}

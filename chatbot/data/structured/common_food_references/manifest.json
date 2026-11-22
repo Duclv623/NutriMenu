@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "fdc_id": 173944,
+      "description": "Bananas, raw",
+      "name": "Chuối tươi theo mẫu USDA",
+      "aliases": ["chuối tươi theo USDA", "chuối sống theo USDA"],
+      "assumptions": {},
+      "raw_file": "extracts/173944.json",
+      "sha256": "cf7163a32ea7ce9978bea649da3322ff1ff88a7e9d87d81bab9f0daec7ea199e",
+      "source_url": "https://www.growables.org/information/TropicalFruit/documents/BananaNutrient.pdf",
+      "basis": "100 g phần ăn được, đã bỏ vỏ",
+      "basis_amount_g": 100,
+      "collected_at": "2026-11-17",
+      "limitations": "Số liệu của mẫu chuối tươi USDA SR28, NDB 09040. Các cỡ quả theo USDA là mốc tham khảo, không mặc định cho mọi giống chuối."
+    },
+    {
+      "fdc_id": 169999,
+      "description": "Corn, sweet, yellow, cooked, boiled, drained, without salt",
+      "name": "Ngô ngọt vàng luộc không muối",
+      "aliases": ["ngô ngọt vàng luộc không muối", "bắp ngọt vàng luộc không muối"],
+      "assumptions": {},
+      "raw_file": "extracts/169999.json",
+      "sha256": "81f909ed4594e5f8a700ee067bed38e1d1c66fb2235a351939f695d1954df2ea",
+      "source_url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg11.pdf",
+      "basis": "100 g hạt ngô đã luộc và để ráo, không tính lõi",
+      "basis_amount_g": 100,
+      "collected_at": "2026-11-17",
+      "limitations": "Số liệu của mẫu ngô ngọt vàng USDA SR28, NDB 11168. Không mặc định các cỡ bắp trong bản ghi cho ngô nếp hoặc giống khác."
+    },
+    {
+      "fdc_id": 169704,
+      "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+      "name": "Cơm gạo lứt hạt dài nấu chín",
+      "aliases": [
+        "cơm gạo lứt chín",
+        "cơm gạo lứt",
+        "cơm gạo lứt nấu chín"
+      ],
+      "assumptions": {},
+      "raw_file": "raw/169704.json",
+      "sha256": "57ce46b235508662651a58c633fa103432adad685656a353419e341655ee2494",
+      "source_url": "https://fdc.nal.usda.gov/food-details/169704/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
+      "fdc_id": 168914,
+      "description": "Rice noodles, cooked",
+      "name": "Bún gạo đã nấu chín",
+      "aliases": [
+        "bún gạo chín",
+        "bún gạo",
+        "bún chín",
+        "bún"
+      ],
+      "assumptions": {
+        "bún": "Tạm tính bún theo bún gạo đã nấu chín, không gồm nước dùng và món ăn kèm."
+      },
+      "raw_file": "raw/168914.json",
+      "sha256": "a11b3f6a3aab983da968d51071808f579096dbd151c16c13eab9da766efa3d95",
+      "source_url": "https://fdc.nal.usda.gov/food-details/168914/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
+      "fdc_id": 168878,
+      "description": "Rice, white, long-grain, regular, enriched, cooked",
+      "name": "Cơm trắng gạo hạt dài nấu chín",
+      "aliases": [
+        "cơm trắng",
+        "cơm trắng chín",
+        "cơm gạo tẻ chín",
+        "cơm gạo tẻ nấu chín",
+        "cơm chín",
+        "cơm"
+      ],
+      "assumptions": {
+        "cơm chín": "Tạm tính cơm chín theo cơm trắng gạo hạt dài nấu chín.",
+        "cơm": "Tạm tính cơm theo cơm trắng gạo hạt dài nấu chín."
+      },
+      "raw_file": "raw/168878.json",
+      "sha256": "58a9d7cfdb6b8ebac79121d0a67c0b2857b2eda06752ce41c0427b3b22ac3bac",
+      "source_url": "https://fdc.nal.usda.gov/food-details/168878/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
+      "fdc_id": 168877,
+      "description": "Rice, white, long-grain, regular, raw, enriched",
+      "name": "Gạo trắng hạt dài sống",
+      "aliases": ["gạo trắng hạt dài sống", "gạo trắng hạt dài chưa nấu"],
+      "assumptions": {},
+      "raw_file": "extracts/168877.json",
+      "sha256": "6426ce0539826965b3ef750ab7479f14964c9eb4cc6f3520ec01b6da0409b8b6",
+      "source_url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg20.pdf",
+      "basis": "100 g gạo trắng hạt dài sống, phần ăn được",
+      "basis_amount_g": 100,
+      "collected_at": "2026-11-16",
+      "limitations": "Trích các ô đã đối chiếu từ bảng USDA SR28, mã NDB 20044. Giá trị chỉ áp dụng cho loại gạo ghi trong bản ghi."
+    },
+    {
+      "fdc_id": 2705954,
+      "description": "Chicken breast, NS as to cooking method, skin not eaten",
+      "name": "Ức gà chín bỏ da, chưa xác định cách chế biến",
+      "aliases": [
+        "ức gà chín",
+        "lườn gà chín",
+        "ức gà chín bỏ da",
+        "lườn gà chín bỏ da"
+      ],
+      "assumptions": {
+        "ức gà chín": "Tạm tính ức gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA.",
+        "lườn gà chín": "Tạm tính lườn gà chín theo phần thịt bỏ da, cách chế biến chưa xác định trong bản ghi USDA."
+      },
+      "raw_file": "raw/2705954.json",
+      "sha256": "1cd257c407a162f9729dc7226404fed05bfdad56399e1f574de8c7edcc2ce242",
+      "source_url": "https://fdc.nal.usda.gov/food-details/2705954/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    },
+    {
+      "fdc_id": 171477,
+      "description": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+      "name": "Ức gà chín nướng, chỉ phần thịt bỏ da",
+      "aliases": [
+        "ức gà nướng bỏ da",
+        "ức gà chín nướng bỏ da",
+        "lườn gà nướng bỏ da"
+      ],
+      "assumptions": {},
+      "raw_file": "raw/171477.json",
+      "sha256": "8622491a1759d96b371d087e9d75fa1efc60f45c1b3a7a8c93434944a7e6e7fa",
+      "source_url": "https://fdc.nal.usda.gov/food-details/171477/nutrients",
+      "basis": "100 g phần ăn được đã nấu chín",
+      "basis_amount_g": 100,
+      "collected_at": "2026-10-31",
+      "limitations": "Số liệu tham khảo của đúng bản ghi USDA; không phải kết quả phân tích phần ăn thực tế. Không bao gồm dầu hoặc gia vị bổ sung ngoài bản ghi."
+    }
+  ]
+}

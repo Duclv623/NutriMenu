@@ -1,0 +1,28 @@
+{
+  "source_id": "mitc-2020-portion-energy",
+  "title": "Thông tin Khoa học & Công nghệ số 23 (2020)",
+  "year": 2020,
+  "version": "Số 23, bảng 2",
+  "printed_page": 85,
+  "source_url": "https://mitc.edu.vn/wp-content/uploads/2022/11/So-23.pdf",
+  "attribution": "Bảng 2 trích tài liệu Thành phần dinh dưỡng 400 thức ăn thông dụng của Trung tâm Dinh dưỡng TP.HCM.",
+  "reviewed_on": "2026-11-18",
+  "basis": "Một phần mẫu mô tả trong bảng, không có khối lượng gram. Chỉ tra năng lượng cho đúng loại và đơn vị.",
+  "portions": [
+    {
+      "name": "ổ bánh mì thịt",
+      "description": "ổ bánh mì thịt",
+      "energy_kcal": 461
+    },
+    {
+      "name": "đĩa cơm tấm chả",
+      "description": "đĩa cơm tấm chả cỡ trung bình",
+      "energy_kcal": 592
+    },
+    {
+      "name": "tô phở bò chín",
+      "description": "tô phở bò chín cỡ trung bình",
+      "energy_kcal": 456
+    }
+  ]
+}

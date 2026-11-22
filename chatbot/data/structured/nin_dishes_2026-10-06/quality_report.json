@@ -1,0 +1,51 @@
+{
+  "records": 1250,
+  "unique_dish_codes": 1250,
+  "nutrient_rows": 17185,
+  "nutrient_columns": 43,
+  "categories": {
+    "Burger, pizza": 14,
+    "Bánh canh, bánh đa, bún, cháo, súp, hoành thánh, hủ tiếu, miến, mỳ, phở, lẩu": 119,
+    "Bánh đa, bún, phở": 136,
+    "Bún, cơm, xôi, cháo": 49,
+    "Chè, caramen, kem": 18,
+    "Chè, các loại giải khát": 89,
+    "Các loại bánh": 166,
+    "Các loại trái cây": 33,
+    "Các món bánh, kẹo": 62,
+    "Các món chế biến sẵn": 3,
+    "Các món khác": 322,
+    "Các món trứng, sữa và chế phẩm": 23,
+    "Các món xôi, chè": 26,
+    "Cơm các loại": 15,
+    "Cơm, cháo, xôi": 119,
+    "Giải khát": 23,
+    "Món canh": 1,
+    "Món xào": 15,
+    "Ngao, ốc": 17
+  },
+  "missing_core_values": {
+    "energy_kcal": 3,
+    "protein_g": 4,
+    "fat_g": 56,
+    "carbohydrate_g": 46,
+    "sodium_mg": 95
+  },
+  "records_with_dish_components": 0,
+  "reference_amount_requires_review": 0,
+  "issues": [
+    {
+      "dish_code": "VPF-000428",
+      "issue": "missing_or_duplicate_nutrient_key",
+      "key": "chat-bot-duong",
+      "unit": "g"
+    },
+    {
+      "dish_code": "VPF-000200",
+      "issue": "missing_or_duplicate_nutrient_key",
+      "key": "kem",
+      "unit": "mg"
+    }
+  ],
+  "validated_against": "Pagination, unique IDs/codes and value checks; 100 g basis confirmed by dataset owner on 2026-10-08; clinical accuracy not validated"
+}

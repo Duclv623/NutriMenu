@@ -1,0 +1,129 @@
+# Canonical source line endings; preserve corpus checksums on every OS.
+* text=auto eol=lf
+chatbot/data/** text=auto eol=crlf
+*.pdf -text
+*.docx -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+"chatbot/data/collected/practical_meals_2026-10-31/singhealth-noodle-choices.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/ada-protein.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/ada-vegan-meals.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-carb-choices.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-carb-counting.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-dessert.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-eating-out.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-holidays.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-hypoglycemia.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-meal-planning.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/cdc-shift-work.selected-excerpts.en.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/fda-sweeteners.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/mcmilk-disclosures.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/niddk-hypoglycemia.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/nin-balanced-meals.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/nin-labels.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/sydney-about-gi.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/sydney-gi-search.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-disclosures.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-milk-natural-1l.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-banh-gao-mozzarella-xot-pho-mai-th-true-food-300-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-banh-gao-xot-pho-mai-th-true-food-300-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-catalog.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-ga-chan-chi-hat-sen-240-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-nhung-huou-nam-huong-240-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-suon-to-yen-240-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-thit-ga-rau-cu-th-true-food-150-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-thit-heo-bi-do-th-true-food-150-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-gio-lua-th-true-food-250-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-kem-hop-th-true-ice-cream-tra-xanh-matcha-tu-nhien-180g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-kem-hop-th-true-ice-cream-tra-xanh-matchatu-nhien-50-g.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-cam-tu-nhien-9994-nuoc-cam-ep-th-true-juice.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-tao-tu-nhien-9996-nuoc-tao-ep-th-true-juice.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-uong-sua-trai-cay-cam-tu-nhien-th-true-juice-milk.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-uong-sua-trai-cay-mang-cau-th-true-juice-milk.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-co-duong.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-dua-tu-nhien.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-it-beo.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-khong-duong.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-nha-dam-tu-nhien.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-th-true-yogurt-it-duong.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-kem-ngay-huong-vanilla-tu-nhien-th-true-yogurt-creamy.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-ngu-coc-ca-cao-tu-nhien-th-true-yogurt.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-cam-tu-nhien-110ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-chuoi-lua-mach-tu-nhien-110ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-tu-nhien-110ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-hanh-nhan-th-true-nut-180ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-macca-th-true-nut-180-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-oc-cho-th-true-nut-180-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-va-gao-lut-do-th-true-nut-180-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-bo-sung-ngu-coc-th-true-milk-light-meal-180ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-co-duong-1-lit.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-it-duong-1-lit.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-180ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-th-true-milk-110-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-110ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-180ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-dao-tu-nhien-th-true-tea.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-huong-dao-tu-nhien-khong-duong-th-true-tea-350-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-o-long-tu-nhien-th-true-tea.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-oi-tu-nhien-th-true-tea-350-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-tac-tu-nhien-th-true-tea-350-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-vai-tu-nhien-th-true-tea.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-xanh-tu-nhien-khong-duong-th-true-tea-350-ml.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-xanh-vi-chanh-tu-nhien-th-true-tea.html" -text
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-category-review-bua-an-tien-loi-th-true-food.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-category-review-sua-chua-an-tu-nhien.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-category-review-sua-hat.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-category-review-tra-tu-nhien-th-true-tea.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-dao-current-review.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-home-review.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-macca-current-review.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-oi-current-review.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-tac-current-review.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/thmart-vai-current-review.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/usda-documentation.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/raw/usda-downloads.html" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/reviewed/vi-supplement-nutrition.md" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/structured/cdc-browser-row-hashes.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/structured/household-portions-template.csv" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/structured/product-collection-errors.json" text eol=lf
+"chatbot/data/collected/rag_supplements_2026-10-08/structured/vietnamese-recipes-template.json" text eol=lf
+"chatbot/data/collected/review_2026-10-30/raw/ada-sitting.html" text eol=lf
+"chatbot/data/fixtures/meal_demo.json" text eol=lf
+"chatbot/data/fixtures/meal_named_demo.json" text eol=lf
+"chatbot/data/structured/common_food_references/extracts/.gitattributes" text eol=lf
+"chatbot/data/structured/common_food_references/extracts/168877.json" text eol=lf
+"chatbot/data/structured/common_food_references/extracts/169999.json" text eol=lf
+"chatbot/data/structured/common_food_references/extracts/173944.json" text eol=lf
+"chatbot/data/structured/common_food_references/manifest.json" text eol=lf
+"chatbot/data/structured/common_food_references/raw/168878.json" text eol=lf
+"chatbot/data/structured/common_food_references/raw/168914.json" text eol=lf
+"chatbot/data/structured/common_food_references/raw/169704.json" text eol=lf
+"chatbot/data/structured/common_food_references/raw/171477.json" text eol=lf
+"chatbot/data/structured/common_food_references/raw/2705954.json" text eol=lf
+"chatbot/data/structured/fct2007/checkpoint_foods.json" text eol=lf
+"chatbot/data/structured/fct2007/pages_raw.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_001.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_002.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_003.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_004.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_005.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_006.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_007.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_008.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_009.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_010.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_011.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_012.json" text eol=lf
+"chatbot/data/structured/nin_dishes_2026-10-06/raw/page_013.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_001.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_002.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_003.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_004.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_005.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_006.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_007.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_008.json" text eol=lf
+"chatbot/data/structured/nin_foods_2026-10-06/raw/page_009.json" text eol=lf

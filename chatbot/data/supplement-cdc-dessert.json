@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-dessert",
+  "original_url": "https://www.cdc.gov/diabetes/healthy-eating/people-with-diabetes-dessert.html",
+  "original_sha256": "7320e0f0507000e3ecb925080cdf363fb6767c3339a5c74efe19e6e4873b0379",
+  "segments": [
+    {
+      "section": "Diabetes-friendly dessert tips",
+      "text": "Có thể bố trí món tráng miệng với lượng vừa phải trong kế hoạch ăn. Tính carbohydrate của món đó vào tổng bữa/ngày, ăn chậm và chọn phần nhỏ. Đồ ngọt có thể chứa carb từ đường, bột và sữa. Trái cây, chuối nghiền hoặc táo nghiền dùng thay chất tạo ngọt vẫn chứa đường/carb; không phải lựa chọn ăn không giới hạn.\nĐoạn gốc chọn lọc: When you do enjoy desserts or sweets, do it in moderation.",
+      "locators": [
+        "Diabetes-friendly dessert tips"
+      ],
+      "pages": []
+    }
+  ]
+}

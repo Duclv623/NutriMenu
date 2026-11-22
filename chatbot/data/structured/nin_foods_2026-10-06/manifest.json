@@ -1,0 +1,92 @@
+{
+  "expected_total": 853,
+  "per_page": 100,
+  "requests": [
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=100",
+      "file": "raw/page_001.json",
+      "retrieved_at": "2026-10-06T02:46:53.736016+00:00",
+      "sha256": "b9ed556720398b8bba88a727e4eac89e737e63cc077f95015915daa8bb1da88e",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=2&pageSize=100",
+      "file": "raw/page_002.json",
+      "retrieved_at": "2026-10-06T02:46:54.857805+00:00",
+      "sha256": "97ff98154b74b8f38f60c8287b3b5267f2cb122beeb7182be49611846cd84472",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=3&pageSize=100",
+      "file": "raw/page_003.json",
+      "retrieved_at": "2026-10-06T02:46:55.969028+00:00",
+      "sha256": "66a93e958441de706f442ff0028e5ef99b5ea30bf4997816a95e48ec51d39d8b",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=4&pageSize=100",
+      "file": "raw/page_004.json",
+      "retrieved_at": "2026-10-06T02:46:57.168818+00:00",
+      "sha256": "6d8971109ea272c71bba55143525cf5f9b9713b13d34f0c5e572702dd96aa25c",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=5&pageSize=100",
+      "file": "raw/page_005.json",
+      "retrieved_at": "2026-10-06T02:46:58.300339+00:00",
+      "sha256": "41516d508c9ff428b53e3f1478ad593b6bc7267614407702bf7152dc59ef7789",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=6&pageSize=100",
+      "file": "raw/page_006.json",
+      "retrieved_at": "2026-10-06T02:46:59.476295+00:00",
+      "sha256": "edc91744a708010c75d90c9ded1f67db1c0f9f4b1cb9d4b6d3bff9f4d72f7920",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=7&pageSize=100",
+      "file": "raw/page_007.json",
+      "retrieved_at": "2026-10-06T02:47:00.631356+00:00",
+      "sha256": "dd6da6de8945b8ddb49d236b8a479ca0f0aecbd5c2d9c1e0b21f55555e96467c",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=8&pageSize=100",
+      "file": "raw/page_008.json",
+      "retrieved_at": "2026-10-06T02:47:01.768328+00:00",
+      "sha256": "eef8712876b9c8440b4d3263cb051846fd22b327b118def5215a3d03f05389ef",
+      "rows": 100
+    },
+    {
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=9&pageSize=100",
+      "file": "raw/page_009.json",
+      "retrieved_at": "2026-10-06T02:47:02.889388+00:00",
+      "sha256": "41455bbef07ca200cf0913f361efda8ce936ff9c62271525866520499fd7ac49",
+      "rows": 53
+    }
+  ],
+  "source_title": "Viện Dinh dưỡng — Tra cứu giá trị dinh dưỡng thực phẩm",
+  "source_url": "https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham",
+  "api_url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData",
+  "reference_basis": "100 g phần ăn được, theo nhãn giao diện nguồn",
+  "raw_cooked_state": "not supplied as a structured API field; requires manual review",
+  "normalization": "No nutrient inference, rounding, replacement of missing values or correction of source data",
+  "clinical_review": false,
+  "exports": {
+    "foods_all_nutrients.csv": "49e0c000e5dfc828b34073f7a72606421dc12fcef012f1fa99cce43f98ec3fd5",
+    "foods_core.csv": "4ec2d0399c979fd520b93fbba0f0c811ffd80289cc1ec930a39142400a2514c7",
+    "foods_core.json": "be9860cc408d39302821db59a3919b37c9631dbacee932f42367f69616c8eda8",
+    "foods_full.json": "01f275dc8b656b6075ab5a89fb3f7c9c55702b3af637716f617bfcd3375088ce",
+    "nutrient_dictionary.json": "be33cc0707b9ba86dd92bbf3333d4823a5de8ae0932c2c8d97301439da068655",
+    "nutrients_long.csv": "1b9a58bc50c8a3748dbe860ea9ba8d9db6d4fec496a5c2e370a0524d693cf046",
+    "quality_report.json": "ef5a27b7baf422026e660a393a2766bcaa989e23df658f93533a51e6a7881c5c"
+  },
+  "dataset": "foods",
+  "reference_amount_g": 100,
+  "reference_basis_verification": {
+    "method": "source_interface_and_dataset_owner_confirmation",
+    "date": "2026-10-08",
+    "note": "Dataset owner confirmed all 853 NIN foods are per 100 g; source nutrient values are unchanged"
+  }
+}

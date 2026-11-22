@@ -1,0 +1,193 @@
+{
+  "description": "Các cuộc trò chuyện tiếng Việt về ăn uống hằng ngày và thực đơn đang lưu trong NutriGuide. Mỗi cuộc trò chuyện bắt đầu bằng một phiên mới. Các lượt trong cùng cuộc trò chuyện dùng chung phiên và giữ nguyên thứ tự. Trường expected mô tả điều cần kiểm tra, không quy định câu trả lời phải dùng đúng từ.",
+  "conversations": [
+    {
+      "id": "everyday-chat-01",
+      "title": "Nấu bữa tối từ đồ sẵn trong tủ",
+      "turns": [
+        {
+          "question": "Nhà còn cơm nguội, trứng với cà chua. Tối nay làm món gì cho hai người, tầm 15 phút thôi?",
+          "expected": "Gợi ý món khả thi cho hai người trong khoảng 15 phút từ các nguyên liệu đã có."
+        },
+        {
+          "question": "À có một người không ăn trứng. Vẫn làm chung một món được không?",
+          "expected": "Điều chỉnh thành một món chung cho hai người, bỏ trứng và tận dụng cơm với cà chua."
+        },
+        {
+          "question": "Mình có thêm nửa bìa đậu hũ, cho vào lúc nào thì đỡ nát?",
+          "expected": "Chỉ thời điểm và cách cho đậu hũ vào món vừa trao đổi để hạn chế nát. Không đưa trứng trở lại."
+        },
+        {
+          "question": "Tóm lại giúp mình theo thứ tự, để mình vừa đọc vừa làm nhé.",
+          "expected": "Tóm tắt các bước nấu đúng thứ tự cho món cơm, cà chua và đậu hũ gần nhất. Không quay lại công thức trứng."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-02",
+      "title": "Chuẩn bị hộp cơm mang đi làm",
+      "turns": [
+        {
+          "question": "Mai mình mang đồ ăn trưa đi làm. Văn phòng không có lò vi sóng, nhà có bánh mì, ức gà và dưa leo. Mang món gì tiện nhỉ?",
+          "expected": "Gợi ý bữa trưa có thể ăn nguội, dùng các nguyên liệu đã nêu và chỉ rõ phần gà cần được nấu chín."
+        },
+        {
+          "question": "Chỗ mình cũng không có tủ lạnh, nhưng mình có túi giữ nhiệt với đá gel. Nên xếp đồ thế nào?",
+          "expected": "Hướng dẫn làm lạnh trước và đóng gói phần gà hoặc nhân ở gần đá gel. Không đề xuất dùng tủ lạnh hay lò vi sóng ở văn phòng."
+        },
+        {
+          "question": "Vậy dưa leo để chung từ sáng có làm bánh bị mềm không?",
+          "expected": "Giải thích dưa leo có thể làm mềm bánh và gợi ý để riêng hoặc thấm khô, ghép lúc ăn."
+        },
+        {
+          "question": "Viết gọn giúp mình phần nào chuẩn bị tối nay, phần nào sáng mai mới làm.",
+          "expected": "Chia việc thành tối nay và sáng mai. Giữ phương án bảo quản lạnh bằng đá gel và để bánh hoặc dưa leo riêng đến khi ăn."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-03",
+      "title": "So đường trên hai hộp sữa chua",
+      "turns": [
+        {
+          "question": "Mình đứng trước hai hộp sữa chua khác cỡ. Nhìn dòng nào để biết loại nào nhiều đường hơn?",
+          "expected": "Chỉ dòng đường tổng nếu mục tiêu là so lượng đường, và giải thích phải quy về cùng khối lượng khi so hai loại."
+        },
+        {
+          "question": "Hộp A 100 g ghi 8 g đường trên 100 g. Hộp B 150 g ghi 7 g đường trên 100 g. Nếu ăn hết hộp thì sao?",
+          "expected": "Tính đúng A có 8 g và B có 10,5 g đường khi ăn hết hộp. Kết luận B nhiều đường hơn theo nguyên hộp."
+        },
+        {
+          "question": "Còn nếu mình chỉ ăn nửa hộp B thì so với nguyên hộp A thế nào?",
+          "expected": "Dùng lại số trên nhãn đã cho. Nửa hộp B có 5,25 g đường, ít hơn 8 g của nguyên hộp A."
+        },
+        {
+          "question": "À đổi chủ đề nha, khoai lang luộc với nướng thì cái nào hay có vỏ khô hơn?",
+          "expected": "Trả lời về kết cấu vỏ khoai lang, thường nướng khô hơn luộc. Không tiếp tục so sữa chua."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-04",
+      "title": "Gọi cơm bình dân trong ngân sách",
+      "turns": [
+        {
+          "question": "Trưa nay có 35k, mình ăn quán cơm bình dân gần chỗ làm. Gọi thế nào để có cả món mặn với rau?",
+          "expected": "Gợi ý cách chọn một món mặn và rau trong ngân sách, lưu ý hỏi giá hoặc xem phần cơm đã kèm rau chưa."
+        },
+        {
+          "question": "Quán báo suất cá 32k có rau, suất đậu hũ 28k có rau. Canh tính thêm 5k. Mình muốn có canh luôn, chọn suất nào?",
+          "expected": "Tính đúng suất đậu hũ kèm canh 33k và suất cá kèm canh 37k. Chọn đậu hũ trong ngân sách 35k."
+        },
+        {
+          "question": "Thế còn dư bao nhiêu?",
+          "expected": "Nhớ ngân sách 35k và tổng suất đã chọn 33k. Trả lời còn dư 2k."
+        },
+        {
+          "question": "Tiện hỏi chuyện khác: mua chuối để ăn rải mấy ngày thì chọn nải màu nào?",
+          "expected": "Gợi ý chọn chuối hơi xanh hoặc có độ chín xen kẽ để ăn dần. Không mang giá hay lựa chọn suất cơm sang câu hỏi mới."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-05",
+      "title": "Xem món và khẩu phần trong thực đơn mẫu",
+      "fixture": "named",
+      "turns": [
+        {
+          "question": "Bữa trưa trong thực đơn của mình có những món gì vậy?",
+          "expected": "Liệt kê đúng các món bữa trưa trong thực đơn đang lưu: cơm trắng, ức gà và rau muống luộc."
+        },
+        {
+          "question": "Cơm trong bữa đó là bao nhiêu gam?",
+          "expected": "Hiểu bữa đó là bữa trưa và xác định đúng phần cơm trắng 150 g."
+        },
+        {
+          "question": "Còn bữa tối thì sao, cơm mấy gam và có phải cùng loại không?",
+          "expected": "Xác định bữa tối có 150 g cơm gạo lứt, cùng lượng nhưng khác loại với cơm trắng bữa trưa."
+        },
+        {
+          "question": "Cho mình hỏi ngoài thực đơn nhé: đi chợ mua gì để nấu canh bí đỏ không bỏ hành?",
+          "expected": "Chuyển sang gợi ý nguyên liệu nấu canh bí đỏ không dùng hành, không tiếp tục liệt kê món mẫu hoặc tạo thay đổi thực đơn."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-06",
+      "title": "Xem thử món sáng ít calo rồi hủy",
+      "fixture": "mathematical",
+      "turns": [
+        {
+          "question": "Bữa sáng trong thực đơn đang lưu có bao nhiêu calo vậy?",
+          "expected": "Tra đúng bữa sáng đang lưu có 476 kcal."
+        },
+        {
+          "question": "Thử đổi bữa sáng sang món ít calo hơn cho mình xem trước nhé.",
+          "expected": "Tạo phương án xem trước cho bữa sáng, từ 476 xuống 462 kcal. Thực đơn vẫn là phiên bản 1."
+        },
+        {
+          "question": "Vậy đã đổi thực đơn chưa, hay mới cho mình xem thôi?",
+          "expected": "Nhận ra phương án vừa xem vẫn chờ áp dụng và món đang lưu chưa đổi."
+        },
+        {
+          "question": "Thôi hủy phương án đó nhé, giữ nguyên giúp mình.",
+          "expected": "Hủy phương án đang chờ và giữ thực đơn ở phiên bản 1."
+        },
+        {
+          "question": "Vậy bữa sáng đang lưu vẫn là món nào, bao nhiêu calo?",
+          "expected": "Đọc lại món A và 476 kcal từ thực đơn đang lưu, không lấy món A3 hoặc 462 kcal từ phương án đã hủy."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-07",
+      "title": "So bữa ăn, xem trước rồi áp dụng đổi món",
+      "fixture": "mathematical",
+      "turns": [
+        {
+          "question": "Trong thực đơn, bữa sáng hay bữa trưa nhiều calo hơn, hơn bao nhiêu?",
+          "expected": "So sánh hai bữa đang lưu. Bữa trưa 662 kcal cao hơn bữa sáng 476 kcal, chênh 186 kcal."
+        },
+        {
+          "question": "Cho mình xem trước phương án đổi bữa sáng sang món nhiều calo hơn một chút.",
+          "expected": "Xem trước món A2 với 490 kcal thay món A với 476 kcal. Chưa cập nhật thực đơn đang lưu."
+        },
+        {
+          "question": "Áp dụng phương án này.",
+          "expected": "Nhận ra phương án vừa xem và chỉ đúng thao tác Áp dụng. Lượt chat chưa tự đổi phiên bản. Sau thao tác Áp dụng, thực đơn chuyển sang phiên bản 2.",
+          "action_after": "apply_pending"
+        },
+        {
+          "question": "Mình vừa bấm rồi. Bữa sáng đang lưu bây giờ bao nhiêu calo?",
+          "expected": "Xác nhận dữ liệu đang lưu sau thao tác Áp dụng là 490 kcal, không lặp lại 476 kcal của bản cũ."
+        },
+        {
+          "question": "Còn bữa trưa thì vẫn bao nhiêu?",
+          "expected": "Giữ ngữ cảnh đang hỏi calo nhưng đổi phạm vi sang bữa trưa, trả đúng 662 kcal."
+        }
+      ]
+    },
+    {
+      "id": "everyday-chat-08",
+      "title": "Đi chợ một lần cho vài bữa tối",
+      "turns": [
+        {
+          "question": "Chủ nhật mình mới đi chợ được. Gợi ý ba loại rau củ để nấu lần lượt trong mấy bữa tối đầu tuần với.",
+          "expected": "Đề xuất ba loại rau củ dễ mua và một thứ tự dùng hợp lý dựa trên độ dễ héo hoặc khả năng bảo quản."
+        },
+        {
+          "question": "Nhà còn sẵn cà rốt với bắp cải rồi. Nếu chỉ mua thêm một loại để nấu ngay tối đầu thì mua gì?",
+          "expected": "Chọn một loại khác cà rốt và bắp cải, phù hợp để dùng đầu tiên. Không đưa lại cả danh sách mua ban đầu."
+        },
+        {
+          "question": "Tủ lạnh chật lắm, cà rốt với bắp cải thì ưu tiên cất cái nào vào trước?",
+          "expected": "Đưa ra ưu tiên thực tế có xét rau củ còn nguyên hay đã cắt. Không trả lời về loại rau vừa khuyên mua thay cho hai loại được hỏi."
+        },
+        {
+          "question": "Chốt giúp mình danh sách đi chợ và thứ tự nấu, ngắn thôi nhé.",
+          "expected": "Tóm tắt một loại cần mua và thứ tự dùng cùng hai loại đã có. Không thêm cà rốt hoặc bắp cải vào danh sách cần mua."
+        }
+      ]
+    }
+  ]
+}

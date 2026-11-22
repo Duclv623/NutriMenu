@@ -1,0 +1,54 @@
+# Machine credentials and local configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+.aws/
+.codex/
+.agents/
+
+# Dependencies, compiled output, caches and runtime databases
+.venv/
+venv/
+node_modules/
+target/
+dist/
+build/
+storage/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.py[cod]
+*.tsbuildinfo
+*.log
+*.sqlite
+*.sqlite3
+*.db
+.coverage
+coverage/
+htmlcov/
+
+# Local review artifacts and private backups
+/audit-*/
+/cleanup-archive-*/
+/integration-checks-*/
+/tmp/
+/temp/
+/push-integration.ps1
+*.bak
+*.dump
+*.backup
+*.zip
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-eating-out",
+  "original_url": "https://www.cdc.gov/diabetes/healthy-eating/eating-out.html",
+  "original_sha256": "18b366d51105fcad1dde2da67b97852a3948c144c10345d755cdb9952d146a52",
+  "segments": [
+    {
+      "section": "Order wisely",
+      "text": "Xem thực đơn trước khi đi. Chọn món hấp, nướng hoặc đút lò; hạn chế món chiên, tẩm bột, sốt kem. Gọi thêm rau thay cho món ăn kèm nhiều năng lượng; yêu cầu để riêng nước sốt và dùng lượng vừa đủ. Chia món hoặc mang một phần về nếu suất lớn. Nếu muốn ăn tráng miệng, tính phần carb đó trong bữa thay vì thêm không giới hạn.\nĐoạn gốc chọn lọc: Order sauces, salad dressing, and spreads on the side and use just enough for flavor.",
+      "locators": [
+        "Order wisely"
+      ],
+      "pages": []
+    },
+    {
+      "section": "Plan ahead",
+      "text": "Khi bữa ăn bị trễ, bài gợi ý cân nhắc phần ăn nhẹ có đạm/chất xơ để tránh quá đói, rồi tính phần đó vào tổng lượng ăn. Đây không phải yêu cầu mọi bệnh nhân đều phải có bữa phụ; lịch ăn còn phụ thuộc thuốc và kế hoạch cá nhân.\nĐoạn gốc chọn lọc: If your meal will be later than normal, have a snack before you go out to avoid getting too hungry.",
+      "locators": [
+        "Plan ahead"
+      ],
+      "pages": []
+    }
+  ]
+}

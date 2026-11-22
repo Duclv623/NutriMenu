@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source_id": "ada-protein",
+  "original_url": "https://diabetes.org/food-nutrition/reading-food-labels/protein",
+  "original_sha256": "0f5f6511732b55dd64e4f77f82eb9044eef6a59e69074062fdba6a7cb4a9fb14",
+  "segments": [
+    {
+      "section": "Đạm thực vật, ăn chay và carbohydrate",
+      "text": "Plant-based proteins\nPlant-based protein foods provide quality protein, healthy fats and fiber. They vary in how much fat and carbohydrate they contain, so make sure to read labels.\nBeans such as black, kidney and pinto\nBean products like baked beans and refried beans\nHummus and falafel\nLentils such as brown, green or yellow\nPeas such as black-eyed or split peas\nEdamame\nSoy nuts\nNuts and spreads like almond butter, cashew butter or peanut butter\nTempeh, tofu\nProducts like meatless \"chicken\" nuggets, \"beef\" crumbles, \"burgers\", \"bacon\", \"sausage\" and \"hot dogs\"",
+      "locators": [
+        "block-0145",
+        "block-0146",
+        "block-0147",
+        "block-0148",
+        "block-0149",
+        "block-0150",
+        "block-0151",
+        "block-0152",
+        "block-0153",
+        "block-0154",
+        "block-0155",
+        "block-0156"
+      ],
+      "pages": []
+    }
+  ]
+}

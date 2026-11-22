@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-06",
+  "checks": [
+    {
+      "dataset": "foods",
+      "records": 853,
+      "raw_pages": 9,
+      "nutrient_rows": 34544,
+      "result": "PASS"
+    },
+    {
+      "dataset": "dishes",
+      "records": 1250,
+      "raw_pages": 13,
+      "nutrient_rows": 17185,
+      "result": "PASS"
+    }
+  ],
+  "method": "Independent raw page/hash/JSON/CSV/nutrient row comparison; screenshot sample 10001; unknown portion and duplicate-key handling",
+  "clinical_validation": false
+}

@@ -1,0 +1,14 @@
+{
+  "notice": "Thực đơn minh họa để hỏi đáp, không phải khẩu phần cá nhân. Khối lượng được chọn để demo; số dinh dưỡng tính từ bản ghi có sẵn, không gồm nguyên liệu/gia vị ngoài bản ghi. Chưa kiểm tra phù hợp dị ứng và chưa chạy bộ tối ưu.",
+  "profile": {"profileVersion": 1, "age": 45, "gender": "FEMALE", "height": 160, "weight": 60, "activityLevel": "LIGHT", "goal": "MAINTAIN", "allergies": [], "restrictedIngredients": [], "preferences": [], "scopeStatus": "eligible", "restrictionsResolved": true, "excludedIngredientIds": []},
+  "items": [
+    {"id": "breakfast-pho", "foodId": "nin_foods:15067", "amount": 300, "mealType": "BREAKFAST"},
+    {"id": "lunch-rice", "foodId": "usda:168878", "amount": 150, "mealType": "LUNCH"},
+    {"id": "lunch-chicken", "foodId": "usda:171477", "amount": 100, "mealType": "LUNCH"},
+    {"id": "lunch-vegetables", "foodId": "nin_foods:4083002", "amount": 150, "mealType": "LUNCH"},
+    {"id": "dinner-rice", "foodId": "usda:169704", "amount": 150, "mealType": "DINNER"},
+    {"id": "dinner-chicken", "foodId": "usda:171477", "amount": 100, "mealType": "DINNER"},
+    {"id": "dinner-vegetables", "foodId": "nin_foods:4083002", "amount": 150, "mealType": "DINNER"},
+    {"id": "snack-banana", "foodId": "fct2007:5007", "amount": 100, "mealType": "SNACK", "state": "ready_to_eat"}
+  ]
+}

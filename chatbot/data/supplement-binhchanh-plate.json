@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_id": "binhchanh-plate",
+  "original_url": "https://binhchanhhospital.vn/phuong-phap-dia-thuc-an-cho-nguoi-benh-dai-thao-duong-614.html",
+  "original_sha256": "a40bd77bb7c81af7dfec591fa945d8dc265cd1f590da65f90047f419d6a3bf31",
+  "segments": [
+    {
+      "section": "Chia đĩa theo nhóm thực phẩm",
+      "text": "\nĐoạn gốc:\nChú ý: Nhóm khoai: khoai lang, khoai tây, khoai mỡ…không thuộc nhóm rau củ ít tinh bột này.\n1/2 ĐĨA LÀ RAU CỦ QUẢ ÍT TINH BỘT\n1/4 ĐĨA THỨC ĂN THUỘC NHÓM CARBOHYDRATE\nĐậu và các loại đậu như đậu đen, đậu tây, pinto, và đậu garbanzo\nTrái cây và trái cây khô\nCác sản phẩm từ sữa như sữa, sữa chua và các sản phẩm thay thế sữa (tức là sữa đậu nành)\nBước 4: Chọn nước uống: nước lọc hay nước ít năng lượng\no Trà không đường (nóng hoặc đá)\no Cà phê không đường (nóng hoặc đá)",
+      "locators": [
+        "block-0080",
+        "block-0082",
+        "block-0084",
+        "block-0087",
+        "block-0088",
+        "block-0089",
+        "block-0090",
+        "block-0091",
+        "block-0092"
+      ],
+      "pages": []
+    }
+  ]
+}

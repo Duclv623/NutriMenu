@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source_id": "cdc-holidays",
+  "original_url": "https://www.cdc.gov/diabetes/healthy-eating/5-healthy-eating-tips-holidays.html",
+  "original_sha256": "1993abb39bd628eb3d0f7f398be76244a705333cc1b20cd006442ae6946d4e29",
+  "segments": [
+    {
+      "section": "Holiday-proof your plan / Outsmart the buffet",
+      "text": "Giữ giờ ăn gần lịch thường lệ khi có thể, không bỏ bữa để dồn ăn tiệc. Tính trước phần carb, chọn lượng món thích ăn trong giới hạn kế hoạch và có thể mang phần còn lại về. Khi ăn buffet, dành ít nhất nửa đĩa cho rau và ăn chậm. Có thể mang theo một món phù hợp; người tổ chức nên để riêng nước sốt và các phần thêm. Bài cũng nhắc hạn chế rượu và theo dõi đường huyết theo kế hoạch điều trị.\nĐoạn gốc chọn lọc: Don't skip meals to save up for a feast. When you're really hungry you might be more likely to overeat.",
+      "locators": [
+        "Holiday-proof your plan / Outsmart the buffet"
+      ],
+      "pages": []
+    }
+  ]
+}

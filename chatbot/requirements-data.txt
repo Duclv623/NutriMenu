@@ -1,0 +1,2 @@
+# Offline PDF table extraction only; the server consumes the checked exports.
+pdfplumber==0.11.9

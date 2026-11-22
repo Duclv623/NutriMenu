@@ -1,0 +1,174 @@
+Food Group Code ,NDB,Yield Description,Preparation Method1, Cooking Yield %,n,SD,Yield Minimum %,Yield Maximum %,Moisture Gain/ Loss %,Fat   Gain/ Loss %,Release Year2
+13,13953,"Beef, bottom sirloin, tri-tip roast, separable lean and fat, trimmed to 0"" fat, all grades","Baked or Roasted, unspecified",84,20,3.052,77,89,-22.38,-0.12,2003
+13,13806,"Beef, brisket, flat half, separable lean and fat, trimmed to 1/8"" fat, all grades",Braised,69,20,3.042,65,76,-25.01,-10.23,2000
+13,23134,"Beef, chuck eye country-style ribs, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Braised,68.3,70,5.34,60.7,80.4,-35.38,-2.07,2010
+13,23113,"Beef, chuck eye roast, boneless, America's Beef Roast, separable lean and fat, trimmed to 0"" fat, all grades",Roasted,80,35,4.64,75.8,93.5,-24.93,-0.36,2010
+13,23140,"Beef, chuck eye steak, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,80.16846846,70,4.94,61.8,94.9,-25.04,-2.33,2010
+13,13373,"Beef, chuck, arm pot roast, separable lean and fat, trimmed to 1/8"" fat, all grades",Braised,71,1,n/a,n/a,n/a,-36.09,-8.28,2000
+13,23119,"Beef, chuck, mock tender steak, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Braised,71.36,61,13.44,56.4,99.5,-37.09,1.65,2010
+13,23125,"Beef, chuck, short ribs, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Braised,66.07,30,11.76,44.9,97.3,-31.27,-4.18,2010
+13,23054,"Beef, chuck, shoulder clod, shoulder tender, medallion, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,77,10,2.035,74.01,81.1,-22.2,-0.67,2004
+13,23058,"Beef, chuck, shoulder clod, shoulder top and center steaks, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,76,10,4.032,72.75,83.39,-22.88,-0.02,2004
+13,23060,"Beef, chuck, shoulder clod, top blade, steak, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,76,10,2.94,70.71,79.9,-23.2,-0.77,2004
+13,23105,"Beef, chuck, under blade center steak, boneless, Denver Cut, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,71,30,3.9,65.8,83.1,-26.33,-2.07,2010
+13,23099,"Beef, chuck, under blade pot roast, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Braised,64,33,5.09,60.9,78.2,-34.84,-0.83,2010
+13,23116,"Beef, chuck, under blade steak, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Braised,64.96,34,4.18,58.1,72,-35.38,-2.78,2010
+13,13948,"Beef, flank, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,81,20,4.128,74,89,-22.55,-0.99,2003
+13,13494,"Beef, ground, high fat (>22%), crumbles",Pan-fried,62,4,1.6,60.31,63.89,-24.96,-12.57,2003
+13,13495,"Beef, ground, high fat (>22%), loaf","Baked or Roasted, unspecified",63,4,0.863,61.94,63.89,-22.48,-12.88,2003
+13,13496,"Beef, ground, high fat (>22%), patty",Pan-broiled,69,4,2.102,67.55,72.23,-18.18,-12.39,2003
+13,13497,"Beef, ground, high fat (>22%), patty ",Broiled or Grilled,63,4,2.622,55.33,69.44,-24.15,-11.98,2003
+13,23565,"Beef, ground, low fat (<12%), crumbles",Pan-fried,69,4,1.083,67.08,69.53,-29.56,-1.39,2002
+13,23566,"Beef, ground, low fat (<12%), loaf","Baked or Roasted, unspecified",72,4,2.817,67.59,73.93,-25.93,-1.72,2002
+13,23563,"Beef, ground, low fat (<12%), patty",Broiled or Grilled,73,4,0.856,72.82,74.68,-24.21,-1.55,2002
+13,23564,"Beef, ground, low fat (<12%), patty",Pan-broiled,77,4,0.805,76.37,78.3,-21.25,-1.4,2002
+13,23575,"Beef, ground, medium fat (12%-22%), crumbles",Pan-fried,67,4,3.534,63.7,71.62,-27.83,-5.32,2002
+13,23576,"Beef, ground, medium fat (12%-22%), loaf","Baked or Roasted, unspecified",70,4,4.86,65.08,76.25,-23.97,-5.73,2002
+13,23573,"Beef, ground, medium fat (12%-22%), patty",Broiled or Grilled,69,4,3.879,63.96,72.42,-25.1,-5.17,2002
+13,23574,"Beef, ground, medium fat (12%-22%), patty",Pan-broiled,73,4,2.768,70.78,75.97,-20.82,-6.22,2002
+13,23345,"Beef, loin, tenderloin roast, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Roasted,82,1,n/a,n/a,n/a,-23.51,-0.81,2013
+13,13439,"Beef, loin, tenderloin steak, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,79,1,n/a,n/a,n/a,-29.41,-0.41,2013
+13,13445,"Beef, loin, top loin steak, boneless, lip off, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,82,1,n/a,n/a,n/a,-37.07,-1.52,2013
+13,23214,"Beef, plate steak, boneless, inside skirt, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,72.9,72,4.5,64.3,84.9,-30.01761584,-2.283665893,2011
+13,23221,"Beef, plate steak, boneless, outside skirt, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,68.2,72,4.3,58.6,79.3,-29.53427828,-4.199153416,2011
+13,,"Beef, retail all cuts, all temps",Broiled or Grilled,78,458,4.39203912,68.60327988,87.98179328,,,2011
+13,,"Beef, retail cuts, all, bone in",Braised,73,36,8.8,53,87,,,2011
+13,,"Beef, retail cuts, all, boneless",Braised,67,361,7.438571429,55.74285714,84.1712646,,,2011
+13,,"Beef, retail cuts, bone in, all temps","Baked or Roasted, unspecified",77,35,2.8,72,84,,,2011
+13,,"Beef, retail cuts, boneless, all temps","Baked or Roasted, unspecified",79,71,6.6,64,96,,,2011
+13,,"Beef, retail cuts, boneless, short ribs",Braised,66,30,11.76,44.9,97.3,,,2011
+13,,"Beef, retail cuts, steaks, bone in and boneless",Multiple cooking methods,76,553,5.195304735,66.53904717,87.57250299,,,2011
+13,23191,"Beef, rib eye roast, bone-in, lip-on, separable lean and fat, trimmed to 1/8"" fat, all grades",Roasted,76.9,35,2.8,71.8,83.5,-17.59821127,-1.744219782,2011
+13,23198,"Beef, rib eye roast, boneless, lip-on, separable lean and fat, trimmed to 1/8"" fat, all grades",Roasted,75.8,36,3.9,65.7,84.9,-21.82757575,-2.643984347,2011
+13,23188,"Beef, rib eye steak, bone-in, lip-on, separable lean and fat, trimmed to 1/8"" fat, all grades",Grilled,85.7,36,4,77.7,90.3,-17.35413808,-0.332022943,2011
+13,23227,"Beef, rib eye steak, boneless, lip off, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,82.2,36,4,75.2,88.6,-20.09146629,-2.026412998,2011
+13,23197,"Beef, rib eye steak, boneless, lip-on, separable lean and fat, trimmed to 1/8"" fat, all grades",Grilled,83.6,36,3.8,74.6,91.9,-17.79992312,-1.128347314,2011
+13,23233,"Beef, rib, back ribs, bone-in, separable lean and fat, trimmed to 0"" fat, all grades",Braised,75.3,36,3.1,65.2,82.2,-19.96011103,-7.094955945,2011
+13,13851,"Beef, rib, small end (ribs 10-12), separable lean and fat, trimmed to 1/8"" fat, all grades",Broiled or Grilled,82,20,4.258,70,85,-23.91,-5.19,2000
+13,13421,"Beef, round tip round roast, separable lean and fat, trimmed to 0"" fat, all grades","Baked or Roasted, unspecified",85,20,3.236,76,87,-24.71,-1,2000
+13,13870,"Beef, round, bottom round, roast, separable lean and fat, trimmed to 1/8"" fat, all grades","Baked or Roasted, unspecified",84,20,2.741,76,88,-20.64,-2.8,2000
+13,13869,"Beef, round, bottom round, steak, separable lean and fat, trimmed to 1/8"" fat, all grades",Braised,69,20,2.137,62,70,-34.01,-4.44,2000
+13,13878,"Beef, round, eye of round, roast, separable lean and fat, trimmed to 1/8"" fat, all grades","Baked or Roasted, unspecified",81,20,1.987,75,83,-23.92,-1.17,2000
+13,23062,"Beef, round, knuckle, tip center, steak, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,76,13,3.442,70.86,81,-22.71,-0.74,2004
+13,23056,"Beef, round, knuckle, tip side, steak, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,75,7,2.736,71.42,78.59,-24.09,-0.38,2004
+13,23064,"Beef, round, outside round, bottom round, steak, separable lean and fat, trimmed to 0"" fat, all grades",Broiled or Grilled,77,10,2.262,74.49,81.65,-22.39,-0.03,2004
+13,13893,"Beef, round, top round steak, separable lean and fat, trimmed to 1/8"" fat, all grades",Broiled or Grilled,72,20,5.324,62,83,-28.42,-1.8,2000
+13,13910,"Beef, short loin, top loin, steak, separable lean and fat, trimmed to 1/8"" fat, all grades",Broiled or Grilled,82,1,n/a,n/a,n/a,-19.7,-2.77,2013
+13,23131,"Beef, shoulder pot roast, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Braised,66.28,71,6.13,54.6,80.9,-37.26,0.3,2010
+13,23554,"Beef, shoulder steak, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,77.72357724,72,4.41,69.8,88.9,-28.36,-0.27,2010
+13,13598,"Beef, shoulder top blade steak, boneless, separable lean and fat, trimmed to 0"" fat, all grades",Grilled,73,34,5.65,69,89.9,-34.14,-0.4,2010
+13,13918,"Beef, tenderloin, steak, separable lean and fat, trimmed to 1/8"" fat, all grades",Broiled or Grilled,80,19,3.91,71,86,-21.25,-5.85,2000
+13,13930,"Beef, top sirloin, steak, separable lean and fat, trimmed to 1/8"" fat, all grades",Broiled or Grilled,80,20,4.871,69,87,-25.16,-2.73,2000
+13,13320,"Beef, variety meats and by-products, brain","Poached, Simmered or Stewed",85,1,n/a,n/a,n/a,-12.76,-1.36,2003
+13,13322,"Beef, variety meats and by-products, heart","Poached, Simmered or Stewed",57,1,n/a,n/a,n/a,-40,-1.27,2003
+13,13324,"Beef, variety meats and by-products, kidneys","Poached, Simmered or Stewed",53,1,n/a,n/a,n/a,-42.69,-0.64,2003
+13,13326,"Beef, variety meats and by-products, liver",Braised,68,1,n/a,n/a,n/a,-30.6,-0.04,2003
+13,13327,"Beef, variety meats and by-products, liver",Pan-fried or Sauteed ,73,1,n/a,n/a,n/a,-25.71,-0.23,2003
+13,23640,"Beef, variety meats and by-products, tripe","Poached, Simmered or Stewed",70,1,n/a,n/a,n/a,-27.25,-0.87,2003
+5,5051,"Chicken, broiler-fryer, back, full, meat and skin","Baked or Roasted, unspecified",61,,n/a,49,71,,,1975
+5,5052,"Chicken, broiler-fryer, back, full, meat and skin","Poached, Simmered or Stewed",67,,n/a,58,79,,,1975
+5,5060,"Chicken, broiler-fryer, breast, meat and skin","Baked or Roasted, unspecified",72,,n/a,61,82,,,1975
+5,5061,"Chicken, broiler-fryer, breast, meat and skin","Poached, Simmered or Stewed",77,,n/a,70,88,,,1975
+5,5069,"Chicken, broiler-fryer, drumstick, meat and skin","Baked or Roasted, unspecified",76,,n/a,63,87,,,1975
+5,5087,"Chicken, broiler-fryer, neck, meat and skin","Poached, Simmered or Stewed",70,,n/a,62,81,,,1975
+5,5094,"Chicken, broiler-fryer, thigh, meat and skin","Baked or Roasted, unspecified",69,,n/a,58,79,,,1975
+5,5095,"Chicken, broiler-fryer, thigh, meat and skin","Poached, Simmered or Stewed",74,,n/a,67,82,,,1975
+5,5004,"Chicken, broiler-fryer, whole, including skin","Baked or Roasted, specified time",78,,n/a,68,84,,,1975
+5,5010,"Chicken, broiler-fryer, whole, including skin","Poached, Simmered or Stewed",75,,n/a,69,87,,,1975
+5,5104,"Chicken, broiler-fryer, wing, meat and skin","Poached, Simmered or Stewed",86,,n/a,74,96,,,1975
+5,5102,"Chicken, broiler-fryer, wing, meat and skin, floured",Fried in deep fat,66,,n/a,53,78,,,1975
+5,5676,"Chicken, broilers or fryers, drumstick, meat and skin",Braised,77,1,n/a,n/a,n/a,-9.71,-0.21,2011
+5,5677,"Chicken, broilers or fryers, thigh, meat and skin",Braised,68,1,n/a,n/a,n/a,-9.67,-2.44,2011
+5,5103,"Chicken, broilers or fryers, wing, meat and skin",Roasted,78,1,n/a,n/a,n/a,2.45,3.55,2013
+5,5687,"Chicken, drumstick, meat and skin, enhanced",Braised,74,1,n/a,n/a,n/a,-9.79,0.32,2013
+5,5689,"Chicken, dark meat, drumstick, meat and skin, enhanced",Roasted,80,1,n/a,n/a,n/a,-7.58,-0.12,2013
+5,5690,"Chicken, thigh, meat and skin, enhanced",Braised,72,1,n/a,n/a,n/a,-3.38,-0.23,2013
+5,5692,"Chicken, thigh, meat and skin, enhanced",Roasted,67,1,n/a,n/a,n/a,-10.28,-2.17,2013
+5,5024,"Chicken, gizzard, all classes","Poached, Simmered or Stewed",55,1,n/a,n/a,n/a,-41.91,-0.59,2003
+5,5661,"Chicken, liver, all classes",Pan-fried or Sauteed,62,4,1.247,61.14,63.83,-35.78,-0.83,2003
+17,5622,"Emu, ground",Broiled or Grilled,80,6,6.757,70.79,85.67,-20.23,-0.2,2001
+17,17331,"Game meat, bison, ground",Broiled or Grilled,77,6,1.251,75.56,78.86,-18.15,-4.21,2001
+17,17344,"Game meat, deer, ground",Broiled or Grilled,83,3,1.878,81.22,84.87,-17.71,-0.05,2001
+17,17339,"Game meat, elk, ground",Broiled or Grilled,84,5,3.651,80.05,88.91,-15,-1.5,2001
+17,,"Lamb, retail cuts, roasts, all samples","Baked or Roasted, unspecified",74,,n/a,53,88,,,1975
+17,,"Lamb, retail cuts, shoulder, shank, breast, flank",Braised,60,,n/a,54,72,,,1975
+17,,"Lamb, retail cuts, shoulder, shank, breast, flank","Poached, Simmered or Stewed",60,,n/a,54,72,,,1975
+17,5642,"Ostrich, ground",Broiled or grilled,86,6,2.5,81,88,-13.5,-2.7,2001
+10,10193,"Pork loin, fresh, backribs, bone-in, separable lean and fat ","Baked or Roasted, unspecified",82,12,4.09,74,90,-18.5,1.3,2011
+7,7064,"Pork sausage, fresh",Pan-fried,80,1,n/a,n/a,n/a,-16.5,-2.9,2012
+10,10860,"Pork, cured, bacon","Baked or Roasted, unspecified",32,3,0.784,30.53,32.57,-35.53,-32.37,2003
+10,10861,"Pork, cured, bacon",Microwaved,29,3,0.688,28.89,30.13,-34.75,-35.45,2003
+10,10862,"Pork, cured, bacon",Pan-fried  ,32,1,n/a,n/a,n/a,-36.8,-28.6,2012
+10,10865,"Pork, cured, ham -- water added, rump, bone-in","Baked or Roasted, unspecified",87,5,5.306,79.93,91.81,-14.88,-0.37,2009
+10,10877,"Pork, cured, ham and water product, rump, bone-in","Baked or Roasted, unspecified",85,5,3.643,79.95,89.74,-15.4,0.54,2009
+10,10881,"Pork, cured, ham and water product, shank, bone-in","Baked or Roasted, unspecified",82,6,6.216,73.51,91.98,-17.07,-0.54,2009
+10,10869,"Pork, cured, ham and water product, slice, bone-in",Pan-broiled,81,5,4.531,75.89,86.73,-18.71,-0.86,2009
+10,10871,"Pork, cured, ham and water product, whole, boneless","Baked or Roasted, unspecified",96,4,2.371,92.73,97.98,-3.68,0.42,2009
+10,10873,"Pork, cured, ham with natural juices, rump, bone-in","Baked or Roasted, unspecified",87,7,4.912,81.11,96.81,-11.35,0.2,2009
+10,10874,"Pork, cured, ham with natural juices, shank, bone-in","Baked or Roasted, unspecified",93,7,3.23,88.43,98.26,-8.46,1.28,2009
+10,10875,"Pork, cured, ham with natural juices, slice, bone-in",Pan-broiled,86,2,0.412,85.78,86.36,-13.6,0.9,2009
+10,10876,"Pork, cured, ham with natural juices, spiral slice","Baked or Roasted, unspecified",87,3,7.557,78.65,93,-11.8,0.01,2009
+10,10883,"Pork, cured, ham with natural juices, whole, boneless","Baked or Roasted, unspecified",94,9,1.64,91.22,95.54,-6.11,-0.33,2009
+10,10931,"Pork, cured, ham, rump, bone-in","Baked or Roasted, unspecified",90,3,1.287,88.85,91.39,-8.65,-0.2,2009
+10,10933,"Pork, cured, ham, shank, bone-in","Baked or Roasted, unspecified",92,3,1.595,90.25,93.35,-8,0.18,2009
+10,10899,"Pork, cured, ham, slice, bone-in",Pan-broiled,86,3,2.596,83.13,88.15,-13.75,-0.07,2009
+10,10867,"Pork, cured, ham--water added, shank, bone-in","Baked or Roasted, unspecified",86,6,6.117,75.81,92.68,-16.39,1.87,2009
+10,10868,"Pork, cured, ham--water added, slice, bone-in",Pan-broiled,80,7,5.937,76.21,90.93,-21.6,1.26,2009
+10,10879,"Pork, cured, ham--water added, whole, boneless","Baked or Roasted, unspecified",94,10,4.3,83.12,97.84,-5.94,0.25,2009
+10,10988,"Pork, fresh, blade, (chops), boneless, separable lean and fat ",Broiled or Grilled,85,12,3.12,78,90,-23.3,0.3,2011
+10,10950,"Pork, fresh, enhanced, loin, top loin (chops), boneless, separable lean and fat",Broiled,82,1,n/a,n/a,n/a,-6.11,-0.67,2014
+10,10013,"Pork, fresh, leg (ham), rump half, separable lean and fat ","Baked or Roasted, unspecified",77,12,3.85,70,80,-21.2,-2.7,2011
+10,10017,"Pork, fresh, leg (ham), shank half, separable lean and fat ","Baked or Roasted, unspecified",79,12,2.98,68.5,82,-19.9,-1.3,2011
+10,10962,"Pork, fresh, leg sirloin tip roast, boneless, separable lean and fat",Braised,79,4,4.532,72.09,82.12,-21.53,0.01,2009
+10,10029,"Pork, fresh, loin, blade (chops), bone-in, separable lean and fat ",Braised,78,12,5.28,65,93,-27.8,6.5,2011
+10,10030,"Pork, fresh, loin, blade (chops), bone-in, separable lean and fat ",Broiled or Grilled,83,12,3.12,78,90,-16.3,-0.3,2011
+10,10178,"Pork, fresh, loin, blade (chops), bone-in, separable lean and fat ",Pan-fried,82,12,4.68,68,97,-20,1.3,2011
+10,10031,"Pork, fresh, loin, blade (roasts), bone-in, separable lean and fat ","Baked or Roasted, unspecified",77,12,3,68,88,-22.2,0.6,2011
+10,10990,"Pork, fresh, loin, blade (roasts), boneless, separable lean and fat ","Baked or Roasted, unspecified",75,12,5.85,68,88,-22.4,-0.2,2011
+10,10037,"Pork, fresh, loin, center loin (chops), bone-in, separable lean and fat ",Braised,74,12,4.75,67,85,-21.5,2.2,2011
+10,10179,"Pork, fresh, loin, center loin (chops), bone-in, separable lean and fat ",Pan-fried,76,12,4.61,58,84,-25.4,1.1,2011
+10,10189,"Pork, fresh, loin, center loin (chops), boneless, separable lean and fat",Pan broiled,80,1,n/a,n/a,n/a,-16.42,-2.11,2014
+10,10039,"Pork, fresh, loin, center loin (roasts), bone-in, separable lean and fat ","Baked or Roasted, unspecified",77,12,6.38,63,88,-23.3,0.9,2011
+10,10045,"Pork, fresh, loin, center rib (chops), bone-in, separable lean and fat ",Braised,77,12,4.23,68,89,-19.3,3,2011
+10,10180,"Pork, fresh, loin, center rib (chops), bone-in, separable lean and fat ",Pan-fried,77,12,4.23,68,87,-23.7,1.1,2011
+10,10047,"Pork, fresh, loin, center rib (roasts), bone-in, separable lean and fat ","Baked or Roasted, unspecified",75,12,4.68,65,84,-24.7,-0.1,2011
+10,10956,"Pork, fresh, loin, leg cap steak, boneless, separable lean and fat",Broiled or Grilled,81,1,n/a,n/a,n/a,-19.48,0.2,2009
+10,10053,"Pork, fresh, loin, sirloin (chops), bone-in, separable lean and fat ",Braised,73,12,3.17,68,79,-27,0.1,2011
+10,10211,"Pork, fresh, loin, sirloin (chops), boneless, separable lean and fat ",Braised,76,12,4.93,61,87,-22.7,0.1,2011
+10,10212,"Pork, fresh, loin, sirloin (chops), boneless, separable lean and fat ",Broiled or Grilled,79,12,5.38,73,94,-23.2,0.1,2011
+10,10218,"Pork, fresh, loin, tenderloin, separable lean and fat",Roasted,80,1,n/a,n/a,n/a,-4.68,0.32,2009
+10,10061,"Pork, fresh, loin, tenderloin, separable lean only","Baked or Roasted, unspecified",77,12,3,74,84,-20.7,0.5,2009
+10,10063,"Pork, fresh, loin, top loin (chops), boneless, separable lean and fat ",Braised,73,12,4.1,62,84,-24.9,-0.9,2011
+10,10186,"Pork, fresh, loin, top loin (chops), boneless, separable lean and fat ",Pan-fried,77,12,5.94,60,85,-22.2,-0.9,2011
+10,10959,"Pork, fresh, shoulder breast, boneless, separable lean and fat",Broiled or Grilled,80,1,n/a,n/a,n/a,-20.88,0.2,2009
+10,10075,"Pork, fresh, shoulder, arm picnic, separable lean and fat ",Braised,74,12,2.72,70,78,-19,-0.8,2011
+10,10960,"Pork, fresh, shoulder, petite tender, boneless, separable lean and fat",Broiled or Grilled,82,1,n/a,n/a,n/a,-18.16,-0.45,2009
+10,10940,"Pork, fresh, spareribs, separable lean and fat","Baked or Roasted, unspecified",76,12,3.208,68,79,-22.92,0.19,2009
+10,10099,"Pork, fresh, variety meats and by-products, chitterlings","Poached, Simmered or Stewed",39,1,n/a,n/a,n/a,-49.88,-8.76,2009
+10,10173,"Pork, fresh, variety meats and by-products, feet","Poached, Simmered or Stewed",36,1,n/a,n/a,n/a,-42.58,-6.9,2003
+10,10863,"Pork, fresh, variety meats and by-products, stomach","Poached, Simmered or Stewed",69,1,n/a,n/a,n/a,-24.76,-5.1,2003
+10,10974,"Pork, ground, crumbles, high fat (>27%)",Pan-browned,66,4,10.572,56,81,-27.88,-6.5,2009
+10,10976,"Pork, ground, crumbles, low fat (<10%)",Pan-browned,68,4,5.495,61,74,-31.73,-0.2,2009
+10,10975,"Pork, ground, crumbles, medium fat (10%-27%)",Pan-browned,67,4,5.694,62,75,-30.33,-1.8,2009
+10,10977,"Pork, ground, patty, high fat (>27%)",Broiled or Grilled,69,4,3.088,65,72,-25.28,-6.6,2009
+10,10979,"Pork, ground, patty, low fat (<10%)",Broiled or Grilled,68,4,2.504,64,70,-32.66,0.2,2009
+10,10978,"Pork, ground, patty, medium fat (10%-27%)",Broiled or Grilled,68,4,1.571,66,69,-26.69,-1.9,2009
+7,7958,"Turkey sausage, fresh",Broiled or Grilled,77,1,n/a,n/a,n/a,-20.12,-0.01,2002
+5,5745,"Turkey, from whole, enhanced, back, meat and skin",Roasted,76,1,n/a,n/a,n/a,-3.63,1.65,2013
+5,5701,"Turkey, from whole, enhanced, dark meat, meat and skin",Roasted,74,1,n/a,n/a,n/a,-11.93,-1.35,2013
+5,5184,"Turkey, from whole, non-enhanced, dark meat, meat and skin",Roasted,69,1,n/a,n/a,n/a,-23.07,-0.92,2013
+5,5172,"Turkey, all, giblets","Poached, Simmered or Stewed",64,1,n/a,62,66,n/a,n/a,1975
+5,5174,"Turkey, gizzard, all classes","Poached, Simmered or Stewed",85,1,n/a,n/a,n/a,-14.28,-1.29,2003
+5,5176,"Turkey, heart, all classes","Poached, Simmered or Stewed",76,1,n/a,n/a,n/a,-21.73,-1.25,2003
+5,5178,"Turkey, liver, all classes","Poached, Simmered or Stewed",83,1,n/a,n/a,n/a,-15.19,0.63,2003
+5,5731,"Turkey, retail parts, enhanced, breast, meat and skin",Roasted,68,1,n/a,n/a,n/a,-16.96,-1.93,2013
+5,5733,"Turkey, retail parts, non-enhanced, breast, meat and skin",Roasted,72,1,n/a,n/a,n/a,-13.77,-2.28,2013
+5,5737,"Turkey, retail parts, non-enhanced, drumstick, meat and skin",Roasted,72,1,n/a,n/a,n/a,-12.97,0.47,2013
+5,5743,"Turkey, retail parts, non-enhanced, thigh, meat and skin",Roasted,83,1,n/a,n/a,n/a,-10.86,-0.67,2013
+5,5735,"Turkey, retail parts, non-enhanced, wing, meat and skin",Roasted,71,1,n/a,n/a,n/a,-9.57,-1.49,2013
+5,5707,"Turkey, whole, enhanced, meat and skin",Roasted,71,1,n/a,n/a,n/a,-11.07,-1.55,2013
+5,5166,"Turkey, whole, non-enhanced, meat and skin",Roasted,71,1,n/a,n/a,n/a,-11.29,0.18,2013
+17,17425,"Veal, leg, top round, cap off, cutlet, boneless",Grilled,74,6,5.523,66.51,82.73,-21.38,0.02,2014
+17,17438,"Veal, shoulder, blade chop, separable lean and fat",Grilled,77,1,n/a,n/a,n/a,-16.02,0.21,2014
+17,17203,"Veal, variety meats and by-products, liver",Braised,69,1,n/a,n/a,n/a,-29.61,-0.54,2003
+17,17204,"Veal, variety meats and by-products, liver",Pan-fried or Sauteed ,68,2,n/a,67.5,67.64,-30.44,-0.46,2003

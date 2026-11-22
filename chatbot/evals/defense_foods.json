@@ -1,0 +1,22 @@
+[
+  {"food":"xôi xéo","outcome":"verified","id":"nin_foods:15073","kcal":254},
+  {"food":"bánh cuốn","outcome":"verified","id":"nin_foods:15009","kcal":129},
+  {"food":"phở bò chín","outcome":"verified","id":"nin_foods:15065","kcal":73},
+  {"food":"cơm gạo lứt","outcome":"verified","id":"usda:169704","kcal":123},
+  {"food":"bắp cải luộc","outcome":"verified","id":"nin_foods:4010002","kcal":41},
+  {"food":"cà rốt luộc","outcome":"verified","id":"nin_foods:4007002","kcal":47},
+  {"food":"ức gà sống","outcome":"verified","id":"nin_foods:7089","kcal":134},
+  {"food":"sữa bò tươi","outcome":"verified","id":"nin_foods:10001","kcal":74},
+  {"food":"chuối tiêu","outcome":"verified","id":"fct2007:5007","kcal":97},
+  {"food":"khoai lang luộc","outcome":"verified","id":"nin_foods:2008002","kcal":122},
+  {"food":"đậu phụ","outcome":"verified","id":"fct2007:3025","kcal":95},
+  {"food":"trứng gà","outcome":"verified","id":"fct2007:9001","kcal":166},
+  {"food":"rau muống luộc","outcome":"verified","id":"nin_foods:4083002","kcal":27},
+  {"food":"cơm trắng","outcome":"verified","id":"usda:168878","kcal":130},
+  {"food":"bún bò Huế","outcome":"ambiguous","candidate":"Bún bò giò heo (Huế)"},
+  {"food":"phở bò","outcome":"ambiguous","candidate":"Phở bò chín"},
+  {"food":"hủ tiếu","outcome":"ambiguous","candidate":"Hủ tiếu nước"},
+  {"food":"bánh mì thịt","outcome":"missing_record"},
+  {"food":"cơm tấm sườn bì chả","outcome":"missing_record"},
+  {"food":"trà sữa trân châu đường đen","outcome":"missing_record"}
+]

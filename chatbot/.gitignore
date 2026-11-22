@@ -1,0 +1,148 @@
+# Môi trường Python
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Runtime / generated
+storage/
+tmp/
+*.log
+
+# Dữ liệu thô nặng (raw PDFs, DOCXs — không cần thiết để code)
+/DATA_GOC_NUTRIGUIDE_2026-10-19/
+/Dữ liệu thu thập NutriGuide/
+*.zip
+# Approved source snapshots are needed to rebuild/verify the shared corpus.
+data/exports/
+data/staging/
+data/structured/nin_dishes_2026-10-06/raw/
+data/structured/nin_foods_2026-10-06/raw/
+
+# Tài liệu nhóm / báo cáo không liên quan đến code
+# Keep source documentation with the integration branch.
+*.doc
+*.docx
+*.pdf
+!data/bữa ăn lành mạnh của Viện Dinh Dưỡng.docx
+!data/chế độ ăn Bệnh viện Nội tiết Trung ương.docx
+!data/Healthy Living with Diabetes của NIDDK.docx
+!data/*.pdf
+PLAN.md
+Danh_muc_tai_lieu_TV3.md
+Khung_bao_cao_DATN_nhom_3.docx
+de_tai.docx
+idea.docx
+"phân tích và chia công việc.docx"
+
+# Ảnh cá nhân / không thuộc code
+*.jpg
+*.jpeg
+*.png
+*.gif
+!web/favicon.svg
+
+# Docs nội bộ / báo cáo tự tạo
+# docs/ contains integration contracts and test fixture documentation.
+releases/
+
+# Snapshot / eval results
+docs/eval_expanded/
+
+# evals giữ để thành viên khác biết API contract
+# evals/ — KHÔNG ignore, cần để test
+
+# Runtime source snapshots (keep all other local collection artifacts private).
+/data/collected/**
+!/data/collected/**/
+!/data/collected/practical_meals_2026-10-31/singhealth-noodle-choices.html
+!/data/collected/rag_supplements_2026-10-08/raw/ada-grocery.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/ada-plate.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/ada-protein.html
+!/data/collected/rag_supplements_2026-10-08/raw/ada-vegan-meals.html
+!/data/collected/rag_supplements_2026-10-08/raw/ada-vegetarian-plate.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/binhchanh-plate.html
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-carb-choices.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-carb-counting.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-dessert.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-eating-out.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-holidays.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-meal-planning.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-recipes.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/cdc-shift-work.selected-excerpts.en.json
+!/data/collected/rag_supplements_2026-10-08/raw/fda-polyols.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/fda-sweeteners.html
+!/data/collected/rag_supplements_2026-10-08/raw/gi-vietnam-paper-2001.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-01.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-10.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-11.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-12.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-13.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-14.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-37.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-39.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/mcm-product-40.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/nin-balanced-meals.html
+!/data/collected/rag_supplements_2026-10-08/raw/nin-cooked-weight-reference-2017.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/nin-labels.html
+!/data/collected/rag_supplements_2026-10-08/raw/sydney-about-gi.html
+!/data/collected/rag_supplements_2026-10-08/raw/sydney-gi-search.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-banh-gao-mozzarella-xot-pho-mai-th-true-food-300-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-banh-gao-xot-pho-mai-th-true-food-300-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-ga-chan-chi-hat-sen-240-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-nhung-huou-nam-huong-240-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-suon-to-yen-240-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-thit-ga-rau-cu-th-true-food-150-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-chao-tuoi-thit-heo-bi-do-th-true-food-150-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-gio-lua-th-true-food-250-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-kem-hop-th-true-ice-cream-tra-xanh-matcha-tu-nhien-180g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-kem-hop-th-true-ice-cream-tra-xanh-matchatu-nhien-50-g.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-cam-tu-nhien-9994-nuoc-cam-ep-th-true-juice.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-tao-tu-nhien-9996-nuoc-tao-ep-th-true-juice.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-uong-sua-trai-cay-cam-tu-nhien-th-true-juice-milk.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-nuoc-uong-sua-trai-cay-mang-cau-th-true-juice-milk.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-co-duong.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-dua-tu-nhien.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-it-beo.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-khong-duong.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-nha-dam-tu-nhien.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-an-th-true-yogurt-it-duong.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-kem-ngay-huong-vanilla-tu-nhien-th-true-yogurt-creamy.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-ngu-coc-ca-cao-tu-nhien-th-true-yogurt.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-cam-tu-nhien-110ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-chuoi-lua-mach-tu-nhien-110ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-chua-uong-tiet-trung-cong-thuc-top-kid-huong-dau-tu-nhien-110ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-hanh-nhan-th-true-nut-180ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-oc-cho-th-true-nut-180-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-hat-va-gao-lut-do-th-true-nut-180-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-bo-sung-ngu-coc-th-true-milk-light-meal-180ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-co-duong-1-lit.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-it-duong-1-lit.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-1-lit.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-180ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-nguyen-chat-th-true-milk-110-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-110ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-sua-tuoi-tiet-trung-so-co-la-nguyen-chat-180ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-dao-tu-nhien-th-true-tea.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-huong-dao-tu-nhien-khong-duong-th-true-tea-350-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-o-long-tu-nhien-th-true-tea.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-oi-tu-nhien-th-true-tea-350-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-tac-tu-nhien-th-true-tea-350-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-vai-tu-nhien-th-true-tea.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-xanh-tu-nhien-khong-duong-th-true-tea-350-ml.html
+!/data/collected/rag_supplements_2026-10-08/raw/th-product-tra-xanh-vi-chanh-tu-nhien-th-true-tea.html
+!/data/collected/rag_supplements_2026-10-08/raw/thmart-macca-current-review.html
+!/data/collected/rag_supplements_2026-10-08/raw/usda-cooking-yields.csv
+!/data/collected/rag_supplements_2026-10-08/raw/usda-cooking-yields.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/usda-retention.pdf
+!/data/collected/rag_supplements_2026-10-08/raw/usda-retention.txt
+!/data/collected/rag_supplements_2026-10-08/raw/vietduc-meal-specifications-2024.pdf
+!/data/collected/review_2026-10-30/nin_foods/records.json
+!/data/collected/review_2026-10-30/raw/ada-sitting.html

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_id": "ada-vegan-meals",
+  "original_url": "https://diabetes.org/food-nutrition/meal-planning/vegan-meal-planning-tips",
+  "original_sha256": "64d163f0168833bce8baeb06fca15da14a264af4127c2d1ac1615a7846d87162",
+  "segments": [
+    {
+      "section": "Đạm thực vật, ăn chay và carbohydrate",
+      "text": "Protein\nPlant-based protein options include beans, legumes, nuts, seeds, tofu, tempeh, and seitan. These protein sources can be high in potassium and phosphorus. Work with your dietitian to make sure you meet your daily protein needs without exceeding your potassium and/or phosphorus limits. Limit protein foods that are highly processed and high in sodium and check the labels for phosphate and potassium additives.\nCarbohydrates\nSome plant-based protein options, such as beans and legumes, are higher in carbohydrates (carbs) than animal protein sources. If you have diabetes and you monitor your carbs, you may need to adjust your eating plan to accommodate the higher carb content. The good news—plant-based protein options are also often high in fiber, which can help you manage your blood glucose (blood sugar).",
+      "locators": [
+        "block-0147",
+        "block-0148",
+        "block-0149",
+        "block-0150"
+      ],
+      "pages": []
+    }
+  ]
+}

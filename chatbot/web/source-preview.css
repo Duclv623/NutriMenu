@@ -1,0 +1,5 @@
+.source-preview section { margin: 24px 0; padding: 20px; background: white; border: 1px solid #dde7e4; border-radius: 12px; scroll-margin-top: 20px; }
+.source-preview section:target { border-color: #176e60; box-shadow: 0 0 0 2px #b6d7cd; }
+.source-preview h2 { font-size: 18px; }
+.source-preview p { color: #58685e; font-size: 13px; line-height: 1.7; }
+.source-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: 15px; line-height: 1.8; }
