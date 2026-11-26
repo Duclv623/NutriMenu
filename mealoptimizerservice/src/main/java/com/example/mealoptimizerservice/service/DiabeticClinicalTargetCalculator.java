@@ -132,6 +132,7 @@ public class DiabeticClinicalTargetCalculator {
                 .maxDailySodiumMg(targets.getMaxDailySodiumMg())
                 .minDailyFiberG(targets.getMinDailyFiberG())
                 .patientContraindications(targets.getAppliedExcludedTags())
+                .excludedDishIds(profile.getExcludedDishIds())
                 .templateCode("STANDARD_4_MEALS")
                 .enableRandomPerturbation(true)
                 .build();

@@ -4,7 +4,7 @@ spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/diabetes_meal_optimizer_db}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:123}
+    password: ${SPRING_DATASOURCE_PASSWORD:123456}
     driver-class-name: org.postgresql.Driver
     hikari:
       pool-name: MealOptimizerHikariPool
@@ -31,6 +31,7 @@ spring:
       charset: UTF-8
 
 server:
+  address: ${MEAL_OPTIMIZER_BIND_ADDRESS:127.0.0.1}
   port: 8082
   tomcat:
     threads:

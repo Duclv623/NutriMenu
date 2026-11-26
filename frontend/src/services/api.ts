@@ -30,11 +30,6 @@ export const backend = {
   logout: () => request<void>("/auth/logout", { method: "POST" }),
   profile: (profile: Profile) =>
     request<Profile>("/me/profile", { method: "PUT", body: json(profile) }),
-  generate: (input: GenerateInput, profileVersion: number) =>
-    request<Plan>("/meal-plans/generate", {
-      method: "POST",
-      body: json({ ...input, profileVersion }),
-    }),
   previewSwap: (plan: Plan, itemId: string, foodId: string, servings: number) =>
     request<Plan>(`/meal-plans/${encodeURIComponent(plan.id)}/swap-preview`, {
       method: "POST",
@@ -64,11 +59,6 @@ export const backend = {
         profileVersion: plan.profileVersion,
       }),
     }),
-  savePlan: (plan: Plan) =>
-    request<Plan>(`/meal-plans/${encodeURIComponent(plan.id)}`, {
-      method: "PUT",
-      body: json(plan),
-    }),
   lock: (plan: Plan, itemId: string, locked: boolean) =>
     request<Plan>(
       `/meal-plans/${encodeURIComponent(plan.id)}/items/${encodeURIComponent(itemId)}/lock`,
@@ -80,10 +70,6 @@ export const backend = {
   deletePlan: (id: string) =>
     request<void>(`/meal-plans/${encodeURIComponent(id)}`, {
       method: "DELETE",
-    }),
-  favorite: (id: string, selected: boolean) =>
-    request<void>(`/me/favorites/${encodeURIComponent(id)}`, {
-      method: selected ? "PUT" : "DELETE",
     }),
   checkIn: (entry: CheckIn) =>
     request<CheckIn>("/me/check-ins", { method: "POST", body: json(entry) }),

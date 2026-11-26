@@ -3,6 +3,8 @@ package com.example.mealoptimizerservice.service;
 import com.example.mealoptimizerservice.client.FoodCatalogIntegrationClient;
 import com.example.mealoptimizerservice.dto.DishSolverDto;
 import com.example.mealoptimizerservice.dto.request.CheckedMealChangeRequest;
+import com.example.mealoptimizerservice.dto.request.ManualReplaceItemRequest;
+import com.example.mealoptimizerservice.dto.request.MealEditPolicy;
 import com.example.mealoptimizerservice.dto.response.MealPlanResponse;
 import com.example.mealoptimizerservice.entity.*;
 import com.example.mealoptimizerservice.entity.enums.*;
@@ -60,6 +62,25 @@ public class CheckedMealChangeService {
         if (request.getPreviewSignature()==null || !MessageDigest.isEqual(
                 result.signature().getBytes(StandardCharsets.UTF_8), request.getPreviewSignature().getBytes(StandardCharsets.UTF_8)))
             throw error(HttpStatus.CONFLICT, "Phương án đã thay đổi. Hãy xem trước lại trước khi xác nhận.");
+        return saveChange(plan, request, result);
+    }
+
+    @Transactional
+    public MealPlanResponse manualReplace(Long user, Long id, Long itemId, ManualReplaceItemRequest request) {
+        var policy = request.getPolicy();
+        var change = CheckedMealChangeRequest.builder()
+                .expectedVersion(policy.expectedVersion())
+                .itemId(itemId)
+                .newDishId(request.getNewDishId())
+                .newServingScaledX2(request.getNewServingScaledX2())
+                .contraindications(policy.contraindications())
+                .excludedDishIds(policy.excludedDishIds())
+                .build();
+        MealPlan plan = owned(user, id, true);
+        return saveChange(plan, change, validate(plan, change));
+    }
+
+    private MealPlanResponse saveChange(MealPlan plan, CheckedMealChangeRequest request, Validated result) {
         MealPlanItem target = plan.getItems().stream().filter(i -> i.getId().equals(request.getItemId())).findFirst().orElseThrow();
         writeItem(target, result.dish(), request.getNewServingScaledX2());
         target.setStatus(MealItemStatus.MODIFIED);
@@ -92,8 +113,11 @@ public class CheckedMealChangeService {
                 .filter(t -> slots.contains(t.getMealSlot())).toList();
         if (!active.stream().map(MealSlotTemplate::getMealSlot).collect(Collectors.toSet()).equals(slots))
             throw error(HttpStatus.UNPROCESSABLE_ENTITY,"Thiếu cấu trúc bữa để kiểm tra thực đơn.");
+        var policy = new MealEditPolicy(
+                request.getExpectedVersion(), request.getExcludedDishIds(), request.getContraindications())
+                .withRecordedFilters(plan);
         List<DishSolverDto> eligible = catalog.fetchCandidatesForSolver(plan.getUserId(), plan.getMaxGiAllowed(),
-                request.getContraindications(), request.getExcludedDishIds(), slots);
+                policy.contraindications(), policy.excludedDishIds(), slots);
         Map<Long,DishSolverDto> byId = eligible.stream().collect(Collectors.toMap(DishSolverDto::getDishId, d -> d, (a,b)->a));
         DishSolverDto replacement = byId.get(request.getNewDishId());
         if (replacement==null || replacement.getRole()!=target.getDishRole())
@@ -101,7 +125,7 @@ public class CheckedMealChangeService {
         Map<MealSlot,Map<Long,Integer>> pins = new EnumMap<>(MealSlot.class);
         List<MealPlanItem> previewItems = new ArrayList<>();
         Set<Long> desiredIds = new HashSet<>();
-        StringBuilder signature = new StringBuilder(plan.getId()+":"+plan.getVersion()+":"+new TreeSet<>(request.getExcludedDishIds())+":"+new TreeSet<>(request.getContraindications()));
+        StringBuilder signature = new StringBuilder(plan.getId()+":"+plan.getVersion()+":"+new TreeSet<>(policy.excludedDishIds())+":"+new TreeSet<>(policy.contraindications()));
         for (MealPlanItem item : plan.getItems()) {
             boolean changed = item.getId().equals(target.getId());
             Long dishId = changed ? request.getNewDishId() : item.getDishId();
@@ -167,7 +191,7 @@ public class CheckedMealChangeService {
         return new Validated(response,replacement,digest);
     }
 
-    private boolean sameNutrition(MealPlanItem a, MealPlanItem b) {
+    static boolean sameNutrition(MealPlanItem a, MealPlanItem b) {
         return a.getSnapshotCaloriesKcal().compareTo(b.getSnapshotCaloriesKcal())==0
             && a.getSnapshotNetCarbG().compareTo(b.getSnapshotNetCarbG())==0
             && a.getSnapshotProteinG().compareTo(b.getSnapshotProteinG())==0
@@ -178,7 +202,7 @@ public class CheckedMealChangeService {
             && sameNumber(a.getSnapshotCholesterolMg(),b.getSnapshotCholesterolMg());
     }
 
-    private boolean sameNumber(BigDecimal a, BigDecimal b) { return a!=null && b!=null && a.compareTo(b)==0; }
+    private static boolean sameNumber(BigDecimal a, BigDecimal b) { return a!=null && b!=null && a.compareTo(b)==0; }
 
     private static BigDecimal amount(long scaled, int portions) { return BigDecimal.valueOf(scaled).multiply(BigDecimal.valueOf(portions)).divide(new BigDecimal("20.0")); }
 

@@ -31,6 +31,10 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
               SELECT 1 FROM Dish d2 JOIN d2.medicalTags mt
               WHERE d2 = d AND mt IN :excludedTags
           )
+          AND NOT EXISTS (
+              SELECT 1 FROM DishIngredient di JOIN di.ingredient i JOIN i.allergenTags tag
+              WHERE di.dish = d AND tag IN :excludedTags
+          )
         ORDER BY d.popularityScore DESC, d.glycemicLoad ASC
     """)
     List<Dish> findCandidatesForSolver(
@@ -67,6 +71,7 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
         JOIN d.mealSlots ms
         WHERE d.isActive = true
           AND d.id <> :currentDishId
+          AND (d.createdByUserId IS NULL OR d.createdByUserId = :userId)
           AND d.dishRole = :role
           AND (:slot IS NULL OR ms = :slot)
           AND d.giLevel IN ('NONE', 'LOW', 'MEDIUM')
@@ -76,6 +81,7 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
     """)
     List<Dish> findSimilarAlternatives(
             @Param("currentDishId") Long currentDishId,
+            @Param("userId") Long userId,
             @Param("role") DishRole role,
             @Param("slot") MealSlot slot,
             @Param("minCarb") BigDecimal minCarb,

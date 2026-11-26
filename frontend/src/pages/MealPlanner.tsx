@@ -25,6 +25,7 @@ import {
   sumNutrition,
 } from "../utils";
 import { API_MODE, backend, generateDemo } from "../services/api";
+import { MEAL_PLANS, callService } from "../services/serviceActions";
 import { MEALS } from "../data/seed";
 import {
   Alert,
@@ -40,6 +41,11 @@ import {
 } from "../components/ui";
 import { FoodDetail } from "../components/FoodDetail";
 import { MealChangeModal } from "../components/MealChangeModal";
+import {
+  OptimizerGenerateDialog,
+  PlanToolDialog,
+  type PlanTool,
+} from "../components/PlanTools";
 const solverLabels = {
   OPTIMAL: "Tối ưu",
   FEASIBLE: "Có phương án",
@@ -49,7 +55,7 @@ const solverLabels = {
   NOT_RUN: "Mẫu giao diện · Chưa tối ưu",
 };
 export function MealPlanner() {
-  const { workspace: w, update, toast } = useApp();
+  const { workspace: w, update, reload, toast } = useApp();
   const [params, setParams] = useSearchParams();
   const validDate =
     /^\d{4}-\d{2}-\d{2}$/.test(params.get("date") || "") &&
@@ -60,6 +66,7 @@ export function MealPlanner() {
       ? w.plans.find((p) => p.id === params.get("plan") && p.date === date)
       : undefined) || w.plans.find((p) => p.date === date);
   const [generateOpen, setGenerateOpen] = useState(false);
+  const [tool, setTool] = useState<PlanTool | null>(null);
   const [swap, setSwap] = useState<PlanItem | null>(null);
   const [detail, setDetail] = useState<Food | null>(null);
   const [busy, setBusy] = useState("");
@@ -68,6 +75,7 @@ export function MealPlanner() {
   };
   const totals = plan ? sumNutrition(plan.items, w.foods) : null;
   const stale = plan && plan.profileVersion !== w.profile.version;
+  const hasSkipped = !!plan?.skippedItems?.length;
   const rejected =
     plan &&
     ["INFEASIBLE", "UNKNOWN", "MODEL_INVALID"].includes(plan.solverStatus);
@@ -98,18 +106,14 @@ export function MealPlanner() {
     if (!plan) return;
     const key = `${plan.id}:${item.id}`;
     const selected = !w.completedMeals.includes(key);
+    if (API_MODE === "api") {
+      await setItemStatus(item, selected ? "COMPLETED" : "PLANNED");
+      return;
+    }
     setBusy(item.id);
     try {
-      const refreshed =
-        API_MODE === "api"
-          ? await (async () => {
-              await backend.completeMeal(key, selected);
-              return backend.workspace();
-            })()
-          : undefined;
       update((s) => ({
         ...s,
-        plans: refreshed?.plans || s.plans,
         completedMeals: selected
           ? [...s.completedMeals, key]
           : s.completedMeals.filter((k) => k !== key),
@@ -120,14 +124,53 @@ export function MealPlanner() {
       setBusy("");
     }
   }
+  async function setItemStatus(
+    item: PlanItem,
+    status: "PLANNED" | "COMPLETED" | "SKIPPED",
+  ) {
+    if (!plan) return;
+    setBusy(item.id);
+    try {
+      await callService(
+        "optimizer",
+        "PATCH",
+        MEAL_PLANS + "/{id}/items/{itemId}/status",
+        {
+          ids: { id: plan.id, itemId: item.id },
+          body: { status },
+        },
+      );
+      try {
+        await reload({ background: true });
+      } catch {
+        toast(
+          "Đã cập nhật trạng thái. Tải lại trang để xem thực đơn mới nhất.",
+        );
+      }
+    } catch (error) {
+      toast((error as Error).message);
+    } finally {
+      setBusy("");
+    }
+  }
   function exportPlan() {
     if (!plan || !totals) return;
     const lines = [
       `NutriGuide — Thực đơn ${dateLabel(date)}`,
       `Trạng thái: ${solverLabels[plan.solverStatus]}`,
       ...plan.items.map((i) => {
-        const f = w.foods.find((f) => f.id === i.foodId)!;
-        return `\n${MEALS[i.meal].name}: ${f.name}\nKhẩu phần: ${number(i.servings, 2)} phần · ${number(f.grams * i.servings)} g\n${f.ingredients.map((x) => `${x.name}: ${number(x.grams * i.servings)} g`).join("\n")}`;
+        const food = w.foods.find((f) => f.id === i.foodId);
+        const heading = `\n${MEALS[i.meal].name}: ${food?.name || i.name || "Món trong thực đơn"}\nKhẩu phần: ${number(i.servings, 2)} phần`;
+        return food
+          ? heading +
+              ` · ${number(food.grams * i.servings)} g\n` +
+              food.ingredients
+                .map(
+                  (ingredient) =>
+                    `${ingredient.name}: ${number(ingredient.grams * i.servings)} g`,
+                )
+                .join("\n")
+          : heading;
       }),
       `\nTổng: ${number(totals.energy)} kcal; Carb ${number(totals.carbs, 1)} g; Đạm ${number(totals.protein, 1)} g; Béo ${number(totals.fat, 1)} g; Xơ ${number(totals.fiber, 1)} g; Natri ${number(totals.sodium)} mg.`,
       ...plan.notes,
@@ -137,9 +180,7 @@ export function MealPlanner() {
   return (
     <div className="stack-lg">
       <PageTitle
-        eyebrow="KẾ HOẠCH BỮA ĂN"
         title="Thực đơn của tôi"
-        description="Chủ động từng bữa, an tâm mỗi ngày."
         actions={
           <>
             <Button
@@ -150,6 +191,14 @@ export function MealPlanner() {
               <Download size={16} />
               Xuất thực đơn
             </Button>
+            {API_MODE === "api" && (
+              <Button
+                variant="secondary"
+                onClick={() => setTool({ kind: "feasibility" })}
+              >
+                Kiểm tra khả năng tạo
+              </Button>
+            )}
             <Button onClick={() => setGenerateOpen(true)}>
               <Plus size={17} />
               Tạo thực đơn
@@ -218,9 +267,8 @@ export function MealPlanner() {
       </div>
       {stale && (
         <Alert error>
-          Hồ sơ đã đổi từ phiên bản {plan.profileVersion} sang{" "}
-          {w.profile.version}. Vui lòng tạo lại thực đơn trước khi đổi món hoặc
-          ghi nhận.
+          Hồ sơ đã đổi từ lúc tạo thực đơn. Chọn một ngày trống để tạo thực đơn
+          theo hồ sơ mới.
         </Alert>
       )}
       {plan && w.capabilities?.swap === false && (
@@ -231,7 +279,7 @@ export function MealPlanner() {
       )}
       {!plan ? (
         <Empty
-          title="Một ngày mới, một kế hoạch mới"
+          title="Chưa có thực đơn"
           action={
             <Button onClick={() => setGenerateOpen(true)}>
               <Plus size={17} />
@@ -260,7 +308,9 @@ export function MealPlanner() {
                         <div>
                           <div>
                             <h3>{MEALS[meal].name}</h3>
-                            <span>{MEALS[meal].time}</span>
+                            {API_MODE === "demo" && (
+                              <span>{MEALS[meal].time}</span>
+                            )}
                           </div>
                         </div>
                         <strong>
@@ -269,29 +319,42 @@ export function MealPlanner() {
                         </strong>
                       </div>
                       {items.map((item) => {
-                        const food = w.foods.find((f) => f.id === item.foodId)!;
+                        const food = w.foods.find((f) => f.id === item.foodId);
                         const completed = w.completedMeals.includes(
                           `${plan.id}:${item.id}`,
                         );
                         return (
                           <div key={item.id}>
                             <div className="planned-food">
-                              <FoodMark food={food} />
+                              {food && <FoodMark food={food} />}
                               <div className="planned-food-copy">
-                                <button
-                                  className="food-name"
-                                  onClick={() => setDetail(food)}
-                                >
-                                  {food.name}
-                                </button>
+                                {food ? (
+                                  <button
+                                    className="food-name"
+                                    onClick={() => setDetail(food)}
+                                  >
+                                    {food.name}
+                                  </button>
+                                ) : (
+                                  <strong>
+                                    {item.name || "Món trong thực đơn"}
+                                  </strong>
+                                )}
                                 <p>
-                                  {number(item.servings, 2)} khẩu phần ·{" "}
-                                  {number(food.grams * item.servings)} g{" "}
-                                  <span>·</span>
-                                  <Clock3 size={13} />
-                                  {food.minutes === null
-                                    ? "Chưa có thời gian"
-                                    : `${food.minutes} phút`}
+                                  {number(item.servings, 2)} khẩu phần
+                                  {food && (
+                                    <>
+                                      {" "}
+                                      · {number(food.grams * item.servings)} g
+                                    </>
+                                  )}
+                                  {food && food.minutes !== null && (
+                                    <>
+                                      {" "}
+                                      · <Clock3 size={13} />
+                                      {food.minutes} phút
+                                    </>
+                                  )}
                                 </p>
                                 <div className="mini-macros">
                                   <span>
@@ -299,7 +362,8 @@ export function MealPlanner() {
                                     <strong>
                                       {number(
                                         item.nutrition?.carbs ??
-                                          food.nutrition.carbs * item.servings,
+                                          (food?.nutrition.carbs ?? 0) *
+                                            item.servings,
                                         1,
                                       )}{" "}
                                       g
@@ -310,7 +374,7 @@ export function MealPlanner() {
                                     <strong>
                                       {number(
                                         item.nutrition?.protein ??
-                                          food.nutrition.protein *
+                                          (food?.nutrition.protein ?? 0) *
                                             item.servings,
                                         1,
                                       )}{" "}
@@ -322,7 +386,8 @@ export function MealPlanner() {
                                     <strong>
                                       {number(
                                         item.nutrition?.fat ??
-                                          food.nutrition.fat * item.servings,
+                                          (food?.nutrition.fat ?? 0) *
+                                            item.servings,
                                         1,
                                       )}{" "}
                                       g
@@ -337,6 +402,8 @@ export function MealPlanner() {
                                 disabled={
                                   !!stale ||
                                   !!busy ||
+                                  !food ||
+                                  hasSkipped ||
                                   item.locked ||
                                   w.completedMeals.includes(
                                     `${plan.id}:${item.id}`,
@@ -353,8 +420,8 @@ export function MealPlanner() {
                                   aria-pressed={item.locked}
                                   label={
                                     item.locked
-                                      ? `Bỏ giữ ${food.name}`
-                                      : `Giữ ${food.name} khi tạo lại`
+                                      ? `Bỏ giữ ${food?.name ?? item.name ?? "món"}`
+                                      : `Giữ ${food?.name ?? item.name ?? "món"}`
                                   }
                                   disabled={!!busy}
                                   onClick={() => void lock(item)}
@@ -368,7 +435,7 @@ export function MealPlanner() {
                                 <Button
                                   aria-pressed={completed}
                                   variant={completed ? "primary" : "secondary"}
-                                  disabled={!!stale || !!busy}
+                                  disabled={!!busy}
                                   onClick={() => void complete(item)}
                                 >
                                   <Check size={14} />
@@ -376,12 +443,89 @@ export function MealPlanner() {
                                 </Button>
                               </div>
                             </div>
+                            {API_MODE === "api" && (
+                              <details className="workflow-details planned-more">
+                                <summary>Tùy chọn món</summary>
+                                <div className="actions">
+                                  <Button
+                                    variant="secondary"
+                                    disabled={
+                                      !!busy ||
+                                      !!stale ||
+                                      item.locked ||
+                                      completed ||
+                                      hasSkipped ||
+                                      !food
+                                    }
+                                    onClick={() =>
+                                      setTool({ kind: "swap", item })
+                                    }
+                                  >
+                                    Tự tìm món thay thế
+                                  </Button>
+                                  <Button
+                                    variant="secondary"
+                                    disabled={
+                                      !!busy ||
+                                      !!stale ||
+                                      item.locked ||
+                                      completed ||
+                                      hasSkipped ||
+                                      !food
+                                    }
+                                    onClick={() =>
+                                      setTool({ kind: "replace", item })
+                                    }
+                                  >
+                                    Thay món trực tiếp
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    disabled={
+                                      !!busy || item.locked || completed
+                                    }
+                                    onClick={() =>
+                                      void setItemStatus(item, "SKIPPED")
+                                    }
+                                  >
+                                    Bỏ qua món
+                                  </Button>
+                                </div>
+                              </details>
+                            )}
                           </div>
                         );
                       })}
                     </section>
                   );
                 },
+              )}
+              {!!plan.skippedItems?.length && (
+                <section className="panel workflow-panel stack">
+                  <h3>Món đã bỏ qua</h3>
+                  <p className="fineprint">
+                    Khôi phục các món đã bỏ qua trước khi đổi món hoặc khẩu
+                    phần.
+                  </p>
+                  {plan.skippedItems.map((item) => (
+                    <div key={item.id} className="workflow-result-row">
+                      <span>
+                        {item.name ||
+                          w.foods.find((food) => food.id === item.foodId)
+                            ?.name ||
+                          "Món đã bỏ"}{" "}
+                        · {MEALS[item.meal].name}
+                      </span>
+                      <Button
+                        variant="secondary"
+                        disabled={!!busy}
+                        onClick={() => void setItemStatus(item, "PLANNED")}
+                      >
+                        Khôi phục
+                      </Button>
+                    </div>
+                  ))}
+                </section>
               )}
             </div>
             <aside className="stack planner-summary">
@@ -390,24 +534,41 @@ export function MealPlanner() {
                 <h2>Cả ngày của bạn</h2>
                 {totals && <Nutrition value={totals} compact />}
                 <div className="summary-target">
-                  <span>
-                    Mục tiêu {plan.dataMode === "demo" ? "minh họa" : "backend"}
-                  </span>
+                  <span>Mục tiêu năng lượng</span>
                   <strong>{number(plan.target)} kcal</strong>
                 </div>
-                <p className="fineprint">
-                  {plan.dataMode === "demo"
-                    ? "Số liệu tính từ dữ liệu mẫu. Chưa kiểm tra các ràng buộc dinh dưỡng cá nhân."
-                    : "Kết quả do dịch vụ thực đơn cung cấp. Không tự tính lại mục tiêu ở frontend."}
-                </p>
+                {API_MODE === "api" && (
+                  <div className="actions workflow-plan-actions">
+                    <Button
+                      variant="secondary"
+                      onClick={() => setTool({ kind: "nutrition" })}
+                    >
+                      Chi tiết dinh dưỡng
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      disabled={!!stale || !!busy}
+                      onClick={() => setTool({ kind: "rebalance" })}
+                    >
+                      Cân bằng các bữa còn lại
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setTool({ kind: "rate" })}
+                    >
+                      {plan.rating
+                        ? `Sửa đánh giá (${plan.rating}/5)`
+                        : "Đánh giá thực đơn"}
+                    </Button>
+                  </div>
+                )}
               </section>
               <Link
                 className="panel shopping-shortcut"
                 to={`/mua-sam?plan=${plan.id}`}
               >
                 <ShoppingBasket size={24} />
-                <h3>Đi chợ dễ hơn</h3>
-                <p>Nguyên liệu đã được gom theo thực đơn này.</p>
+                <h3>Danh sách mua sắm</h3>
                 <span>
                   Xem danh sách <ArrowRight size={16} />
                 </span>
@@ -425,11 +586,27 @@ export function MealPlanner() {
           ))}
         </>
       )}
-      {generateOpen && (
-        <GenerateModal
+      {generateOpen &&
+        (API_MODE === "api" ? (
+          <OptimizerGenerateDialog
+            date={date}
+            onClose={() => setGenerateOpen(false)}
+          />
+        ) : (
+          <GenerateModal
+            date={date}
+            onClose={() => setGenerateOpen(false)}
+            onGenerated={(next) =>
+              setParams({ date: next.date, plan: next.id })
+            }
+          />
+        ))}
+      {tool && (
+        <PlanToolDialog
+          tool={tool}
+          plan={plan}
           date={date}
-          onClose={() => setGenerateOpen(false)}
-          onGenerated={(next) => setParams({ date: next.date, plan: next.id })}
+          onClose={() => setTool(null)}
         />
       )}
       {swap && plan && (
@@ -459,8 +636,8 @@ function GenerateModal({
     date,
     target: 1800,
     snacks: true,
-    maxMinutes: w.capabilities?.cookingTime === false ? 0 : 45,
-    excludeRepeat: w.capabilities ? false : true,
+    maxMinutes: 45,
+    excludeRepeat: true,
   });
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -468,18 +645,7 @@ function GenerateModal({
     setError("");
     try {
       assertEligible(w.profile);
-      const next =
-        API_MODE === "demo"
-          ? generateDemo(input, w)
-          : await backend.generate(input, w.profile.version);
-      if (
-        API_MODE === "api" &&
-        !["OPTIMAL", "FEASIBLE"].includes(next.solverStatus)
-      )
-        throw new Error(
-          next.notes.join(" ") ||
-            "Chưa có phương án sử dụng được. Thực đơn cũ được giữ nguyên.",
-        );
+      const next = generateDemo(input, w);
       sumNutrition(next.items, w.foods);
       update((s) => ({
         ...s,
@@ -489,11 +655,7 @@ function GenerateModal({
         ],
       }));
       onGenerated(next);
-      toast(
-        next.solverStatus === "NOT_RUN"
-          ? "Đã tạo và lưu thực đơn minh họa."
-          : "Đã nhận kết quả từ dịch vụ thực đơn.",
-      );
+      toast("Đã tạo và lưu thực đơn minh họa.");
       onClose();
     } catch (e) {
       setError((e as Error).message);
@@ -529,7 +691,7 @@ function GenerateModal({
           <input
             type="number"
             min={1000}
-            max={API_MODE === "api" ? 3500 : 4000}
+            max={4000}
             step={50}
             required
             value={input.target}
@@ -538,23 +700,17 @@ function GenerateModal({
             }
           />
           <small>
-            {API_MODE === "demo"
-              ? "Giá trị để thử giao diện; bản demo không tối ưu theo mục tiêu này."
-              : "Backend phải kiểm tra và quyết định mục tiêu hợp lệ theo hồ sơ."}
+            Giá trị để thử giao diện. Bản demo chưa tối ưu theo mục tiêu này.
           </small>
         </label>
         <label>
           Thời gian nấu tối đa mỗi món
           <select
-            disabled={w.capabilities?.cookingTime === false}
             value={input.maxMinutes}
             onChange={(e) =>
               setInput({ ...input, maxMinutes: Number(e.target.value) })
             }
           >
-            {w.capabilities?.cookingTime === false && (
-              <option value={0}>Chưa có dữ liệu thời gian</option>
-            )}
             <option value={15}>15 phút</option>
             <option value={30}>30 phút</option>
             <option value={45}>45 phút</option>
@@ -563,38 +719,23 @@ function GenerateModal({
         </label>
         <Checkbox
           checked={input.snacks}
-          disabled={!!w.capabilities}
           onChange={(v) => setInput({ ...input, snacks: v })}
         >
           Thêm bữa phụ
         </Checkbox>
         <Checkbox
           checked={input.excludeRepeat}
-          disabled={!!w.capabilities}
           onChange={(v) => setInput({ ...input, excludeRepeat: v })}
         >
           Tránh lặp món trong ngày
         </Checkbox>
-        {w.capabilities && (
-          <Alert>
-            Hiện hỗ trợ tạo thực đơn bốn bữa cho ngày chưa có thực đơn. Tùy chọn
-            thời gian nấu và tránh lặp chưa sẵn sàng. Món chứa nguyên liệu trong
-            danh sách không ăn sẽ được loại trước khi chọn thực đơn. Tên chưa
-            nhận diện được sẽ được báo để bạn kiểm tra lại.
-          </Alert>
-        )}
-        <Alert>
-          {API_MODE === "demo"
-            ? "Chế độ minh họa: chọn món theo bộ lọc, giữ dị ứng và món không ăn. CP-SAT chưa được thực thi."
-            : "Yêu cầu được gửi tới Recommendation Service. Không tự bỏ ràng buộc khi không có nghiệm."}
-        </Alert>
         {error && <Alert error>{error}</Alert>}
         <div className="modal-actions">
           <Button type="button" variant="secondary" onClick={onClose}>
             Hủy
           </Button>
           <Button busy={busy} type="submit">
-            {API_MODE === "demo" ? "Tạo & lưu mẫu" : "Tạo bằng bộ tối ưu"}
+            Tạo & lưu mẫu
             <ArrowRight size={16} />
           </Button>
         </div>

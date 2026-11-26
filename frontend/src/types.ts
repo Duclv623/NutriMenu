@@ -25,6 +25,8 @@ export type Food = {
   steps: string[];
   preparationGuideKind?: string;
   role?: string;
+  giLevel?: string;
+  listed?: boolean;
   servingRules?: { min: number; max: number; step: number };
   ingredientsComplete?: boolean;
   ingredientBasis?: "raw" | "cooked";
@@ -53,6 +55,7 @@ export type PlanItem = {
   meal: MealType;
   servings: number;
   locked: boolean;
+  name?: string;
   // Snapshot for this item including servings; supplied by the optimizer.
   nutrition?: Nutrients;
 };
@@ -69,6 +72,9 @@ export type Plan = {
   profileVersion: number;
   version: number;
   items: PlanItem[];
+  skippedItems?: PlanItem[];
+  rating?: number | null;
+  feedback?: string | null;
   solverStatus: SolverStatus;
   dataMode: "demo" | "api";
   target: number;
@@ -84,7 +90,7 @@ export type GenerateInput = {
   maxMinutes: number;
   excludeRepeat: boolean;
 };
-export type User = { id: string; name: string; email: string; demo: boolean };
+export type User = { id: string; name: string; email: string; demo: boolean; role?: string };
 export type Citation = {
   id: string;
   title: string;
@@ -122,10 +128,12 @@ export type CheckIn = {
   note: string;
 };
 export type Workspace = {
+  role?: string;
   profile: Profile;
   foods: Food[];
   plans: Plan[];
   favorites: string[];
+  disliked?: string[];
   checkedShopping: string[];
   checkIns: CheckIn[];
   conversations: Conversation[];

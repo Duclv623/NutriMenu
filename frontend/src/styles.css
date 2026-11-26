@@ -4463,3 +4463,190 @@ td > div > a {
     margin: 8px auto;
   }
 }
+.workflow-panel {
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.workflow-panel h2 {
+  margin: 0;
+}
+
+.service-form .form-grid {
+  min-width: 0;
+}
+
+.service-form-wide {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.service-form fieldset {
+  border: 1px solid var(--line, #dce5df);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 0;
+}
+
+.service-form legend {
+  padding: 0 0.35rem;
+  font-weight: 600;
+}
+
+.service-options,
+.service-recipe-row,
+.service-result-fields {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+}
+
+.service-form .service-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+}
+
+.service-form .service-checkbox input {
+  width: 1rem;
+  min-width: 1rem;
+  height: 1rem;
+  margin: 0;
+}
+
+.service-recipe-row {
+  align-items: end;
+}
+
+.service-result-fields {
+  margin: 0.5rem 0;
+}
+
+.service-result-fields dt {
+  font-size: 0.875rem;
+}
+
+.service-result-fields dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.service-result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.service-result-list > li + li,
+.workflow-result details {
+  border-top: 1px solid var(--line, #dce5df);
+}
+
+.workflow-result details {
+  padding: 0.5rem 0;
+}
+
+.workflow-result summary,
+.workflow-details summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.workflow-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.workflow-admin {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.9fr) minmax(0, 2fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.workflow-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: 1rem;
+}
+
+.workflow-tool-list,
+.workflow-result-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.workflow-tool {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line, #dce5df);
+  border-radius: 0.65rem;
+  background: transparent;
+  color: inherit;
+  padding: 0.6rem 0.75rem;
+}
+
+.workflow-tool:hover,
+.workflow-tool[aria-pressed="true"] {
+  border-color: var(--green, #39745a);
+  background: var(--surface-soft, #edf5ef);
+}
+
+.workflow-details {
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line, #dce5df);
+  border-radius: 0.65rem;
+}
+
+.workflow-details[open] > :not(summary) {
+  margin-top: 0.75rem;
+}
+
+.planned-more {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+}
+
+.workflow-result {
+  border-top: 1px solid var(--line, #dce5df);
+  padding-top: 0.85rem;
+}
+
+.workflow-result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+}
+
+.workflow-date-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(8rem, 1fr)) auto;
+  align-items: end;
+  gap: 0.75rem;
+}
+
+.workflow-plan-actions {
+  margin-top: 0.8rem;
+}
+
+.library-filters:has(> select:nth-of-type(3)) {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1.5fr) repeat(3, minmax(8rem, 1fr));
+}
+
+.food-detail-title > .actions {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 760px) {
+  .workflow-admin,
+  .workflow-date-form,
+  .library-filters:has(> select:nth-of-type(3)) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

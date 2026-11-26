@@ -27,7 +27,8 @@ public class InternalOptimizerController {
 
     @GetMapping("/capabilities")
     public Map<String, Object> capabilities() {
-        return Map.of("excludedDishIds", true, "contractVersion", 2, "validatedSwap", true, "planVersions", true);
+        return Map.of("excludedDishIds", true, "contractVersion", 3, "validatedSwap", true,
+                "planVersions", true, "profilePolicyActions", true);
     }
 
     @GetMapping("/users/{userId}/recent-dishes")
@@ -39,7 +40,8 @@ public class InternalOptimizerController {
 
     @PostMapping("/feasibility-check")
     public ResponseEntity<InfeasibilityDiagnosisResponse> quickFeasibilityCheck(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @RequestBody @Valid GenerateDailyMealRequest req) {
-        return ResponseEntity.ok(optimizerService.explainInfeasibility(req));
+        return ResponseEntity.ok(optimizerService.explainInfeasibility(userId, req));
     }
 }

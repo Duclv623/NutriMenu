@@ -13,7 +13,7 @@ $env:DB_PASSWORD = '<postgres-password>'
 .\mvnw.cmd spring-boot:run
 ```
 
-Service chạy tại `http://localhost:8081`. Có thể đổi bằng biến `PORT`. Không lưu mật khẩu thật vào source.
+Service chạy tại `http://localhost:8083`. Có thể đổi bằng biến `PORT`. Không lưu mật khẩu thật vào source.
 
 Flyway chạy migration `src/main/resources/db/migration/V1__create_users_and_profiles.sql` trên database rỗng. Hibernate chỉ kiểm tra schema (`validate`), không tự sửa bảng. Migration tạo bảng `users`, `user_profiles` và ba bảng danh sách ăn uống. Không sửa migration đã chạy; các thay đổi sau cần migration mới.
 

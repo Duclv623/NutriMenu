@@ -37,8 +37,9 @@ public class UserCatalogController {
     }
 
     @GetMapping("/dishes/{id}")
-    public ResponseEntity<DishDetailResponse> getDishDetail(@PathVariable Long id) {
-        return ResponseEntity.ok(catalogService.getDishDetail(id));
+    public ResponseEntity<DishDetailResponse> getDishDetail(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId, @PathVariable Long id) {
+        return ResponseEntity.ok(catalogService.getDishDetail(id, userId));
     }
 
     @PostMapping("/users/me/dishes/{dishId}/favorite")
@@ -65,30 +66,34 @@ public class UserCatalogController {
 
     @GetMapping("/dishes/{id}/calculate-serving")
     public ResponseEntity<DynamicServingResponse> calculateDynamicServing(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @PathVariable Long id,
             @RequestParam(defaultValue = "1.0") BigDecimal multiplier) {
-        return ResponseEntity.ok(catalogService.calculateDynamicServing(id, multiplier));
+        return ResponseEntity.ok(catalogService.calculateDynamicServing(id, userId, multiplier));
     }
 
     @PostMapping("/dishes/{id}/safety-check")
     public ResponseEntity<SafetyCheckResponse> checkPersonalizedSafety(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @PathVariable Long id,
             @RequestBody @Valid SafetyCheckRequest req) {
-        return ResponseEntity.ok(catalogService.checkPersonalizedSafety(id, req));
+        return ResponseEntity.ok(catalogService.checkPersonalizedSafety(id, userId, req));
     }
 
     @GetMapping("/dishes/{id}/alternatives")
     public ResponseEntity<List<DishDetailResponse>> getAlternatives(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @PathVariable Long id,
             @RequestParam(required = false) MealSlot mealSlot) {
-        return ResponseEntity.ok(catalogService.findAlternatives(id, mealSlot));
+        return ResponseEntity.ok(catalogService.findAlternatives(id, userId, mealSlot));
     }
 
     @GetMapping("/dishes/compare")
     public ResponseEntity<DishComparisonResponse> compareDishes(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @RequestParam Long dish1,
             @RequestParam Long dish2) {
-        return ResponseEntity.ok(catalogService.compareTwoDishes(dish1, dish2));
+        return ResponseEntity.ok(catalogService.compareTwoDishes(dish1, dish2, userId));
     }
 
     @PostMapping("/users/me/custom-dishes")

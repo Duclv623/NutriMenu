@@ -10,6 +10,7 @@ from starlette.concurrency import run_in_threadpool
 from gateway_app.config import GatewaySettings
 from gateway_app.database import GatewayDatabase
 from gateway_app.integration import COOKIE, TeamIntegration, create_team_router
+from gateway_app.service_actions import create_service_actions_router
 
 
 def internal_session(team, request):
@@ -42,6 +43,7 @@ def create_app(settings=None, *, integration=None):
     app = FastAPI(title="NutriGuide API Gateway", lifespan=lifespan, docs_url=None, redoc_url=None)
     app.state.integration = team
     app.include_router(create_team_router(team))
+    app.include_router(create_service_actions_router(team))
 
     @app.middleware("http")
     async def origin_and_headers(request, call_next):

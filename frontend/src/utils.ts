@@ -79,15 +79,18 @@ export function allowedFood(food: Food, profile: Profile) {
     )
   );
 }
-export function assertEligible(profile: Profile) {
-  if (profile.age < 18 || profile.pregnant || profile.specialDiet)
-    throw new Error(
-      "Hồ sơ ngoài phạm vi hỗ trợ. Vui lòng trao đổi trực tiếp với bác sĩ hoặc chuyên gia dinh dưỡng.",
-    );
+export function mealProfileIssue(profile: Profile) {
+  if (profile.age < 18)
+    return "Chức năng tạo thực đơn dành cho người từ đủ 18 tuổi.";
+  if (profile.pregnant || profile.specialDiet)
+    return "Tình trạng đã chọn trong mục Phạm vi hỗ trợ nằm ngoài phạm vi tạo thực đơn của ứng dụng.";
   if (!profile.confirmed)
-    throw new Error(
-      "Vui lòng xác nhận thông tin dị ứng và tình trạng sức khỏe trong hồ sơ.",
-    );
+    return "Hồ sơ chưa được xác nhận. Trong mục Phạm vi hỗ trợ, hãy tích ô “Tôi đã kiểm tra thông tin sức khỏe, dị ứng và món không sử dụng” rồi bấm Lưu hồ sơ.";
+  return "";
+}
+export function assertEligible(profile: Profile) {
+  const issue = mealProfileIssue(profile);
+  if (issue) throw new Error(issue);
 }
 export function shoppingList(plan: Plan, foods: Food[]) {
   const map = new Map<string, { id: string; name: string; grams: number }>();

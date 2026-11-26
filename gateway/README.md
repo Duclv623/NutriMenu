@@ -68,6 +68,17 @@ Nếu chuyển sang database/server khác, phải sao lưu và di chuyển bản
 5. Dữ liệu catalog vẫn có QA/ước tính; provenance, raw/cooked và phiên bản recipe phải được hoàn thiện. Chạy CP-SAT thật không chứng minh kết quả đã được thẩm định hoặc phải đạt đúng 2.200 kcal.
 6. Auth hiện dùng Basic/CSRF giữa gateway và User Service, cookie opaque cho browser; phiên giữ trong RAM, một worker. Restart yêu cầu đăng nhập lại nhưng không làm mất profile. Trước khi chạy nhiều replica cần chuyển sang JWT thống nhất hoặc session store dùng chung, không bật nhiều worker với session RAM.
 
+<a id="chuc-nang-catalog-va-optimizer-tren-frontend"></a>
+
+## Chức năng Catalog và Optimizer trên frontend
+
+- Trong chế độ API, **Khám phá món ăn** có tạo món riêng, so sánh, tính khẩu phần, đối chiếu hồ sơ và món tương đương. **Sở thích món ăn** hiển thị món yêu thích và món không thích. **Thực đơn của tôi** có tạo theo ngày, theo hồ sơ, theo tuần, đổi món, đánh giá và cân bằng lại. **Danh sách mua sắm** dùng khoảng ngày của Optimizer. **Lịch sử thực đơn** hiển thị thống kê và món trong thực đơn gần đây. Tài khoản `ADMIN` mở các thao tác quản lý dữ liệu và chẩn đoán tại `/quan-tri`.
+- Gateway chuyển tiếp đúng phương thức HTTP qua `/api/service-actions/catalog/…` hoặc `/api/service-actions/optimizer/…`. Mỗi route được khai báo theo phương thức và đường dẫn. Gateway lấy ID dịch vụ từ phiên đã xác thực, kể cả khi client gửi ID khác. Endpoint món gần đây dùng `internal/optimizer/users/me/recent-dishes` trên frontend.
+- Gateway đọc lại tài khoản User Service khi xác thực mỗi request. Các thao tác `admin/` yêu cầu vai trò `ADMIN` trong bảng `users` của User Service. Tài khoản tự đăng ký nhận vai trò `USER`. Quản trị viên database có thể cấp quyền cho đúng tài khoản theo quy trình của môi trường triển khai.
+- Sinh thực đơn đi theo hồ sơ đã xác nhận và phiên bản hồ sơ hiện tại. Luồng tính từ hồ sơ đọc giới tính, chiều cao, cân nặng và vận động từ User Service. Optimizer quy đổi `SEDENTARY` và `LIGHT` thành `LIGHT`, `MODERATE` thành `MODERATE`, `HIGH` và `VERY_HIGH` thành `HEAVY`. Người dùng chọn thêm các bệnh nền dành riêng cho lần tính này. Các ngày đã có thực đơn được giữ nguyên. Sinh tuần có thể trả về ngày khả thi và ngày chưa có nghiệm.
+- Preview và apply dùng chữ ký phương án đã kiểm tra. Các thao tác thay theo lựa chọn, tự tìm món và cân bằng lại qua Gateway áp dụng cả bộ lọc của hồ sơ hiện tại lẫn bộ lọc đã lưu khi sinh. Với database Optimizer chạy schema quản lý riêng, chạy thêm [migration lưu bộ lọc](../mealoptimizerservice/schema/20261124_meal_plan_filters.sql) sau migration checked meal changes.
+- Catalog và Optimizer mặc định lắng nghe trên loopback. Các môi trường tách máy có thể đặt `FOOD_CATALOG_BIND_ADDRESS` và `MEAL_OPTIMIZER_BIND_ADDRESS` cho địa chỉ mạng nội bộ dùng bởi Gateway.
+
 ## Trước khi deploy
 
 - HTTPS trên public origin; reverse proxy phục vụ frontend và `/api` cùng origin. Chỉ publish edge/gateway; các service Java/RAG/DB ở mạng nội bộ.

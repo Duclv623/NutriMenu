@@ -316,13 +316,13 @@ public class FoodCatalogService {
     }
 
     @Transactional(readOnly = true)
-    public DishDetailResponse getDishDetail(Long dishId) {
-        return DishDetailResponse.fromEntity(getDishOrThrow(dishId), true);
+    public DishDetailResponse getDishDetail(Long dishId, Long userId) {
+        return DishDetailResponse.fromEntity(getVisibleDish(dishId, userId), true);
     }
 
     @Transactional
     public void setUserDishPreference(Long userId, Long dishId, PreferenceType type) {
-        Dish dish = getDishOrThrow(dishId);
+        Dish dish = getVisibleDish(dishId, userId);
         UserFoodPreference pref = preferenceRepository.findByUserIdAndDishId(userId, dishId)
                 .orElse(UserFoodPreference.builder()
                         .userId(userId)
@@ -338,10 +338,12 @@ public class FoodCatalogService {
     public UserPreferenceResponse getUserPreferences(Long userId) {
         List<UserFoodPreference> prefs = preferenceRepository.findByUserId(userId);
         List<DishDetailResponse> favorites = prefs.stream()
+                .filter(p -> isVisible(p.getDish(), userId))
                 .filter(p -> p.getPreferenceType() == PreferenceType.FAVORITE)
                 .map(p -> DishDetailResponse.fromEntity(p.getDish(), false))
                 .toList();
         List<DishDetailResponse> dislikes = prefs.stream()
+                .filter(p -> isVisible(p.getDish(), userId))
                 .filter(p -> p.getPreferenceType() == PreferenceType.DISLIKE)
                 .map(p -> DishDetailResponse.fromEntity(p.getDish(), false))
                 .toList();
@@ -353,11 +355,11 @@ public class FoodCatalogService {
     }
 
     @Transactional(readOnly = true)
-    public DynamicServingResponse calculateDynamicServing(Long dishId, BigDecimal multiplier) {
+    public DynamicServingResponse calculateDynamicServing(Long dishId, Long userId, BigDecimal multiplier) {
         if (multiplier == null || multiplier.compareTo(new BigDecimal("0.25")) < 0 || multiplier.compareTo(new BigDecimal("4.0")) > 0) {
             throw new BusinessRuleException(HttpStatus.BAD_REQUEST, "Hệ số khẩu phần (multiplier) phải nằm trong khoảng [0.25, 4.0]");
         }
-        Dish d = getDishOrThrow(dishId);
+        Dish d = getVisibleDish(dishId, userId);
 
         BigDecimal adjCookedG = d.getStandardServingCookedG().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
         BigDecimal adjCal = d.getCaloriesKcal().multiply(multiplier).setScale(1, RoundingMode.HALF_UP);
@@ -408,9 +410,14 @@ public class FoodCatalogService {
     }
 
     @Transactional(readOnly = true)
-    public SafetyCheckResponse checkPersonalizedSafety(Long dishId, SafetyCheckRequest req) {
-        Dish d = getDishOrThrow(dishId);
+    public SafetyCheckResponse checkPersonalizedSafety(Long dishId, Long userId, SafetyCheckRequest req) {
+        Dish d = getVisibleDish(dishId, userId);
         Set<MedicalTag> conflicts = new HashSet<>(d.getMedicalTags());
+        for (DishIngredient item : d.getIngredients()) {
+            if (item.getIngredient().getAllergenTags() != null) {
+                conflicts.addAll(item.getIngredient().getAllergenTags());
+            }
+        }
         if (req.getPatientContraindications() != null) {
             conflicts.retainAll(req.getPatientContraindications());
         } else {
@@ -447,15 +454,15 @@ public class FoodCatalogService {
     }
 
     @Transactional(readOnly = true)
-    public List<DishDetailResponse> findAlternatives(Long dishId, MealSlot mealSlot) {
-        Dish current = getDishOrThrow(dishId);
+    public List<DishDetailResponse> findAlternatives(Long dishId, Long userId, MealSlot mealSlot) {
+        Dish current = getVisibleDish(dishId, userId);
         BigDecimal minCarb = current.getNetCarbG().multiply(new BigDecimal("0.80")).subtract(new BigDecimal("5.0")).max(BigDecimal.ZERO);
         BigDecimal maxCarb = current.getNetCarbG().multiply(new BigDecimal("1.20")).add(new BigDecimal("5.0"));
         BigDecimal minCal = current.getCaloriesKcal().multiply(new BigDecimal("0.80"));
         BigDecimal maxCal = current.getCaloriesKcal().multiply(new BigDecimal("1.20"));
 
         return dishRepository.findSimilarAlternatives(
-                        current.getId(), current.getDishRole(), mealSlot,
+                        current.getId(), userId, current.getDishRole(), mealSlot,
                         minCarb, maxCarb, minCal, maxCal, current.getGlycemicLoad())
                 .stream()
                 .limit(10)
@@ -464,9 +471,9 @@ public class FoodCatalogService {
     }
 
     @Transactional(readOnly = true)
-    public DishComparisonResponse compareTwoDishes(Long dish1Id, Long dish2Id) {
-        Dish d1 = getDishOrThrow(dish1Id);
-        Dish d2 = getDishOrThrow(dish2Id);
+    public DishComparisonResponse compareTwoDishes(Long dish1Id, Long dish2Id, Long userId) {
+        Dish d1 = getVisibleDish(dish1Id, userId);
+        Dish d2 = getVisibleDish(dish2Id, userId);
 
         Dish better = d1.getGlycemicLoad().compareTo(d2.getGlycemicLoad()) <= 0 ? d1 : d2;
         Dish worse = better == d1 ? d2 : d1;
@@ -535,17 +542,17 @@ public class FoodCatalogService {
 
     @Transactional(readOnly = true)
     public DishSolverDto getSingleSolverDto(Long dishId, Long userId, boolean activeOnly) {
-        Dish dish = getDishOrThrow(dishId);
-        boolean visibleToUser = dish.getCreatedByUserId() == null || Objects.equals(dish.getCreatedByUserId(), userId);
-        if (!visibleToUser || (activeOnly && !Boolean.TRUE.equals(dish.getIsActive()))) {
+        Dish dish = getVisibleDish(dishId, userId);
+        if (activeOnly && !Boolean.TRUE.equals(dish.getIsActive())) {
             throw new ResourceNotFoundException("Không tìm thấy món ăn ID: " + dishId);
         }
         return toSolverDto(dish, false);
     }
 
     @Transactional(readOnly = true)
-    public List<DishDetailResponse> getBatchDetails(List<Long> dishIds) {
+    public List<DishDetailResponse> getBatchDetails(List<Long> dishIds, Long userId) {
         return dishRepository.findAllById(dishIds).stream()
+                .filter(d -> isVisible(d, userId))
                 .map(d -> DishDetailResponse.fromEntity(d, false))
                 .toList();
     }
@@ -556,6 +563,18 @@ public class FoodCatalogService {
     private Dish getDishOrThrow(Long dishId) {
         return dishRepository.findById(dishId)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy món ăn ID: " + dishId));
+    }
+
+    private Dish getVisibleDish(Long dishId, Long userId) {
+        Dish dish = getDishOrThrow(dishId);
+        if (!isVisible(dish, userId)) {
+            throw new ResourceNotFoundException("Không tìm thấy món ăn ID: " + dishId);
+        }
+        return dish;
+    }
+
+    private boolean isVisible(Dish dish, Long userId) {
+        return dish.getCreatedByUserId() == null || Objects.equals(dish.getCreatedByUserId(), userId);
     }
 
     private void applyIngredientFields(Ingredient ing, UpsertIngredientRequest req) {

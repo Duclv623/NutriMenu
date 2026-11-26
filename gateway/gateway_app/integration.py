@@ -27,6 +27,13 @@ from gateway_app.rate_limit import RateLimiter
 from gateway_app.store import TeamStore
 
 COOKIE = "nutriguide_session"
+ALLERGY_TAGS = {
+    "Hải sản": "ALLERGEN_SEAFOOD",
+    "Trứng": "ALLERGEN_EGG",
+    "Sữa": "ALLERGEN_DAIRY",
+    "Đậu nành": "ALLERGEN_SOY",
+    "Đậu phộng": "ALLERGEN_PEANUT",
+}
 ROLES = {
     "COMPOSITE_DISH": "Món hỗn hợp",
     "MAIN_STARCH": "Cơm và tinh bột",
@@ -307,6 +314,7 @@ class TeamIntegration:
             "name": session.account["fullName"],
             "email": session.account["email"],
             "demo": False,
+            "role": session.account.get("role", "USER"),
         }
 
     def resolve_token(self, token):
@@ -319,6 +327,7 @@ class TeamIntegration:
             account = self.unwrap(self.call(session.client, "GET", "api/users/me"))
             if account["id"] != session.account["id"]:
                 raise HTTPException(401, "Danh tính phiên đăng nhập không hợp lệ.")
+            session.account = account
         return session
 
     @staticmethod
@@ -491,6 +500,7 @@ class TeamIntegration:
             or ([dish["diabeticCookingTip"]] if dish.get("diabeticCookingTip") else []),
             "preparationGuideKind": dish.get("preparationGuideKind"),
             "role": dish["role"],
+            "giLevel": dish.get("giLevel"),
             "servingRules": {
                 "min": dish.get("minServingScaledX2", 1) / 2,
                 "max": dish.get("maxServingScaledX2", 6) / 2,
@@ -520,16 +530,17 @@ class TeamIntegration:
         self.check_owner(session, raw)
         meta = self.state.get(session.account["id"], "plan:" + str(raw["planId"]), {})
         items = []
+        skipped_items = []
         for slot, entries in (raw.get("mealsBySlot") or {}).items():
             if slot not in SLOTS:
                 raise HTTPException(502, "Backend trả loại bữa chưa được hỗ trợ.")
             for item in entries:
-                if item.get("status") == "SKIPPED":
-                    continue
-                items.append(
+                target = skipped_items if item.get("status") == "SKIPPED" else items
+                target.append(
                     {
                         "id": str(item["itemId"]),
                         "foodId": str(item["dishId"]),
+                        "name": item.get("dishNameVi"),
                         "meal": SLOTS[slot],
                         "servings": numeric(item.get("servingMultiplier")),
                         "locked": bool(item.get("isLocked")),
@@ -543,13 +554,13 @@ class TeamIntegration:
             "profileVersion": meta.get("profileVersion", 0),
             "version": raw["version"] + 1 if isinstance(raw.get("version"), int) else revision(raw),
             "items": items,
+            "skippedItems": skipped_items,
+            "rating": raw.get("userRating"),
+            "feedback": raw.get("userFeedback"),
             "solverStatus": raw["solverStatus"],
             "dataMode": "api",
             "target": numeric(raw["targetCaloriesKcal"]),
-            "notes": [
-                *(raw.get("medicalWarnings") or []),
-                "Kết quả solver chưa kèm xác nhận đầy đủ mọi ràng buộc cá nhân.",
-            ],
+            "notes": raw.get("medicalWarnings") or [],
             "createdAt": meta.get("createdAt", ""),
             "validationPassed": bool(raw.get("validationPassed")),
             "changeSignature": raw.get("changeSignature"),
@@ -560,10 +571,13 @@ class TeamIntegration:
         raw_plans = self.pages(self.optimizer, "api/v1/users/me/meal-plans", session)
         plans = [self.plan(session, p) for p in raw_plans]
         dishes = self.pages(self.catalog, "api/v1/dishes", session)
-        ids = {str(d["id"]) for d in dishes} | {i["foodId"] for p in plans for i in p["items"]}
+        catalog_ids = {str(d["id"]) for d in dishes}
+        ids = catalog_ids | {i["foodId"] for p in plans for i in p["items"]}
         # Read detail, not the catalog's list projection with an empty recipe.
         with ThreadPoolExecutor(max_workers=6) as executor:
             foods = list(executor.map(lambda i: self.food(self.dish(session, i)), sorted(ids)))
+        for food in foods:
+            food["listed"] = food["id"] in catalog_ids
         prefs = self.call(
             self.catalog,
             "GET",
@@ -584,10 +598,12 @@ class TeamIntegration:
         except HTTPException:
             capabilities = {}
         return {
+            "role": self.user(session)["role"],
             "profile": profile,
             "plans": plans,
             "foods": foods,
             "favorites": [str(d["id"]) for d in prefs.get("favoriteDishes") or []],
+            "disliked": [str(d["id"]) for d in prefs.get("dislikedDishes") or []],
             "checkedShopping": self.state.get(session.account["id"], "checkedShopping", []),
             "checkIns": self.state.get(session.account["id"], "checkIns", []),
             "conversations": [],
@@ -603,9 +619,8 @@ class TeamIntegration:
             },
         }
 
-    def generate(self, session, body):
-        profile = self.profile(session)
-        if profile["version"] != body.profileVersion:
+    def require_meal_profile(self, profile, expected_version):
+        if profile["version"] != expected_version:
             raise HTTPException(409, "Hồ sơ đã thay đổi. Hãy tải lại.")
         if (
             not profile["confirmed"]
@@ -614,6 +629,39 @@ class TeamIntegration:
             or profile["specialDiet"]
         ):
             raise HTTPException(422, "Cần hồ sơ đã xác nhận và thuộc phạm vi hỗ trợ.")
+
+    @staticmethod
+    def allergy_tags(profile):
+        tags = [ALLERGY_TAGS.get(allergy, allergy) for allergy in profile["allergies"]]
+        if any(tag not in ALLERGY_TAGS.values() for tag in tags):
+            raise HTTPException(422, "Chưa ánh xạ đủ dị ứng trong hồ sơ để kiểm tra món ăn.")
+        return tags
+
+    def catalog_exclusions(self, session, profile):
+        if not profile["excludedFoods"]:
+            return []
+        listing = self.pages(self.catalog, "api/v1/dishes", session)
+        with ThreadPoolExecutor(max_workers=6) as executor:
+            details = list(executor.map(lambda d: self.dish(session, d["id"]), listing))
+        return resolve_excluded_dishes(profile["excludedFoods"], details)
+
+    def ensure_empty_plan_dates(self, session, dates):
+        existing = self.pages(self.optimizer, "api/v1/users/me/meal-plans", session)
+        if any(p["planDate"] in dates for p in existing):
+            raise HTTPException(409, "Đã có thực đơn trong khoảng ngày yêu cầu. Thực đơn cũ được giữ nguyên.")
+
+    def remember_plan(self, session, plan, profile_version):
+        self.check_owner(session, plan)
+        if plan["solverStatus"] not in {"OPTIMAL", "FEASIBLE"}:
+            raise HTTPException(422, "Solver chưa trả phương án sử dụng được.")
+        self.state.put(
+            session.account["id"], "plan:" + str(plan["planId"]),
+            {"profileVersion": profile_version, "createdAt": datetime.now(UTC).isoformat()},
+        )
+
+    def generate(self, session, body):
+        profile = self.profile(session)
+        self.require_meal_profile(profile, body.profileVersion)
         if not body.snacks or body.maxMinutes or body.excludeRepeat:
             raise HTTPException(
                 422,
@@ -640,26 +688,8 @@ class TeamIntegration:
                     503,
                     "Meal Optimizer chưa xác nhận hỗ trợ bộ lọc không ăn. Chưa gửi yêu cầu sinh.",
                 )
-            listing = self.pages(self.catalog, "api/v1/dishes", session)
-            with ThreadPoolExecutor(max_workers=6) as executor:
-                details = list(executor.map(lambda d: self.dish(session, d["id"]), listing))
-            excluded_dishes = resolve_excluded_dishes(profile["excludedFoods"], details)
-        allergies = {
-            "Hải sản": "ALLERGEN_SEAFOOD",
-            "Trứng": "ALLERGEN_EGG",
-            "Sữa": "ALLERGEN_DAIRY",
-            "Đậu nành": "ALLERGEN_SOY",
-            "Đậu phộng": "ALLERGEN_PEANUT",
-        }
-        tags = []
-        for allergy in profile["allergies"]:
-            tag = allergies.get(allergy, allergy)
-            if tag not in set(allergies.values()):
-                raise HTTPException(
-                    422,
-                    f"Backend chưa có mã dị ứng tương ứng: {allergy}. Không bỏ qua điều kiện này.",
-                )
-            tags.append(tag)
+            excluded_dishes = self.catalog_exclusions(session, profile)
+        tags = self.allergy_tags(profile)
         target = body.target
         payload = {
             "planDate": body.date.isoformat(),
@@ -676,12 +706,7 @@ class TeamIntegration:
         # All BFF instances serialize on PostgreSQL; direct Java writes must be
         # restricted to the internal network until Java itself has versioning.
         with self.state.operation(session.account["id"]):
-            existing = self.pages(self.optimizer, "api/v1/users/me/meal-plans", session)
-            if any(p["planDate"] == body.date.isoformat() for p in existing):
-                raise HTTPException(
-                    409,
-                    "Đã có thực đơn ngày này. Backend chưa hỗ trợ sinh lại có bảo toàn dữ liệu; thực đơn cũ được giữ nguyên.",
-                )
+            self.ensure_empty_plan_dates(session, {body.date.isoformat()})
             raw = self.call(
                 self.optimizer,
                 "POST",
@@ -699,19 +724,7 @@ class TeamIntegration:
                     502,
                     "Backend trả món nằm trong danh sách không ăn. Kết quả không được chấp nhận; cần kiểm tra lại bộ lọc backend.",
                 )
-            if raw["solverStatus"] not in {"OPTIMAL", "FEASIBLE"}:
-                raise HTTPException(
-                    422,
-                    "Solver chưa trả phương án sử dụng được. Không hiển thị kết quả như thực đơn thành công.",
-                )
-            self.state.put(
-                session.account["id"],
-                "plan:" + str(raw["planId"]),
-                {
-                    "profileVersion": body.profileVersion,
-                    "createdAt": datetime.now(UTC).isoformat(),
-                },
-            )
+            self.remember_plan(session, raw, body.profileVersion)
             return self.plan(session, raw)
 
     def snapshot(self, session, plan_id=None):
@@ -845,22 +858,8 @@ class TeamIntegration:
                 or profile["age"] < 18
             ):
                 raise HTTPException(422, "Hồ sơ chưa xác nhận hoặc nằm ngoài phạm vi đổi món.")
-            details = []
-            if profile["excludedFoods"]:
-                listing = self.pages(self.catalog, "api/v1/dishes", session)
-                with ThreadPoolExecutor(max_workers=6) as executor:
-                    details = list(executor.map(lambda d: self.dish(session, d["id"]), listing))
-            exclusions = resolve_excluded_dishes(profile["excludedFoods"], details)
-            known = {
-                "Hải sản": "ALLERGEN_SEAFOOD",
-                "Trứng": "ALLERGEN_EGG",
-                "Sữa": "ALLERGEN_DAIRY",
-                "Đậu nành": "ALLERGEN_SOY",
-                "Đậu phộng": "ALLERGEN_PEANUT",
-            }
-            tags = [known.get(a, a) for a in profile["allergies"]]
-            if any(t not in known.values() for t in tags):
-                raise HTTPException(422, "Chưa ánh xạ đủ dị ứng để kiểm tra thay đổi.")
+            exclusions = self.catalog_exclusions(session, profile)
+            tags = self.allergy_tags(profile)
             scaled = body.servings * 2
             if not scaled.is_integer():
                 raise HTTPException(422, "Khẩu phần cần theo bước nửa suất của danh mục.")

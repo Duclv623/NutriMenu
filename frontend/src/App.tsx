@@ -29,6 +29,7 @@ import {
   Search,
   Settings,
   ShoppingBasket,
+  SlidersHorizontal,
   UtensilsCrossed,
   X,
 } from "lucide-react";
@@ -47,6 +48,7 @@ import {
   SettingsPage,
 } from "./pages/Tools";
 import { AuthPage } from "./pages/Auth";
+import { ServiceAdministration } from "./pages/ServiceAdministration";
 const navigation = [
   { to: "/", label: "Tổng quan", icon: LayoutDashboard },
   { to: "/thuc-don", label: "Thực đơn của tôi", icon: CalendarDays },
@@ -55,7 +57,7 @@ const navigation = [
   { to: "/theo-doi", label: "Theo dõi sức khỏe", icon: ChartNoAxesCombined },
 ];
 const personal = [
-  { to: "/yeu-thich", label: "Món yêu thích", icon: Heart },
+  { to: "/yeu-thich", label: API_MODE === "api" ? "Sở thích món ăn" : "Món yêu thích", icon: Heart },
   { to: "/mua-sam", label: "Danh sách mua sắm", icon: ShoppingBasket },
   { to: "/lich-su", label: "Lịch sử thực đơn", icon: Activity },
 ];
@@ -74,6 +76,7 @@ function Shell() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isChat = location.pathname.startsWith("/tro-ly");
+  const isAdmin = API_MODE === "api" && (workspace.role ?? user?.role) === "ADMIN";
   useEffect(() => {
     setOpen(false);
     window.scrollTo(0, 0);
@@ -100,6 +103,7 @@ function Shell() {
       ...personal,
       { to: "/ho-so", label: "Hồ sơ dinh dưỡng" },
       { to: "/cai-dat", label: "Cài đặt" },
+      { to: "/quan-tri", label: "Quản trị món ăn & thực đơn" },
     ].find((n) => n.to === location.pathname)?.label || "NutriGuide";
   return (
     <div className="app-shell">
@@ -147,6 +151,9 @@ function Shell() {
         </nav>
         <div className="sidebar-bottom">
           <nav>
+            {isAdmin && <NavLink to="/quan-tri">
+              <SlidersHorizontal size={19} /> Quản trị món ăn & thực đơn
+            </NavLink>}
             <NavLink to="/cai-dat">
               <Settings size={19} />
               Cài đặt & kết nối
@@ -281,6 +288,8 @@ export function App() {
           <Route path="lich-su" element={<HistoryPage />} />
           <Route path="theo-doi" element={<ProgressPage />} />
           <Route path="cai-dat" element={<SettingsPage />} />
+          <Route path="chuc-nang" element={<Navigate to="/mon-an" replace />} />
+          <Route path="quan-tri" element={<ServiceAdministration />} />
           <Route
             path="*"
             element={

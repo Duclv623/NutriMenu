@@ -49,6 +49,10 @@ public class PatientProfileMealRequest {
     @Builder.Default
     private Set<MedicalTag> additionalAllergens = new HashSet<>();
 
+    @NotNull @Size(max = 1000)
+    @Builder.Default
+    private Set<@Positive Long> excludedDishIds = new HashSet<>();
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

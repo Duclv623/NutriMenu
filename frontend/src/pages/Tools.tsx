@@ -39,6 +39,7 @@ import {
 } from "../utils";
 import type { CheckIn, Plan } from "../types";
 import { createWorkspace } from "../data/seed";
+import { OptimizerHistoryTools, OptimizerShopping } from "./OptimizerInsights";
 
 function TableCell({
   label,
@@ -58,6 +59,9 @@ function TableCell({
 }
 
 export function ShoppingPage() {
+  return API_MODE === "api" ? <OptimizerShopping /> : <DemoShoppingPage />;
+}
+function DemoShoppingPage() {
   const { workspace: w, update, toast } = useApp();
   const [params, setParams] = useSearchParams();
   const [busy, setBusy] = useState(false);
@@ -86,7 +90,6 @@ export function ShoppingPage() {
       ? [...w.checkedShopping, key]
       : w.checkedShopping.filter((x) => x !== key);
     try {
-      if (API_MODE === "api") await backend.shopping(next);
       update((s) => ({ ...s, checkedShopping: next }));
     } catch (e) {
       toast((e as Error).message);
@@ -104,9 +107,7 @@ export function ShoppingPage() {
           (i) =>
             `${w.checkedShopping.includes(`${plan.id}:${i.id}`) ? "[x]" : "[ ]"} ${i.name}: ${number(i.grams)} g`,
         ),
-        API_MODE === "api"
-          ? "\nKhối lượng nguyên liệu sống theo công thức hiện tại trong danh mục; kiểm tra lại trước khi mua."
-          : "\nKhối lượng theo công thức minh họa; kiểm tra trạng thái sống/chín trong dữ liệu nguồn.",
+        "\nKhối lượng theo công thức minh họa.",
       ].join("\n"),
     );
   };
@@ -233,21 +234,18 @@ export function ShoppingPage() {
 export function HistoryPage() {
   const { workspace: w, update, toast } = useApp();
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("all");
   const [remove, setRemove] = useState<Plan | null>(null);
   const plans = w.plans
     .filter(
       (p) =>
-        (!query ||
-          p.date.includes(query) ||
-          p.items.some((i) =>
-            w.foods
-              .find((f) => f.id === i.foodId)
-              ?.name.toLowerCase()
-              .includes(query.toLowerCase()),
-          )) &&
-        (filter === "all" ||
-          (filter === "demo" ? p.dataMode === "demo" : p.dataMode === "api")),
+        !query ||
+        p.date.includes(query) ||
+        p.items.some((i) =>
+          w.foods
+            .find((f) => f.id === i.foodId)
+            ?.name.toLowerCase()
+            .includes(query.toLowerCase()),
+        ),
     )
     .sort(
       (a, b) =>
@@ -270,11 +268,8 @@ export function HistoryPage() {
   }
   return (
     <div className="stack-lg">
-      <PageTitle
-        eyebrow="NHÌN LẠI NHỮNG BỮA ĂN"
-        title="Lịch sử thực đơn"
-        description="Mỗi kế hoạch đều được lưu cùng ngày và phiên bản hồ sơ."
-      />
+      <PageTitle title="Lịch sử thực đơn" />
+      {API_MODE === "api" && <OptimizerHistoryTools />}
       <div className="panel library-filters">
         <div className="search-input">
           <Search size={17} />
@@ -285,15 +280,6 @@ export function HistoryPage() {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <select
-          aria-label="Loại thực đơn"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        >
-          <option value="all">Tất cả thực đơn</option>
-          <option value="demo">Thực đơn demo</option>
-          <option value="api">Thực đơn từ API</option>
-        </select>
       </div>
       {plans.length ? (
         <div className="panel table-wrap">
@@ -332,12 +318,14 @@ export function HistoryPage() {
                         year: "numeric",
                       })}
                     </Link>
-                    <small>
-                      {new Date(p.createdAt).toLocaleTimeString("vi-VN", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </small>
+                    {p.createdAt && (
+                      <small>
+                        {new Date(p.createdAt).toLocaleTimeString("vi-VN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </small>
+                    )}
                   </TableCell>
                   <TableCell label="Bữa ăn">{p.items.length} món</TableCell>
                   <TableCell label="Tổng năng lượng">
@@ -348,14 +336,19 @@ export function HistoryPage() {
                   </TableCell>
                   <TableCell label="Trạng thái">
                     <Badge tone={p.dataMode === "demo" ? "amber" : "green"}>
-                      {p.dataMode === "demo" ? "Mẫu giao diện" : p.solverStatus}
+                      {p.dataMode === "demo"
+                        ? "Mẫu giao diện"
+                        : p.solverStatus === "OPTIMAL"
+                          ? "Tối ưu"
+                          : p.solverStatus === "FEASIBLE"
+                            ? "Khả thi"
+                            : "Chưa có phương án"}
                     </Badge>
                   </TableCell>
                   <TableCell label="Hồ sơ">
-                    v{p.profileVersion}
-                    {p.profileVersion !== w.profile.version && (
-                      <small>Hồ sơ đã cập nhật</small>
-                    )}
+                    {p.profileVersion === w.profile.version
+                      ? "Hiện tại"
+                      : "Đã thay đổi"}
                   </TableCell>
                   <TableCell label="Thao tác">
                     <div className="actions">

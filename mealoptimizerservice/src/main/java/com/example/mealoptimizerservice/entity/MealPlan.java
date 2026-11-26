@@ -7,7 +7,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // --- FILE: MealPlan.java ---
 @Entity
@@ -127,6 +129,19 @@ public class MealPlan {
     @Builder.Default
     @Column(name = "min_daily_fiber_g", columnDefinition = "numeric default 20")
     private BigDecimal minDailyFiberG = new BigDecimal("20");
+
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(name = "meal_plan_excluded_dishes", joinColumns = @JoinColumn(name = "plan_id"))
+    @Column(name = "dish_id", nullable = false)
+    private Set<Long> excludedDishIds = new HashSet<>();
+
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(name = "meal_plan_contraindications", joinColumns = @JoinColumn(name = "plan_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "medical_tag", nullable = false)
+    private Set<MedicalTag> contraindications = new HashSet<>();
 
     public void recalculateTotalsFromItems() {
         BigDecimal cal = BigDecimal.ZERO;

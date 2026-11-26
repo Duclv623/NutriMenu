@@ -122,6 +122,8 @@ Các lệnh service chạy liên tục, cần terminal riêng. Chờ Java/DB s�
 6. Yêu cầu “Đổi <tên món trong bữa trưa> sang <món/loại món muốn thay>”. Khi chưa rõ món, bot yêu cầu chọn/xác nhận. Chọn phương án → Xem trước → Áp dụng thay đổi; quay lại Thực đơn và F5 để đối chiếu.
 7. Đăng xuất, thử tài khoản khác để kiểm tra dữ liệu theo người dùng.
 
+Trong chế độ API, dùng **Khám phá món ăn**, **Sở thích món ăn**, **Thực đơn của tôi**, **Danh sách mua sắm** và **Lịch sử thực đơn** để thao tác với Food Catalog và Meal Optimizer. Tài khoản có vai trò `ADMIN` trong User Service có thêm trang **Quản trị món ăn & thực đơn**. [Hợp đồng tích hợp](gateway/README.md#chuc-nang-catalog-va-optimizer-tren-frontend).
+
 ## Kiểm thử và giới hạn
 
 Frontend: `npm test`, `npm run build` trong `frontend/`. Test Python: cài thêm `chatbot/requirements-dev.txt`, đặt `PYTHONPATH` gồm `gateway` và `chatbot` rồi chạy test phù hợp. Test API/DB cần PostgreSQL/schema thử nghiệm riêng. CP-SAT: `.\test-meal-optimizer.ps1`.

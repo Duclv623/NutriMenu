@@ -3,6 +3,7 @@ package com.example.mealoptimizerservice.controller;
 import com.example.mealoptimizerservice.dto.*;
 import com.example.mealoptimizerservice.entity.*;
 import com.example.mealoptimizerservice.service.MealOptimizerService;
+import com.example.mealoptimizerservice.service.CheckedMealChangeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import com.example.mealoptimizerservice.dto.response.*;
 public class UserMealPlanController {
 
     private final MealOptimizerService optimizerService;
+    private final CheckedMealChangeService checkedChanges;
 
     @GetMapping
     public ResponseEntity<Page<MealPlanResponse>> getMyMealPlans(
@@ -88,7 +90,10 @@ public class UserMealPlanController {
             @PathVariable Long planId,
             @PathVariable Long itemId,
             @RequestBody @Valid ManualReplaceItemRequest req) {
-        return ResponseEntity.ok(optimizerService.manualReplaceMealItem(userId, planId, itemId, req));
+        MealPlanResponse result = req.getPolicy() == null
+                ? optimizerService.manualReplaceMealItem(userId, planId, itemId, req)
+                : checkedChanges.manualReplace(userId, planId, itemId, req);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/analytics")

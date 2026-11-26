@@ -35,7 +35,8 @@ public class InternalSolverCatalogController {
 
     @PostMapping("/batch")
     public ResponseEntity<List<DishDetailResponse>> getBatchDishes(
+            @RequestHeader(value = "X-User-Id", required = false) Long userId,
             @RequestBody @NotEmpty List<Long> dishIds) {
-        return ResponseEntity.ok(catalogService.getBatchDetails(dishIds));
+        return ResponseEntity.ok(catalogService.getBatchDetails(dishIds, userId));
     }
 }

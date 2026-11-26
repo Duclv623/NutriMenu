@@ -4,7 +4,7 @@ spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/diabetes_food_catalog_db}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:123}
+    password: ${SPRING_DATASOURCE_PASSWORD:123456}
     driver-class-name: org.postgresql.Driver
     hikari:
       pool-name: FoodCatalogHikariPool
@@ -35,6 +35,7 @@ app:
     seed-enabled: ${CATALOG_SEED_ENABLED:true}
 
 server:
+  address: ${FOOD_CATALOG_BIND_ADDRESS:127.0.0.1}
   port: 8081
   servlet:
     encoding:

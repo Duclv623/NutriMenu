@@ -12,12 +12,10 @@ export async function request<T>(
   path: string,
   options: RequestInit = {},
   base = import.meta.env.VITE_API_BASE_URL || "/api",
+  timeout = path.includes("chat") ? 90000 : 30000,
 ): Promise<T> {
   const controller = new AbortController();
-  const timer = setTimeout(
-    () => controller.abort(),
-    path.includes("chat") ? 90000 : 30000,
-  );
+  const timer = setTimeout(() => controller.abort(), timeout);
   const token = sessionStorage.getItem("nutriguide.token");
   const cancel = () => controller.abort();
   options.signal?.addEventListener("abort", cancel, { once: true });

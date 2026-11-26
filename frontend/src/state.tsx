@@ -45,7 +45,7 @@ type Context = {
   storageError: string;
   login: (user: User) => void;
   logout: () => Promise<void>;
-  reload: () => Promise<void>;
+  reload: (options?: { background?: boolean }) => Promise<void>;
   update: (fn: (state: Workspace) => Workspace) => void;
   toast: (message: string) => void;
   notice: string;
@@ -75,11 +75,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setNotice(""), 4500);
   }, []);
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (options?: { background?: boolean }) => {
     const ticket = ++loadTicket.current;
-    setLoading(true);
-    setLoadError("");
-    ownerRef.current = null;
+    if (!options?.background) {
+      setLoading(true);
+      setLoadError("");
+      ownerRef.current = null;
+    }
     if (!user) {
       setLoading(false);
       return;
@@ -112,7 +114,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setWorkspace(next);
       ownerRef.current = user.id;
     } catch (error) {
-      if (ticket === loadTicket.current) setLoadError((error as Error).message);
+      if (ticket === loadTicket.current) {
+        if (options?.background) throw error;
+        setLoadError((error as Error).message);
+      }
     } finally {
       if (ticket === loadTicket.current) setLoading(false);
     }
